@@ -30,7 +30,7 @@ public class TimeDown : MonoBehaviour
                 GameCountTimeText.text = M + ":" + string.Format("{0:00}", S);
                 if (S <= 0)
                 {
-                    GameTime = 0;
+                    
                     //Gameover
                 }
             }
