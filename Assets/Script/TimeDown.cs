@@ -4,8 +4,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class TimeDown : MonoBehaviour
 {
-
-
     // Cyro review
     [Header("Properties")]
     [SerializeField]
@@ -13,7 +11,7 @@ public class TimeDown : MonoBehaviour
 
     private Text TextCountDown;
     private bool TimerIsRunning = false;
-    private bool IsPause = false;
+    bool isPause = true;
 
     void Start()
     {
@@ -21,7 +19,6 @@ public class TimeDown : MonoBehaviour
         //GameTime = CountDownTime;
         TextCountDown = GetComponent<Text>();
         TimerIsRunning = true;
-        
     }
 
     // Update is called once per frame
@@ -32,7 +29,8 @@ public class TimeDown : MonoBehaviour
             if (TimeRemaining > 0f)
             {
                 TimeRemaining -= Time.deltaTime;
-                DisplayTime(TimeRemaining);                
+                DisplayTime(TimeRemaining);
+
             }
             else
             {
@@ -40,8 +38,25 @@ public class TimeDown : MonoBehaviour
                 TimeRemaining = 0f;
                 TimerIsRunning = false;
             }
-            
+
         }
+        if (isPause)
+        {
+            if ((Input.GetKeyDown(KeyCode.Escape)))
+            {
+                Time.timeScale = 0;
+                isPause = false;
+            }
+        }
+        else
+        {
+            if ((Input.GetKeyDown(KeyCode.Escape)))
+            {
+                Time.timeScale = 1f;
+                isPause = true;
+            }
+        }
+
 
     }
 
@@ -52,35 +67,8 @@ public class TimeDown : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60f);
         TextCountDown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
-    private void Pause()
-    {
-        if (IsPause)
-        {
-            if ((Input.GetKeyDown(KeyCode.Escape)))
-            {
-                OnPause();
-                IsPause = false;
-            }
-        }
-        else
-        {
-            if ((Input.GetKeyDown(KeyCode.Escape)))
-            {
-                UnPause();
-                IsPause = true;
-            }
 
-        }
-    }
 
-    private void OnPause()
-    {
-        Time.timeScale = 0;
-    }
-    private void UnPause()
-    { 
-        Time.timeScale = 1f;
-    }
 
 }
 // Start is called before the first frame update
