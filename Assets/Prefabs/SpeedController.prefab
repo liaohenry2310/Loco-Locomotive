@@ -320,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05ff686c23381d42bc903484050f73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  maxSpeed: 0
   gameObj: {fileID: 0}
-  ONorOFF: 0
+  controller: 0
+  MainCam: {fileID: 0}

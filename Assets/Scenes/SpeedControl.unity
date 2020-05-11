@@ -359,6 +359,16 @@ PrefabInstance:
       propertyPath: MainCam
       value: 
       objectReference: {fileID: 521931211}
+    - target: {fileID: 1489242519941024140, guid: ef4a010f4b8c7004c8832decb925cc93,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489242519941024140, guid: ef4a010f4b8c7004c8832decb925cc93,
+        type: 3}
+      propertyPath: controller
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3315450539460679967, guid: ef4a010f4b8c7004c8832decb925cc93,
         type: 3}
       propertyPath: m_LocalPosition.x

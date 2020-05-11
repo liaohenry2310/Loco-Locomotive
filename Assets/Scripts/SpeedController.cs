@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class SpeedController : MonoBehaviour
 {
-    public float moveSpeed;
-    private float InitSpeed=0.0f;
+    public float maxSpeed;
+    private float mMoveSpeed;
+    private float mMinSpeed=0.1f;
+    private float mInitSpeed=0.0f;
 
     public GameObject gameObj;
     public bool controller;
@@ -18,8 +20,9 @@ public class SpeedController : MonoBehaviour
 
     void Start()
     {
+        // Check View Bounding
         screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
-        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x; //extents = size of width / 2
+        objectWidth = gameObj.transform.localScale.x/2;
     }
 
     // Update is called once per frame
@@ -27,20 +30,29 @@ public class SpeedController : MonoBehaviour
     {
 
         Vector2 position = gameObj.gameObject.transform.position;
-
+        var normalSpeed = mMoveSpeed/2;
         if (controller == true )//&& position.x>= horizontalMin)
         {
-            if (position.x >= (screenBounds.x))
+            mMoveSpeed = maxSpeed;
+            if (position.x >= (screenBounds.x-objectWidth))
             {
                 controller = false;
+                Debug.Log("Right bounding check");
             }
-            gameObj.transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            gameObj.transform.Translate(Vector2.right * mMoveSpeed * Time.deltaTime);
         }
-        if (controller == false )
+
+        if (controller == false)
         {
-            gameObj.transform.Translate(-Vector2.right * moveSpeed/2 * Time.deltaTime);
+
+            gameObj.transform.Translate(-Vector2.right * normalSpeed * Time.deltaTime);
+            if (position.x <= (-screenBounds.x + objectWidth))
+            {
+                controller = true;
+                Debug.Log("Left bounding check");
+
+            }
         }
-        
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
