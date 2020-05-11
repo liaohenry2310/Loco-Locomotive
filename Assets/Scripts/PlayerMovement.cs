@@ -7,11 +7,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float distance;
 
-    private readonly float Speed = 10.0f;
+    [SerializeField]
+    private LayerMask whatIsLadder;
+
     private Rigidbody2D rigidBody;
+    private readonly float speed = 10.0f;
     private float inputHorizontal;
     private float inputVertical;
-    public LayerMask whatIsLadder;
     private bool isClimbing = false;
 
 
@@ -24,8 +26,9 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         inputHorizontal = Input.GetAxisRaw("Horizontal");
-        rigidBody.velocity = new Vector2(inputHorizontal * Speed, rigidBody.velocity.y);
+        rigidBody.velocity = new Vector2(inputHorizontal * speed, rigidBody.velocity.y);
 
+        // Check if the player distance y from the player hit with the ladder layer
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
 
         if (hitInfo.collider)
@@ -46,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         if (isClimbing && hitInfo.collider)
         {
             inputVertical = Input.GetAxisRaw("Vertical");
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, inputVertical * Speed);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, inputVertical * speed);
             rigidBody.gravityScale = 0f;
         }
         else
