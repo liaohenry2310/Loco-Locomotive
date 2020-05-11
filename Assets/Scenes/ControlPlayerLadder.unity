@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b114bd0b6b1934dbfe1993e3f2ed20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 0.1
+  distance: 5
   whatIsLadder:
     serializedVersion: 2
     m_Bits: 256
@@ -894,7 +894,7 @@ GameObject:
   - component: {fileID: 1974862620}
   - component: {fileID: 1974862619}
   - component: {fileID: 1974862623}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Second floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
