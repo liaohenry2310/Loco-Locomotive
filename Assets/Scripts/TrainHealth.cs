@@ -30,9 +30,9 @@ public class TrainHealth : MonoBehaviour
        
         if(currentHealth <trainHealth)
         {
-            if(restoreTime > 20f)
+            if(restoreTime > 20f )
             {
-                currentHealth += 10;
+                currentHealth += 5;
                 restoreTime = 0;
             }
             restoreTime += Time.deltaTime;

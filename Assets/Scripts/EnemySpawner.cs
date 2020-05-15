@@ -5,11 +5,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemies;
+    public float leftRange = -8.0f;
+    public float rightRange = 8.0f;
     void Start()
     {
-
-        InvokeRepeating("CreatEnemies", 1, 1);
-
+        InvokeRepeating("CreatEnemies", 2, 1.0f);
     }
     public void CreatEnemies()
     {
@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < EnemyNum; i++)
         {
             float x;
-            x = Random.Range(-6, 6);
+            x = Random.Range(leftRange, rightRange);
             Instantiate(Enemies, new Vector3(x, 2.8f, 0), Quaternion.identity);
 
         }
