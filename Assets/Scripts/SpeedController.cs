@@ -1,82 +1,86 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.U2D.Path.GUIFramework;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class SpeedController : MonoBehaviour
 {
-    //public float maxSpeed;
-    //private float mMoveSpeed;
-    //private float mMinSpeed = 0.1f;
-    //private float mInitSpeed = 0.0f;
+    public enum Directions
+    {
+        Stand, Left, Right
+    }
 
-    //public GameObject gameObj;
-    //public bool controller;
-
-    //public Camera MainCam;
-    //private Vector2 screenBounds;
-    //private float objectWidth;
-    //private float objectHeight;
+    private Directions directions;
 
     [SerializeField]
-    private Transform trainTransform;
+    private Transform TrainFrontCollider;
+
+    [SerializeField]
+    private Transform TrainRearCollider;
+
+    [SerializeField]
+    private Transform Train;
+
 
     [SerializeField]
     private float TrainSpeed = 10f;
 
-    private bool IsControllSetToLeft = false;
+    private Camera MainCam;
+    private Vector2 screenBounds;
+    private int directionCount = 2;
 
     private void Awake()
     {
-        Debug.Log($"comprimento: {Screen.width}");
-        Debug.Log($"altura: {Screen.height}");
-
+        directions = Directions.Stand;
+        MainCam = FindObjectOfType<Camera>();
         // Check View Bounding
-        //screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
-        //objectWidth = gameObj.transform.localScale.x / 2;
+        screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//MainCam.transform.position.z));
     }
 
 
     private void Update()
     {
-
-        //Vector2 position = gameObj.gameObject.transform.position;
-        //var normalSpeed = mMoveSpeed / 2;
-        //if (controller == true)//&& position.x>= horizontalMin)
-        //{
-        //    mMoveSpeed = maxSpeed;
-        //    if (position.x >= (screenBounds.x - objectWidth))
-        //    {
-        //        controller = false;
-        //        Debug.Log("Right bounding check");
-        //    }
-        //    gameObj.transform.Translate(Vector2.right * mMoveSpeed * Time.deltaTime);
-        //}
-
-        //if (controller == false)
-        //{
-
-        //    gameObj.transform.Translate(-Vector2.right * normalSpeed * Time.deltaTime);
-        //    if (position.x <= (-screenBounds.x + objectWidth))
-        //    {
-        //        controller = true;
-        //        Debug.Log("Left bounding check");
-
-        //    }
-        //}
-        //TODO: preciso de mais testes
-        if (IsControllSetToLeft)
+        if (directions == Directions.Right)
         {
-            trainTransform.position -= new Vector3(TrainSpeed * Time.deltaTime, trainTransform.position.y);
+            if (TrainFrontCollider.position.x <= screenBounds.x)
+            {
+                Train.transform.Translate(Vector2.right * TrainSpeed * Time.deltaTime);
+            }
         }
+
+        if (directions == Directions.Left)
+        {
+            if (TrainRearCollider.position.x >= -screenBounds.x)
+            {
+                Train.transform.Translate(Vector2.left * TrainSpeed * Time.deltaTime);
+            }
+        }
+
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
+        if (collision.CompareTag("Player"))
         {
-            IsControllSetToLeft = !IsControllSetToLeft;
-            Debug.Log($"Controller On: {IsControllSetToLeft}");
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                directionCount--;
+                if (directionCount == 2)
+                {
+                    directions = Directions.Left;
+                }
+
+                if (directionCount == 1)
+                {
+                    directions = Directions.Right;
+                }
+
+                if (directionCount == 0)
+                {
+                    directionCount = 3;
+                    directions = Directions.Stand;
+                }
+                Debug.Log($"[OnTriggerStay2D] {directions}");
+            }
+
         }
+
     }
 }
