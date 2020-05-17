@@ -2,13 +2,7 @@
 
 public class SpeedController : MonoBehaviour
 {
-    public enum Directions
-    {
-        Stand, Left, Right
-    }
-
-    private Directions directions;
-
+    [Header("Properties")]
     [SerializeField]
     private Transform TrainFrontCollider;
 
@@ -18,41 +12,42 @@ public class SpeedController : MonoBehaviour
     [SerializeField]
     private Transform Train;
 
-
     [SerializeField]
     private float TrainSpeed = 10f;
 
-    private Camera MainCam;
     private Vector2 screenBounds;
-    private int directionCount = 2;
+    private InputManager imputManager;
+    private bool isPlayerOnTrain = false;
 
-    private void Awake()
+    private void Start()
     {
-        directions = Directions.Stand;
-        MainCam = FindObjectOfType<Camera>();
+        imputManager = FindObjectOfType<InputManager>();
+        Camera MainCam = FindObjectOfType<Camera>();
         // Check View Bounding
-        screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//MainCam.transform.position.z));
+        screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
     }
-
 
     private void Update()
     {
-        if (directions == Directions.Right)
+        if (imputManager.InputCommand == InputManager.EInputCommand.Train)
         {
-            if (TrainFrontCollider.position.x <= screenBounds.x)
+            float inputHorizontal = Input.GetAxisRaw("Horizontal");
+            float translation = inputHorizontal * TrainSpeed * Time.deltaTime;
+            Vector3 trainPos;
+            if (TrainFrontCollider.position.x + translation >= screenBounds.x) // Check to the right side of the screen
             {
-                Train.transform.Translate(Vector2.right * TrainSpeed * Time.deltaTime);
+                trainPos = new Vector3(screenBounds.x - TrainFrontCollider.position.x, 0.0f, 0.0f);
             }
-        }
-
-        if (directions == Directions.Left)
-        {
-            if (TrainRearCollider.position.x >= -screenBounds.x)
+            else if (TrainRearCollider.position.x + translation <= -screenBounds.x) // Check to the left side of the screen
             {
-                Train.transform.Translate(Vector2.left * TrainSpeed * Time.deltaTime);
+                trainPos = new Vector3(screenBounds.x + TrainRearCollider.position.x, 0.0f, 0.0f);
             }
+            else
+            {
+                trainPos = new Vector3(translation, 0.0f, 0.0f);
+            }
+            Train.Translate(trainPos);
         }
-
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -61,26 +56,13 @@ public class SpeedController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                directionCount--;
-                if (directionCount == 2)
-                {
-                    directions = Directions.Left;
-                }
-
-                if (directionCount == 1)
-                {
-                    directions = Directions.Right;
-                }
-
-                if (directionCount == 0)
-                {
-                    directionCount = 3;
-                    directions = Directions.Stand;
-                }
-                Debug.Log($"[OnTriggerStay2D] {directions}");
+                isPlayerOnTrain = !isPlayerOnTrain;
+                imputManager.InputCommand = isPlayerOnTrain ?
+                        InputManager.EInputCommand.Train :
+                        InputManager.EInputCommand.Player;
+                Debug.Log($"[OnTriggerStay] Player is controll the train = {isPlayerOnTrain}");
             }
-
         }
-
     }
+
 }

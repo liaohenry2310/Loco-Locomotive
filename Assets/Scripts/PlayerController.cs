@@ -11,44 +11,61 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigidBody;
     private float playerHeight;
-    private float inputHorizontal;
     private float inputVertical;
 
     public LadderController LadderController { get; set; }
 
+    private InputManager imputManager;
+
     private void Start()
     {
+        imputManager = FindObjectOfType<InputManager>();
         rigidBody = GetComponent<Rigidbody2D>();
         playerHeight = GetComponent<CapsuleCollider2D>().size.y;
     }
 
     private void Update()
     {
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        inputVertical = Input.GetAxisRaw("Vertical");
+        PlayerMovement();
     }
 
     private void FixedUpdate()
     {
-        rigidBody.velocity = new Vector2(inputHorizontal * speed, rigidBody.velocity.y);
+        LadderMovement();
+    }
 
-        if (LadderController)
+    private void PlayerMovement()
+    {
+        if (imputManager.InputCommand == InputManager.EInputCommand.Player)
         {
-            rigidBody.gravityScale = 0.0f;
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, inputVertical * speed);
-            if (inputVertical != 0.0f)
+            float inputHorizontal = Input.GetAxisRaw("Horizontal");
+            inputVertical = Input.GetAxisRaw("Vertical");
+            rigidBody.velocity = new Vector2(inputHorizontal * speed, rigidBody.velocity.y);
+        }
+    }
+
+    private void LadderMovement()
+    {
+        if (imputManager.InputCommand == InputManager.EInputCommand.Player)
+        {
+            if (LadderController)
             {
-                rigidBody.velocity = new Vector2(0.0f, rigidBody.velocity.y);
-                transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.GetLadderTopPosition().y + playerHeight * 0.5f));
+                rigidBody.gravityScale = 0.0f;
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, inputVertical * speed);
+                if (inputVertical != 0.0f)
+                {
+                    rigidBody.velocity = new Vector2(0.0f, rigidBody.velocity.y);
+                    transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.GetLadderTopPosition().y + playerHeight * 0.5f));
+                }
+                else
+                {
+                    rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0.0f);
+                }
             }
             else
             {
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0.0f);
+                rigidBody.gravityScale = gravity;
             }
-        }
-        else
-        {
-            rigidBody.gravityScale = gravity;
         }
     }
 
