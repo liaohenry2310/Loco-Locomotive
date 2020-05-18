@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Properties")]
     [SerializeField]
-    private float speed = 4.0f;
+    private float speed = 3.0f;
     [SerializeField]
     private float gravity = 5.0f;
 

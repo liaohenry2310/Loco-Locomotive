@@ -5,6 +5,7 @@ using UnityEngine;
 public class BasicEnemy : MonoBehaviour
 {
     // Basic Enemy Stuffs....
+    public float fallSpeed = 1.0f;
     public float health;
     public float damage;
     public float gravity = 1.0f;
@@ -23,7 +24,7 @@ public class BasicEnemy : MonoBehaviour
     private float mTakeDamageDelay=1.5f;
 
     // Change Enemy State .
-    private State mCurrentState = State.Nothing;
+    private State mCurrentState = State.InSky;
     enum State
     {
         InSky,
@@ -40,9 +41,6 @@ public class BasicEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-
        targetPos =(target.transform.localPosition);
        currentPos =transform.position;
        direction = targetPos - currentPos;
@@ -51,10 +49,12 @@ public class BasicEnemy : MonoBehaviour
 
         if (mCurrentState == State.InSky)
         {
-            transform.Translate(Vector2.down * gravity * Time.deltaTime);
+            GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            transform.position = new Vector2(transform.position.x, transform.position.y - fallSpeed * Time.deltaTime);
         }
         else if (mCurrentState == State.OnTrain)
         {
+            GetComponent<Rigidbody2D>().gravityScale = 1.0f;
             transform.Translate(direction * gravity * Time.deltaTime,Space.World);
 
             if (dis<= mColliderSize.x)
@@ -97,14 +97,16 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         if (collision.gameObject == topWagonCollider)
         {
             mCurrentState = State.OnTrain;
-    
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject == groundArea)
         {
             mCurrentState = State.OnGround;

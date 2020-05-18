@@ -19,6 +19,4 @@ public class InputManager : MonoBehaviour
     {
         InputCommand = EInputCommand.Player;
     }
-
-
 }

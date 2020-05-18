@@ -15,6 +15,7 @@ public class SpeedController : MonoBehaviour
     [SerializeField]
     private float TrainSpeed = 10f;
 
+    private PlayerController player = null;
     private Vector2 screenBounds;
     private InputManager imputManager;
     private bool isPlayerOnTrain = false;
@@ -29,6 +30,15 @@ public class SpeedController : MonoBehaviour
 
     private void Update()
     {
+        if (player != null && Input.GetKeyDown(KeyCode.E))
+        {
+            isPlayerOnTrain = !isPlayerOnTrain;
+            imputManager.InputCommand = isPlayerOnTrain ?
+                    InputManager.EInputCommand.Train :
+                    InputManager.EInputCommand.Player;
+            Debug.Log($"[OnTriggerStay] Player is controll the train = {isPlayerOnTrain}");
+        }
+
         if (imputManager.InputCommand == InputManager.EInputCommand.Train)
         {
             float inputHorizontal = Input.GetAxisRaw("Horizontal");
@@ -50,18 +60,19 @@ public class SpeedController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player = other.GetComponent<PlayerController>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                isPlayerOnTrain = !isPlayerOnTrain;
-                imputManager.InputCommand = isPlayerOnTrain ?
-                        InputManager.EInputCommand.Train :
-                        InputManager.EInputCommand.Player;
-                Debug.Log($"[OnTriggerStay] Player is controll the train = {isPlayerOnTrain}");
-            }
+            player = null;
         }
     }
 }
