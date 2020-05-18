@@ -7,36 +7,33 @@ public class TimeDown : MonoBehaviour
     // Cyro review
     [Header("Properties")]
     [SerializeField]
-    private float TimeRemaining = 300.0f; // 5 minutes in seconds
+    private float timeRemaining = 300.0f; // 5 minutes in seconds
 
-    private Text TextCountDown;
-    private bool TimerIsRunning = false;
+    private Text textCountDown;
+    private bool timerIsRunning = false;
     bool isPause = true;
 
     void Start()
     {
-
-        //GameTime = CountDownTime;
-        TextCountDown = GetComponent<Text>();
-        TimerIsRunning = true;
+        textCountDown = GetComponent<Text>();
+        timerIsRunning = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (TimerIsRunning)
+        if (timerIsRunning)
         {
-            if (TimeRemaining > 0f)
+            if (timeRemaining > 0f)
             {
-                TimeRemaining -= Time.deltaTime;
-                DisplayTime(TimeRemaining);
+                timeRemaining -= Time.deltaTime;
+                DisplayTime(timeRemaining);
 
             }
             else
             {
                 Debug.Log("Time has run out!");
-                TimeRemaining = 0f;
-                TimerIsRunning = false;
+                timeRemaining = 0f;
+                timerIsRunning = false;
             }
 
         }
@@ -44,7 +41,7 @@ public class TimeDown : MonoBehaviour
         {
             if ((Input.GetKeyDown(KeyCode.Escape)))
             {
-                Time.timeScale = 0;
+                Time.timeScale = 0f;
                 isPause = false;
             }
         }
@@ -65,7 +62,7 @@ public class TimeDown : MonoBehaviour
         timeToDisplay++;
         float minutes = Mathf.FloorToInt(timeToDisplay / 60f);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60f);
-        TextCountDown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        textCountDown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
 
