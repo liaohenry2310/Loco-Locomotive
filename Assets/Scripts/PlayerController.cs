@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private float inputVertical;
 
     public LadderController LadderController { get; set; }
-
     private InputManager imputManager;
 
     private void Start()
