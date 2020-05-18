@@ -5,24 +5,46 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemies;
-    public float leftRange = -8.0f;
-    public float rightRange = 8.0f;
+    
+
+
+
+    private Camera MainCam;
+    private Vector2 screenBounds;
+
+    private float leftRange ;
+    private float rightRange;
+    private float spawnY;
+    private int mEnemyNum;
+
+
+
     void Start()
     {
+        MainCam = FindObjectOfType<Camera>();
+        screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+
+        // Function for Spawn Enemy. 
         InvokeRepeating("CreatEnemies", 2, 1.0f);
+    }
+    private void Update()
+    {
+        rightRange = screenBounds.x-1.0f;
+        leftRange = -screenBounds.x+1.0f;
+        spawnY = transform.position.y;
+
     }
     public void CreatEnemies()
     {
-        int EnemyNum;
-        EnemyNum = Random.Range(0, 3);       
-        for (int i = 0; i < EnemyNum; i++)
+        
+        mEnemyNum = Random.Range(0, 3);       
+        for (int i = 0; i < mEnemyNum; i++)
         {
             float x;
             x = Random.Range(leftRange, rightRange);
-            Instantiate(Enemies, new Vector3(x, 2.8f, 0), Quaternion.identity);
+            Instantiate(Enemies, new Vector3(x, spawnY, 0), Quaternion.identity);
 
         }
-
     }
 
 }

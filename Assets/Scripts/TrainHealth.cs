@@ -6,21 +6,27 @@ public class TrainHealth : MonoBehaviour
 {
     public float trainHealth;
 
-    private float currentHealth;
+    public float currentHealth;
     private float restoreTime;
-
+    private bool mIsTakingDamage;
 
     void Start()
     {
         currentHealth = trainHealth;
     }
 
+    private void Update()
+    {
+
+    }
+
+
     public void TakeDamage(float amount)
     {
         if (IsAlive())
         {
             currentHealth -= amount;
-            currentHealth = Mathf.Max(currentHealth, 0f);
+           // currentHealth = Mathf.Max(currentHealth, 0f);
             Debug.Log("[Health] Lost " + amount + "hp. Current health: " + currentHealth);
         }
     }

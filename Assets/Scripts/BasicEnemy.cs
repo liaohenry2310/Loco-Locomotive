@@ -9,11 +9,14 @@ public class BasicEnemy : MonoBehaviour
     public float damage;
     public float gravity = 1.0f;
     public GameObject target; 
- 
+    public GameObject topWagonCollider;
+
     private Vector3 targetPos;
     private Vector3 currentPos;
     private Vector3 direction;
-    
+
+    private TrainHealth trainHealth;
+    private Vector2 mColliderSize;
     public GameObject groundArea;
 
 
@@ -26,11 +29,13 @@ public class BasicEnemy : MonoBehaviour
         InSky,
         OnTrain,
         OnGround,
+        OnAttack,
         Nothing
     }
     private void Start()
     {
-
+        trainHealth = GetComponent<TrainHealth>();
+        mColliderSize = GetComponentInChildren<BoxCollider2D>().size;
     }
     // Update is called once per frame
     void Update()
@@ -38,22 +43,37 @@ public class BasicEnemy : MonoBehaviour
 
 
 
-        targetPos =(target.transform.localPosition);
-        currentPos =transform.position;
-        direction = targetPos - currentPos;
-        direction.Normalize();
+       targetPos =(target.transform.localPosition);
+       currentPos =transform.position;
+       direction = targetPos - currentPos;
+       direction.Normalize();
+       float dis = Vector3.Distance(currentPos, targetPos);
 
         if (mCurrentState == State.InSky)
         {
             transform.Translate(Vector2.down * gravity * Time.deltaTime);
         }
-        if (mCurrentState == State.OnTrain)
+        else if (mCurrentState == State.OnTrain)
         {
-    
             transform.Translate(direction * gravity * Time.deltaTime,Space.World);
 
+            if (dis<= mColliderSize.x)
+            {
+                transform.position = currentPos;
+                mCurrentState = State.OnAttack;
+            }
+
         }
-        if (mCurrentState == State.OnGround)
+        else if(mCurrentState == State.OnAttack)
+        {
+            if (mTakeDamageDelay < Time.time)
+            {
+                mTakeDamageDelay = Time.time + 0.5f;
+                target.GetComponent<TrainHealth>().TakeDamage(10.0f);
+            }
+
+        }
+        else if (mCurrentState == State.OnGround)
         {
             // Delay damege taking, make sure is not gone right away .
             //  delataTime is time of the frame,if fps is 60, deltaTime is frame/60sec.
@@ -66,6 +86,7 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    public float GetDamage() { return damage; }
     void TakeDamage(float takingDamage)
     {
         health -= takingDamage;
@@ -76,10 +97,10 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-       
-        if (collision.transform.parent.gameObject.CompareTag("Train"))
+        
+        if (collision.gameObject == topWagonCollider)
         {
             mCurrentState = State.OnTrain;
     
