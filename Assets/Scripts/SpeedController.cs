@@ -5,74 +5,39 @@ public class SpeedController : MonoBehaviour
     [Header("Properties")]
     [SerializeField]
     private Transform TrainFrontCollider;
-
     [SerializeField]
     private Transform TrainRearCollider;
-
     [SerializeField]
     private Transform Train;
-
     [SerializeField]
-    private float TrainSpeed = 10f;
+    private float TrainSpeed = 10.0f;
 
-    private PlayerController player = null;
-    private Vector2 screenBounds;
-    private InputManager imputManager;
-    private bool isPlayerOnTrain = false;
+    private Vector2 mScreenBounds;
+    private InputReciever mInputReciever;
 
     private void Start()
     {
-        imputManager = FindObjectOfType<InputManager>();
         Camera MainCam = FindObjectOfType<Camera>();
-        // Check View Bounding
-        screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+        mScreenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+        mInputReciever = GetComponent<InputReciever>();
     }
 
     private void Update()
     {
-        if (player != null && Input.GetKeyDown(KeyCode.E))
+        float translation = mInputReciever.GetRawDirectionalInput().x * TrainSpeed * Time.deltaTime;
+        Vector3 trainPos;
+        if (TrainFrontCollider.position.x + translation >= mScreenBounds.x) // Check to the right side of the screen
         {
-            isPlayerOnTrain = !isPlayerOnTrain;
-            imputManager.InputCommand = isPlayerOnTrain ?
-                    InputManager.EInputCommand.Train :
-                    InputManager.EInputCommand.Player;
-            Debug.Log($"[OnTriggerStay] Player is controll the train = {isPlayerOnTrain}");
+            trainPos = new Vector3(mScreenBounds.x - TrainFrontCollider.position.x, 0.0f, 0.0f);
         }
-
-        if (imputManager.InputCommand == InputManager.EInputCommand.Train)
+        else if (TrainRearCollider.position.x + translation <= -mScreenBounds.x) // Check to the left side of the screen
         {
-            float inputHorizontal = Input.GetAxisRaw("Horizontal");
-            float translation = inputHorizontal * TrainSpeed * Time.deltaTime;
-            Vector3 trainPos;
-            if (TrainFrontCollider.position.x + translation >= screenBounds.x) // Check to the right side of the screen
-            {
-                trainPos = new Vector3(screenBounds.x - TrainFrontCollider.position.x, 0.0f, 0.0f);
-            }
-            else if (TrainRearCollider.position.x + translation <= -screenBounds.x) // Check to the left side of the screen
-            {
-                trainPos = new Vector3(screenBounds.x + TrainRearCollider.position.x, 0.0f, 0.0f);
-            }
-            else
-            {
-                trainPos = new Vector3(translation, 0.0f, 0.0f);
-            }
-            Train.Translate(trainPos);
+            trainPos = new Vector3(mScreenBounds.x + TrainRearCollider.position.x, 0.0f, 0.0f);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        else
         {
-            player = other.GetComponent<PlayerController>();
+            trainPos = new Vector3(translation, 0.0f, 0.0f);
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            player = null;
-        }
+        Train.Translate(trainPos);
     }
 }

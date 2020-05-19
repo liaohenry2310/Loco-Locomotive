@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class LadderController : MonoBehaviour
 {
-    private PlayerController player;
+    private Player player;
     private Vector2 ladderTopPosition;
     private List<BoxCollider2D> passbleFloors = new List<BoxCollider2D>();
 
@@ -33,7 +33,7 @@ public class LadderController : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            player = collision.GetComponent<PlayerController>();
+            player = collision.GetComponent<Player>();
             player.LadderController = this;
             foreach (BoxCollider2D floor in passbleFloors)
             {
@@ -51,7 +51,7 @@ public class LadderController : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            player = collision.GetComponent<PlayerController>();
+            player = collision.GetComponent<Player>();
             player.LadderController = null;
             foreach (BoxCollider2D floor in passbleFloors)
             {

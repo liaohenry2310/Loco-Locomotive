@@ -37,24 +37,6 @@ public class TimeDown : MonoBehaviour
             }
 
         }
-        if (isPause)
-        {
-            if ((Input.GetKeyDown(KeyCode.Escape)))
-            {
-                Time.timeScale = 0f;
-                isPause = false;
-            }
-        }
-        else
-        {
-            if ((Input.GetKeyDown(KeyCode.Escape)))
-            {
-                Time.timeScale = 1f;
-                isPause = true;
-            }
-        }
-
-
     }
 
     private void DisplayTime(float timeToDisplay)

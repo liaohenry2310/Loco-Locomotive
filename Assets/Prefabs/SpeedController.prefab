@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 3315450539460679967}
   - component: {fileID: 1065571835}
   - component: {fileID: 1489242519941024140}
+  - component: {fileID: 8515895000907394524}
   m_Layer: 0
   m_Name: SpeedController
   m_TagString: Untagged
@@ -264,4 +265,16 @@ MonoBehaviour:
   TrainFrontCollider: {fileID: 0}
   TrainRearCollider: {fileID: 0}
   Train: {fileID: 0}
-  TrainSpeed: 10
+  TrainSpeed: 1.5
+--- !u!114 &8515895000907394524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132629621511782607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270e7490651702644a950c092c9062be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
