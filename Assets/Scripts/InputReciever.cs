@@ -1,82 +1,147 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(BoxCollider2D))]
 public class InputReciever : MonoBehaviour
 {
-    private Vector2 mInputDirectional;
-    private bool mInputPrimary;
-    private bool mInputPrimaryHold;
-    private bool mInputSecondary;
-    private bool mInputSecondaryHold;
+    private PlayerInput mPlayerInput;
+    private bool mInUse = false;
+    private bool mIsPlayer = false;
 
-    public void SetInput(Vector2 directional, bool primary, bool primaryHold, bool secondary, bool secondaryHold)
+    public bool SetPlayerInput(ref PlayerInput playerInput)
     {
-        mInputDirectional = directional;
-        mInputPrimary = primary;
-        mInputPrimaryHold = primaryHold;
-        mInputSecondary = secondary;
-        mInputSecondaryHold = secondaryHold;
+        if (!mInUse)
+        {
+            mPlayerInput = playerInput;
+            mInUse = true;
+            return true;
+        }
+        return false;
     }
 
-    public void SetZeroInput()
+    public bool DisablePlayerInput()
     {
-        mInputDirectional = Vector2.zero;
-        mInputPrimary = false;
-        mInputPrimaryHold = false;
-        mInputSecondary = false;
-        mInputSecondaryHold = false;
+        if (mInUse)
+        {
+            mPlayerInput = null;
+            mInUse = false;
+            return true;
+        }
+        return false;
     }
 
-    public Vector2 GetRawDirectionalInput()
+    public Vector2 GetDirectionalInput()
     {
-        return mInputDirectional;
+        if (mPlayerInput)
+        {
+            return mPlayerInput.actions["Directional"].ReadValue<Vector2>();
+        }
+        else
+        {
+            return Vector2.zero;
+        }
     }
 
-    public float GetRawHorizontalInput()
+    public float GetHorizontalInput()
     {
-        return mInputDirectional.x;
+        if (mPlayerInput)
+        {
+            return mPlayerInput.actions["Directional"].ReadValue<Vector2>().x;
+        }
+        else
+        {
+            return 0.0f;
+        }
     }
 
-    public float GetRawVerticalInput()
+    public float GetVerticalInput()
     {
-        return mInputDirectional.y;
+        if (mPlayerInput)
+        {
+            return mPlayerInput.actions["Directional"].ReadValue<Vector2>().y;
+        }
+        else
+        {
+            return 0.0f;
+        }
     }
 
     public bool GetPrimaryInput()
     {
-        return mInputPrimary;
+        if (mPlayerInput)
+        {
+            return mPlayerInput.actions["Primary"].triggered;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool GetPrimaryHoldInput()
     {
-        return mInputPrimaryHold;
+        if (mPlayerInput)
+        {
+            return mPlayerInput.actions["PrimaryHold"].triggered;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool GetSecondaryInput()
     {
-        return mInputSecondary;
+        if (mPlayerInput)
+        {
+            return mPlayerInput.actions["Secondary"].triggered;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool GetSecondaryHoldInput()
     {
-        return mInputSecondaryHold;
+        if (mPlayerInput)
+        {
+            return mPlayerInput.actions["SecondaryHold"].triggered;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool IsUsingGamepad()
+    {
+        return mPlayerInput.defaultControlScheme.Equals("Gamepad");
+    }
+
+    private void Start()
+    {
+        if (GetComponent<Player>())
+        {
+            mIsPlayer = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (!mIsPlayer && collision.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().InputReceiver = this;
+            InputReciever inputReciever = this;
+            collision.GetComponent<Player>().PlayerController.SetControllable(ref inputReciever);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (!mIsPlayer && collision.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().InputReceiver = null;
+            collision.GetComponent<Player>().PlayerController.SetNoControllable();
         }
     }
 }

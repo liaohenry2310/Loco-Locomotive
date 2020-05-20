@@ -2,15 +2,10 @@
 
 public class SpeedController : MonoBehaviour
 {
-    [Header("Properties")]
-    [SerializeField]
-    private Transform TrainFrontCollider;
-    [SerializeField]
-    private Transform TrainRearCollider;
-    [SerializeField]
-    private Transform Train;
-    [SerializeField]
-    private float TrainSpeed = 10.0f;
+    public Transform trainFrontCollider;
+    public Transform trainRearCollider;
+    public Transform train;
+    public float trainSpeed = 1.5f;
 
     private Vector2 mScreenBounds;
     private InputReciever mInputReciever;
@@ -24,20 +19,20 @@ public class SpeedController : MonoBehaviour
 
     private void Update()
     {
-        float translation = mInputReciever.GetRawDirectionalInput().x * TrainSpeed * Time.deltaTime;
+        float translation = mInputReciever.GetDirectionalInput().x * trainSpeed * Time.deltaTime;
         Vector3 trainPos;
-        if (TrainFrontCollider.position.x + translation >= mScreenBounds.x) // Check to the right side of the screen
+        if (trainFrontCollider.position.x + translation >= mScreenBounds.x)
         {
-            trainPos = new Vector3(mScreenBounds.x - TrainFrontCollider.position.x, 0.0f, 0.0f);
+            trainPos = new Vector3(mScreenBounds.x - trainFrontCollider.position.x, 0.0f, 0.0f);
         }
-        else if (TrainRearCollider.position.x + translation <= -mScreenBounds.x) // Check to the left side of the screen
+        else if (trainRearCollider.position.x + translation <= -mScreenBounds.x)
         {
-            trainPos = new Vector3(mScreenBounds.x + TrainRearCollider.position.x, 0.0f, 0.0f);
+            trainPos = new Vector3(mScreenBounds.x + trainRearCollider.position.x, 0.0f, 0.0f);
         }
         else
         {
             trainPos = new Vector3(translation, 0.0f, 0.0f);
         }
-        Train.Translate(trainPos);
+        train.Translate(trainPos);
     }
 }

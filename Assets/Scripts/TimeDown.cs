@@ -11,7 +11,7 @@ public class TimeDown : MonoBehaviour
 
     private Text textCountDown;
     private bool timerIsRunning = false;
-    bool isPause = true;
+    //bool isPause = true;
 
     void Start()
     {

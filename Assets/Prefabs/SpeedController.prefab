@@ -262,10 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05ff686c23381d42bc903484050f73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrainFrontCollider: {fileID: 0}
-  TrainRearCollider: {fileID: 0}
-  Train: {fileID: 0}
-  TrainSpeed: 1.5
+  trainFrontCollider: {fileID: 0}
+  trainRearCollider: {fileID: 0}
+  train: {fileID: 0}
+  trainSpeed: 1.5
 --- !u!114 &8515895000907394524
 MonoBehaviour:
   m_ObjectHideFlags: 0
