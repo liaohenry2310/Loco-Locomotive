@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - PassableFloor
+  - GrabbablePickuPs
   layers:
   - Default
   - TransparentFX
