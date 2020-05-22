@@ -9,11 +9,17 @@ public class GameManager : MonoBehaviour
     public GameObject playerControllerPrefab;
     //public int numOfPlayers;
 
+    public Camera MainCamera;
+
     private List<PlayerController> mPlayerControllers;
     private GameObject train;
 
+    public Vector3 ScreenBounds;
+
     private void Awake()
     {
+        ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
+
         mPlayerControllers = new List<PlayerController>();
         train = GameObject.Find("Train");
         DontDestroyOnLoad(this);
@@ -36,4 +42,5 @@ public class GameManager : MonoBehaviour
         player2.GetComponent<PlayerController>().SetPlayer(ref avatar2);
         player3.GetComponent<PlayerController>().SetPlayer(ref avatar3);
     }
+ 
 }
