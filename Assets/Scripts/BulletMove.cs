@@ -14,7 +14,7 @@ public class BulletMove : MonoBehaviour
     {
         if (Speed != 0f)
         {
-            transform.position += transform.right * (Speed * Time.deltaTime);
+            transform.position += transform.up * (Speed * Time.deltaTime);
 
             // Destroy prefabs when touch the camera bounds
             if ((transform.position.x >= screenBouds.x) ||
@@ -27,4 +27,5 @@ public class BulletMove : MonoBehaviour
 
         }
     }
+    
 }

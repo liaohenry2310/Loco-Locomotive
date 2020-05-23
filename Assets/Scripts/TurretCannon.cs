@@ -28,10 +28,10 @@ public class TurretCannon : MonoBehaviour
     void Start()
     {
         mInputReciever = GetComponent<InputReciever>();
+        mAmmo = AmmoMax;
         AmmoCountText.text = $"Ammo: {mAmmo}";
         mRunOutHealth = false;
         mTurretHealth = turretMaxHealth;
-        mAmmo = AmmoMax;
     }
 
     void Update()
