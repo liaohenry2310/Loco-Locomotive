@@ -1,6 +1,4 @@
-﻿using Unity.Mathematics;
-using UnityEditor.UIElements;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TurretCannon : MonoBehaviour
@@ -15,12 +13,11 @@ public class TurretCannon : MonoBehaviour
     public float FireRate = 100f;
     public float CannonHandlerSpeed = 10.0f;
     public int AmmoMax = 10;
-    private int mAmmo;
+
+    private int mCurrentAmmo;
     public float turretMaxHealth;
     private float mTurretHealth;
     private bool mRunOutHealth;
-
-
 
     private InputReciever mInputReciever;
     private float mTimeToFire = 0f;
@@ -28,13 +25,13 @@ public class TurretCannon : MonoBehaviour
     void Start()
     {
         mInputReciever = GetComponent<InputReciever>();
-        mAmmo = AmmoMax;
-        AmmoCountText.text = $"Ammo: {mAmmo}";
+        mCurrentAmmo = AmmoMax;
+        AmmoCountText.text = $"Ammo: {mCurrentAmmo}";
         mRunOutHealth = false;
         mTurretHealth = turretMaxHealth;
     }
 
-    void Update()
+    private void Update()
     {
         CannonHandler.transform.Rotate(0.0f, 0.0f, mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed);
         Fire(mInputReciever.GetSecondaryHoldInput());
@@ -42,14 +39,14 @@ public class TurretCannon : MonoBehaviour
 
     public void Fire(bool setFire)
     {
-        if ( mRunOutHealth ==false && setFire && (mAmmo > 0) && (Time.time >= mTimeToFire))
+        if (mRunOutHealth == false && setFire && (mCurrentAmmo > 0) && (Time.time >= mTimeToFire))
         {
             mTimeToFire = Time.time + (1f / FireRate);
             var x = Instantiate(Bullets, CannonFirePoint.transform.position, Quaternion.identity);
             x.transform.rotation = CannonFirePoint.rotation;
-            AmmoCountText.text = $"Ammo: {--mAmmo}";
+            AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
         }
-        if (mAmmo==0)
+        if (mCurrentAmmo == 0)
         {
             AmmoCountText.text = $"Ammo ...... Run out ammo........!!";
         }
@@ -70,7 +67,7 @@ public class TurretCannon : MonoBehaviour
     {
         mTurretHealth += repairHealth;
         TurretRepairText.text = $"Turret repairing: {repairHealth} , Turret Health: {mTurretHealth}";
-        if (mTurretHealth>=turretMaxHealth)
+        if (mTurretHealth >= turretMaxHealth)
         {
             mTurretHealth = turretMaxHealth;
             TurretRepairText.text = $"Turret health reached Maximum ";
@@ -79,12 +76,12 @@ public class TurretCannon : MonoBehaviour
 
     public void Reload(int ammo)
     {
-        mAmmo += ammo;
-        AmmoCountText.text = $"Ammo reloading: ... Current Ammo: {mAmmo}";
-        if (mAmmo >= AmmoMax)
+        mCurrentAmmo += ammo;
+        AmmoCountText.text = $"Ammo reloading: ... Current Ammo: {mCurrentAmmo}";
+        if (mCurrentAmmo >= AmmoMax)
         {
-            mAmmo = AmmoMax;
-            AmmoCountText.text = $"Can not Reload Anymore ... Current Ammo: {mAmmo}";
+            mCurrentAmmo = AmmoMax;
+            AmmoCountText.text = $"Can not Reload Anymore ... Current Ammo: {mCurrentAmmo}";
         }
     }
 
@@ -100,5 +97,9 @@ public class TurretCannon : MonoBehaviour
         }
     }
 
+    public void ReloadCannon(int amountAmmo)
+    {
+        mCurrentAmmo = amountAmmo;
+    }
 
 }
