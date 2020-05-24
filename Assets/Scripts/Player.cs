@@ -4,6 +4,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    public AmmoCreat ammoCreat;
+    public Repairkitcrate repairkitcrate;
+    public TurretLoader turretLoader;
+    public bool isHoldingAmmo;
+    public bool isHoldingRepairKit;
+    public GameObject ammoSprite;
+    public GameObject repairKitSprite;
+
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
 
@@ -22,8 +30,45 @@ public class Player : MonoBehaviour
         mRigidBody = GetComponent<Rigidbody2D>();
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
+        ammoSprite.SetActive(false);
+        repairKitSprite.SetActive(false);
     }
+    private void Update()
+    {
+        if(ammoCreat !=null&&mInputReceiver.GetSecondaryInput())
+        {
+            isHoldingAmmo = true;
+            ammoSprite.SetActive(true);
+        }
+        else if (isHoldingAmmo = true && mInputReceiver.GetSecondaryInput())
+        {
+            ammoSprite.SetActive(false);
+            isHoldingAmmo = false;
+        }
+        else if(turretLoader!=null&& mInputReceiver.GetSecondaryInput())
+        {
+            
+            isHoldingAmmo = false;
+            ammoSprite.SetActive(false);
+        }
+        if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
+        {
+            isHoldingRepairKit = true;
+            repairKitSprite.SetActive(true);
+        }
+        else if (isHoldingRepairKit = true && mInputReceiver.GetSecondaryInput())
+        {
+            repairKitSprite.SetActive(false);
+            isHoldingRepairKit = false;
+        }
+        else if (turretLoader != null && mInputReceiver.GetSecondaryInput())
+        {
 
+            isHoldingRepairKit = false;
+            repairKitSprite.SetActive(false);
+        }
+
+    }
     private void FixedUpdate()
     {
         float horizontal = Mathf.Round(mInputReceiver.GetHorizontalInput() + 0.2f);

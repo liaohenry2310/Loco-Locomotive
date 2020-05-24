@@ -9,12 +9,19 @@ public class InputReciever : MonoBehaviour
     private bool mInUse = false;
     private bool mIsPlayer = false;
 
+    private bool mPrimaryHeld = false;
+    private bool mSecondaryHeld = false;
+
     public bool SetPlayerInput(ref PlayerInput playerInput)
     {
         if (!mInUse)
         {
             mPlayerInput = playerInput;
             mInUse = true;
+            mPlayerInput.actions["PrimaryHold"].started += ctx => mPrimaryHeld = true;
+            mPlayerInput.actions["PrimaryHold"].canceled += ctx => mPrimaryHeld = false;
+            mPlayerInput.actions["SecondaryHold"].started += ctx => mSecondaryHeld = true;
+            mPlayerInput.actions["SecondaryHold"].canceled += ctx => mSecondaryHeld = false;
             return true;
         }
         return false;
@@ -26,6 +33,8 @@ public class InputReciever : MonoBehaviour
         {
             mPlayerInput = null;
             mInUse = false;
+            mPrimaryHeld = false;
+            mSecondaryHeld = false;
             return true;
         }
         return false;
@@ -81,14 +90,7 @@ public class InputReciever : MonoBehaviour
 
     public bool GetPrimaryHoldInput()
     {
-        if (mPlayerInput)
-        {
-            return mPlayerInput.actions["PrimaryHold"].triggered;
-        }
-        else
-        {
-            return false;
-        }
+        return mPrimaryHeld;
     }
 
     public bool GetSecondaryInput()
@@ -105,20 +107,14 @@ public class InputReciever : MonoBehaviour
 
     public bool GetSecondaryHoldInput()
     {
-        if (mPlayerInput)
-        {
-            return mPlayerInput.actions["SecondaryHold"].triggered;
-        }
-        else
-        {
-            return false;
-        }
+        return mSecondaryHeld;
     }
 
     public bool IsUsingGamepad()
     {
         return mPlayerInput.defaultControlScheme.Equals("Gamepad");
     }
+
 
     private void Start()
     {

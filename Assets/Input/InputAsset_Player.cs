@@ -37,10 +37,10 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": ""PrimaryHold"",
                     ""type"": ""Button"",
-                    ""id"": ""4bcb20d1-0c9c-4b66-856c-df3c8fc033cd"",
+                    ""id"": ""bd873c27-38a6-473d-9f37-9ef1dd276bf9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Secondary"",
@@ -53,10 +53,10 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": ""SecondaryHold"",
                     ""type"": ""Button"",
-                    ""id"": ""fee6eb6e-0fe3-4b07-a664-ebadd64a924d"",
+                    ""id"": ""aa7211a8-fc9f-4907-b0c8-b3016cef29ad"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -129,7 +129,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": ""WASD Keys"",
                     ""id"": ""1d488174-1722-4265-bfd9-5ee318e5d9c7"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -184,7 +184,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Directional Keys"",
                     ""id"": ""39966502-5ae3-4fa8-9fc0-eed9ed879e54"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -239,7 +239,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": ""LeftStick"",
                     ""id"": ""fe5b3647-e9db-48c1-87ff-bd854758d8a2"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -293,40 +293,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""522c3b0c-5874-4e9a-9752-889c28b87115"",
-                    ""path"": ""<Keyboard>/slash"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardRight"",
-                    ""action"": ""SecondaryHold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0e221aab-fedb-4c27-a75f-6caf2e4e843c"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardLeft"",
-                    ""action"": ""SecondaryHold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e67f8599-4e1b-417a-bba0-04409a71408c"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""SecondaryHold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""77100e1a-2225-4609-b5c5-0a82688c9ef2"",
+                    ""id"": ""93682e27-b39f-40f6-92b1-4ac63edf8613"",
                     ""path"": ""<Keyboard>/period"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -337,7 +304,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""15e3d859-5af6-402a-a559-434548cf7e70"",
+                    ""id"": ""4972d51b-ad3c-417d-a223-62e01e32dd1d"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -348,12 +315,45 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dcba66c4-0880-4c5b-bc9b-0c99d340696d"",
+                    ""id"": ""7ef21f8b-0b02-430d-a346-9e76912e1638"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""PrimaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""664ac31a-f656-4c7a-a783-8385946d3dad"",
+                    ""path"": ""<Keyboard>/slash"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardRight"",
+                    ""action"": ""SecondaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ea3bbb9-068c-49ef-81c3-9784f915edac"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardLeft"",
+                    ""action"": ""SecondaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""381da621-59a7-42aa-9885-7097c411f7df"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SecondaryHold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
