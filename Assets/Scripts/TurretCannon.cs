@@ -14,6 +14,9 @@ public class TurretCannon : MonoBehaviour
     public float CannonHandlerSpeed = 10.0f;
     public int AmmoMax = 10;
 
+    public int ammo;
+    public float repairHealth;
+
     private int mCurrentAmmo;
     public float turretMaxHealth;
     private float mTurretHealth;
@@ -63,7 +66,7 @@ public class TurretCannon : MonoBehaviour
 
     }
 
-    public void Repair(float repairHealth)
+    public void Repair()
     {
         mTurretHealth += repairHealth;
         TurretRepairText.text = $"Turret repairing: {repairHealth} , Turret Health: {mTurretHealth}";
@@ -74,7 +77,7 @@ public class TurretCannon : MonoBehaviour
         }
     }
 
-    public void Reload(int ammo)
+    public void Reload()
     {
         mCurrentAmmo += ammo;
         AmmoCountText.text = $"Ammo reloading: ... Current Ammo: {mCurrentAmmo}";

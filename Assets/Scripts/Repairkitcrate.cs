@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Repairkitcrate : MonoBehaviour
 {
-    private void onTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -12,7 +12,7 @@ public class Repairkitcrate : MonoBehaviour
             player.repairkitcrate = this;
         }
     }
-    private void onTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {

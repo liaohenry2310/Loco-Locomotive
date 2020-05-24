@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    public AmmoCreat ammoCreat;
+    public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
     public TurretLoader turretLoader;
     public bool isHoldingAmmo;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if(ammoCreat !=null&&mInputReceiver.GetSecondaryInput())
+        if(ammoCrate != null&&mInputReceiver.GetSecondaryInput())
         {
             isHoldingAmmo = true;
             ammoSprite.SetActive(true);
