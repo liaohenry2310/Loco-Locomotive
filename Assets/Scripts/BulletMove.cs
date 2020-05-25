@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
     public float Speed = 10f;
+    public float Damage = 5f;
     private Vector3 screenBouds;
 
     void Start()
@@ -27,5 +29,14 @@ public class BulletMove : MonoBehaviour
 
         }
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponentInParent<BasicEnemy>().name == "BasicEnemy(Clone)")
+        {
+            BasicEnemy enemy = collision.gameObject.GetComponentInParent<BasicEnemy>();
+            enemy.TakeDamage(Damage);
+        }
+    }
+
 }
