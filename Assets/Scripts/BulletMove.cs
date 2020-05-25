@@ -32,7 +32,7 @@ public class BulletMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponentInParent<BasicEnemy>().name == "BasicEnemy(Clone)")
+        if (collision.CompareTag("Enemy"))
         {
             BasicEnemy enemy = collision.gameObject.GetComponentInParent<BasicEnemy>();
             enemy.TakeDamage(Damage);

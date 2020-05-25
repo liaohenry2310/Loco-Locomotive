@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PassableFloor
   - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX

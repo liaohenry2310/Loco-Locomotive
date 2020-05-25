@@ -75,14 +75,7 @@ public class BasicEnemy : MonoBehaviour
         }
         else if (mCurrentState == State.OnGround)
         {
-            // Delay damege taking, make sure is not gone right away .
-            //  delataTime is time of the frame,if fps is 60, deltaTime is frame/60sec.
-            //  time is the total time of the game is running for.
-            if (mTakeDamageDelay<Time.time )
-            {
-                mTakeDamageDelay = Time.time+1.5f;
-                TakeDamage(5.0f);
-            }
+            Destroy(gameObject);
         }
     }
 
@@ -101,6 +94,7 @@ public class BasicEnemy : MonoBehaviour
     {
         if (collision.gameObject == topWagonCollider)
         {
+            transform.parent = topWagonCollider.gameObject.transform;
             mCurrentState = State.OnTrain;
         }
     }
@@ -109,6 +103,7 @@ public class BasicEnemy : MonoBehaviour
     {
         if (collision.gameObject == groundArea)
         {
+            Destroy(gameObject);
             mCurrentState = State.OnGround;
         }
     }

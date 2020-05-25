@@ -18,26 +18,28 @@ public class InputReciever : MonoBehaviour
         {
             mPlayerInput = playerInput;
             mInUse = true;
-            mPlayerInput.actions["PrimaryHold"].started += ctx => mPrimaryHeld = true;
-            mPlayerInput.actions["PrimaryHold"].canceled += ctx => mPrimaryHeld = false;
-            mPlayerInput.actions["SecondaryHold"].started += ctx => mSecondaryHeld = true;
-            mPlayerInput.actions["SecondaryHold"].canceled += ctx => mSecondaryHeld = false;
+            mPlayerInput.actions["PrimaryHold"].started += StartPrimaryHold;
+            mPlayerInput.actions["PrimaryHold"].canceled += EndPrimaryHold;
+            mPlayerInput.actions["SecondaryHold"].started += StartSecondaryHold;
+            mPlayerInput.actions["SecondaryHold"].canceled += EndSecondaryHold;
             return true;
         }
         return false;
     }
 
-    public bool DisablePlayerInput()
+    public void DisablePlayerInput()
     {
         if (mInUse)
         {
-            mPlayerInput = null;
             mInUse = false;
             mPrimaryHeld = false;
             mSecondaryHeld = false;
-            return true;
+            mPlayerInput.actions["PrimaryHold"].started -= StartPrimaryHold;
+            mPlayerInput.actions["PrimaryHold"].canceled -= EndPrimaryHold;
+            mPlayerInput.actions["SecondaryHold"].started -= StartSecondaryHold;
+            mPlayerInput.actions["SecondaryHold"].canceled -= EndSecondaryHold;
+            mPlayerInput = null;
         }
-        return false;
     }
 
     public Vector2 GetDirectionalInput()
@@ -140,4 +142,25 @@ public class InputReciever : MonoBehaviour
             collision.GetComponent<Player>().PlayerController.SetNoControllable();
         }
     }
+
+    private void StartPrimaryHold(InputAction.CallbackContext ctx)
+    {
+        mPrimaryHeld = true;
+    }
+
+    private void EndPrimaryHold(InputAction.CallbackContext ctx)
+    {
+        mPrimaryHeld = false;
+    }
+
+    private void StartSecondaryHold(InputAction.CallbackContext ctx)
+    {
+        mSecondaryHeld = true;
+    }
+
+    private void EndSecondaryHold(InputAction.CallbackContext ctx)
+    {
+        mSecondaryHeld = false;
+    }
+
 }

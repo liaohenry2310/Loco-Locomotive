@@ -14,10 +14,10 @@ public class TurretCannon : MonoBehaviour
     public float CannonHandlerSpeed = 10.0f;
     public int AmmoMax = 10;
 
-    public int ammo;
+    //public int ammo;
     public float repairHealth;
 
-    private int mCurrentAmmo;
+    public int mCurrentAmmo;
     public float turretMaxHealth;
     private float mTurretHealth;
     private bool mRunOutHealth;
@@ -29,7 +29,7 @@ public class TurretCannon : MonoBehaviour
     {
         mInputReciever = GetComponent<InputReciever>();
         mCurrentAmmo = AmmoMax;
-        AmmoCountText.text = $"Ammo: {mCurrentAmmo}";
+        //AmmoCountText.text = $"Ammo: {mCurrentAmmo}";
         mRunOutHealth = false;
         mTurretHealth = turretMaxHealth;
     }
@@ -46,46 +46,43 @@ public class TurretCannon : MonoBehaviour
         {
             mTimeToFire = Time.time + (1f / FireRate);
             var x = Instantiate(Bullets, CannonFirePoint.transform.position, Quaternion.identity);
+            mCurrentAmmo--;
             x.transform.rotation = CannonFirePoint.rotation;
-            AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
+            //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
         }
         if (mCurrentAmmo == 0)
         {
-            AmmoCountText.text = $"Ammo ...... Run out ammo........!!";
+            //AmmoCountText.text = $"Ammo ...... Run out ammo........!!";
         }
     }
 
     public void TakeDamage(float takingDamage)
     {
         mTurretHealth -= takingDamage;
-        TurretText.text = $"! Warning !   Turret taking {takingDamage} damage ! Turret Health: {mTurretHealth}";
+        //TurretText.text = $"! Warning !   Turret taking {takingDamage} damage ! Turret Health: {mTurretHealth}";
         if (mTurretHealth <= 0.0f)
         {
-            TurretText.text = $"! Turret is Out Of Order ! ";
+            //TurretText.text = $"! Turret is Out Of Order ! ";
         }
 
     }
 
     public void Repair()
     {
+        Debug.Log($"{gameObject.transform.parent.name} Turret repaired!");
         mTurretHealth += repairHealth;
-        TurretRepairText.text = $"Turret repairing: {repairHealth} , Turret Health: {mTurretHealth}";
+        //TurretRepairText.text = $"Turret repairing: {repairHealth} , Turret Health: {mTurretHealth}";
         if (mTurretHealth >= turretMaxHealth)
         {
             mTurretHealth = turretMaxHealth;
-            TurretRepairText.text = $"Turret health reached Maximum ";
+            //TurretRepairText.text = $"Turret health reached Maximum ";
         }
     }
 
     public void Reload()
     {
-        mCurrentAmmo += ammo;
-        AmmoCountText.text = $"Ammo reloading: ... Current Ammo: {mCurrentAmmo}";
-        if (mCurrentAmmo >= AmmoMax)
-        {
-            mCurrentAmmo = AmmoMax;
-            AmmoCountText.text = $"Can not Reload Anymore ... Current Ammo: {mCurrentAmmo}";
-        }
+        Debug.Log($"{gameObject.transform.parent.name} Turret reloaded!");
+        mCurrentAmmo = AmmoMax;
     }
 
     public void IsAlive()
@@ -103,6 +100,24 @@ public class TurretCannon : MonoBehaviour
     public void ReloadCannon(int amountAmmo)
     {
         mCurrentAmmo = amountAmmo;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Player player = collision.GetComponent<Player>();
+            player.turretCannon = this;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Player player = collision.GetComponent<Player>();
+            player.turretCannon = null;
+        }
     }
 
 }

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
+    public TurretCannon turretCannon;
     public TurretLoader turretLoader;
     public bool isHoldingAmmo;
     public bool isHoldingRepairKit;
@@ -40,33 +41,38 @@ public class Player : MonoBehaviour
             isHoldingAmmo = true;
             ammoSprite.SetActive(true);
         }
-        else if (isHoldingAmmo = true && mInputReceiver.GetSecondaryInput())
+        else if (turretLoader != null && isHoldingAmmo && mInputReceiver.GetSecondaryInput())
+        {
+            isHoldingAmmo = false;
+            ammoSprite.SetActive(false);
+            turretLoader.Reloadammo();
+        }
+        else if (isHoldingAmmo && mInputReceiver.GetSecondaryInput())
         {
             ammoSprite.SetActive(false);
             isHoldingAmmo = false;
         }
-        else if(turretLoader!=null&& mInputReceiver.GetSecondaryInput())
-        {
-            
-            isHoldingAmmo = false;
-            ammoSprite.SetActive(false);
-        }
+        
+
+
         if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
         {
             isHoldingRepairKit = true;
             repairKitSprite.SetActive(true);
         }
-        else if (isHoldingRepairKit = true && mInputReceiver.GetSecondaryInput())
+        else if (turretCannon != null && isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
         {
-            repairKitSprite.SetActive(false);
             isHoldingRepairKit = false;
-        }
-        else if (turretLoader != null && mInputReceiver.GetSecondaryInput())
-        {
+            repairKitSprite.SetActive(false);
+            turretCannon.Repair();
 
-            isHoldingRepairKit = false;
-            repairKitSprite.SetActive(false);
         }
+        else if (isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
+        {
+            repairKitSprite.SetActive(false);
+            isHoldingRepairKit = false;
+        }
+
 
     }
     private void FixedUpdate()

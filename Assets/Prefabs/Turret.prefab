@@ -143,7 +143,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.048290074, y: 0.301103}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -154,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.90341985, y: 0.397794}
   m_EdgeRadius: 0
 --- !u!114 &3193508244445371711
 MonoBehaviour:
@@ -188,7 +188,9 @@ MonoBehaviour:
   TurretRepairText: {fileID: 0}
   FireRate: 15
   CannonHandlerSpeed: 0.1
-  AmmoMax: 1000000
+  AmmoMax: 100
+  ammo: 100
+  repairHealth: 0
   turretMaxHealth: 0
 --- !u!1 &3193508244648082379
 GameObject:
@@ -366,6 +368,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3193508245829201167}
+  - component: {fileID: 5484456570076948174}
+  - component: {fileID: 3842135290332426558}
   m_Layer: 0
   m_Name: BottonTurret
   m_TagString: Untagged
@@ -381,13 +385,51 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3193508245829201166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3193508246271272651}
   m_Father: {fileID: 3193508244445371704}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5484456570076948174
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508245829201166}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.43, y: 0.55}
+  m_EdgeRadius: 0
+--- !u!114 &3842135290332426558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508245829201166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62edd2eac25d74469f3878b87a91a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,8 +630,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3193508246271272650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.029999971, y: -0.4218917, z: 0}
-  m_LocalScale: {x: 0.39306626, y: 0.702344, z: 0.492873}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.39306626, y: 0.702344, z: 1}
   m_Children: []
   m_Father: {fileID: 3193508245829201167}
   m_RootOrder: 0
