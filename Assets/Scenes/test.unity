@@ -775,9 +775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62edd2eac25d74469f3878b87a91a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretCannon: {fileID: 0}
-  currentammo: 30
-  repairhealth: 0
 --- !u!61 &1473871261
 BoxCollider2D:
   m_ObjectHideFlags: 0

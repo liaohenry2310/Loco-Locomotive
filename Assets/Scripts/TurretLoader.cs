@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class TurretLoader : MonoBehaviour
 {
-    public TurretCannon turretCannon;
-    public int currentammo = 30;
-    public float repairhealth = 30;
     public void Reloadammo()
     {
-        turretCannon.ammo = currentammo;
+        TurretCannon turretCannon = gameObject.GetComponent<TurretCannon>();
+        turretCannon.Repair();
+        Debug.Log("reload ammo");
     }
     public void RepairTurret()
     {
-        turretCannon.repairHealth = repairhealth;
+        TurretCannon turretCannon = gameObject.GetComponent<TurretCannon>();
+        turretCannon.Reload();
+        Debug.Log("repair turret");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,6 +22,8 @@ public class TurretLoader : MonoBehaviour
         {
             Player player = collision.GetComponent<Player>();
             player.turretLoader = this;
+            Reloadammo();
+            RepairTurret();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
