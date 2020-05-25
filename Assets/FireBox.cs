@@ -11,7 +11,8 @@ public class FireBox : MonoBehaviour
     void Start()
     {
         mInputReciever = GetComponent<InputReciever>();
-        mCurrentFuel = 50;
+        //mCurrentFuel = mMaxFuel;
+        mCurrentFuel = 50;//for test
     }
 
     public void AddFuel()
