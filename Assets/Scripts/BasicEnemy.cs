@@ -87,7 +87,7 @@ public class BasicEnemy : MonoBehaviour
     }
 
     public float GetDamage() { return damage; }
-    void TakeDamage(float takingDamage)
+    public void TakeDamage(float takingDamage)
     {
         health -= takingDamage;
         if (health <= 0.0f)

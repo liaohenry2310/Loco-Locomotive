@@ -1059,8 +1059,8 @@ MonoBehaviour:
   TurretText: {fileID: 0}
   TurretRepairText: {fileID: 0}
   FireRate: 15
-  CannonHandlerSpeed: 2
-  AmmoMax: 100
+  CannonHandlerSpeed: 0.1
+  AmmoMax: 1000000
   turretMaxHealth: 0
 --- !u!114 &1171893507
 MonoBehaviour:
@@ -1418,7 +1418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1479196405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,6 +1461,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 20598139454358013, guid: e08dff53fad6d4e4a9a70089aecc84f1,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 20598139663676580, guid: e08dff53fad6d4e4a9a70089aecc84f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1554,7 +1559,7 @@ PrefabInstance:
     - target: {fileID: 20598139663676602, guid: e08dff53fad6d4e4a9a70089aecc84f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e08dff53fad6d4e4a9a70089aecc84f1, type: 3}
@@ -1616,7 +1621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3536536467531059454
 Transform:
   m_ObjectHideFlags: 0
