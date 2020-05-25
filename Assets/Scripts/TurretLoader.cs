@@ -6,7 +6,7 @@ public class TurretLoader : MonoBehaviour
 {
     public TurretCannon turretCannon;
     public int currentammo = 30;
-    public float repairhealth = 0;
+    public float repairhealth = 30;
     public void Reloadammo()
     {
         turretCannon.ammo = currentammo;
