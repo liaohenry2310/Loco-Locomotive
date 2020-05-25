@@ -6,12 +6,16 @@ public class Player : MonoBehaviour
 {
     public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
+    public FuelCrate fuelCrate;
     public TurretCannon turretCannon;
     public TurretLoader turretLoader;
+    public FireBox fireBox;
     public bool isHoldingAmmo;
     public bool isHoldingRepairKit;
+    public bool isHoldingFuel;
     public GameObject ammoSprite;
     public GameObject repairKitSprite;
+    public GameObject fuelSprite;
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
@@ -33,9 +37,11 @@ public class Player : MonoBehaviour
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
         ammoSprite.SetActive(false);
         repairKitSprite.SetActive(false);
+        fuelSprite.SetActive(false);
     }
     private void Update()
     {
+        //ammo
         if(ammoCrate != null&&mInputReceiver.GetSecondaryInput())
         {
             isHoldingAmmo = true;
@@ -54,7 +60,7 @@ public class Player : MonoBehaviour
         }
         
 
-
+        //repairkit
         if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
         {
             isHoldingRepairKit = true;
@@ -71,6 +77,23 @@ public class Player : MonoBehaviour
         {
             repairKitSprite.SetActive(false);
             isHoldingRepairKit = false;
+        }
+        //fuel
+        if (fuelCrate != null && mInputReceiver.GetSecondaryInput())
+        {
+            isHoldingFuel = true;
+            fuelSprite.SetActive(true);
+        }
+        else if (fireBox != null && isHoldingFuel && mInputReceiver.GetSecondaryInput())
+        {
+            isHoldingFuel = false;
+            fuelSprite.SetActive(false);
+            fireBox.AddFuel();
+        }
+        else if (isHoldingFuel && mInputReceiver.GetSecondaryInput())
+        {
+            fuelSprite.SetActive(false);
+            isHoldingFuel = false;
         }
 
 
