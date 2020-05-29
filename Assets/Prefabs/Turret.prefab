@@ -180,7 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b5caca25f725a449c371fe89d59225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullets: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0, type: 3}
+  BulletsPrefabs: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
+    type: 3}
   CannonHandler: {fileID: 3193508246254816230}
   CannonFirePoint: {fileID: 3193508245827852810}
   AmmoCountText: {fileID: 0}
@@ -189,8 +190,8 @@ MonoBehaviour:
   FireRate: 15
   CannonHandlerSpeed: 0.1
   AmmoMax: 100
-  ammo: 100
   repairHealth: 0
+  mCurrentAmmo: 0
   turretMaxHealth: 0
 --- !u!1 &3193508244648082379
 GameObject:

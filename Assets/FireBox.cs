@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FireBox : MonoBehaviour
 {
     public float mMaxFuel;
     public float mCurrentFuel;
     public float mAddfuel;
+
     private InputReciever mInputReciever;
+    private FuelController mFuelController;
     void Start()
     {
         mInputReciever = GetComponent<InputReciever>();
+        mFuelController = FindObjectOfType<FuelController>();
         //mCurrentFuel = mMaxFuel;
         mCurrentFuel = 50;//for test
     }
@@ -23,6 +24,7 @@ public class FireBox : MonoBehaviour
         {
             mCurrentFuel = mMaxFuel;
         }
+        mFuelController.Reload(mCurrentFuel);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

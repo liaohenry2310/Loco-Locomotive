@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class TurretCannon : MonoBehaviour
 {
     [Header("Properties")]
-    public GameObject Bullets;
+    public GameObject BulletsPrefabs;
     public Transform CannonHandler;
     public Transform CannonFirePoint;
     public Text AmmoCountText;
@@ -45,7 +45,7 @@ public class TurretCannon : MonoBehaviour
         if (mRunOutHealth == false && setFire && (mCurrentAmmo > 0) && (Time.time >= mTimeToFire))
         {
             mTimeToFire = Time.time + (1f / FireRate);
-            var x = Instantiate(Bullets, CannonFirePoint.transform.position, Quaternion.identity);
+            var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
             mCurrentAmmo--;
             x.transform.rotation = CannonFirePoint.rotation;
             //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
