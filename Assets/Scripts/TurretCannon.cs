@@ -59,9 +59,11 @@ public class TurretCannon : MonoBehaviour
     public void TakeDamage(float takingDamage)
     {
         mTurretHealth -= takingDamage;
+        Debug.Log($"{ mTurretHealth }");
         //TurretText.text = $"! Warning !   Turret taking {takingDamage} damage ! Turret Health: {mTurretHealth}";
         if (mTurretHealth <= 0.0f)
         {
+            Debug.Log("See you next time!");
             //TurretText.text = $"! Turret is Out Of Order ! ";
         }
 
