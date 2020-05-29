@@ -104,8 +104,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3193508244445371704}
   - component: {fileID: 3193508244445371705}
-  - component: {fileID: 3193508244445371711}
-  - component: {fileID: 3193508244445371710}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -156,43 +154,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.90341985, y: 0.397794}
   m_EdgeRadius: 0
---- !u!114 &3193508244445371711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508244445371709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 270e7490651702644a950c092c9062be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3193508244445371710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508244445371709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8b5caca25f725a449c371fe89d59225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletsPrefabs: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
-    type: 3}
-  CannonHandler: {fileID: 3193508246254816230}
-  CannonFirePoint: {fileID: 3193508245827852810}
-  AmmoCountText: {fileID: 0}
-  TurretText: {fileID: 0}
-  TurretRepairText: {fileID: 0}
-  FireRate: 15
-  CannonHandlerSpeed: 0.1
-  AmmoMax: 100
-  repairHealth: 0
-  mCurrentAmmo: 0
-  turretMaxHealth: 0
 --- !u!1 &3193508244648082379
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +331,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3193508245829201167}
   - component: {fileID: 5484456570076948174}
+  - component: {fileID: 368823916}
   - component: {fileID: 3842135290332426558}
+  - component: {fileID: 368823915}
   m_Layer: 0
   m_Name: BottonTurret
   m_TagString: Untagged
@@ -419,6 +382,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.43, y: 0.55}
   m_EdgeRadius: 0
+--- !u!114 &368823916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508245829201166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270e7490651702644a950c092c9062be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3842135290332426558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +406,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62edd2eac25d74469f3878b87a91a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &368823915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508245829201166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b5caca25f725a449c371fe89d59225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletsPrefabs: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
+    type: 3}
+  CannonHandler: {fileID: 3193508246254816230}
+  CannonFirePoint: {fileID: 3193508245827852810}
+  AmmoCountText: {fileID: 0}
+  TurretText: {fileID: 0}
+  TurretRepairText: {fileID: 0}
+  FireRate: 15
+  CannonHandlerSpeed: 0.1
+  AmmoMax: 100
+  repairHealth: 50
+  mCurrentAmmo: 0
+  turretMaxHealth: 10
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0

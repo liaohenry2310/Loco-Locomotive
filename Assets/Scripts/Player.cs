@@ -96,8 +96,8 @@ public class Player : MonoBehaviour
             isHoldingFuel = false;
         }
 
-
     }
+
     private void FixedUpdate()
     {
         float horizontal = Mathf.Round(mInputReceiver.GetHorizontalInput() + 0.2f);

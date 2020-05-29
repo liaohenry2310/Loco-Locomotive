@@ -20,7 +20,6 @@ public class TurretCannon : MonoBehaviour
     public int mCurrentAmmo;
     public float turretMaxHealth;
     private float mTurretHealth;
-    private bool mRunOutHealth;
 
     private InputReciever mInputReciever;
     private float mTimeToFire = 0f;
@@ -30,7 +29,6 @@ public class TurretCannon : MonoBehaviour
         mInputReciever = GetComponent<InputReciever>();
         mCurrentAmmo = AmmoMax;
         //AmmoCountText.text = $"Ammo: {mCurrentAmmo}";
-        mRunOutHealth = false;
         mTurretHealth = turretMaxHealth;
     }
 
@@ -42,7 +40,7 @@ public class TurretCannon : MonoBehaviour
 
     public void Fire(bool setFire)
     {
-        if (mRunOutHealth == false && setFire && (mCurrentAmmo > 0) && (Time.time >= mTimeToFire))
+        if ((mTurretHealth > 0.0f) && setFire && (mCurrentAmmo > 0) && (Time.time >= mTimeToFire))
         {
             mTimeToFire = Time.time + (1f / FireRate);
             var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
@@ -83,23 +81,6 @@ public class TurretCannon : MonoBehaviour
     {
         Debug.Log($"{gameObject.transform.parent.name} Turret reloaded!");
         mCurrentAmmo = AmmoMax;
-    }
-
-    public void IsAlive()
-    {
-        if (mTurretHealth <= 0.0f)
-        {
-            mRunOutHealth = true;
-        }
-        else
-        {
-            mRunOutHealth = false;
-        }
-    }
-
-    public void ReloadCannon(int amountAmmo)
-    {
-        mCurrentAmmo = amountAmmo;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
