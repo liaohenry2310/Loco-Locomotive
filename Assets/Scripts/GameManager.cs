@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Diagnostics;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagment;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     public GameObject playerControllerPrefab;
+    public GameObject GameOverPanel;
     //public int numOfPlayers;
 
     public Camera MainCamera;
@@ -42,5 +46,16 @@ public class GameManager : MonoBehaviour
         player2.GetComponent<PlayerController>().SetPlayer(ref avatar2);
         player3.GetComponent<PlayerController>().SetPlayer(ref avatar3);
     }
- 
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
+        Time.timeScale = 0.0f;
+        GameOverPanel.SetActive(true);
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene("MainScence");
+    }
 }
