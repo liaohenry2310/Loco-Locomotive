@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public bool isHoldingRepairKit;
     public GameObject ammoSprite;
     public GameObject repairKitSprite;
+    public GameObject playerSprite;
+    public GameObject player;
+    public GameObject spwanPoint;
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
@@ -25,7 +28,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D mRigidBody;
     private InputReciever mInputReceiver;
     private float mPlayerHeight;
-    
+
     private void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
@@ -101,4 +104,24 @@ public class Player : MonoBehaviour
             mRigidBody.gravityScale = gravity;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Enemy"))
+        {
+            Debug.Log("player died");
+            playerSprite.SetActive(false);
+            ammoSprite.SetActive(false);
+            repairKitSprite.SetActive(false);
+            player.transform.localPosition = spwanPoint.transform.localPosition;
+            Invoke("Respawn", 5f);
+        }
+    }
+    private void Respawn()
+    {
+        Debug.Log("Respawn");
+        playerSprite.SetActive(true);
+    }
+
+
 }
