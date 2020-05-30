@@ -13,6 +13,8 @@ public class TimeDown : MonoBehaviour
     private bool timerIsRunning = false;
     //bool isPause = true;
 
+    public GameManager gameManager;
+
     void Start()
     {
         textCountDown = GetComponent<Text>();
@@ -34,6 +36,7 @@ public class TimeDown : MonoBehaviour
                 Debug.Log("Time has run out!");
                 timeRemaining = 0f;
                 timerIsRunning = false;
+                gameManager.YouWin();
             }
 
         }

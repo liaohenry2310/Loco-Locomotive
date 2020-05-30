@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagment;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     public GameObject playerControllerPrefab;
     public GameObject GameOverPanel;
+    public GameObject YouWinPanel;
+
     //public int numOfPlayers;
 
     public Camera MainCamera;
@@ -54,8 +56,15 @@ public class GameManager : MonoBehaviour
         GameOverPanel.SetActive(true);
     }
 
+    public void YouWin()
+    {
+        Debug.Log("You Win");
+        Time.timeScale = 0.0f;
+        YouWinPanel.SetActive(true);
+    }
+
     public void RestartLevel()
     {
-        SceneManager.LoadScene("MainScence");
+        SceneManager.LoadScene("MainScene");
     }
 }
