@@ -1,19 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class TurretHealth : MonoBehaviour
 {
-    private TurretCannon mTurretCannon;
+    public float MaxHealth = 100f;
 
-    void Start()
+    private float mCurrentHealth;
+
+    public bool IsDestroyed { get; private set; }
+
+    private void Start()
     {
-        
+        mCurrentHealth = MaxHealth;
     }
 
     public void TakeDamage(float amount)
     {
-
+        mCurrentHealth -= amount;
+        if (mCurrentHealth <= 0.0f)
+        {
+            IsDestroyed = true;
+        }
     }
 
 }

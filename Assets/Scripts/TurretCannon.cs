@@ -19,18 +19,23 @@ public class TurretCannon : MonoBehaviour
     public float repairHealth;
 
     public int mCurrentAmmo;
-    public float turretMaxHealth;
-    private float mTurretHealth;
+    //public float turretMaxHealth;
+    //private float mTurretHealth;
 
     private InputReciever mInputReciever;
     private float mTimeToFire = 0f;
+
+    private TurretHealth mTurretHealth;
+    private bool mIsDestroyed;
 
     void Start()
     {
         mInputReciever = GetComponent<InputReciever>();
         mCurrentAmmo = AmmoMax;
         //AmmoCountText.text = $"Ammo: {mCurrentAmmo}";
-        mTurretHealth = turretMaxHealth;
+        //mTurretHealth = turretMaxHealth;
+        mTurretHealth = FindObjectOfType<TurretHealth>();
+
     }
 
     private void Update()
@@ -41,7 +46,7 @@ public class TurretCannon : MonoBehaviour
 
     public void Fire(bool setFire)
     {
-        if ((mTurretHealth > 0.0f) && setFire && (mCurrentAmmo > 0) && (Time.time >= mTimeToFire))
+        if ((!mTurretHealth.IsDestroyed) && setFire && (mCurrentAmmo > 0) && (Time.time >= mTimeToFire))
         {
             mTimeToFire = Time.time + (1f / FireRate);
             var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
@@ -55,30 +60,30 @@ public class TurretCannon : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float takingDamage)
-    {
-        mTurretHealth -= takingDamage;
-        Debug.Log($"{ mTurretHealth }");
-        //TurretText.text = $"! Warning !   Turret taking {takingDamage} damage ! Turret Health: {mTurretHealth}";
-        if (mTurretHealth <= 0.0f)
-        {
-            Debug.Log("See you next time!");
-            //TurretText.text = $"! Turret is Out Of Order ! ";
-        }
+    //public void TakeDamage(float takingDamage)
+    //{
+    //    mTurretHealth -= takingDamage;
+    //    Debug.Log($"{ mTurretHealth }");
+    //    //TurretText.text = $"! Warning !   Turret taking {takingDamage} damage ! Turret Health: {mTurretHealth}";
+    //    if (mTurretHealth <= 0.0f)
+    //    {
+    //        Debug.Log("See you next time!");
+    //        //TurretText.text = $"! Turret is Out Of Order ! ";
+    //    }
 
-    }
+    //}
 
-    public void Repair()
-    {
-        Debug.Log($"{gameObject.transform.parent.name} Turret repaired!");
-        mTurretHealth += repairHealth;
-        //TurretRepairText.text = $"Turret repairing: {repairHealth} , Turret Health: {mTurretHealth}";
-        if (mTurretHealth >= turretMaxHealth)
-        {
-            mTurretHealth = turretMaxHealth;
-            //TurretRepairText.text = $"Turret health reached Maximum ";
-        }
-    }
+    //public void Repair()
+    //{
+    //    Debug.Log($"{gameObject.transform.parent.name} Turret repaired!");
+    //    mTurretHealth += repairHealth;
+    //    //TurretRepairText.text = $"Turret repairing: {repairHealth} , Turret Health: {mTurretHealth}";
+    //    if (mTurretHealth >= turretMaxHealth)
+    //    {
+    //        mTurretHealth = turretMaxHealth;
+    //        //TurretRepairText.text = $"Turret health reached Maximum ";
+    //    }
+    //}
 
     public void Reload()
     {

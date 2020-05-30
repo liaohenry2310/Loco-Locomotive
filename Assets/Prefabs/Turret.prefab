@@ -430,7 +430,6 @@ MonoBehaviour:
   AmmoMax: 100
   repairHealth: 50
   mCurrentAmmo: 0
-  turretMaxHealth: 10
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0

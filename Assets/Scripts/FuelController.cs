@@ -11,7 +11,7 @@ public class FuelController : MonoBehaviour
     [Header("Properties")]
     [SerializeField] private float MaxFuel = 100f;
 
-    private float currentFuel;
+    public float currentFuel;
 
     void Start()
     {
@@ -20,6 +20,7 @@ public class FuelController : MonoBehaviour
 
     public void Reload(float amount)
     {
+        currentFuel += amount;
         OnFuelReloadUI?.Invoke(amount);
     }
 
