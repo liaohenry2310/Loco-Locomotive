@@ -80,7 +80,8 @@ public class BasicEnemy : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
             transform.position = new Vector2(transform.position.x- windSpeed * Time.deltaTime, transform.position.y - fallSpeed * Time.deltaTime);
         }
-        else if (mCurrentState == State.OnTrain)
+        
+        if (mCurrentState == State.OnTrain)
         {
             GetComponent<Rigidbody2D>().gravityScale = 1.0f;
             transform.Translate(direction * gravity * Time.deltaTime,Space.World);
@@ -93,13 +94,13 @@ public class BasicEnemy : MonoBehaviour
             }
 
         }
-        else if(mCurrentState == State.OnAttack)
+         if(mCurrentState == State.OnAttack)
         {
             if (mTakeDamageDelay < Time.time)
             {
                 mTakeDamageDelay = Time.time + 0.5f;
 
-                currentTarget.GetComponent<TurretCannon>().TakeDamage(10.0f);
+                //currentTarget.GetComponent<TurretHealth>().TakeDamage(10.0f);
             }
 
         }
