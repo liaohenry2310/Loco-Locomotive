@@ -26,7 +26,6 @@ public class TurretCannon : MonoBehaviour
     private float mTimeToFire = 0f;
 
     private TurretHealth mTurretHealth;
-    private bool mIsDestroyed;
 
     void Start()
     {

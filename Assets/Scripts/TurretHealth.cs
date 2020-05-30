@@ -23,4 +23,9 @@ public class TurretHealth : MonoBehaviour
         }
     }
 
+    public void RepairTurret(float amount)
+    {
+        mCurrentHealth += amount;
+    }
+
 }
