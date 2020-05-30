@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         {
             isHoldingRepairKit = false;
             repairKitSprite.SetActive(false);
-            //turretCannon.Repair();
+            turretCannon.Repair();
 
         }
         else if (isHoldingRepairKit && mInputReceiver.GetSecondaryInput())

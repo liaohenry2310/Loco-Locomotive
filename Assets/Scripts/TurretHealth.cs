@@ -4,8 +4,7 @@ using UnityEngine;
 public class TurretHealth : MonoBehaviour
 {
     public float MaxHealth = 100f;
-
-    private float mCurrentHealth;
+    public float mCurrentHealth;
 
     public bool IsDestroyed { get; private set; }
 
@@ -17,6 +16,7 @@ public class TurretHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         mCurrentHealth -= amount;
+        mCurrentHealth = Mathf.Clamp(mCurrentHealth, 0.0f, MaxHealth);
         if (mCurrentHealth <= 0.0f)
         {
             IsDestroyed = true;
@@ -26,6 +26,12 @@ public class TurretHealth : MonoBehaviour
     public void RepairTurret(float amount)
     {
         mCurrentHealth += amount;
+        mCurrentHealth = Mathf.Clamp(mCurrentHealth, amount, MaxHealth);
+        IsDestroyed = false;
+        //if (mCurrentHealth == MaxHealth)
+        //{
+            
+        //}
     }
 
 }

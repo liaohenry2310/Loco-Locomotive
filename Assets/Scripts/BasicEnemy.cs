@@ -6,9 +6,6 @@ using UnityEngine;
 public class BasicEnemy : MonoBehaviour
 {
 
-  //  public event Action<float> OnDoTurretDamage;
-
-
     // Basic Enemy Stuffs....
 
     // Drop down speed
@@ -104,8 +101,8 @@ public class BasicEnemy : MonoBehaviour
             if (mTakeDamageDelay < Time.time)
             {
                 mTakeDamageDelay = Time.time + 0.5f;
-                //OnDoTurretDamage?.Invoke(10f);
-                //currentTarget.GetComponent<TurretHealth>().TakeDamage(10.0f);
+                
+                currentTarget.GetComponent<TurretHealth>().TakeDamage(10.0f);
             }
 
         }

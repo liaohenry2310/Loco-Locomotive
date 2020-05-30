@@ -3,6 +3,7 @@
 [RequireComponent(typeof(FuelController))]
 public class SpeedController : MonoBehaviour
 {
+
     [Header("Properties")]
     public Transform trainFrontCollider;
     public Transform trainRearCollider;
@@ -13,6 +14,8 @@ public class SpeedController : MonoBehaviour
     private InputReciever mInputReciever;
     private FuelController mFuelController;
     private Vector3 mScreenBounds;
+
+    float updateRate = 4.0f;
 
     private void Start()
     {
@@ -28,9 +31,8 @@ public class SpeedController : MonoBehaviour
         {
             UseFuel(SpendFuel);
         }
-        
         //TODO: look for timebase delta time
-        UseFuel(Time.deltaTime);
+        UseFuel(1.0f / updateRate);
 
         Vector3 trainPos;
         if (trainFrontCollider.position.x + translation >= mScreenBounds.x)

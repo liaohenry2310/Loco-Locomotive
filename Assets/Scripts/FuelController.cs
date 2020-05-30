@@ -27,13 +27,15 @@ public class FuelController : MonoBehaviour
     public void CurrentFuel(float amount)
     {
         currentFuel -= amount;
-        float currentPercentage = currentFuel / MaxFuel;
-        OnUpdateFuelUI?.Invoke(currentPercentage);
+        currentFuel = Mathf.Clamp(currentFuel, 0.0f, MaxFuel);
         if (currentFuel <= 0.01f)
         {
             Debug.Log("[FuelController] Game over son!");
             OnGameOver?.Invoke();
+            return;
         }
+        float currentPercentage = currentFuel / MaxFuel;
+        OnUpdateFuelUI?.Invoke(currentPercentage);
     }
 
 }
