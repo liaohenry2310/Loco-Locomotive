@@ -110,9 +110,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Debug.Log("player died");
-            playerSprite.SetActive(false);
-            ammoSprite.SetActive(false);
-            repairKitSprite.SetActive(false);
+            player.SetActive(false);
             player.transform.localPosition = spwanPoint.transform.localPosition;
             Invoke("Respawn", 5f);
         }
@@ -120,7 +118,7 @@ public class Player : MonoBehaviour
     private void Respawn()
     {
         Debug.Log("Respawn");
-        playerSprite.SetActive(true);
+        player.SetActive(true);
     }
 
 
