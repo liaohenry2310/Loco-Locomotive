@@ -1,25 +1,39 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(FuelController))]
 public class SpeedController : MonoBehaviour
 {
+
+    [Header("Properties")]
     public Transform trainFrontCollider;
     public Transform trainRearCollider;
     public Transform train;
     public float trainSpeed = 1.5f;
+    public float SpendFuel = 0.5f;
 
-    private Vector2 mScreenBounds;
     private InputReciever mInputReciever;
+    private FuelController mFuelController;
+    private Vector3 mScreenBounds;
+
+    float updateRate = 4.0f;
 
     private void Start()
     {
-        Camera MainCam = FindObjectOfType<Camera>();
-        mScreenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+        mScreenBounds = FindObjectOfType<GameManager>().ScreenBounds;
         mInputReciever = GetComponent<InputReciever>();
+        mFuelController = GetComponent<FuelController>();
     }
 
     private void Update()
     {
         float translation = mInputReciever.GetDirectionalInput().x * trainSpeed * Time.deltaTime;
+        if (translation != 0f)
+        {
+            UseFuel(SpendFuel);
+        }
+        //TODO: look for timebase delta time
+        UseFuel(1.0f / updateRate);
+
         Vector3 trainPos;
         if (trainFrontCollider.position.x + translation >= mScreenBounds.x)
         {
@@ -35,4 +49,10 @@ public class SpeedController : MonoBehaviour
         }
         train.Translate(trainPos);
     }
+
+    private void UseFuel(float fuel)
+    {
+        mFuelController.CurrentFuel(fuel);
+    }
+
 }

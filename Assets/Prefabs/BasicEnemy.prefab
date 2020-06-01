@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &20598139454358002
 Transform:
   m_ObjectHideFlags: 0
@@ -217,10 +217,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 1
+  gravity: 3
+  windSpeed: 0.55
   health: 50
   damage: 10
-  gravity: 3
-  target: {fileID: 7802838114575061146, guid: 9faa8434700ccb548bf80a91c5128287, type: 3}
+  targetList: []
   topWagonCollider: {fileID: 5257547452153316951, guid: 9716fadf60502cf43816f01796558f65,
     type: 3}
   groundArea: {fileID: 56348919984978964, guid: 6bd794b4aeff3044f9c3704cd2463b1d,

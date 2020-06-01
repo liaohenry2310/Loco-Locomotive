@@ -1,26 +1,49 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
-    // Basic Enemy Stuffs....
-    public float fallSpeed = 1.0f;
-    public float health;
-    public float damage;
-    public float gravity = 1.0f;
-    public GameObject target; 
-    public GameObject topWagonCollider;
 
+    // Basic Enemy Stuffs....
+
+    // Drop down speed
+    public float fallSpeed = 1.0f;
+    public float gravity = 1.0f;
+    // .....
+    public float windSpeed=1.5f;
+
+    // Health
+    public float health;
+
+    // Damage
+    public float damage;
+
+    // Target
+    public List<GameObject> targetList;
+    private GameObject currentTarget;
     private Vector3 targetPos;
-    private Vector3 currentPos;
     private Vector3 direction;
 
+    //Train Landing area
+    public GameObject topWagonCollider;
+
+    // Pos. 
+    private Vector3 currentPos;
     public TrainHealth trainHealth;
     private Vector2 mColliderSize;
+
+    // Check Gound
     public GameObject groundArea;
 
+    // Bounding Check
+    private Camera MainCam;
+    private Vector2 screenBounds;
+    private float leftRange;
+    private float rightRange;
 
+    // Attack Delay 
     private float mTakeDamageDelay=1.5f;
 
     // Change Enemy State .
@@ -35,13 +58,17 @@ public class BasicEnemy : MonoBehaviour
     }
     private void Start()
     {
-        //trainHealth = GetComponent<TrainHealth>();
+        // Bounding check
+        MainCam = FindObjectOfType<Camera>();
+        screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+        rightRange = screenBounds.x + 1.0f;
+        leftRange = -screenBounds.x + 1.0f;
         mColliderSize = GetComponentInChildren<BoxCollider2D>().size;
     }
     // Update is called once per frame
     void Update()
     {
-       targetPos =(target.transform.localPosition);
+
        currentPos =transform.position;
        direction = targetPos - currentPos;
        direction.Normalize();
@@ -50,12 +77,14 @@ public class BasicEnemy : MonoBehaviour
         if (mCurrentState == State.InSky)
         {
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-            transform.position = new Vector2(transform.position.x, transform.position.y - fallSpeed * Time.deltaTime);
+            transform.position = new Vector2(transform.position.x- windSpeed * Time.deltaTime, transform.position.y - fallSpeed * Time.deltaTime);
         }
-        else if (mCurrentState == State.OnTrain)
+        
+        if (mCurrentState == State.OnTrain)
         {
             GetComponent<Rigidbody2D>().gravityScale = 1.0f;
             transform.Translate(direction * gravity * Time.deltaTime,Space.World);
+            GetTargetPosition();
 
             if (dis<= mColliderSize.x)
             {
@@ -64,22 +93,24 @@ public class BasicEnemy : MonoBehaviour
             }
 
         }
-        else if(mCurrentState == State.OnAttack)
+         if(mCurrentState == State.OnAttack)
         {
             if (mTakeDamageDelay < Time.time)
             {
                 mTakeDamageDelay = Time.time + 0.5f;
-                target.GetComponent<TrainHealth>().TakeDamage(10.0f);
+                
+                currentTarget.GetComponent<TurretHealth>().TakeDamage(10.0f);
             }
 
         }
-        else if (mCurrentState == State.OnGround)
-        {
-            Destroy(gameObject);
-        }
+
+        // Check if outside of screen 
+        OffScreen();
+
     }
 
-    public float GetDamage() { return damage; }
+
+
     public void TakeDamage(float takingDamage)
     {
         health -= takingDamage;
@@ -90,6 +121,7 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    // Check if landed on train
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == topWagonCollider)
@@ -99,12 +131,46 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    // Check if landed on ground
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject == groundArea)
         {
-            Destroy(gameObject);
             mCurrentState = State.OnGround;
+            Destroy(gameObject);
+        }
+    }
+
+    // Check if outside of screen 
+    private void OffScreen()
+    {
+
+        if (transform.position.x < leftRange )
+           // || transform.position.x >rightRange )
+        {
+            mCurrentState = State.Nothing;
+            Destroy(gameObject);
+        }
+    }
+
+    private void GetTargetPosition()
+    {
+        float distance = Vector2.Distance(transform.position, targetList[0].transform.position);
+        targetPos = (targetList[0].transform.position);
+        currentTarget = targetList[0];
+
+        foreach (var target in targetList)
+        {
+
+            if (Vector2.Distance(transform.position,target.transform.position)
+                < 
+                distance)
+            {
+                targetPos = (target.transform.position);
+                distance = Vector2.Distance(transform.position, target.transform.position);
+                currentTarget = target;
+            }
+
         }
     }
 }
