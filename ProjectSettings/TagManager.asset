@@ -7,6 +7,8 @@ TagManager:
   - PassableFloor
   - Bullet
   - Enemy
+  - Turret
+  - FrontWagon
   layers:
   - Default
   - TransparentFX
