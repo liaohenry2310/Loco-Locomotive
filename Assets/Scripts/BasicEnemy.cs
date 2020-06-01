@@ -16,7 +16,7 @@ public class BasicEnemy : MonoBehaviour
     private Vector3 currentPos;
     private Vector3 direction;
 
-    private TrainHealth trainHealth;
+    public TrainHealth trainHealth;
     private Vector2 mColliderSize;
     public GameObject groundArea;
 
@@ -35,7 +35,7 @@ public class BasicEnemy : MonoBehaviour
     }
     private void Start()
     {
-        trainHealth = GetComponent<TrainHealth>();
+        //trainHealth = GetComponent<TrainHealth>();
         mColliderSize = GetComponentInChildren<BoxCollider2D>().size;
     }
     // Update is called once per frame
