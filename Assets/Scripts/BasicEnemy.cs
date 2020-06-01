@@ -31,8 +31,7 @@ public class BasicEnemy : MonoBehaviour
 
     // Pos. 
     private Vector3 currentPos;
-
-    // m2D Collider 
+    public TrainHealth trainHealth;
     private Vector2 mColliderSize;
 
     // Check Gound
@@ -64,8 +63,6 @@ public class BasicEnemy : MonoBehaviour
         screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
         rightRange = screenBounds.x + 1.0f;
         leftRange = -screenBounds.x + 1.0f;
-
-
         mColliderSize = GetComponentInChildren<BoxCollider2D>().size;
     }
     // Update is called once per frame

@@ -10,6 +10,8 @@ public class TrainHealth : MonoBehaviour
     private float restoreTime;
     private bool mIsTakingDamage;
 
+    public GameManager gameManager;
+
     void Start()
     {
         currentHealth = trainHealth;
@@ -28,6 +30,11 @@ public class TrainHealth : MonoBehaviour
             currentHealth -= amount;
            // currentHealth = Mathf.Max(currentHealth, 0f);
             Debug.Log("[Health] Lost " + amount + "hp. Current health: " + currentHealth);
+        }
+
+        if (IsAlive() == false) 
+        {
+            gameManager.GameOver();
         }
     }
 
@@ -48,5 +55,6 @@ public class TrainHealth : MonoBehaviour
     public bool IsAlive()
     {
         return currentHealth > 0f;
+
     }
 }

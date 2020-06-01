@@ -89,7 +89,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoCrate: {fileID: 0}
   repairkitcrate: {fileID: 0}
-  fuelCrate: {fileID: 0}
   turretCannon: {fileID: 0}
   turretLoader: {fileID: 0}
   fireBox: {fileID: 0}
@@ -98,7 +97,10 @@ MonoBehaviour:
   isHoldingFuel: 0
   ammoSprite: {fileID: 5665809493517634880}
   repairKitSprite: {fileID: 7138910249887503066}
-  fuelSprite: {fileID: 6973639686602539109}
+  playerSprite: {fileID: 5582386144012646314}
+  player: {fileID: 2273384162629241499}
+  spwanPoint: {fileID: 8687111262884694740, guid: e89113ba3c3e62546b1dc84b0f7a093b,
+    type: 3}
   movementSpeed: 2.5
   gravity: 5
 --- !u!114 &527756486265460786
