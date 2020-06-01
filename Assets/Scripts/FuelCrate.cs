@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretLoader : MonoBehaviour
+public class FuelCrate : MonoBehaviour
 {
-    public void Reloadammo()
-    {
-        TurretCannon turretCannon = gameObject.GetComponentInParent<TurretCannon>();
-        turretCannon.Reload();
-        Debug.Log("reload ammo");
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             Player player = collision.GetComponent<Player>();
-            player.turretLoader = this;
+            player.fuelCrate = this;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -24,7 +17,7 @@ public class TurretLoader : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Player player = collision.GetComponent<Player>();
-            player.turretLoader = null;
+            player.fuelCrate = null;
         }
     }
 }

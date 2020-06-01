@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
+
     // Basic Enemy Stuffs....
 
     // Drop down speed
@@ -29,8 +31,7 @@ public class BasicEnemy : MonoBehaviour
 
     // Pos. 
     private Vector3 currentPos;
-
-    // m2D Collider 
+    public TrainHealth trainHealth;
     private Vector2 mColliderSize;
 
     // Check Gound
@@ -62,8 +63,6 @@ public class BasicEnemy : MonoBehaviour
         screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
         rightRange = screenBounds.x + 1.0f;
         leftRange = -screenBounds.x + 1.0f;
-
-
         mColliderSize = GetComponentInChildren<BoxCollider2D>().size;
     }
     // Update is called once per frame
@@ -80,7 +79,8 @@ public class BasicEnemy : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
             transform.position = new Vector2(transform.position.x- windSpeed * Time.deltaTime, transform.position.y - fallSpeed * Time.deltaTime);
         }
-        else if (mCurrentState == State.OnTrain)
+        
+        if (mCurrentState == State.OnTrain)
         {
             GetComponent<Rigidbody2D>().gravityScale = 1.0f;
             transform.Translate(direction * gravity * Time.deltaTime,Space.World);
@@ -93,7 +93,7 @@ public class BasicEnemy : MonoBehaviour
             }
 
         }
-        else if(mCurrentState == State.OnAttack)
+         if(mCurrentState == State.OnAttack)
         {
             if (mTakeDamageDelay < Time.time)
             {

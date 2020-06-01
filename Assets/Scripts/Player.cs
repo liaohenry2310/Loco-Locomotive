@@ -6,12 +6,19 @@ public class Player : MonoBehaviour
 {
     public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
+    public FuelCrate fuelCrate;
     public TurretCannon turretCannon;
     public TurretLoader turretLoader;
+    public FireBox fireBox;
     public bool isHoldingAmmo;
     public bool isHoldingRepairKit;
+    public bool isHoldingFuel;
     public GameObject ammoSprite;
     public GameObject repairKitSprite;
+    public GameObject fuelSprite;
+    public GameObject playerSprite;
+    public GameObject player;
+    public GameObject spwanPoint;
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
@@ -25,7 +32,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D mRigidBody;
     private InputReciever mInputReceiver;
     private float mPlayerHeight;
-    
+
     private void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
@@ -33,9 +40,11 @@ public class Player : MonoBehaviour
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
         ammoSprite.SetActive(false);
         repairKitSprite.SetActive(false);
+        fuelSprite.SetActive(false);
     }
     private void Update()
     {
+        //ammo
         if(ammoCrate != null&&mInputReceiver.GetSecondaryInput())
         {
             isHoldingAmmo = true;
@@ -54,7 +63,7 @@ public class Player : MonoBehaviour
         }
         
 
-
+        //repairkit
         if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
         {
             isHoldingRepairKit = true;
@@ -72,9 +81,26 @@ public class Player : MonoBehaviour
             repairKitSprite.SetActive(false);
             isHoldingRepairKit = false;
         }
-
+        //fuel
+        if (fuelCrate != null && mInputReceiver.GetSecondaryInput())
+        {
+            isHoldingFuel = true;
+            fuelSprite.SetActive(true);
+        }
+        else if (fireBox != null && isHoldingFuel && mInputReceiver.GetSecondaryInput())
+        {
+            isHoldingFuel = false;
+            fuelSprite.SetActive(false);
+            fireBox.AddFuel();
+        }
+        else if (isHoldingFuel && mInputReceiver.GetSecondaryInput())
+        {
+            fuelSprite.SetActive(false);
+            isHoldingFuel = false;
+        }
 
     }
+
     private void FixedUpdate()
     {
         float horizontal = Mathf.Round(mInputReceiver.GetHorizontalInput() + 0.2f);
@@ -101,4 +127,22 @@ public class Player : MonoBehaviour
             mRigidBody.gravityScale = gravity;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Enemy"))
+        {
+            Debug.Log("player died");
+            player.SetActive(false);
+            player.transform.localPosition = spwanPoint.transform.localPosition;
+            Invoke("Respawn", 5f);
+        }
+    }
+    private void Respawn()
+    {
+        Debug.Log("Respawn");
+        player.SetActive(true);
+    }
+
+
 }
