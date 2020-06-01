@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
             repairKitSprite.SetActive(false);
             isHoldingRepairKit = false;
         }
+
         //fuel
         if (fuelCrate != null && mInputReceiver.GetSecondaryInput())
         {
@@ -127,10 +128,10 @@ public class Player : MonoBehaviour
             mRigidBody.gravityScale = gravity;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
 
-        if (collision.CompareTag("Enemy"))
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("player died");
             player.SetActive(false);
@@ -138,11 +139,10 @@ public class Player : MonoBehaviour
             Invoke("Respawn", 5f);
         }
     }
+
     private void Respawn()
     {
         Debug.Log("Respawn");
         player.SetActive(true);
     }
-
-
 }

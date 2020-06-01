@@ -24,7 +24,7 @@ public class FireBox : MonoBehaviour
         {
             mCurrentFuel = mMaxFuel;
         }
-        mFuelController.Reload(mCurrentFuel);
+        mFuelController.Reload(mAddfuel);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

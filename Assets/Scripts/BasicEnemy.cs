@@ -100,7 +100,7 @@ public class BasicEnemy : MonoBehaviour
                 mTakeDamageDelay = Time.time + 0.5f;
                 if (currentTarget.gameObject.tag=="Turret")
                 {
-                currentTarget.GetComponent<TurretCannon>().TakeDamage(10.0f);
+                    currentTarget.GetComponent<TurretHealth>().TakeDamage(10.0f);
                     Debug.Log("Turret taking damage");
 
                 }
@@ -108,7 +108,6 @@ public class BasicEnemy : MonoBehaviour
                 {
                     currentTarget.GetComponent<TrainHealth>().TakeDamage(10.0f);
                     Debug.Log("FrontWagon taking damage");
-
                 }
             }
 
