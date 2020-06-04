@@ -4,24 +4,35 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class TimeDown : MonoBehaviour
 {
-    // Cyro review
     [Header("Properties")]
     [SerializeField]
-    private float timeRemaining = 300.0f; // 5 minutes in seconds
+    private float timeRemaining = 300.0f;
+    [SerializeField]
+    private bool timerIsRunning = false;
 
     private Text textCountDown;
-    private bool timerIsRunning = false;
-    //bool isPause = true;
+    private GameManager gameManager;
 
-    public GameManager gameManager;
-
-    void Start()
+    //Public functions
+    public void PauseTimer()
     {
-        textCountDown = GetComponent<Text>();
+        timerIsRunning = false;
+    }
+
+    public void ResumeTimer()
+    {
         timerIsRunning = true;
     }
 
-    void Update()
+    //Private functions
+    private void Awake()
+    {
+        textCountDown = GetComponent<Text>();
+        gameManager = FindObjectOfType<GameManager>();
+        timerIsRunning = true;
+    }
+
+    private void Update()
     {
         if (timerIsRunning)
         {
@@ -33,7 +44,6 @@ public class TimeDown : MonoBehaviour
             }
             else
             {
-                Debug.Log("Time has run out!");
                 timeRemaining = 0f;
                 timerIsRunning = false;
                 gameManager.YouWin();
@@ -44,37 +54,8 @@ public class TimeDown : MonoBehaviour
 
     private void DisplayTime(float timeToDisplay)
     {
-        timeToDisplay++;
         float minutes = Mathf.FloorToInt(timeToDisplay / 60f);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60f);
         textCountDown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
-
-
-
 }
-// Start is called before the first frame update
-//public float CountDownTime;
-//private float GameTime;
-//private float timer = 0;
-//public Text GameCountTimeText;
-//if ()//gamestart
-#region Crhisty's code
-//int M = (int)(GameTime / 60);
-//float S = GameTime % 60;
-////if ()//gamestart
-////{
-//timer += Time.deltaTime;
-//if (timer >= 1f)
-//{
-//    timer = 0;
-//    GameTime--;
-//    GameCountTimeText.text = M + ":" + string.Format("{0:00}", S);
-
-//    if (S <= 0)
-//    {
-//        GameTime = 0;
-//        //Gameover
-//    }
-//}
-#endregion

@@ -6,12 +6,13 @@ using UnityEngine.InputSystem;
 public class InputReciever : MonoBehaviour
 {
     private PlayerInput mPlayerInput;
+
     private bool mInUse = false;
     private bool mIsPlayer = false;
-
     private bool mPrimaryHeld = false;
     private bool mSecondaryHeld = false;
 
+    //Public functions
     public bool SetPlayerInput(ref PlayerInput playerInput)
     {
         if (!mInUse)
@@ -117,7 +118,7 @@ public class InputReciever : MonoBehaviour
         return mPlayerInput.defaultControlScheme.Equals("Gamepad");
     }
 
-
+    //Private functions
     private void Start()
     {
         if (GetComponent<Player>())
