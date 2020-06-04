@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject YouWinPanel;
 
     private List<PlayerController> mPlayerControllers;
+    private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
 
     //Properties
@@ -42,26 +43,27 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         mPlayerControllers = new List<PlayerController>();
+        mInitialSpawnPoints = new List<Transform>(GetComponentsInChildren<Transform>());
+        mInitialSpawnPoints.Remove(transform);
         mTrain = GameObject.Find("Train");
-        DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
-        //var player1 = PlayerInput.Instantiate(playerControllerPrefab, 0, "Gamepad", -1, Gamepad.current);
-        var player2 = PlayerInput.Instantiate(playerControllerPrefab, 1, "KeyboardRight", -1, Keyboard.current);
-        var player3 = PlayerInput.Instantiate(playerControllerPrefab, 2, "KeyboardLeft", -1, Keyboard.current);
+        //Create player controllers.
+        var player1 = PlayerInput.Instantiate(playerControllerPrefab, 0, "KeyboardRight", -1, Keyboard.current);
+        var player2 = PlayerInput.Instantiate(playerControllerPrefab, 1, "KeyboardLeft", -1, Keyboard.current);
 
-        //var avatar1 = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, train.transform).GetComponent<Player>();
-        var avatar2 = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, mTrain.transform).GetComponent<Player>();
-        var avatar3 = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, mTrain.transform).GetComponent<Player>();
+        //Spawn player avatars in scene.
+        var avatar1 = Instantiate(playerPrefab, mInitialSpawnPoints[0].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
+        var avatar2 = Instantiate(playerPrefab, mInitialSpawnPoints[1].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
 
-        //avatar1.GetComponentInChildren<SpriteRenderer>().color = Color.yellow;
-        avatar2.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
-        avatar3.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
+        //Set player avatar colors.
+        avatar1.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
+        avatar2.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
 
-        //player1.GetComponent<PlayerController>().SetPlayer(ref avatar1);
+        //Hook up player avatars with their respective player Controllers.
+        player1.GetComponent<PlayerController>().SetPlayer(ref avatar1);
         player2.GetComponent<PlayerController>().SetPlayer(ref avatar2);
-        player3.GetComponent<PlayerController>().SetPlayer(ref avatar3);
     }
 }
