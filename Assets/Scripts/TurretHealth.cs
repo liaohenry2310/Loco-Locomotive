@@ -23,15 +23,21 @@ public class TurretHealth : MonoBehaviour
         }
     }
 
+    public bool IsAlive()
+    {
+        if (mCurrentHealth <= 0.0f)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public void RepairTurret(float amount)
     {
         mCurrentHealth += amount;
         mCurrentHealth = Mathf.Clamp(mCurrentHealth, amount, MaxHealth);
         IsDestroyed = false;
-        //if (mCurrentHealth == MaxHealth)
-        //{
-            
-        //}
+
     }
 
 }
