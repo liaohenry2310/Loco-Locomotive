@@ -2,8 +2,10 @@
 
 public class BulletMove : MonoBehaviour
 {
+    [Header("Properties")]
     public float Speed = 10f;
     public float Damage = 5f;
+
     private Vector3 screenBouds;
 
     void Start()
@@ -23,7 +25,8 @@ public class BulletMove : MonoBehaviour
                 (transform.position.y >= screenBouds.y) ||
                 (transform.position.y <= -screenBouds.y))
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                gameObject.SetActive(false);
             }
 
         }
@@ -35,6 +38,7 @@ public class BulletMove : MonoBehaviour
         {
             BasicEnemy enemy = collision.gameObject.GetComponentInParent<BasicEnemy>();
             enemy.TakeDamage(Damage);
+            gameObject.SetActive(false);
         }
     }
 

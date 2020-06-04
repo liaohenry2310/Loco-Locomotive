@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 368823916}
   - component: {fileID: 3842135290332426558}
   - component: {fileID: 368823915}
+  - component: {fileID: 3622832100159998365}
   m_Layer: 0
   m_Name: BottonTurret
   m_TagString: Untagged
@@ -440,11 +441,27 @@ MonoBehaviour:
   AmmoCountText: {fileID: 0}
   TurretText: {fileID: 0}
   TurretRepairText: {fileID: 0}
-  FireRate: 15
   CannonHandlerSpeed: 0.1
-  AmmoMax: 100
   repairHealth: 50
   mCurrentAmmo: 0
+  spreadFactor: 0.1
+  FireRate: 15
+  AmmoMax: 100
+--- !u!114 &3622832100159998365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508245829201166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59dafb072fbc2514b974254b675e4ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToPool: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
+    type: 3}
+  amountToPool: 100
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0
