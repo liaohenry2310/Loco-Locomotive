@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
     public void CreatEnemies()
     {
         
-        mEnemyNum = Random.Range(0, 3);       
+        mEnemyNum = Random.Range(0, 2);       
         for (int i = 0; i < mEnemyNum; i++)
         {
             float x;

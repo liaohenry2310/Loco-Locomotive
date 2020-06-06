@@ -100,7 +100,7 @@ public class BasicEnemy : MonoBehaviour
         {
             if (mTakeDamageDelay < Time.time)
             {
-                mTakeDamageDelay = Time.time + 0.5f;
+                mTakeDamageDelay = Time.time + 1.5f;
                 if (currentTarget != null && currentTarget.gameObject.tag == "Turret")
                 {
                     currentTarget.GetComponent<TurretHealth>().TakeDamage(10.0f);
