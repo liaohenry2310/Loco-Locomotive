@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class TrainHealth : MonoBehaviour
 {
-    public float trainHealth;
+    public float trainHealth =1000;
 
     public float currentHealth;
     private float restoreTime;
     private bool mIsTakingDamage;
-
+    public HealthBar healthBar;
     public GameManager gameManager;
 
     void Start()
     {
         currentHealth = trainHealth;
+        healthBar.SetMaxHealth(trainHealth);
     }
 
     private void Update()
@@ -30,6 +31,7 @@ public class TrainHealth : MonoBehaviour
             currentHealth -= amount;
            // currentHealth = Mathf.Max(currentHealth, 0f);
             Debug.Log("[Health] Lost " + amount + "hp. Current health: " + currentHealth);
+            healthBar.SetHealth(currentHealth);
         }
 
         if (IsAlive() == false) 

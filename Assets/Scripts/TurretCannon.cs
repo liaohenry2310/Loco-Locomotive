@@ -7,16 +7,11 @@ public class TurretCannon : MonoBehaviour
     public GameObject BulletsPrefabs;
     public Transform CannonHandler;
     public Transform CannonFirePoint;
-    public Text AmmoCountText;
-    public Text TurretText;
-    public Text TurretRepairText;
+
+    public Text AmmoText;
     public float FireRate = 100f;
     public float CannonHandlerSpeed = 10.0f;
     public int AmmoMax = 10;
-
-    //public int ammo;
-    public float repairHealth;
-
     public int mCurrentAmmo;
 
     private InputReciever mInputReciever;
@@ -29,6 +24,7 @@ public class TurretCannon : MonoBehaviour
         mInputReciever = GetComponent<InputReciever>();
         mCurrentAmmo = AmmoMax;
         mTurretHealth = FindObjectOfType<TurretHealth>();
+        AmmoText.text = "Ammo: " + mCurrentAmmo.ToString();
     }
 
     private void Update()
@@ -48,7 +44,8 @@ public class TurretCannon : MonoBehaviour
             var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
             mCurrentAmmo--;
             x.transform.rotation = CannonFirePoint.rotation;
-            //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
+
+
         }
         if (mCurrentAmmo == 0)
         {
@@ -56,10 +53,10 @@ public class TurretCannon : MonoBehaviour
         }
     }
 
-    public void Repair()
-    {
-        mTurretHealth.RepairTurret(repairHealth);
-    }
+    //public void Repair()
+    //{
+    //    mTurretHealth.RepairTurret(repairHealth);
+    //}
 
     public void Reload()
     {
@@ -67,22 +64,6 @@ public class TurretCannon : MonoBehaviour
         mCurrentAmmo = AmmoMax;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            player.turretCannon = this;
-        }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            player.turretCannon = null;
-        }
-    }
 
 }
