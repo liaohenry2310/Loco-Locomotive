@@ -441,12 +441,11 @@ MonoBehaviour:
   AmmoCountText: {fileID: 0}
   TurretText: {fileID: 0}
   TurretRepairText: {fileID: 0}
-  CannonHandlerSpeed: 0.1
+  CannonHandlerSpeed: 0.5
   repairHealth: 50
   mCurrentAmmo: 0
-  spreadFactor: 0.1
-  FireRate: 15
-  AmmoMax: 100
+  spreadFactor: 2
+  FireRate: 7
 --- !u!114 &3622832100159998365
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -279,7 +279,7 @@ MonoBehaviour:
   trainRearCollider: {fileID: 0}
   train: {fileID: 0}
   trainSpeed: 1.5
-  SpendFuel: 0.5
+  SpendFuel: 3
 --- !u!114 &7605677549934278888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,4 +292,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4937cbf84eedc4448b3786998fc9b14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  descreaseFuel: 0.5
+  MaxFuel: 100
+  currentFuel: 0
