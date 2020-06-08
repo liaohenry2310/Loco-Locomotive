@@ -37,15 +37,10 @@ public class TurretCannon : MonoBehaviour
 
     private void Update()
     {
-        if (!mTurretHealth.IsAlive())
-        {
-            Debug.Log("You cannot use this turret!");
-        }
-
         if (mTurretHealth.IsAlive())
         {
-            CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
-            Fire(mInputReciever.GetSecondaryHoldInput());
+                CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
+                Fire(mInputReciever.GetSecondaryHoldInput());
         }
     }
     
