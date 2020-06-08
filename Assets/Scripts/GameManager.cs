@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     //Private functions
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         mPlayerControllers = new List<PlayerController>();
         mInitialSpawnPoints = new List<Transform>(GetComponentsInChildren<Transform>());
         mInitialSpawnPoints.Remove(transform);
@@ -65,5 +67,10 @@ public class GameManager : MonoBehaviour
         //Hook up player avatars with their respective player Controllers.
         player1.GetComponent<PlayerController>().SetPlayer(ref avatar1);
         player2.GetComponent<PlayerController>().SetPlayer(ref avatar2);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }
