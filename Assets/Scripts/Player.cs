@@ -134,12 +134,12 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("player died");
-            //player.SetActive(false);
-            //ammoSprite.SetActive(false);
-            //repairKitSprite.SetActive(false);
-            //fuelSprite.SetActive(false);
-            //player.transform.localPosition = spwanPoint.transform.localPosition;
-            //Invoke("Respawn", 5f);
+            player.SetActive(false);
+            ammoSprite.SetActive(false);
+            repairKitSprite.SetActive(false);
+            fuelSprite.SetActive(false);
+            player.transform.localPosition = spwanPoint.transform.localPosition;
+            Invoke("Respawn", 5f);
         }
     }
 
