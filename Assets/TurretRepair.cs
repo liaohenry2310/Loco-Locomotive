@@ -6,7 +6,7 @@ public class TurretRepair : MonoBehaviour
 {
     public void Repair()
     {
-        TurretHealth turretHealth = gameObject.GetComponentInParent<TurretHealth>();
+        TurretHealth turretHealth = gameObject.GetComponent<TurretHealth>();
         turretHealth.RepairTurret();
         Debug.Log("repair turret");
     }

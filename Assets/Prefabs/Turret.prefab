@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 3193508244445371705}
   - component: {fileID: 721506998748541635}
   - component: {fileID: 6720035211243858838}
+  - component: {fileID: 3671967090653027148}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -172,6 +173,7 @@ MonoBehaviour:
   mCurrentHealth: 0
   healthBar: {fileID: 9156872675538006054, guid: 997605a0b6613c74b9b85f0377074dfe,
     type: 3}
+  repairHealth: 20
 --- !u!114 &6720035211243858838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,8 +188,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectBloodPos: {fileID: 9156872675538006055, guid: 997605a0b6613c74b9b85f0377074dfe,
     type: 3}
-  offstex: 0
-  offsety: 0
+  offset: {x: 0, y: 0, z: 0}
+--- !u!114 &3671967090653027148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508244445371709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227e812832d48f8418259986b8be75fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3193508244648082379
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +212,6 @@ GameObject:
   - component: {fileID: 3193508244648082372}
   - component: {fileID: 3193508244648082375}
   - component: {fileID: 3193508244648082374}
-  - component: {fileID: 3193508244648082373}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -268,32 +280,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!61 &3193508244648082373
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508244648082379}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0048643947, y: 1.575989}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.7490813, y: 3.4865613}
-  m_EdgeRadius: 0
 --- !u!1 &3193508245471515155
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +289,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3193508245471515148}
-  - component: {fileID: 3297050393714352271}
   m_Layer: 0
   m_Name: UpperTurret
   m_TagString: Untagged
@@ -326,18 +311,6 @@ Transform:
   m_Father: {fileID: 3193508244445371704}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3297050393714352271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508245471515155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227e812832d48f8418259986b8be75fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3193508245827852809
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,13 +442,10 @@ MonoBehaviour:
     type: 3}
   CannonHandler: {fileID: 3193508246254816230}
   CannonFirePoint: {fileID: 3193508245827852810}
-  AmmoCountText: {fileID: 0}
-  TurretText: {fileID: 0}
-  TurretRepairText: {fileID: 0}
+  AmmoText: {fileID: 0}
   FireRate: 15
   CannonHandlerSpeed: 0.1
   AmmoMax: 100
-  repairHealth: 50
   mCurrentAmmo: 0
 --- !u!1 &3193508246008629862
 GameObject:
