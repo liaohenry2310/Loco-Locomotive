@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
     public FuelCrate fuelCrate;
-    public TurretCannon turretCannon;
+    public TurretRepair turretRepair;
     public TurretLoader turretLoader;
     public FireBox fireBox;
     public bool isHoldingAmmo;
@@ -69,11 +69,11 @@ public class Player : MonoBehaviour
             isHoldingRepairKit = true;
             repairKitSprite.SetActive(true);
         }
-        else if (turretCannon != null && isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
+        else if (turretRepair != null && isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
         {
             isHoldingRepairKit = false;
             repairKitSprite.SetActive(false);
-            turretCannon.Repair();
+            turretRepair.Repair();
 
         }
         else if (isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
@@ -135,6 +135,9 @@ public class Player : MonoBehaviour
         {
             Debug.Log("player died");
             player.SetActive(false);
+            ammoSprite.SetActive(false);
+            repairKitSprite.SetActive(false);
+            fuelSprite.SetActive(false);
             player.transform.localPosition = spwanPoint.transform.localPosition;
             Invoke("Respawn", 5f);
         }

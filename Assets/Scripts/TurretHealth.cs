@@ -7,10 +7,13 @@ public class TurretHealth : MonoBehaviour
     public float mCurrentHealth;
 
     public bool IsDestroyed { get; private set; }
-
+    public HealthBar healthBar;
+    public float repairHealth = 20;
     private void Start()
     {
+
         mCurrentHealth = MaxHealth;
+        healthBar.SetMaxHealth(MaxHealth);
     }
 
     public void TakeDamage(float amount)
@@ -21,6 +24,7 @@ public class TurretHealth : MonoBehaviour
         {
             IsDestroyed = true;
         }
+        healthBar.SetHealth(mCurrentHealth);
     }
 
     public bool IsAlive()
@@ -32,12 +36,12 @@ public class TurretHealth : MonoBehaviour
         return true;
     }
 
-    public void RepairTurret(float amount)
+    public void RepairTurret()
     {
-        mCurrentHealth += amount;
-        mCurrentHealth = Mathf.Clamp(mCurrentHealth, amount, MaxHealth);
+        mCurrentHealth += repairHealth;
+        mCurrentHealth = Mathf.Clamp(mCurrentHealth, repairHealth, MaxHealth);
         IsDestroyed = false;
-
+        healthBar.SetHealth(mCurrentHealth);
     }
 
 }
