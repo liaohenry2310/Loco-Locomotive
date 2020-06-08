@@ -12,7 +12,7 @@ public class BasicEnemy : MonoBehaviour
     public float fallSpeed = 1.0f;
     public float gravity = 1.0f;
     // .....
-    public float windSpeed=1.5f;
+    public float windSpeed = 1.5f;
 
     // Health
     public float health;
@@ -44,7 +44,7 @@ public class BasicEnemy : MonoBehaviour
     private float rightRange;
 
     // Attack Delay 
-    private float mTakeDamageDelay=1.5f;
+    private float mTakeDamageDelay = 1.5f;
 
     // Change Enemy State .
     private State mCurrentState = State.InSky;
@@ -69,45 +69,58 @@ public class BasicEnemy : MonoBehaviour
     void Update()
     {
 
-       currentPos =transform.position;
-       direction = targetPos - currentPos;
-       direction.Normalize();
-       float dis = Vector3.Distance(currentPos, targetPos);
+        currentPos = transform.position;
+
 
         if (mCurrentState == State.InSky)
         {
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-            transform.position = new Vector2(transform.position.x- windSpeed * Time.deltaTime, transform.position.y - fallSpeed * Time.deltaTime);
+            transform.position = new Vector2(transform.position.x - windSpeed * Time.deltaTime, transform.position.y - fallSpeed * Time.deltaTime);
         }
-        
+
         if (mCurrentState == State.OnTrain)
         {
             GetComponent<Rigidbody2D>().gravityScale = 1.0f;
-            transform.Translate(direction * gravity * Time.deltaTime,Space.World);
             GetTargetPosition();
+            direction = targetPos - currentPos;
+            direction.Normalize();
+            transform.Translate(direction * gravity * Time.deltaTime, Space.World);
 
-            if (dis<= mColliderSize.x)
+            float dis = Vector3.Distance(currentPos, targetPos);
+
+            if (dis <= mColliderSize.x)
             {
                 transform.position = currentPos;
+
                 mCurrentState = State.OnAttack;
             }
 
         }
-         if(mCurrentState == State.OnAttack)
+        if (mCurrentState == State.OnAttack)
         {
             if (mTakeDamageDelay < Time.time)
             {
-                mTakeDamageDelay = Time.time + 0.5f;
-                if (currentTarget.gameObject.tag=="Turret")
+                mTakeDamageDelay = Time.time + 1.5f;
+                if (currentTarget != null && currentTarget.gameObject.tag == "Turret")
                 {
                     currentTarget.GetComponent<TurretHealth>().TakeDamage(10.0f);
                     Debug.Log("Turret taking damage");
 
                 }
-                if (currentTarget.gameObject.tag == "FrontWagon")
+                if (currentTarget != null && currentTarget.gameObject.tag == "FrontWagon")
                 {
                     currentTarget.GetComponent<TrainHealth>().TakeDamage(10.0f);
                     Debug.Log("FrontWagon taking damage");
+                }
+
+                // " ? " < -- Ternary operator  " if not currentTarget not equal the first script , then go to the second one . "
+                if (currentTarget.GetComponent<TurretHealth>()?.IsAlive() == false || currentTarget.GetComponent<TrainHealth>()?.IsAlive() == false)
+                {
+                    currentTarget = null;
+                }
+                if (currentTarget == null)
+                {
+                    mCurrentState = State.OnTrain;
                 }
             }
 
@@ -154,32 +167,44 @@ public class BasicEnemy : MonoBehaviour
     private void OffScreen()
     {
 
-        if (transform.position.x < leftRange )
-           // || transform.position.x >rightRange )
+        if (transform.position.x < leftRange)
+        // || transform.position.x >rightRange )
         {
             mCurrentState = State.Nothing;
             Destroy(gameObject);
         }
     }
 
+    // GetTargetPosition 
     private void GetTargetPosition()
     {
-        float distance = Vector2.Distance(transform.position, targetList[0].transform.position);
-        targetPos = (targetList[0].transform.position);
-        currentTarget = targetList[0];
+        float distance = float.MaxValue;
+        targetPos = (transform.position);
+        currentTarget = null;
 
         foreach (var target in targetList)
         {
-
-            if (Vector2.Distance(transform.position,target.transform.position)
-                < 
-                distance)
+            if (target != null)
             {
-                targetPos = (target.transform.position);
-                distance = Vector2.Distance(transform.position, target.transform.position);
-                currentTarget = target;
-            }
 
+                if (Vector2.Distance(transform.position, target.transform.position) < distance)
+
+                {
+                    if (target.GetComponent<TurretHealth>()?.IsAlive() == true || target.GetComponent<TrainHealth>()?.IsAlive() == true)
+                    {
+
+                        targetPos = (target.transform.position);
+                        distance = Vector2.Distance(transform.position, target.transform.position);
+                        currentTarget = target;
+                    }
+                }
+            }
+        }
+
+        if (currentTarget == null)
+        {
+            mCurrentState = State.Nothing;
+            Debug.Log("Out of target.");
         }
     }
 }

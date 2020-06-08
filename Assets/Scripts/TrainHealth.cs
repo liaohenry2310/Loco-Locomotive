@@ -54,7 +54,10 @@ public class TrainHealth : MonoBehaviour
     }
     public bool IsAlive()
     {
-        return currentHealth > 0f;
-
+        if (currentHealth <= 0.0f)
+        {
+            return false;
+        }
+        return true;
     }
 }

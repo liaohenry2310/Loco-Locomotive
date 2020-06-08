@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 1
-  gravity: 3
+  gravity: 1
   windSpeed: 0.55
   health: 50
   damage: 10
