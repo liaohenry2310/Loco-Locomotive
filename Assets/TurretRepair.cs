@@ -10,6 +10,7 @@ public class TurretRepair : MonoBehaviour
         turretHealth.RepairTurret();
         Debug.Log("repair turret");
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

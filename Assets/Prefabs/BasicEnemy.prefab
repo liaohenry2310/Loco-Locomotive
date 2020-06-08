@@ -215,11 +215,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c93c689bb7718147b8ab9debc513692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 1
+  fallSpeed: 0.5
   gravity: 1
   windSpeed: 0.55
-  health: 50
-  damage: 10
+  health: 15
+  damage: 2.5
   targetList: []
   topWagonCollider: {fileID: 5257547452153316951, guid: 9716fadf60502cf43816f01796558f65,
     type: 3}
@@ -246,4 +246,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

@@ -9,9 +9,7 @@ public class TurretCannon : MonoBehaviour
     public Transform CannonFirePoint;
 
     public Text AmmoText;
-    public float FireRate = 100f;
     public float CannonHandlerSpeed = 10.0f;
-    public int AmmoMax = 10;
 
     [Header("Exposed variables")]
     public float repairHealth;
@@ -31,7 +29,7 @@ public class TurretCannon : MonoBehaviour
     void Start()
     {
         mInputReciever = GetComponent<InputReciever>();
-        mTurretHealth = FindObjectOfType<TurretHealth>();
+        mTurretHealth = GetComponentInParent<TurretHealth>();
         AmmoText.text = "Ammo: " + mCurrentAmmo.ToString();
         mObjectPooler = GetComponent<ObjectPooler>();
         mCurrentAmmo = mObjectPooler.AmountToPool;
@@ -39,13 +37,17 @@ public class TurretCannon : MonoBehaviour
 
     private void Update()
     {
-        if ((!mTurretHealth.IsDestroyed))
+        if (!mTurretHealth.IsAlive())
         {
-            CannonHandler.transform.Rotate(0.0f, 0.0f, mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed);
+            Debug.Log("You cannot use this turret!");
+        }
+
+        if (mTurretHealth.IsAlive())
+        {
+            CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
             Fire(mInputReciever.GetSecondaryHoldInput());
         }
     }
- 
     
     public void Fire(bool setFire)
     {
@@ -75,6 +77,7 @@ public class TurretCannon : MonoBehaviour
         {
             //AmmoCountText.text = $"Ammo ...... Run out ammo........!!";
         }
+        AmmoText.text = "Ammo: " + mCurrentAmmo.ToString();
     }
 
     //public void Repair()

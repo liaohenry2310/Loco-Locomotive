@@ -61,8 +61,8 @@ public class BasicEnemy : MonoBehaviour
         // Bounding check
         MainCam = FindObjectOfType<Camera>();
         screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
-        rightRange = screenBounds.x + 1.0f;
-        leftRange = -screenBounds.x + 1.0f;
+        rightRange = screenBounds.x + 3.0f;
+        leftRange = -screenBounds.x - 3.0f;
         mColliderSize = GetComponentInChildren<BoxCollider2D>().size;
     }
     // Update is called once per frame

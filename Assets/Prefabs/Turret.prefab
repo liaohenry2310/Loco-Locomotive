@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 3193508244445371704}
   - component: {fileID: 3193508244445371705}
   - component: {fileID: 721506998748541635}
+  - component: {fileID: 6848309198798939615}
+  - component: {fileID: 7215980287957974815}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -169,6 +171,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   mCurrentHealth: 0
+  healthBar: {fileID: 0}
+  repairHealth: 50
+--- !u!114 &6848309198798939615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508244445371709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db734dc4fcf9a544b65fd43074f0bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectBloodPos: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+--- !u!114 &7215980287957974815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508244445371709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227e812832d48f8418259986b8be75fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3193508244648082379
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,10 +468,8 @@ MonoBehaviour:
     type: 3}
   CannonHandler: {fileID: 3193508246254816230}
   CannonFirePoint: {fileID: 3193508245827852810}
-  AmmoCountText: {fileID: 0}
-  TurretText: {fileID: 0}
-  TurretRepairText: {fileID: 0}
-  CannonHandlerSpeed: 0.5
+  AmmoText: {fileID: 0}
+  CannonHandlerSpeed: 55
   repairHealth: 50
   mCurrentAmmo: 0
   spreadFactor: 2
@@ -460,7 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
     type: 3}
-  amountToPool: 100
+  amountToPool: 50
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0

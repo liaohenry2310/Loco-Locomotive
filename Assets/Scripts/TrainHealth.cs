@@ -42,8 +42,7 @@ public class TrainHealth : MonoBehaviour
 
     public void Restore()
     {
-       
-        if(currentHealth <trainHealth)
+        if(currentHealth < trainHealth)
         {
             if(restoreTime > 20f )
             {
