@@ -1458,7 +1458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3536536467531059454
 Transform:
   m_ObjectHideFlags: 0
@@ -1693,15 +1693,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8422186561681188865, guid: b6613131770427b4788c7b479b96f323,
+    - target: {fileID: 6390608808084324986, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
-      propertyPath: spreadFactor
-      value: 0.5
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390608808172469074, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549156062670786084, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549156062670786084, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.32
       objectReference: {fileID: 0}
     - target: {fileID: 8422186561681188865, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: coneSize
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422186561681188865, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: AmmoMax
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8422186561743884588, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
