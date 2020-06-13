@@ -31,8 +31,9 @@ public class SpeedController : MonoBehaviour
         {
             UseFuel(SpendFuel);
         }
+
         //TODO: look for timebase delta time
-        UseFuel(1.0f / updateRate);
+        UseFuel(1.0f * Time.deltaTime);
 
         Vector3 trainPos;
         if (trainFrontCollider.position.x + translation >= mScreenBounds.x)

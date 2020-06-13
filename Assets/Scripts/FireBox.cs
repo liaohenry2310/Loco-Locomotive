@@ -19,11 +19,6 @@ public class FireBox : MonoBehaviour
     public void AddFuel()
     {
         Debug.Log("added fuel");
-        mCurrentFuel += mAddfuel;
-        if (mCurrentFuel >= mMaxFuel)
-        {
-            mCurrentFuel = mMaxFuel;
-        }
         mFuelController.Reload(mAddfuel);
     }
 

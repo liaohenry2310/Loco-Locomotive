@@ -30,7 +30,7 @@ public class TurretCannon : MonoBehaviour
     {
         mInputReciever = GetComponent<InputReciever>();
         mTurretHealth = GetComponentInParent<TurretHealth>();
-        AmmoText.text = "Ammo: " + mCurrentAmmo.ToString();
+        AmmoText.text = mCurrentAmmo.ToString();
         mObjectPooler = GetComponent<ObjectPooler>();
         mCurrentAmmo = mObjectPooler.AmountToPool;
     }
@@ -72,7 +72,7 @@ public class TurretCannon : MonoBehaviour
         {
             //AmmoCountText.text = $"Ammo ...... Run out ammo........!!";
         }
-        AmmoText.text = "Ammo: " + mCurrentAmmo.ToString();
+        AmmoText.text = mCurrentAmmo.ToString();
     }
 
     //public void Repair()

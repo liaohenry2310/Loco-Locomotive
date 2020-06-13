@@ -22,8 +22,6 @@ public class EnemySpawner : MonoBehaviour
     private float spawnY;
     private int mEnemyNum;
 
-
-
     void Start()
     {
         //Bounding Check
@@ -34,28 +32,22 @@ public class EnemySpawner : MonoBehaviour
 
 
         // Function for Spawn Enemy. 
-        InvokeRepeating("CreatEnemies", 2, 1.0f);
+        InvokeRepeating("CreatEnemies", 2, 1.5f);
     }
+
     private void Update()
     {
-
         spawnY = transform.position.y;
 
     }
+
     public void CreatEnemies()
     {
-        
-        mEnemyNum = Random.Range(0, 2);       
-        for (int i = 0; i < mEnemyNum; i++)
-        {
-            float x;
-            x = Random.Range(leftRange, rightRange);
-            GameObject enemy = Instantiate(Enemies, new Vector3(x, spawnY, 0), Quaternion.identity);
-            enemy.GetComponent<BasicEnemy>().targetList.AddRange(targetList);
-            enemy.GetComponent<BasicEnemy>().groundArea = groundArea;
-            enemy.GetComponent<BasicEnemy>().topWagonCollider = topWagonCollider;
-
-        }
+        float x = Random.Range(leftRange, rightRange);
+        GameObject enemy = Instantiate(Enemies, new Vector3(x, spawnY, 0), Quaternion.identity);
+        enemy.GetComponent<BasicEnemy>().targetList.AddRange(targetList);
+        enemy.GetComponent<BasicEnemy>().groundArea = groundArea;
+        enemy.GetComponent<BasicEnemy>().topWagonCollider = topWagonCollider;
     }
 
 
