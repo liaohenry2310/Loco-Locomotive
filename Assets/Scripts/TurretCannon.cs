@@ -25,6 +25,7 @@ public class TurretCannon : MonoBehaviour
     private TurretHealth mTurretHealth;
     //public int AmmoMax = 10;
     private ObjectPooler mObjectPooler;
+    private LineRenderer mLineRenderer;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class TurretCannon : MonoBehaviour
         AmmoText.text = mCurrentAmmo.ToString();
         mObjectPooler = GetComponent<ObjectPooler>();
         mCurrentAmmo = mObjectPooler.AmountToPool;
+        mLineRenderer = transform.parent.GetChild(1).GetComponentInChildren<LineRenderer>();
     }
 
     private void Update()
@@ -42,6 +44,8 @@ public class TurretCannon : MonoBehaviour
                 CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
                 Fire(mInputReciever.GetSecondaryHoldInput());
         }
+
+        mLineRenderer.gameObject.SetActive(mInputReciever.GetInUse());
     }
     
     public void Fire(bool setFire)

@@ -43,6 +43,11 @@ public class InputReciever : MonoBehaviour
         }
     }
 
+    public bool GetInUse()
+    {
+        return mInUse;
+    }
+
     public Vector2 GetDirectionalInput()
     {
         if (mPlayerInput)
