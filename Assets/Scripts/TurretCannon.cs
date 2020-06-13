@@ -34,7 +34,7 @@ public class TurretCannon : MonoBehaviour
         AmmoText.text = mCurrentAmmo.ToString();
         mObjectPooler = GetComponent<ObjectPooler>();
         mCurrentAmmo = mObjectPooler.AmountToPool;
-        mLineRenderer = transform.parent.GetChild(1).GetComponentInChildren<LineRenderer>();
+        mLineRenderer = transform.parent.GetComponentInChildren<LineRenderer>();
     }
 
     private void Update()
