@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public bool isHoldingAmmo;
     public bool isHoldingRepairKit;
     public bool isHoldingFuel;
+    public SpriteRenderer itemSprite; // replace the ones under this.
     public GameObject ammoSprite;
     public GameObject repairKitSprite;
     public GameObject fuelSprite;
@@ -163,4 +164,19 @@ public class Player : MonoBehaviour
         Debug.Log("Respawn");
         player.SetActive(true);
     }
+
+    // Dispenser Collection Actions
+    public void PickUpFuel(Color itemColor)
+    {
+        isHoldingFuel = true;
+        itemSprite.color = itemColor;
+    }
+
+    public void PickUpRepairKit(Color itemColor) 
+    {
+        isHoldingRepairKit = true;
+        itemSprite.color = itemColor;
+    }
+
+    // TODO - Cyro - Add dispenser related functions
 }

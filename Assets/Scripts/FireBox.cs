@@ -27,7 +27,15 @@ public class FireBox : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Player player = collision.GetComponent<Player>();
-            player.fireBox = this;
+            // safety first.
+            if (player)
+            {
+                player.fireBox = this;
+            }
+            else 
+            {
+                // log error.
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

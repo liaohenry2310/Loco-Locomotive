@@ -9,6 +9,8 @@ public class DispenserAmmo : MonoBehaviour
 
     public DispenserAmmoType GetAmmoType => mAmmoType;
 
+    //public DispenserAmmoType GetAmmoType() { return mAmmoType; }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
