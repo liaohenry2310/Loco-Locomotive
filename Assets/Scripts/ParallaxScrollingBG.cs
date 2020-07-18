@@ -7,7 +7,7 @@ public class ParallaxScrollingBG : MonoBehaviour
     [Range(1f, 40)]
     public float scrollSpeed = 1f;
     public float scrollOffset;
-    Vector2 startPos;
+    Vector3 startPos;
     float newPos;
 
     void Start()
@@ -18,6 +18,6 @@ public class ParallaxScrollingBG : MonoBehaviour
     void Update()
     {
         newPos = Mathf.Repeat(Time.time * -scrollSpeed, scrollOffset);
-        transform.position = startPos + Vector2.right * newPos;
+        transform.position = startPos + Vector3.right * newPos;
     }
 }
