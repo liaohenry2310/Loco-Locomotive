@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,6 +34,14 @@ public class Player : MonoBehaviour
     private InputReciever mInputReceiver;
     private float mPlayerHeight;
 
+
+    #region DispenserAmmoType
+
+    private DispenserController mDispenserController;
+
+    #endregion
+
+
     private void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
@@ -41,11 +50,15 @@ public class Player : MonoBehaviour
         ammoSprite.SetActive(false);
         repairKitSprite.SetActive(false);
         fuelSprite.SetActive(false);
+
+        // Dispenser
+        mDispenserController = GetComponent<DispenserController>();
     }
+
     private void Update()
     {
         //ammo
-        if(ammoCrate != null&&mInputReceiver.GetSecondaryInput())
+        if (ammoCrate != null && mInputReceiver.GetSecondaryInput())
         {
             isHoldingAmmo = true;
             ammoSprite.SetActive(true);
@@ -61,7 +74,7 @@ public class Player : MonoBehaviour
             ammoSprite.SetActive(false);
             isHoldingAmmo = false;
         }
-        
+
 
         //repairkit
         if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
@@ -99,6 +112,8 @@ public class Player : MonoBehaviour
             fuelSprite.SetActive(false);
             isHoldingFuel = false;
         }
+
+        // Dispenser
 
     }
 
