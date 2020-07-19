@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 62271738}
   - component: {fileID: 62271739}
   m_Layer: 0
-  m_Name: Hills_2
+  m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2810,7 +2810,7 @@ GameObject:
   - component: {fileID: 1940518038}
   - component: {fileID: 1940518039}
   m_Layer: 0
-  m_Name: Hills_2 (2)
+  m_Name: Foreground_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3066,7 +3066,7 @@ GameObject:
   - component: {fileID: 2065558239}
   - component: {fileID: 2065558240}
   m_Layer: 0
-  m_Name: Sky
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3301,7 +3301,7 @@ GameObject:
   - component: {fileID: 2132103072}
   - component: {fileID: 2132103073}
   m_Layer: 0
-  m_Name: Sky (2)
+  m_Name: Background_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
