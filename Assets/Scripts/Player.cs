@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public bool PlayerHasItem { get; private set; } = false;
     private SpriteRenderer _spriteRender;
     private DispenserData.Type _dispenserDataType;
-    private DispenserData.Type _currentDispenserDataType;
+    private DispenserItem _currentDispenser;
 
     #endregion
 
@@ -159,18 +159,18 @@ public class Player : MonoBehaviour
 
         if (mInputReceiver.GetSecondaryInput())
         {
-            if (_dispenserDataType != DispenserData.Type.None)
+            if (_currentDispenser.DispenserType != DispenserData.Type.None)
             {
-                
                 PlayerHasItem = true;
+                _spriteRender.color = _currentDispenser.DispenserColor;
                 _itemDispenserSprite.SetActive(true);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {_dispenserDataType}");
+                Debug.Log($"Player has item? {PlayerHasItem} --- {_currentDispenser.DispenserType}");
             }
             else
             {
                 PlayerHasItem = false;
                 _itemDispenserSprite.SetActive(false);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {_dispenserDataType}");
+                Debug.Log($"Player has item? {PlayerHasItem} --- {_currentDispenser.DispenserType}");
             }
         }
 
@@ -245,13 +245,27 @@ public class Player : MonoBehaviour
         _itemDispenserSprite.SetActive(true);
     }
 
+    public void SetCurrentDispenser(DispenserItem dispenser)
+    {
+        if (dispenser == null)
+        {
+            Debug.Log("Clearing the current dispenser type");
+            //_itemDispenserSprite.SetActive(false);
+            _currentDispenser.DispenserType = DispenserData.Type.None;
+        }
+        else
+        {
+            Debug.Log($"Setting current dispenser type to {dispenser.DispenserType.ToString()}");
+            _currentDispenser = dispenser;
+        }
+    }
 
     public void PickUpItem(bool isInsideDispenser, DispenserData.Type dataType, Color color)
     {
         isPlayerInsideDispenser = isInsideDispenser;
         if (isInsideDispenser && dataType != _dispenserDataType)
         {
-            _currentDispenserDataType = dataType;
+            //_currentDispenserDataType = dataType;
             _dispenserDataType = dataType;
             _spriteRender.color = color;
             Debug.Log($"[PickUpItem] { _dispenserDataType} and {_spriteRender.color}");

@@ -3,16 +3,12 @@
 public class Dispenser : MonoBehaviour
 {
     [Header("Attributes")]
-    [SerializeField] private DispenserData _dispenserData = default;
-    [SerializeField] private DispenserData.Type _dispenserDataType = default;
-
-    private Color _ItemColor;
+    [SerializeField] private DispenserItem _dispenserItem = default;
 
     private void Start()
     {
         SpriteRenderer go = GetComponentInChildren<SpriteRenderer>();
-        go.color = _dispenserData.ColorByItemType[_dispenserDataType];
-        _ItemColor = go.color;
+        go.color = _dispenserItem.DispenserColor;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,8 +21,8 @@ public class Dispenser : MonoBehaviour
                 Debug.LogError($"Dispenser {gameObject.name} failed to find player");
                 return;
             }
-            
-            player.PickUpItem(true, _dispenserDataType, _ItemColor);
+
+            player.SetCurrentDispenser(_dispenserItem);
         }
     }
 
@@ -40,8 +36,8 @@ public class Dispenser : MonoBehaviour
                 Debug.LogError($"Dispenser {gameObject.name} failed to find player");
                 return;
             }
-            
-            player.PickUpItem(false, DispenserData.Type.None, Color.white);
+
+            player.SetCurrentDispenser(null);
         }
     }
 }
