@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2273384162629241499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.051, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 795326227548977737}
@@ -97,6 +97,10 @@ MonoBehaviour:
   isHoldingAmmo: 0
   isHoldingRepairKit: 0
   isHoldingFuel: 0
+  _itemDispenserSprite: {fileID: 0}
+  isPlayerInsideDispenser: 0
+  dispenser: {fileID: 224469411452684929, guid: efecaf21ce57971449ae854595ca1aee,
+    type: 3}
   ammoSprite: {fileID: 5665809493517634880}
   repairKitSprite: {fileID: 7138910249887503066}
   fuelSprite: {fileID: 6973639686602539109}
@@ -215,7 +219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3596182195745067469
 Transform:
   m_ObjectHideFlags: 0
@@ -377,7 +381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7888955035882071883
 Transform:
   m_ObjectHideFlags: 0
@@ -458,7 +462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &751094635400037978
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -14,7 +12,18 @@ public class Player : MonoBehaviour
     public bool isHoldingAmmo;
     public bool isHoldingRepairKit;
     public bool isHoldingFuel;
-    public SpriteRenderer itemSprite; // replace the ones under this.
+
+    #region dispenser
+
+    public GameObject _itemDispenserSprite = default;
+    public bool isPlayerInsideDispenser = false;
+    public bool PlayerHasItem { get; private set; } = false;
+    private SpriteRenderer _spriteRender;
+    private DispenserData.Type _dispenserDataType;
+    private DispenserData.Type _currentDispenserDataType;
+
+    #endregion
+
     public GameObject ammoSprite;
     public GameObject repairKitSprite;
     public GameObject fuelSprite;
@@ -36,85 +45,134 @@ public class Player : MonoBehaviour
     private float mPlayerHeight;
 
 
-    #region DispenserAmmoType
-
-    private DispenserController mDispenserController;
-
-    #endregion
-
-
     private void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
-        ammoSprite.SetActive(false);
-        repairKitSprite.SetActive(false);
-        fuelSprite.SetActive(false);
 
-        // Dispenser
-        mDispenserController = GetComponent<DispenserController>();
+
+        foreach (var sprite in GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (sprite.name == "CollectedItem")
+            {
+                _spriteRender = sprite;
+                _itemDispenserSprite = sprite.gameObject;
+                _itemDispenserSprite.SetActive(false);
+            }
+        }
+
+        //ammoSprite.SetActive(false);
+        //repairKitSprite.SetActive(false);
+        //fuelSprite.SetActive(false);
     }
 
     private void Update()
     {
-        //ammo
-        if (ammoCrate != null && mInputReceiver.GetSecondaryInput())
-        {
-            isHoldingAmmo = true;
-            ammoSprite.SetActive(true);
-        }
-        else if (turretLoader != null && isHoldingAmmo && mInputReceiver.GetSecondaryInput())
-        {
-            isHoldingAmmo = false;
-            ammoSprite.SetActive(false);
-            turretLoader.Reloadammo();
-        }
-        else if (isHoldingAmmo && mInputReceiver.GetSecondaryInput())
-        {
-            ammoSprite.SetActive(false);
-            isHoldingAmmo = false;
-        }
+        ////ammo
+        //if (ammoCrate != null && mInputReceiver.GetSecondaryInput())
+        //{
+        //    isHoldingAmmo = true;
+        //    ammoSprite.SetActive(true);
+        //}
+        //else if (turretLoader != null && isHoldingAmmo && mInputReceiver.GetSecondaryInput())
+        //{
+        //    isHoldingAmmo = false;
+        //    ammoSprite.SetActive(false);
+        //    turretLoader.Reloadammo();
+        //}
+        //else if (isHoldingAmmo && mInputReceiver.GetSecondaryInput())
+        //{
+        //    ammoSprite.SetActive(false);
+        //    isHoldingAmmo = false;
+        //}
 
 
-        //repairkit
-        if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
-        {
-            isHoldingRepairKit = true;
-            repairKitSprite.SetActive(true);
-        }
-        else if (turretRepair != null && isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
-        {
-            isHoldingRepairKit = false;
-            repairKitSprite.SetActive(false);
-            turretRepair.Repair();
+        ////repairkit
+        //if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
+        //{
+        //    isHoldingRepairKit = true;
+        //    repairKitSprite.SetActive(true);
+        //}
+        //else if (turretRepair != null && isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
+        //{
+        //    isHoldingRepairKit = false;
+        //    repairKitSprite.SetActive(false);
+        //    turretRepair.Repair();
 
-        }
-        else if (isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
-        {
-            repairKitSprite.SetActive(false);
-            isHoldingRepairKit = false;
-        }
+        //}
+        //else if (isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
+        //{
+        //    repairKitSprite.SetActive(false);
+        //    isHoldingRepairKit = false;
+        //}
 
-        //fuel
-        if (fuelCrate != null && mInputReceiver.GetSecondaryInput())
-        {
-            isHoldingFuel = true;
-            fuelSprite.SetActive(true);
-        }
-        else if (fireBox != null && isHoldingFuel && mInputReceiver.GetSecondaryInput())
-        {
-            isHoldingFuel = false;
-            fuelSprite.SetActive(false);
-            fireBox.AddFuel();
-        }
-        else if (isHoldingFuel && mInputReceiver.GetSecondaryInput())
-        {
-            fuelSprite.SetActive(false);
-            isHoldingFuel = false;
-        }
+        ////fuel
+        //if (fuelCrate != null && mInputReceiver.GetSecondaryInput())
+        //{
+        //    isHoldingFuel = true;
+        //    fuelSprite.SetActive(true);
+        //}
+        //else if (fireBox != null && isHoldingFuel && mInputReceiver.GetSecondaryInput())
+        //{
+        //    isHoldingFuel = false;
+        //    fuelSprite.SetActive(false);
+        //    fireBox.AddFuel();
+        //}
+        //else if (isHoldingFuel && mInputReceiver.GetSecondaryInput())
+        //{
+        //    fuelSprite.SetActive(false);
+        //    isHoldingFuel = false;
+        //}
 
         // Dispenser
+
+        //switch (_dispenserDataType)
+        //{
+        //    case DispenserData.Type.LaserBeam:
+        //    case DispenserData.Type.Missile:
+        //    case DispenserData.Type.Railgun:
+        //    case DispenserData.Type.Normal:
+        //        {
+        //            _isPlayerHasItem = true;
+        //            _itemDispenserSprite.SetActive(true);
+        //        }
+        //        break;
+        //    case DispenserData.Type.RepairKit:
+        //        break;
+        //    case DispenserData.Type.Fuel:
+        //        break;
+        //    case DispenserData.Type.None:
+        //        {
+        //            _isPlayerHasItem = false;
+        //            _itemDispenserSprite.SetActive(false);
+        //        }
+        //        break;
+        //    default:
+        //        {
+        //            _isPlayerHasItem = false;
+        //            _itemDispenserSprite.SetActive(false);
+        //        }
+        //        break;
+        //}
+
+
+        if (mInputReceiver.GetSecondaryInput())
+        {
+            if (_dispenserDataType != DispenserData.Type.None)
+            {
+                
+                PlayerHasItem = true;
+                _itemDispenserSprite.SetActive(true);
+                Debug.Log($"Player has item? {PlayerHasItem} --- {_dispenserDataType}");
+            }
+            else
+            {
+                PlayerHasItem = false;
+                _itemDispenserSprite.SetActive(false);
+                Debug.Log($"Player has item? {PlayerHasItem} --- {_dispenserDataType}");
+            }
+        }
 
     }
 
@@ -169,13 +227,55 @@ public class Player : MonoBehaviour
     public void PickUpFuel(Color itemColor)
     {
         isHoldingFuel = true;
-        itemSprite.color = itemColor;
+        _spriteRender.color = itemColor;
+        _itemDispenserSprite.SetActive(true);
     }
 
-    public void PickUpRepairKit(Color itemColor) 
+    public void PickUpRepairKit(Color itemColor)
     {
         isHoldingRepairKit = true;
-        itemSprite.color = itemColor;
+        _spriteRender.color = itemColor;
+        _itemDispenserSprite.SetActive(true);
+    }
+
+    public void PickUpAmmo(Color itemColor)
+    {
+        isHoldingAmmo = true;
+        _spriteRender.color = itemColor;
+        _itemDispenserSprite.SetActive(true);
+    }
+
+
+    public void PickUpItem(bool isInsideDispenser, DispenserData.Type dataType, Color color)
+    {
+        isPlayerInsideDispenser = isInsideDispenser;
+        if (isInsideDispenser && dataType != _dispenserDataType)
+        {
+            _currentDispenserDataType = dataType;
+            _dispenserDataType = dataType;
+            _spriteRender.color = color;
+            Debug.Log($"[PickUpItem] { _dispenserDataType} and {_spriteRender.color}");
+            //if (dataType != _dispenserDataType)
+            //{
+            //    _dispenserDataType = dataType;
+            //    _spriteRender.color = color;
+            //}
+        }
+        else
+        {
+            _dispenserDataType = DispenserData.Type.None;
+        }
+
+        //if ((dataType != _dispenserDataType))
+        //{
+        //    _dispenserDataType = dataType;
+        //    //_isPlayerHasItem = hasItem;
+        //    Debug.Log($"{_dispenserDataType}");
+        //    if (_isPlayerHasItem)
+        //    {
+        //        _spriteRender.color = color;
+        //    }
+        //}
     }
 
     // TODO - Cyro - Add dispenser related functions
