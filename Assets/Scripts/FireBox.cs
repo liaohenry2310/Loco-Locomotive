@@ -6,11 +6,11 @@ public class FireBox : MonoBehaviour
     public float mCurrentFuel;
     public float mAddfuel;
 
-    private InputReciever mInputReciever;
+    //private InputReciever mInputReciever;
     private FuelController mFuelController;
     void Start()
     {
-        mInputReciever = GetComponent<InputReciever>();
+    //    mInputReciever = GetComponent<InputReciever>();
         mFuelController = FindObjectOfType<FuelController>();
         //mCurrentFuel = mMaxFuel;
         mCurrentFuel = 50;//for test
@@ -18,8 +18,8 @@ public class FireBox : MonoBehaviour
 
     public void AddFuel()
     {
-        Debug.Log("added fuel");
         mFuelController.Reload(mAddfuel);
+        Debug.Log("added fuel");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

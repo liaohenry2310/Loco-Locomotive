@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202b481ce62e3bf4285a7706de1f1e11, type: 3}
   m_Name: LaserDispenser
   m_EditorClassIdentifier: 
-  type: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
+  type: 2
+  color: {r: 1, g: 0.36892498, b: 0, a: 1}

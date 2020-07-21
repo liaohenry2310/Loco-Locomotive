@@ -97,14 +97,7 @@ MonoBehaviour:
   isHoldingAmmo: 0
   isHoldingRepairKit: 0
   isHoldingFuel: 0
-  _itemDispenserSprite: {fileID: 0}
-  isPlayerInsideDispenser: 0
-  dispenser: {fileID: 224469411452684929, guid: efecaf21ce57971449ae854595ca1aee,
-    type: 3}
-  ammoSprite: {fileID: 5665809493517634880}
-  repairKitSprite: {fileID: 7138910249887503066}
-  fuelSprite: {fileID: 6973639686602539109}
-  playerSprite: {fileID: 5582386144012646314}
+  DispenserDataType: 0
   player: {fileID: 2273384162629241499}
   spwanPoint: {fileID: 8687111262884694740, guid: e89113ba3c3e62546b1dc84b0f7a093b,
     type: 3}
@@ -309,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6455803540320552276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2521, z: 0}
+  m_LocalPosition: {x: -0.028, y: 0.2521, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 2273384162629241503}

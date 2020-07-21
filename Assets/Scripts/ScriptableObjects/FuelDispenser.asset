@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 202b481ce62e3bf4285a7706de1f1e11, type: 3}
-  m_Name: RepairDispenser
+  m_Name: FuelDispenser
   m_EditorClassIdentifier: 
-  type: 5
-  color: {r: 0.3538487, g: 1, b: 0, a: 1}
+  type: 6
+  color: {r: 1, g: 0, b: 0.8753967, a: 1}

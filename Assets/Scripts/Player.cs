@@ -3,31 +3,40 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+
+    #region dont need anymore
+    
     public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
     public FuelCrate fuelCrate;
-    public TurretRepair turretRepair;
-    public TurretLoader turretLoader;
-    public FireBox fireBox;
+
     public bool isHoldingAmmo;
     public bool isHoldingRepairKit;
     public bool isHoldingFuel;
 
-    #region dispenser
+    #endregion
 
-    public GameObject _itemDispenserSprite = default;
-    public bool isPlayerInsideDispenser = false;
-    public bool PlayerHasItem { get; private set; } = false;
-    private SpriteRenderer _spriteRender;
-    private DispenserData.Type _dispenserDataType;
-    private DispenserItem _currentDispenser;
+    #region Machinaries
+    public TurretRepair turretRepair;
+    public TurretLoader turretLoader;
+    public FireBox fireBox;
 
     #endregion
 
-    public GameObject ammoSprite;
-    public GameObject repairKitSprite;
-    public GameObject fuelSprite;
-    public GameObject playerSprite;
+    #region dispenser
+
+    private GameObject _itemDispenserSprite = default;
+    public bool PlayerHasItem { get; private set; } = false;
+    private SpriteRenderer _spriteRender;
+    private DispenserItem _currentDispenser;
+    public DispenserData.Type DispenserDataType;
+
+    #endregion
+
+    //public GameObject ammoSprite;
+    //public GameObject repairKitSprite;
+    //public GameObject fuelSprite;
+    //public GameObject playerSprite;
     public GameObject player;
     public GameObject spwanPoint;
 
@@ -125,55 +134,34 @@ public class Player : MonoBehaviour
         //    isHoldingFuel = false;
         //}
 
-        // Dispenser
-
-        //switch (_dispenserDataType)
-        //{
-        //    case DispenserData.Type.LaserBeam:
-        //    case DispenserData.Type.Missile:
-        //    case DispenserData.Type.Railgun:
-        //    case DispenserData.Type.Normal:
-        //        {
-        //            _isPlayerHasItem = true;
-        //            _itemDispenserSprite.SetActive(true);
-        //        }
-        //        break;
-        //    case DispenserData.Type.RepairKit:
-        //        break;
-        //    case DispenserData.Type.Fuel:
-        //        break;
-        //    case DispenserData.Type.None:
-        //        {
-        //            _isPlayerHasItem = false;
-        //            _itemDispenserSprite.SetActive(false);
-        //        }
-        //        break;
-        //    default:
-        //        {
-        //            _isPlayerHasItem = false;
-        //            _itemDispenserSprite.SetActive(false);
-        //        }
-        //        break;
-        //}
-
+        #region Dispenser
 
         if (mInputReceiver.GetSecondaryInput())
         {
-            if (_currentDispenser.DispenserType != DispenserData.Type.None)
+            if (DispenserDataType != DispenserData.Type.None)
             {
                 PlayerHasItem = true;
                 _spriteRender.color = _currentDispenser.DispenserColor;
+                DispenserDataType = _currentDispenser.DispenserType;
                 _itemDispenserSprite.SetActive(true);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {_currentDispenser.DispenserType}");
+                Debug.Log($"Player has item? {PlayerHasItem} --- {DispenserDataType}");
+
+                //if (PlayerHasItem)
+                //{
+                PickUpAmmo();
+                PickUpFuel();
+                PickUpRepairKit();
+                //}
             }
             else
             {
                 PlayerHasItem = false;
                 _itemDispenserSprite.SetActive(false);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {_currentDispenser.DispenserType}");
+                Debug.Log($"Player has item? {PlayerHasItem} --- {DispenserDataType}");
             }
         }
 
+        #endregion
     }
 
     private void FixedUpdate()
@@ -209,9 +197,10 @@ public class Player : MonoBehaviour
         {
             Debug.Log("player died");
             player.SetActive(false);
-            ammoSprite.SetActive(false);
-            repairKitSprite.SetActive(false);
-            fuelSprite.SetActive(false);
+            //ammoSprite.SetActive(false);
+            //repairKitSprite.SetActive(false);
+            //fuelSprite.SetActive(false);
+            _itemDispenserSprite.SetActive(false);
             player.transform.localPosition = spwanPoint.transform.localPosition;
             Invoke("Respawn", 5f);
         }
@@ -223,26 +212,69 @@ public class Player : MonoBehaviour
         player.SetActive(true);
     }
 
-    // Dispenser Collection Actions
-    public void PickUpFuel(Color itemColor)
+    private void DisableHoldItem()
     {
-        isHoldingFuel = true;
-        _spriteRender.color = itemColor;
-        _itemDispenserSprite.SetActive(true);
+        PlayerHasItem = false;
+        _itemDispenserSprite.SetActive(false);
+        DispenserDataType = DispenserData.Type.None;
     }
 
-    public void PickUpRepairKit(Color itemColor)
+    private void PickUpFuel()
     {
-        isHoldingRepairKit = true;
-        _spriteRender.color = itemColor;
-        _itemDispenserSprite.SetActive(true);
+        if (fireBox)
+        {
+            if (DispenserDataType == DispenserData.Type.Fuel)
+            {
+                fireBox.AddFuel();
+                DisableHoldItem();
+            }
+            else
+            {
+                DisableHoldItem();
+            }
+        }
     }
 
-    public void PickUpAmmo(Color itemColor)
+    private void PickUpRepairKit()
     {
-        isHoldingAmmo = true;
-        _spriteRender.color = itemColor;
-        _itemDispenserSprite.SetActive(true);
+        if (turretRepair)
+        {
+            if (DispenserDataType == DispenserData.Type.RepairKit)
+            {
+                turretRepair.Repair();
+                DisableHoldItem();
+            }
+
+            else
+            {
+                DisableHoldItem();
+            }
+        }
+    }
+
+    private void PickUpAmmo()
+    {
+        if (turretLoader)
+        {
+            switch (DispenserDataType)
+            {
+                case DispenserData.Type.LaserBeam:
+                case DispenserData.Type.Missile:
+                case DispenserData.Type.Railgun:
+                case DispenserData.Type.Normal:
+                    {
+                        turretLoader.Reloadammo();
+                        DisableHoldItem();
+                    }
+                    break;
+                case DispenserData.Type.None:
+                default:
+                    {
+                        DisableHoldItem();
+                    }
+                    break;
+            }
+        }
     }
 
     public void SetCurrentDispenser(DispenserItem dispenser)
@@ -250,47 +282,20 @@ public class Player : MonoBehaviour
         if (dispenser == null)
         {
             Debug.Log("Clearing the current dispenser type");
-            //_itemDispenserSprite.SetActive(false);
-            _currentDispenser.DispenserType = DispenserData.Type.None;
+
+            if (!PlayerHasItem)
+            {
+                DispenserDataType = DispenserData.Type.None;
+            }
         }
         else
         {
-            Debug.Log($"Setting current dispenser type to {dispenser.DispenserType.ToString()}");
-            _currentDispenser = dispenser;
+            if (!PlayerHasItem)
+            {
+                _currentDispenser = dispenser;
+                DispenserDataType = _currentDispenser.DispenserType;
+            }
         }
     }
 
-    public void PickUpItem(bool isInsideDispenser, DispenserData.Type dataType, Color color)
-    {
-        isPlayerInsideDispenser = isInsideDispenser;
-        if (isInsideDispenser && dataType != _dispenserDataType)
-        {
-            //_currentDispenserDataType = dataType;
-            _dispenserDataType = dataType;
-            _spriteRender.color = color;
-            Debug.Log($"[PickUpItem] { _dispenserDataType} and {_spriteRender.color}");
-            //if (dataType != _dispenserDataType)
-            //{
-            //    _dispenserDataType = dataType;
-            //    _spriteRender.color = color;
-            //}
-        }
-        else
-        {
-            _dispenserDataType = DispenserData.Type.None;
-        }
-
-        //if ((dataType != _dispenserDataType))
-        //{
-        //    _dispenserDataType = dataType;
-        //    //_isPlayerHasItem = hasItem;
-        //    Debug.Log($"{_dispenserDataType}");
-        //    if (_isPlayerHasItem)
-        //    {
-        //        _spriteRender.color = color;
-        //    }
-        //}
-    }
-
-    // TODO - Cyro - Add dispenser related functions
 }
