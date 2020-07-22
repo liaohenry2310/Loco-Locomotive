@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectBloodPos: {fileID: 0}
-  offset: {x: 0, y: 1, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &7215980287957974815
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,27 +25,28 @@ public class TurretCannon : MonoBehaviour
     private TurretHealth mTurretHealth;
     //public int AmmoMax = 10;
     private ObjectPooler mObjectPooler;
-    private LineRenderer mLineRenderer;
 
     void Start()
     {
         mInputReciever = GetComponent<InputReciever>();
         mTurretHealth = GetComponentInParent<TurretHealth>();
-        AmmoText.text = mCurrentAmmo.ToString();
+        AmmoText.text = "Ammo: " + mCurrentAmmo.ToString();
         mObjectPooler = GetComponent<ObjectPooler>();
         mCurrentAmmo = mObjectPooler.AmountToPool;
-        mLineRenderer = transform.parent.GetComponentInChildren<LineRenderer>();
     }
 
     private void Update()
     {
-        if (mTurretHealth.IsAlive())
+        if (!mTurretHealth.IsAlive())
         {
-                CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
-                Fire(mInputReciever.GetSecondaryHoldInput());
+            Debug.Log("You cannot use this turret!");
         }
 
-        mLineRenderer.gameObject.SetActive(mInputReciever.GetInUse());
+        if (mTurretHealth.IsAlive())
+        {
+            CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
+            Fire(mInputReciever.GetSecondaryHoldInput());
+        }
     }
     
     public void Fire(bool setFire)
@@ -76,7 +77,7 @@ public class TurretCannon : MonoBehaviour
         {
             //AmmoCountText.text = $"Ammo ...... Run out ammo........!!";
         }
-        AmmoText.text = mCurrentAmmo.ToString();
+        AmmoText.text = "Ammo: " + mCurrentAmmo.ToString();
     }
 
     //public void Repair()

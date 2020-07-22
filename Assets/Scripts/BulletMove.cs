@@ -36,7 +36,7 @@ public class BulletMove : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            BasicEnemy enemy = collision.gameObject.GetComponentInParent<BasicEnemy>();
+            ParatrooperEnemy enemy = collision.gameObject.GetComponentInParent<ParatrooperEnemy>();
             enemy.TakeDamage(Damage);
             gameObject.SetActive(false);
         }
