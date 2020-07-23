@@ -25,6 +25,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public static Vector3 GetScreenBounds
+    {
+        get
+        {
+            Camera MainCamera = FindObjectOfType<Camera>();
+            return MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
+        }
+    }
+
+
     //Public functions
     public void GameOver()
     {

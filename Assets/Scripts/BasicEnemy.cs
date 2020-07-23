@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : MonoBehaviour, IDamageable<float>
 {
 
     // Basic Enemy Stuffs....
@@ -114,7 +114,7 @@ public class BasicEnemy : MonoBehaviour
                 }
 
                 // " ? " < -- Ternary operator  " if not currentTarget not equal the first script , then go to the second one . "
-                if (currentTarget.GetComponent<TurretHealth>()?.IsAlive() == false || currentTarget.GetComponent<TrainHealth>()?.IsAlive() == false)
+                if (currentTarget.GetComponent<TurretHealth>()?.IsAlive == false || currentTarget.GetComponent<TrainHealth>()?.IsAlive() == false)
                 {
                     currentTarget = null;
                 }
@@ -133,9 +133,10 @@ public class BasicEnemy : MonoBehaviour
 
 
 
-    public void TakeDamage(float takingDamage)
+    public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {
         health -= takingDamage;
+        Debug.Log($"[IDamageable]Type: {damageType}");
         if (health <= 0.0f)
         {
             Destroy(gameObject);
@@ -190,7 +191,7 @@ public class BasicEnemy : MonoBehaviour
                 if (Vector2.Distance(transform.position, target.transform.position) < distance)
 
                 {
-                    if (target.GetComponent<TurretHealth>()?.IsAlive() == true || target.GetComponent<TrainHealth>()?.IsAlive() == true)
+                    if (target.GetComponent<TurretHealth>()?.IsAlive == true || target.GetComponent<TrainHealth>()?.IsAlive() == true)
                     {
 
                         targetPos = (target.transform.position);

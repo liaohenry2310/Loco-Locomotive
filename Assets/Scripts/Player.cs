@@ -263,7 +263,7 @@ public class Player : MonoBehaviour
                 case DispenserData.Type.Railgun:
                 case DispenserData.Type.Normal:
                     {
-                        turretLoader.Reloadammo();
+                        turretLoader.Reloadammo(DispenserDataType);
                         DisableHoldItem();
                     }
                     break;

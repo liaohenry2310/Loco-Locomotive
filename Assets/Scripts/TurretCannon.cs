@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor.Experimental.AssetImporters;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TurretCannon : MonoBehaviour
 {
     [Header("Properties")]
-    public GameObject BulletsPrefabs;
     public Transform CannonHandler;
     public Transform CannonFirePoint;
 
@@ -13,81 +14,168 @@ public class TurretCannon : MonoBehaviour
 
     [Header("Exposed variables")]
     public float repairHealth;
-    public int mCurrentAmmo;
+    //public int mCurrentAmmo;
 
-    [Header("Bullets factors")]
-    public float spreadFactor = 0.1f;
-    public float FireRate = 100f;
+    //[Header("Bullets factors")]
+    //public float spreadFactor = 0.1f;
+    //public float FireRate = 100f;
+    //private float mTimeToFire = 0f;
+    //public int AmmoMax = 10;
+    //private ObjectPooler mObjectPooler;
 
     private InputReciever mInputReciever;
-    private float mTimeToFire = 0f;
-
     private TurretHealth mTurretHealth;
-    //public int AmmoMax = 10;
-    private ObjectPooler mObjectPooler;
-    private LineRenderer mLineRenderer;
+    private LineRenderer _laserSight;
+
+    [Header("Laser Ammo set")]
+    public LineRenderer LaserBeamer;
+    public float LaserRange = 50f;
+    public float LaserDamage = 0.5f;
+    public float LaserAmmo = 100f;
+
+    [Header("Railgun Ammo set")]
+    public float RailgunRange = 50f;
+    public float RailgunDamage = 20f;
+    public int RailgunAmmo = 100;
+    public float RailgunTimeFireRate = 0f;
+    public float RailgunFireRate = 10f;
+
+    public DispenserData.Type _ammoType = DispenserData.Type.Normal;
+
+    #region Weapons set
+
+    private WeaponNormalGun _weaponNormalGun;
+    private WeaponLaserBeam _weaponLaserBeam;
+
+    #endregion
 
     void Start()
     {
-        mInputReciever = GetComponent<InputReciever>();
+        _ = TryGetComponent(out mInputReciever);
+        _ = TryGetComponent(out _weaponNormalGun);
+        _ = TryGetComponent(out _weaponLaserBeam);
+
+        AmmoText.text = _weaponNormalGun.CurrentAmmo.ToString();
         mTurretHealth = GetComponentInParent<TurretHealth>();
-        AmmoText.text = mCurrentAmmo.ToString();
-        mObjectPooler = GetComponent<ObjectPooler>();
-        mCurrentAmmo = mObjectPooler.AmountToPool;
-        mLineRenderer = transform.parent.GetComponentInChildren<LineRenderer>();
+        _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
+
+        if (TryGetComponent<TurretLoader>(out var turretLoader))
+        {
+            turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
+        }
     }
 
     private void Update()
     {
-        if (mTurretHealth.IsAlive())
-        {
-                CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
-                Fire(mInputReciever.GetSecondaryHoldInput());
-        }
-
-        mLineRenderer.gameObject.SetActive(mInputReciever.GetInUse());
+        HandlerCannon();
     }
-    
-    public void Fire(bool setFire)
-    {
-        if (setFire && (mCurrentAmmo > 0) && (Time.time >= mTimeToFire))
-        {
-            mTimeToFire = Time.time + (1f / FireRate);
-            // bck original
-            //var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
-            //var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
-            //mCurrentAmmo--;
-            //x.transform.rotation = Quaternion.RotateTowards(CannonFirePoint.transform.rotation, Random.rotation, spreadFactor);
-            // bck original
-            //x.transform.rotation = CannonFirePoint.rotation;
-            //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
 
-            // novo teste
-            var bullet = mObjectPooler.GetPooledObject();
-            if (bullet)
+    private void HandlerCannon()
+    {
+        if (mTurretHealth.IsAlive)
+        {
+            CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
+            bool setFire = mInputReciever.GetSecondaryHoldInput();
+
+            switch (_ammoType)
             {
-                bullet.transform.position = CannonFirePoint.transform.position;
-                bullet.transform.rotation = Quaternion.RotateTowards(CannonFirePoint.transform.rotation, Random.rotation, spreadFactor);
-                bullet.SetActive(true);
-                mCurrentAmmo--;
+                case DispenserData.Type.Normal:
+                    {
+                        // Calling setFire from Weapon Normal
+                        _weaponNormalGun.SetFire(setFire);
+                        // Update the UI Text Canvas
+                        AmmoText.text = _weaponNormalGun.CurrentAmmo.ToString();
+                    }
+                    break;
+                case DispenserData.Type.LaserBeam:
+                    {
+                        // Calling setFire from Weapon Laser Beam
+                        _weaponLaserBeam.SetFire(setFire);
+                        // Update the UI Text Canvas
+                        AmmoText.text = _weaponLaserBeam.CurrentAmmo.ToString();
+                    }
+                    break;
+                case DispenserData.Type.Missile:
+                    break;
+                case DispenserData.Type.Railgun:
+                    {
+                        Railgun(setFire);
+                    }
+                    break;
+                case DispenserData.Type.RepairKit:
+                case DispenserData.Type.Fuel:
+                case DispenserData.Type.None:
+                default:
+                    break;
             }
+
         }
-        if (mCurrentAmmo == 0)
-        {
-            //AmmoCountText.text = $"Ammo ...... Run out ammo........!!";
-        }
-        AmmoText.text = mCurrentAmmo.ToString();
+        _laserSight.gameObject.SetActive(mInputReciever.GetInUse() && _ammoType != DispenserData.Type.LaserBeam);
+
+        //if (mTurretHealth.IsAlive())
+        //{
+        //    CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
+        //    Fire(mInputReciever.GetSecondaryHoldInput());
+        //}
+
+        //mLineRenderer.gameObject.SetActive(mInputReciever.GetInUse());
     }
 
-    //public void Repair()
-    //{
-    //    mTurretHealth.RepairTurret(repairHealth);
-    //}
-
-    public void Reload()
+    private void Railgun(bool setFire)
     {
-        Debug.Log($"{gameObject.transform.parent.name} Turret reloaded!");
+        if (setFire && LaserAmmo > 0f && (Time.time >= RailgunTimeFireRate))
+        {
+            RailgunTimeFireRate = Time.time + (1f / RailgunFireRate);
+            if (!LaserBeamer.enabled)
+            {
+                LaserBeamer.enabled = true;
+            }
+            RaycastHit2D hit = Physics2D.Raycast(CannonFirePoint.transform.position, CannonFirePoint.transform.up, LaserRange);
+            LaserBeamer.SetPosition(0, CannonFirePoint.transform.position);
+            if (hit)
+            {
+                //LaserBeamer.SetPosition(1, LaserRange);
+                Collider2D collider = hit.collider;
+                if (collider)
+                {
+                    IDamageable<float> damageable = collider.GetComponentInParent<BasicEnemy>();
+                    if (damageable != null)
+                    {
+                        //   damageable.TakeDamage(RailgunDamage);
+                    }
+                }
+            }
+            LaserBeamer.SetPosition(1, CannonFirePoint.transform.up * LaserRange);
+            RailgunAmmo--;
+        }
+        else
+        {
+            LaserBeamer.enabled = false;
+        }
+    }
+
+    public void Reload(DispenserData.Type type)
+    {
+        Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
+        _ammoType = type;
+        switch (_ammoType)
+        {
+            case DispenserData.Type.Normal:
+                {
+                    _weaponNormalGun.Reload();
+                }
+                break;
+            case DispenserData.Type.LaserBeam:
+                LaserAmmo = 100;
+                break;
+            case DispenserData.Type.Missile:
+                break;
+            case DispenserData.Type.Railgun:
+                break;
+            default:
+                break;
+        }
+
         //mCurrentAmmo = AmmoMax;
-        mCurrentAmmo = mObjectPooler.AmountToPool;
     }
 }
