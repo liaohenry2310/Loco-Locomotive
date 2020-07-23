@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2176784081404634479}
   - component: {fileID: 7127822127632417311}
   - component: {fileID: 4342734095972644247}
-  - component: {fileID: 1176999021}
+  - component: {fileID: 4747602815507533995}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: pfBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1176999021
+--- !u!114 &4747602815507533995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,5 +109,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b0bc353e3c0424aaacc9d3d4f7ac45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
-  Damage: 5
+  AmmoTypeData: {fileID: 11400000, guid: 0ea60b0481f4e0f4ca62a3892f91175d, type: 2}

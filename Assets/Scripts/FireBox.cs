@@ -6,11 +6,11 @@ public class FireBox : MonoBehaviour
     public float mCurrentFuel;
     public float mAddfuel;
 
-    private InputReciever mInputReciever;
+    //private InputReciever mInputReciever;
     private FuelController mFuelController;
     void Start()
     {
-        mInputReciever = GetComponent<InputReciever>();
+    //    mInputReciever = GetComponent<InputReciever>();
         mFuelController = FindObjectOfType<FuelController>();
         //mCurrentFuel = mMaxFuel;
         mCurrentFuel = 50;//for test
@@ -18,13 +18,8 @@ public class FireBox : MonoBehaviour
 
     public void AddFuel()
     {
-        Debug.Log("added fuel");
-        mCurrentFuel += mAddfuel;
-        if (mCurrentFuel >= mMaxFuel)
-        {
-            mCurrentFuel = mMaxFuel;
-        }
         mFuelController.Reload(mAddfuel);
+        Debug.Log("added fuel");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,7 +27,15 @@ public class FireBox : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Player player = collision.GetComponent<Player>();
-            player.fireBox = this;
+            // safety first.
+            if (player)
+            {
+                player.fireBox = this;
+            }
+            else 
+            {
+                // log error.
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

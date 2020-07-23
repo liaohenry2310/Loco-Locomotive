@@ -164,4 +164,8 @@ public class InputReciever : MonoBehaviour
         mSecondaryHeld = false;
     }
 
+    public bool GetInUse()
+    {
+        return mInUse;
+    }
 }

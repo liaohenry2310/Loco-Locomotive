@@ -114,7 +114,7 @@ public class ParatrooperEnemy : MonoBehaviour
                 }
 
                 // " ? " < -- Ternary operator  " if not currentTarget not equal the first script , then go to the second one . "
-                if (currentTarget.GetComponent<TurretHealth>()?.IsAlive() == false || currentTarget.GetComponentInParent<TrainHealth>()?.IsAlive() == false)
+                if (currentTarget.GetComponent<TurretHealth>()?.IsAlive==false || currentTarget.GetComponentInParent<TrainHealth>()?.IsAlive() == false)
                 {
                     currentTarget = null;
                 }
@@ -190,7 +190,7 @@ public class ParatrooperEnemy : MonoBehaviour
                 if (Vector2.Distance(transform.position, target.transform.position) < distance)
 
                 {
-                    if (target.GetComponent<TurretHealth>()?.IsAlive() == true || target.GetComponentInParent<TrainHealth>()?.IsAlive() == true)
+                    if (target.GetComponent<TurretHealth>()?.IsAlive== true || target.GetComponentInParent<TrainHealth>()?.IsAlive() == true)
                     {
 
                         targetPos = (target.transform.position);

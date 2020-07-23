@@ -7,7 +7,7 @@ public class ShieldModifier : EnemyHealth
     public float ShieldHealth;
 
 
-    public override void TakeDamage(float takingDamage) 
+    public override void TakeDamage(float takingDamage, DispenserData.Type damageType) 
     {
         if (ShieldHealth <= 0.0f) // shiel is gone.
         {
@@ -20,10 +20,13 @@ public class ShieldModifier : EnemyHealth
         }
         else
         {
-            ShieldHealth -= takingDamage;
-            if (!IsShieldModifierOn())
+            if (damageType != DispenserData.Type.LaserBeam)
             {
-                GetComponent<SpriteRenderer>().enabled = false;
+                ShieldHealth -= takingDamage;
+                if (!IsShieldModifierOn())
+                {
+                    GetComponent<SpriteRenderer>().enabled = false;
+                }
             }
         }
     }

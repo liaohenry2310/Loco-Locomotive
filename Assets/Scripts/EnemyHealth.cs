@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour,IDamageable<float>
 {
     public float health;
 
@@ -11,9 +11,10 @@ public class EnemyHealth : MonoBehaviour
     {
         
     }
-    public virtual void TakeDamage(float takingDamage) 
+    public virtual void TakeDamage(float takingDamage, DispenserData.Type damageType) 
     {
         health -= takingDamage;
+        Debug.Log($"[IDamageable]Type: {damageType}");
         if (health <= 0.0f)
         {
             Destroy(gameObject);
