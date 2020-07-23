@@ -179,9 +179,10 @@ GameObject:
   m_Component:
   - component: {fileID: 20598139663676580}
   - component: {fileID: 20598139663676581}
+  - component: {fileID: 147188168048315308}
   - component: {fileID: 20598139663676583}
   m_Layer: 9
-  m_Name: BasicEnemy
+  m_Name: ParatrooperEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,7 +219,6 @@ MonoBehaviour:
   fallSpeed: 0.5
   gravity: 1
   windSpeed: 0.55
-  health: 15
   damage: 2.5
   targetList: []
   topWagonCollider: {fileID: 5257547452153316951, guid: 9716fadf60502cf43816f01796558f65,
@@ -226,6 +226,19 @@ MonoBehaviour:
   trainHealth: {fileID: 0}
   groundArea: {fileID: 56348919984978964, guid: 6bd794b4aeff3044f9c3704cd2463b1d,
     type: 3}
+--- !u!114 &147188168048315308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20598139663676602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ab80ff0845e9c4e80c3ca98318950f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 15
 --- !u!50 &20598139663676583
 Rigidbody2D:
   serializedVersion: 4

@@ -15,7 +15,7 @@ public class ParatrooperEnemy : MonoBehaviour
     public float windSpeed = 1.5f;
 
     // Health
-    public float health;
+    //public float health;
 
     // Damage
     public float damage;
@@ -133,15 +133,15 @@ public class ParatrooperEnemy : MonoBehaviour
 
 
 
-    public void TakeDamage(float takingDamage)
-    {
-        health -= takingDamage;
-        if (health <= 0.0f)
-        {
-            Destroy(gameObject);
-            Debug.Log("See you next time!");
-        }
-    }
+    //public void TakeDamage(float takingDamage)
+    //{
+    //    health -= takingDamage;
+    //    if (health <= 0.0f)
+    //    {
+    //        Destroy(gameObject);
+    //        Debug.Log("See you next time!");
+    //    }
+    //}
 
     // Check if landed on train
     private void OnTriggerEnter2D(Collider2D collision)

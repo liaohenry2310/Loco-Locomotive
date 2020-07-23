@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour
     {
         
     }
-    public void TakeDamage(float takingDamage)
+    public virtual void TakeDamage(float takingDamage) 
     {
         health -= takingDamage;
         if (health <= 0.0f)
