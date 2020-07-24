@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a03ae5d5476ae84bb84f71de747cf8b, type: 3}
-  m_Name: LaserBeamData
+  m_Name: LaserDataObject
   m_EditorClassIdentifier: 
   _range: 50
-  _damage: 0.5
-  _ammo: 100
+  _damage: 10
+  _laserType: 2

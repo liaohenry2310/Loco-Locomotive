@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cannonFirePoint: {fileID: 3193508245827852810}
-  _laserData: {fileID: 11400000, guid: 743e2066d75cca74ca147ae4188f2e45, type: 2}
+  _laserData: {fileID: 11400000, guid: f2eedf2e5ac681c4685928515c33dd7a, type: 2}
   _LaserBeam: {fileID: 66850640662514850}
   MaxAmmo: 100
 --- !u!1 &3193508246008629862

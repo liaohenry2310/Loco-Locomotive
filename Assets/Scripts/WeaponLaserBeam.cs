@@ -9,13 +9,13 @@ public class WeaponLaserBeam : MonoBehaviour
     [Header("Ammo capacity")]
     public float MaxAmmo = 100;
 
-    public float CurrentAmmo => _laserData.Ammo;
+    public float CurrentAmmo { get; private set; } = 0.0f;
 
-    private void Start() => _laserData.Ammo = MaxAmmo;
+    private void Start() => CurrentAmmo = MaxAmmo;
 
     public void SetFire(bool isTrigger)
     {
-        if (isTrigger && _laserData.Ammo > 0f)
+        if (isTrigger && CurrentAmmo > 0f)
         {
             if (!_LaserBeam.enabled)
             {
@@ -40,8 +40,8 @@ public class WeaponLaserBeam : MonoBehaviour
             {
                 _LaserBeam.SetPosition(1, _cannonFirePoint.transform.up * _laserData.Range);
             }
-            _laserData.Ammo -= 1f / Time.time;
-            _laserData.Ammo = Mathf.Clamp(_laserData.Ammo, 0f, MaxAmmo);
+            CurrentAmmo -= 1f / Time.time;
+            CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0f, MaxAmmo);
         }
         else
         {
@@ -49,6 +49,5 @@ public class WeaponLaserBeam : MonoBehaviour
         }
     }
 
-    public void Reload() => _laserData.Ammo = MaxAmmo;
-
+    public void Reload() => CurrentAmmo = MaxAmmo;
 }

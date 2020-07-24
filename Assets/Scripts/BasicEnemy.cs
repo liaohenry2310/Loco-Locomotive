@@ -52,4 +52,6 @@ public class BasicEnemy : MonoBehaviour
         projectile.transform.position = gameObject.transform.position;
 
     }
+
+    
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEditor.Experimental.AssetImporters;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TurretCannon : MonoBehaviour
@@ -14,14 +12,6 @@ public class TurretCannon : MonoBehaviour
 
     [Header("Exposed variables")]
     public float repairHealth;
-    //public int mCurrentAmmo;
-
-    //[Header("Bullets factors")]
-    //public float spreadFactor = 0.1f;
-    //public float FireRate = 100f;
-    //private float mTimeToFire = 0f;
-    //public int AmmoMax = 10;
-    //private ObjectPooler mObjectPooler;
 
     private InputReciever mInputReciever;
     private TurretHealth mTurretHealth;
@@ -80,28 +70,29 @@ public class TurretCannon : MonoBehaviour
             switch (_ammoType)
             {
                 case DispenserData.Type.Normal:
-                {
-                    // Calling setFire from Weapon Normal
-                    _weaponNormalGun.SetFire(setFire);
-                    // Update the UI Text Canvas
-                    AmmoText.text = _weaponNormalGun.CurrentAmmo.ToString();
-                }
-                break;
+                    {
+                        // Calling setFire from Weapon Normal
+                        _weaponNormalGun.SetFire(setFire);
+                        // Update the UI Text Canvas
+                        AmmoText.text = _weaponNormalGun.CurrentAmmo.ToString();
+                    }
+                    break;
                 case DispenserData.Type.LaserBeam:
-                {
-                    // Calling setFire from Weapon Laser Beam
-                    _weaponLaserBeam.SetFire(setFire);
-                    // Update the UI Text Canvas
-                    AmmoText.text = _weaponLaserBeam.CurrentAmmo.ToString();
-                }
-                break;
+                    {
+                        // Calling setFire from Weapon Laser Beam
+                        _weaponLaserBeam.SetFire(setFire);
+                        // Update the UI Text Canvas
+                        AmmoText.text = _weaponLaserBeam.CurrentAmmo.ToString();
+                    }
+                    break;
                 case DispenserData.Type.Missile:
                     break;
                 case DispenserData.Type.Railgun:
-                {
-                    Railgun(setFire);
-                }
-                break;
+                    {
+                        //TODO: Testing area
+                        Railgun(setFire);
+                    }
+                    break;
                 case DispenserData.Type.RepairKit:
                 case DispenserData.Type.Fuel:
                 case DispenserData.Type.None:
@@ -161,12 +152,14 @@ public class TurretCannon : MonoBehaviour
         switch (_ammoType)
         {
             case DispenserData.Type.Normal:
-            {
-                _weaponNormalGun.Reload();
-            }
-            break;
+                {
+                    _weaponNormalGun.Reload();
+                }
+                break;
             case DispenserData.Type.LaserBeam:
-                LaserAmmo = 100;
+                {
+                    _weaponLaserBeam.Reload();
+                }
                 break;
             case DispenserData.Type.Missile:
                 break;

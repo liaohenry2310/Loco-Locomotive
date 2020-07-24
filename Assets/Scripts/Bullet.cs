@@ -36,6 +36,8 @@ public class Bullet : ProjectileAmmo
             damageable.TakeDamage(AmmoTypeData.Damage, AmmoType);
             gameObject.SetActive(false);
         }
+
+
         // Old code
         //if (collision.CompareTag("Enemy"))
         //{
