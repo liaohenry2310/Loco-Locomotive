@@ -23,13 +23,22 @@ public class WeaponLaserBeam : MonoBehaviour
             }
             RaycastHit2D hit = Physics2D.Raycast(_cannonFirePoint.transform.position, _cannonFirePoint.transform.up, _laserData.Range);
             _LaserBeam.SetPosition(0, _cannonFirePoint.transform.position);
+            _LaserBeam.SetPosition(1, _cannonFirePoint.transform.up * _laserData.Range);
+
             if (hit)
             {
-                _LaserBeam.SetPosition(1, hit.point);
                 Collider2D collider = hit.collider;
                 if (collider)
                 {
                     IDamageable<float> damageable = collider.GetComponentInParent<EnemyHealth>();
+                    foreach (var shield in collider.GetComponentsInChildren<ShieldModifier>())
+                    {
+                        if (shield != null)
+                        {
+                            _LaserBeam.SetPosition(1, hit.point);
+                        }
+                    }
+
                     if (damageable != null)
                     {
                         damageable.TakeDamage(_laserData.Damage, _laserData.LaserType);
