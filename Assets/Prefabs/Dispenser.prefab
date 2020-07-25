@@ -152,5 +152,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b259d569b9e4f7f43a00a82ede97cd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dispenserData: {fileID: 11400000, guid: ce284c4b865cdd544ac6e0d8e6d6e8e1, type: 2}
-  _dispenserDataType: 1
+  _dispenserItem: {fileID: 11400000, guid: dfb02f65c76ddde46aee9a27962291f1, type: 2}
