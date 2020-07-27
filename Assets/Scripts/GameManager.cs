@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,11 +12,16 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverPanel;
     public GameObject YouWinPanel;
 
+    private static GameManager sInstance;
+
     private List<PlayerController> mPlayerControllers;
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
+    private bool playersSpawned = false;
 
     //Properties
+    static public GameManager Instance { get { return sInstance; } }
+
     public Vector3 ScreenBounds
     {
         get
@@ -43,30 +49,19 @@ public class GameManager : MonoBehaviour
     //Private functions
     private void Awake()
     {
-        Time.timeScale = 1.0f;
+        if (sInstance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            sInstance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        SceneManager.sceneLoaded += (scene, mode) => SceneLoaded();
+
         mPlayerControllers = new List<PlayerController>();
-        mInitialSpawnPoints = new List<Transform>(GetComponentsInChildren<Transform>());
-        mInitialSpawnPoints.Remove(transform);
-        mTrain = GameObject.Find("Train");
-    }
-
-    private void Start()
-    {
-        //Create player controllers.
-        var player1 = PlayerInput.Instantiate(playerControllerPrefab, 0, "KeyboardRight", -1, Keyboard.current);
-        var player2 = PlayerInput.Instantiate(playerControllerPrefab, 1, "KeyboardLeft", -1, Keyboard.current);
-
-        //Spawn player avatars in scene.
-        var avatar1 = Instantiate(playerPrefab, mInitialSpawnPoints[0].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
-        var avatar2 = Instantiate(playerPrefab, mInitialSpawnPoints[1].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
-
-        //Set player avatar colors.
-        avatar1.GetComponentInChildren<SpriteRenderer>().color = Color.cyan;
-        avatar2.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
-
-        //Hook up player avatars with their respective player Controllers.
-        player1.GetComponent<PlayerController>().SetPlayer(ref avatar1);
-        player2.GetComponent<PlayerController>().SetPlayer(ref avatar2);
     }
 
     public void Restart()
@@ -78,5 +73,100 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Quit the game!");
         Application.Quit();
+    }
+
+    public void LoadNextLevel()
+    {
+        if (SceneManager.GetActiveScene().buildIndex - 1 < SceneManager.sceneCountInBuildSettings)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void LoadTitleScreen()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    void SceneLoaded()
+    {
+        //Resets level parameters and retrieve inital player spawn points.
+        Time.timeScale = 1.0f;
+        mTrain = GameObject.Find("Train");
+        playersSpawned = false;
+        if (SceneManager.GetActiveScene().buildIndex > 0)
+            Invoke("SpawnPlayers", 1.0f);
+
+        GameObject spawnpoints = GameObject.Find("InitialSpawn");
+        if (spawnpoints)
+        {
+            mInitialSpawnPoints = new List<Transform>(spawnpoints.GetComponentsInChildren<Transform>());
+            mInitialSpawnPoints.RemoveAt(0);
+        }
+    }
+
+    void OnPlayerJoined(PlayerInput playerInput)
+    {
+        //When PlayerInputManager detects that a player has joined by pressing a button on their controller, they will be added to the PlayerControllers list.
+        if (playerInput.TryGetComponent(out PlayerController controller))
+        {
+            mPlayerControllers.Add(controller);
+            FindObjectOfType<TitleMenuControl>()?.UpdatePlayerStatus(mPlayerControllers.Count - 1, playerInput.currentControlScheme);
+
+            //Spawns player avatar if player joins late into the level.
+            if (playersSpawned)
+            {
+                var avatar = Instantiate(playerPrefab, mInitialSpawnPoints[mPlayerControllers.Count - 1].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
+                mPlayerControllers[mPlayerControllers.Count - 1].SetPlayer(avatar);
+
+                //Remove this line of code if changing color of player avatar sprite is unwanted
+                avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(mPlayerControllers.Count - 1);
+            }
+        }
+    }
+
+    void OnPlayerLeft(PlayerInput playerInput)
+    {
+        int index = mPlayerControllers.IndexOf(playerInput.GetComponent<PlayerController>());
+        mPlayerControllers.RemoveAt(index);
+        FindObjectOfType<TitleMenuControl>()?.UpdatePlayerStatus(index, null);
+    }
+
+    void SpawnPlayers()
+    {
+        if(playersSpawned)
+        {
+            return;
+        }
+
+        for (int i = 0; i < mPlayerControllers.Count; ++i)
+        {
+            var avatar = Instantiate(playerPrefab, mInitialSpawnPoints[i].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
+            mPlayerControllers[i].SetPlayer(avatar);
+
+            //Remove this line of code if changing color of player avatar sprite is unwanted
+            avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(i);
+        }
+
+        playersSpawned = true;
+    }
+
+    public Color GetPlayerColor(int playerNum)
+    {
+        Color color = Color.black;
+        switch(playerNum)
+        {
+            case 0:
+                color = Color.cyan;
+                break;
+            case 1:
+                color = Color.magenta;
+                break;
+            case 2:
+                color = Color.yellow;
+                break;
+            case 3:
+                color = Color.grey;
+                break;
+        }
+        return color;
     }
 }

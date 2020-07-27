@@ -13,16 +13,16 @@ public class InputReciever : MonoBehaviour
     private bool mSecondaryHeld = false;
 
     //Public functions
-    public bool SetPlayerInput(ref PlayerInput playerInput)
+    public bool SetPlayerInput(PlayerInput playerInput)
     {
         if (!mInUse)
         {
             mPlayerInput = playerInput;
             mInUse = true;
-            mPlayerInput.actions["PrimaryHold"].started += StartPrimaryHold;
-            mPlayerInput.actions["PrimaryHold"].canceled += EndPrimaryHold;
-            mPlayerInput.actions["SecondaryHold"].started += StartSecondaryHold;
-            mPlayerInput.actions["SecondaryHold"].canceled += EndSecondaryHold;
+            mPlayerInput.actions["Primary"].started += StartPrimaryHold;
+            mPlayerInput.actions["Primary"].canceled += EndPrimaryHold;
+            mPlayerInput.actions["Secondary"].started += StartSecondaryHold;
+            mPlayerInput.actions["Secondary"].canceled += EndSecondaryHold;
             return true;
         }
         return false;
@@ -35,10 +35,10 @@ public class InputReciever : MonoBehaviour
             mInUse = false;
             mPrimaryHeld = false;
             mSecondaryHeld = false;
-            mPlayerInput.actions["PrimaryHold"].started -= StartPrimaryHold;
-            mPlayerInput.actions["PrimaryHold"].canceled -= EndPrimaryHold;
-            mPlayerInput.actions["SecondaryHold"].started -= StartSecondaryHold;
-            mPlayerInput.actions["SecondaryHold"].canceled -= EndSecondaryHold;
+            mPlayerInput.actions["Primary"].started -= StartPrimaryHold;
+            mPlayerInput.actions["Primary"].canceled -= EndPrimaryHold;
+            mPlayerInput.actions["Secondary"].started -= StartSecondaryHold;
+            mPlayerInput.actions["Secondary"].canceled -= EndSecondaryHold;
             mPlayerInput = null;
         }
     }
@@ -137,7 +137,7 @@ public class InputReciever : MonoBehaviour
         if (!mIsPlayer && collision.CompareTag("Player"))
         {
             InputReciever inputReciever = this;
-            collision.GetComponent<Player>().PlayerController.SetControllable(ref inputReciever);
+            collision.GetComponent<Player>().PlayerController.SetControllable(inputReciever);
         }
     }
 
