@@ -3,9 +3,6 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-
-
-
     #region Machinaries
     public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
@@ -16,12 +13,11 @@ public class Player : MonoBehaviour
     #endregion
 
     #region dispenser
-
     private GameObject _itemDispenserSprite = default; 
     public bool PlayerHasItem { get; private set; } = false;
     private SpriteRenderer _spriteRender;
     private DispenserItem _currentItem;         // Item that the player is currently holding.
-    private DispenserItem _itemToPickup;        // The type of dispenser the player is standing at if any.    
+    private DispenserItemData _itemToPickup;        // The type of dispenser the player is standing at if any.    
     #endregion
 
     public GameObject player;
@@ -93,7 +89,7 @@ public class Player : MonoBehaviour
         if (mInputReceiver.GetSecondaryInput()) 
         {
             // If we are at a dispenser
-            if (_itemToPickup.DispenserType != DispenserData.Type.None)
+            if (_itemToPickup.itemType != DispenserData.Type.None)
             {
                 if (PlayerHasItem)
                 {
@@ -125,7 +121,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (_itemToPickup.DispenserType != DispenserData.Type.None)
+            if (_itemToPickup.itemType != DispenserData.Type.None)
             {
                 
             }
@@ -133,7 +129,7 @@ public class Player : MonoBehaviour
             {
                 PlayerHasItem = false;
                 _itemDispenserSprite.SetActive(false);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {_itemToPickup.DispenserType}");
+                Debug.Log($"Player has item? {PlayerHasItem} --- {_itemToPickup.itemType}");
             }
         }
 
@@ -143,7 +139,8 @@ public class Player : MonoBehaviour
     private void PickUpItemFromDispenser()
     {
         PlayerHasItem = true;
-        _currentItem = _itemToPickup;
+        _currentItem.DispenserType = _itemToPickup.itemType;
+        _currentItem.DispenserColor = _itemToPickup.itemColor;
         _itemDispenserSprite.SetActive(true);
         _spriteRender.color = _currentItem.DispenserColor;
         Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
@@ -251,13 +248,13 @@ public class Player : MonoBehaviour
         if (item == null)
         {
             Debug.Log("Clearing the current dispenser type");
-            _itemToPickup.DispenserType = DispenserData.Type.None;
-            _itemToPickup.DispenserColor = Color.white;
+            _itemToPickup.itemType = DispenserData.Type.None;
+            _itemToPickup.itemColor = Color.white;
         }
         else
         {
-            _itemToPickup = item;
-
+            _itemToPickup.itemType = item.DispenserType;
+            _itemToPickup.itemColor = item.DispenserColor;
         }
     }
     #region Player Respawn

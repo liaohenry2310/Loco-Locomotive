@@ -1,4 +1,6 @@
-﻿public static class DispenserData
+﻿using UnityEngine;
+
+public static class DispenserData
 {
     public enum Type
     {
@@ -10,5 +12,10 @@
         RepairKit,
         Fuel,
     }
-   
+}
+
+public class DispenserItemData
+{
+    public DispenserData.Type itemType;
+    public Color itemColor = Color.white;
 }
