@@ -4,33 +4,24 @@
 public class Player : MonoBehaviour
 {
 
-    #region dont need anymore
-    
+
+
+    #region Machinaries
     public AmmoCrate ammoCrate;
     public Repairkitcrate repairkitcrate;
     public FuelCrate fuelCrate;
-
-    public bool isHoldingAmmo;
-    public bool isHoldingRepairKit;
-    public bool isHoldingFuel;
-
-    #endregion
-
-    #region Machinaries
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
     public FireBox fireBox;
-
     #endregion
 
     #region dispenser
 
-    private GameObject _itemDispenserSprite = default; // TODO - Christy: Each item we pickup doesn't need a separate sprite in the player prefab. We can probably get rid of this.
+    private GameObject _itemDispenserSprite = default; 
     public bool PlayerHasItem { get; private set; } = false;
     private SpriteRenderer _spriteRender;
     private DispenserItem _currentItem;         // Item that the player is currently holding.
     private DispenserItem _itemToPickup;        // The type of dispenser the player is standing at if any.    
-
     #endregion
 
     public GameObject player;
@@ -38,6 +29,8 @@ public class Player : MonoBehaviour
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
+
+    public Vector3 itemOffset;
 
     [Header("Properties")]
     [SerializeField]
@@ -55,7 +48,6 @@ public class Player : MonoBehaviour
         mRigidBody = GetComponent<Rigidbody2D>();
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
-
         foreach (var sprite in GetComponentsInChildren<SpriteRenderer>())
         {
             if (sprite.name == "CollectedItem")
@@ -98,7 +90,7 @@ public class Player : MonoBehaviour
     {
         #region Dispenser
 
-        if (mInputReceiver.GetSecondaryInput()) // 'v' key
+        if (mInputReceiver.GetSecondaryInput()) 
         {
             // If we are at a dispenser
             if (_itemToPickup.DispenserType != DispenserData.Type.None)
@@ -106,7 +98,7 @@ public class Player : MonoBehaviour
                 if (PlayerHasItem)
                 {
                     // Drop it.
-                    DropItemOnGround();
+                    DropItem();
                 }
                 else
                 {
@@ -119,24 +111,23 @@ public class Player : MonoBehaviour
                 if (PlayerHasItem)
                 {
                     // TODO - Christy: Check if we can use the item before we drop it.
+
+                    DropItem();
                     
                     // If we can use the item, ie Refeul, Repair, Reload ... 
-                    UseItem();
-
                     // Drop it, if we haven't used it.
-                    if (_currentItem != null)
-                    { 
-                        DropItemOnGround();
-                    }
+
                 }
                 else
                 {
-                    // Player is not at a dispenser, and is not holding an item ... nothing to do.
+                    //Player is not at a dispenser, and is not holding an item ... nothing to do.
+                    _itemDispenserSprite.SetActive(false);
                 }
             }
 
             if (_itemToPickup.DispenserType != DispenserData.Type.None)
             {
+                
             }
             else
             {
@@ -153,76 +144,66 @@ public class Player : MonoBehaviour
     {
         PlayerHasItem = true;
         _currentItem = _itemToPickup;
+        _itemDispenserSprite.SetActive(true);
         _spriteRender.color = _currentItem.DispenserColor;
         Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
     }
 
-    private void DropItemOnGround()
+    private void DropItem()
     {
-        // Place item on the ground.
-        var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform); // Might need to adjust where it is spawned.
-        var dispenserObject = itemDropped.GetComponent<DispenserObject>();
-        if (dispenserObject != null)
-        { 
-            dispenserObject.Sprite.color = _currentItem.DispenserColor;
-            dispenserObject.StartDestructionTimer();
-        }
+        if(!fireBox && !turretRepair && !turretLoader)
+        {
+            // Place item on the ground.
+            var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform.position - itemOffset, Quaternion.identity); 
+            var dispenserObject = itemDropped.GetComponent<DispenserObject>();
+            if (dispenserObject != null)
+            { 
+                dispenserObject.Sprite.color = _currentItem.DispenserColor;
+                dispenserObject.StartDestructionTimer();
+            }
 
-        _currentItem = null;
-        _spriteRender.color = Color.white;
-        PlayerHasItem = false;
+            //_currentItem = null;
+            _spriteRender.color = Color.white;
+            _itemDispenserSprite.SetActive(false);
+            PlayerHasItem = false;
+        }
+        else
+        {
+            UseItem();
+        }
     }
 
     private void UseItem()
     {
-        // TODO - Christy: Rename these to reflect what they are doing.
-        PickUpAmmo();
-        PickUpFuel();
-        PickUpRepairKit();
+
+        ReloadAmmo();
+        AddFuel();
+        RepairTurret();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("player died");
-            player.SetActive(false);
-            _itemDispenserSprite.SetActive(false);
-            player.transform.localPosition = spwanPoint.transform.localPosition;
-            Invoke("Respawn", 5f);
-        }
-    }
-
-    private void Respawn()
-    {
-        Debug.Log("Respawn");
-        player.SetActive(true);
-    }
 
     private void DisableHoldItem()
     {
-        // TODO - Christy: Set current item to null
-        PlayerHasItem = false;
+        _currentItem = null;
+        _spriteRender.color = Color.white;
         _itemDispenserSprite.SetActive(false);
+        PlayerHasItem = false;
     }
 
-    private void PickUpFuel()
+    private void AddFuel()
     {
-        if (fireBox)
+        if (_currentItem.DispenserType == DispenserData.Type.Fuel)
         {
-            if (_currentItem.DispenserType == DispenserData.Type.Fuel)
-            {
-                fireBox.AddFuel();
-                DisableHoldItem();
-            }
-            else
-            {
-                DisableHoldItem();
-            }
+            fireBox.AddFuel();
+            DisableHoldItem();
+        }
+        else
+        {
+            DisableHoldItem();
         }
     }
 
-    private void PickUpRepairKit()
+    private void RepairTurret()
     {
         if (turretRepair)
         {
@@ -238,7 +219,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PickUpAmmo()
+    private void ReloadAmmo()
     {
         if (turretLoader)
         {
@@ -276,6 +257,27 @@ public class Player : MonoBehaviour
         else
         {
             _itemToPickup = item;
+
         }
     }
+    #region Player Respawn
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("player died");
+            player.SetActive(false);
+            _itemDispenserSprite.SetActive(false);
+            player.transform.localPosition = spwanPoint.transform.localPosition;
+            Invoke("Respawn", 5f);
+        }
+    }
+
+    private void Respawn()
+    {
+        Debug.Log("Respawn");
+        player.SetActive(true);
+    }
+    #endregion
+
 }

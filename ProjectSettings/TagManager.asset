@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Turret
   - FrontWagon
+  - DispenserObject
   layers:
   - Default
   - TransparentFX
