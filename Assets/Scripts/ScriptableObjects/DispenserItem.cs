@@ -11,5 +11,5 @@ public class DispenserItem : ScriptableObject
     public DispenserData.Type DispenserType { get { return type; } set{ type = value; } } 
     public Color DispenserColor { get { return color; } set { color = value; } }
 
-    public GameObject ItemPrefab { get { return itemPrefab; } }
+    public GameObject ItemPrefab { get { return itemPrefab; } set { itemPrefab = value; } }
 }

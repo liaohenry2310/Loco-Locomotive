@@ -41,6 +41,18 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        _itemToPickup = new DispenserItemData()
+        {
+            itemColor = Color.white,
+            itemType = DispenserData.Type.None
+        };
+
+        _currentItem = new DispenserItem()
+        {
+            DispenserType = DispenserData.Type.None,
+            DispenserColor = Color.white,
+        };
+
         mRigidBody = GetComponent<Rigidbody2D>();
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
@@ -141,6 +153,7 @@ public class Player : MonoBehaviour
         PlayerHasItem = true;
         _currentItem.DispenserType = _itemToPickup.itemType;
         _currentItem.DispenserColor = _itemToPickup.itemColor;
+        _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
         _itemDispenserSprite.SetActive(true);
         _spriteRender.color = _currentItem.DispenserColor;
         Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
@@ -244,17 +257,20 @@ public class Player : MonoBehaviour
     // When we enter/exit the trigger box of the dispenser set the corresponding variable to tell which dispenser we are at.
     public void SetCurrentDispenser(DispenserItem item)
     {
+        Debug.Log($"Setting Current Dispenser to {item?.DispenserType}");
         // If the dispenser is null we have exited the trigger box of the dispenser we were just at.
         if (item == null)
         {
             Debug.Log("Clearing the current dispenser type");
             _itemToPickup.itemType = DispenserData.Type.None;
             _itemToPickup.itemColor = Color.white;
+            _itemToPickup.itemPrefab = null;
         }
         else
         {
             _itemToPickup.itemType = item.DispenserType;
             _itemToPickup.itemColor = item.DispenserColor;
+            _itemToPickup.itemPrefab = item.ItemPrefab;
         }
     }
     #region Player Respawn
