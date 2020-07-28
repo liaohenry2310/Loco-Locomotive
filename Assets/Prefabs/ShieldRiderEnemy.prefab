@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4087518011027052134}
   - component: {fileID: 4087518011027052135}
-  - component: {fileID: 4087518011027052057}
   m_Layer: 0
   m_Name: Shield
-  m_TagString: Enemy
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,20 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4087518011027052057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4087518011027052058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 501243d9cc6cad8478ed720f1d5e0b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 15
-  ShieldHealth: 15
 --- !u!1 &4103036680226110614
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +132,7 @@ MonoBehaviour:
   fallSpeed: 1
   gravity: 1
   windSpeed: 0.55
-  _shieldModifier: {fileID: 4087518011027052057}
+  _shieldModifier: {fileID: 0}
   damage: 2.5
   targetList: []
   topWagonCollider: {fileID: 5257547452153316951, guid: 9716fadf60502cf43816f01796558f65,

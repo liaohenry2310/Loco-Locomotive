@@ -29,8 +29,8 @@ public class WeaponLaserBeam : MonoBehaviour
                 Collider2D collider = hit.collider;
                 if (collider)
                 {
-                    var shieldEnemy = collider.GetComponentInParent<ParatrooperEnemy>();
-                    if (shieldEnemy && shieldEnemy.IsHasShield)
+                    var shieldEnemy = collider.GetComponentInParent<RiderEnemy>();
+                    if (shieldEnemy )//&& shieldEnemy.IsHasShield)
                     {
                         _LaserBeam.SetPosition(1, hit.point);
                     }

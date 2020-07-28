@@ -40,7 +40,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
                     {
                         foreach (var go in GetComponentsInChildren<SpriteRenderer>())
                         {
-                            if (go.CompareTag("ShieldEnemy"))
+                            if (go.CompareTag("Shield"))
                             {
                                 go.enabled = false;
                                 break;

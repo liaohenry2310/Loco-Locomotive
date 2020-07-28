@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParatrooperEnemy : MonoBehaviour
+public class RiderEnemy : MonoBehaviour
 {
 
     // Basic Enemy Stuffs....
@@ -17,12 +17,12 @@ public class ParatrooperEnemy : MonoBehaviour
     // Health
     //public float health;
 
-    #region Shield Modifier
-    [SerializeField]
-    ShieldModifier _shieldModifier;
-    public bool IsHasShield => _shieldModifier;
-
-    #endregion
+    //#region Shield Modifier
+    //[SerializeField]
+    //ShieldModifier _shieldModifier;
+    //public bool IsHasShield => _shieldModifier;
+    //
+    //#endregion
 
 
     // Damage

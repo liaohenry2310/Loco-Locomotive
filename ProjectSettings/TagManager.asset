@@ -11,6 +11,7 @@ TagManager:
   - FrontWagon
   - Train
   - ShieldEnemy
+  - Shield
   layers:
   - Default
   - TransparentFX

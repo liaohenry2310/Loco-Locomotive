@@ -51,9 +51,9 @@ public class EnemySpawner : MonoBehaviour
             float x;
             x = Random.Range(leftRange, rightRange);
             GameObject enemy = Instantiate(Enemies, new Vector3(x, spawnY, 0), Quaternion.identity);
-            enemy.GetComponent<ParatrooperEnemy>().targetList.AddRange(targetList);
-            enemy.GetComponent<ParatrooperEnemy>().groundArea = groundArea;
-            enemy.GetComponent<ParatrooperEnemy>().topWagonCollider = topWagonCollider;
+            enemy.GetComponent<RiderEnemy>().targetList.AddRange(targetList);
+            enemy.GetComponent<RiderEnemy>().groundArea = groundArea;
+            enemy.GetComponent<RiderEnemy>().topWagonCollider = topWagonCollider;
 
         }
     }
