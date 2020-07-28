@@ -4,9 +4,7 @@
 public class Player : MonoBehaviour
 {
     #region Machinaries
-    public AmmoCrate ammoCrate;
-    public Repairkitcrate repairkitcrate;
-    public FuelCrate fuelCrate;
+
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
     public FireBox fireBox;
@@ -104,27 +102,23 @@ public class Player : MonoBehaviour
             if (_itemToPickup.itemType != DispenserData.Type.None)
             {
                 if (PlayerHasItem)
-                {
-                    // Drop it.
-                    DropItem();
+                {                   
+                    DropItem();// Drop it.
                 }
                 else
-                {
-                    // Pick up
-                    PickUpItemFromDispenser();
+                {                  
+                    PickUpItemFromDispenser(); // Pick up
                 }
             }
             else
             {
                 if (PlayerHasItem)
                 {
-                    // TODO - Christy: Check if we can use the item before we drop it.
-
-                    DropItem();
-                    
                     // If we can use the item, ie Refeul, Repair, Reload ... 
                     // Drop it, if we haven't used it.
+                    // TODO - Christy: Check if we can use the item before we drop it.
 
+                    DropItem();                   
                 }
                 else
                 {
@@ -133,16 +127,16 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (_itemToPickup.itemType != DispenserData.Type.None)
-            {
+            //if (_itemToPickup.itemType != DispenserData.Type.None)
+            //{
                 
-            }
-            else
-            {
-                PlayerHasItem = false;
-                _itemDispenserSprite.SetActive(false);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {_itemToPickup.itemType}");
-            }
+            //}
+            //else
+            //{
+            //    PlayerHasItem = false;
+            //    _itemDispenserSprite.SetActive(false);
+            //    Debug.Log($"Player has item? {PlayerHasItem} --- {_itemToPickup.itemType}");
+            //}
         }
 
         #endregion
@@ -185,7 +179,6 @@ public class Player : MonoBehaviour
 
     private void UseItem()
     {
-
         ReloadAmmo();
         AddFuel();
         RepairTurret();
@@ -194,7 +187,6 @@ public class Player : MonoBehaviour
 
     private void DisableHoldItem()
     {
-        _currentItem = null;
         _spriteRender.color = Color.white;
         _itemDispenserSprite.SetActive(false);
         PlayerHasItem = false;
