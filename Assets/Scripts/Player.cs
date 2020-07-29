@@ -226,8 +226,9 @@ public class Player : MonoBehaviour
                 case DispenserData.Type.LaserBeam:
                 case DispenserData.Type.Missile:
                 case DispenserData.Type.Railgun:
-                case DispenserData.Type.Normal: // MachineGun?
+                case DispenserData.Type.Normal: // MachineGun
                     {
+                        //turretLoader.Reloadammo(_itemToPickup);
                         turretLoader.Reloadammo();
                         DisableHoldItem();
                     }
