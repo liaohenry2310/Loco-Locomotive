@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
     public FireBox fireBox;
+    public DispenserObject dispenserObject;
     #endregion
 
     #region dispenser
@@ -116,8 +117,6 @@ public class Player : MonoBehaviour
                 {
                     // If we can use the item, ie Refeul, Repair, Reload ... 
                     // Drop it, if we haven't used it.
-                    // TODO - Christy: Check if we can use the item before we drop it.
-
                     DropItem();                   
                 }
                 else
@@ -127,16 +126,13 @@ public class Player : MonoBehaviour
                 }
             }
 
-            //if (_itemToPickup.itemType != DispenserData.Type.None)
-            //{
-                
-            //}
-            //else
-            //{
-            //    PlayerHasItem = false;
-            //    _itemDispenserSprite.SetActive(false);
-            //    Debug.Log($"Player has item? {PlayerHasItem} --- {_itemToPickup.itemType}");
-            //}
+            if(dispenserObject !=null)
+            {
+                _itemDispenserSprite.SetActive(true);
+                _spriteRender.color = dispenserObject.Sprite.color;             
+                PlayerHasItem = true;
+                dispenserObject.OnBecameInvisible();
+            }
         }
 
         #endregion
@@ -164,9 +160,9 @@ public class Player : MonoBehaviour
             { 
                 dispenserObject.Sprite.color = _currentItem.DispenserColor;
                 dispenserObject.StartDestructionTimer();
+               
             }
 
-            //_currentItem = null;
             _spriteRender.color = Color.white;
             _itemDispenserSprite.SetActive(false);
             PlayerHasItem = false;
@@ -265,6 +261,7 @@ public class Player : MonoBehaviour
             _itemToPickup.itemPrefab = item.ItemPrefab;
         }
     }
+
     #region Player Respawn
     private void OnCollisionEnter2D(Collision2D collision)
     {
