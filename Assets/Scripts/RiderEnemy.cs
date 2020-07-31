@@ -42,14 +42,15 @@ public class RiderEnemy : MonoBehaviour
     public TrainHealth trainHealth;
     private Vector2 mColliderSize;
 
-    // Check Gound
-    public GameObject groundArea;
+    //// Check Gound
+    //public GameObject groundArea;
 
     // Bounding Check
     private Camera MainCam;
     private Vector2 screenBounds;
     private float leftRange;
     private float rightRange;
+    float screenBottom;
 
     // Attack Delay 
     private float mTakeDamageDelay = 1.5f;
@@ -71,11 +72,18 @@ public class RiderEnemy : MonoBehaviour
         screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
         rightRange = screenBounds.x + 3.0f;
         leftRange = -screenBounds.x - 3.0f;
+        screenBottom = -screenBounds.y;
         mColliderSize = GetComponentInChildren<BoxCollider2D>().size;
     }
     // Update is called once per frame
     void Update()
     {
+        // check if is hitting the bottom of the screen.
+        if (currentPos.y <= screenBottom)
+        {
+            gameObject.SetActive(false);
+
+        }
 
         currentPos = transform.position;
 
@@ -162,14 +170,14 @@ public class RiderEnemy : MonoBehaviour
     }
 
     // Check if landed on ground
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject == groundArea)
-        {
-            mCurrentState = State.OnGround;
-            Destroy(gameObject);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+        //if (collision.gameObject == groundArea)
+        //{
+            //mCurrentState = State.OnGround;
+            //Destroy(gameObject);
+        //}
+    //}
 
     // Check if outside of screen 
     private void OffScreen()

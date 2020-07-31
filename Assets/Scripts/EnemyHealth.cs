@@ -4,54 +4,46 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
 {
     // regular type 
     public float health;
-    // Shield type
-    public float ShieldHealth;
+
+
+
 
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {
+
         if (CompareTag("Enemy"))
         {
-            health -= takingDamage;
-            if (health <= 0.0f)
-            {
-                Destroy(gameObject);
-                Debug.Log("See you next time!");
-            }
+            HpLogic(takingDamage, damageType);
         }
 
         if (CompareTag("ShieldEnemy"))
         {
-            if (ShieldHealth <= 0.0f) // shiel is gone.
+            if (!GetComponentInChildren<EnemyShieldHealth>().ShieldIsActive())
             {
-                health -= takingDamage;
-                if (health <= 0.0f)
-                {
-                    Destroy(gameObject);
-                    Debug.Log("See you next time!");
-                }
+                HpLogic(takingDamage, damageType);
             }
             else
             {
-                if (damageType != DispenserData.Type.LaserBeam)
-                {
-                    ShieldHealth -= takingDamage;
-                    Debug.Log("Shield taking damage!");
-                    if (!IsShieldModifierOn())
-                    {
-                        foreach (var go in GetComponentsInChildren<SpriteRenderer>())
-                        {
-                            if (go.CompareTag("Shield"))
-                            {
-                                go.enabled = false;
-                                break;
-                            }
-                        }
-                        Debug.Log("Shield SpriteRenderer !enabled");
-                    }
-                }
+                ShieldLogic(takingDamage, damageType);
             }
         }
 
+        if (CompareTag("ArmorEnemy"))
+        {
+            ArmorLogic(takingDamage, damageType);
+        }
+
+       if (CompareTag("ShieldArmorEnemy"))
+       {
+           if (GetComponentInChildren<EnemyShieldHealth>().ShieldIsActive())
+           {
+               ShieldLogic(takingDamage, damageType);
+           }
+           else
+           {
+               ArmorLogic(takingDamage, damageType);
+           }
+       }
     }
 
     public bool IsAlive()
@@ -59,9 +51,42 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
         return health > 0.0f;
     }
 
-    //Shield type
-    public bool IsShieldModifierOn()
+    void HpLogic(float takingDamage, DispenserData.Type damageType)
     {
-        return ShieldHealth > 0.0f;
+
+        health -= takingDamage;
+        Debug.Log(tag + "Lost " + takingDamage + "hp. Current health: " + health);
+        if (health <= 0.0f)
+        {
+            Destroy(gameObject);
+            Debug.Log("I will be back!");
+        }
     }
+
+    void ShieldLogic(float takingDamage, DispenserData.Type damageType)
+    {
+
+        if (damageType != DispenserData.Type.LaserBeam)
+        {
+            GetComponentInChildren<EnemyShieldHealth>().TakeDamage(takingDamage);
+        }
+        else
+        {
+            Debug.Log("ZaZaZa, I do not know what are you doing!!!");
+        }
+    }
+    void ArmorLogic(float takingDamage, DispenserData.Type damageType)
+    {
+        if (!GetComponentInChildren<EnemyArmorHealth>().ArmorIsActive() || damageType == DispenserData.Type.Railgun)
+        {
+            HpLogic(takingDamage, damageType);
+        }
+        else
+        {
+            GetComponentInChildren<EnemyArmorHealth>().TakeDamage(takingDamage);
+        }
+
+    }
+
+
 }

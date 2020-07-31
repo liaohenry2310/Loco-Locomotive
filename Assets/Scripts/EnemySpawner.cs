@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> targetList;
 
-    public GameObject groundArea;
+   // public GameObject groundArea;
     public GameObject topWagonCollider;
 
 
@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
             x = Random.Range(leftRange, rightRange);
             GameObject enemy = Instantiate(Enemies, new Vector3(x, spawnY, 0), Quaternion.identity);
             enemy.GetComponent<RiderEnemy>().targetList.AddRange(targetList);
-            enemy.GetComponent<RiderEnemy>().groundArea = groundArea;
+           // enemy.GetComponent<RiderEnemy>().groundArea = groundArea;
             enemy.GetComponent<RiderEnemy>().topWagonCollider = topWagonCollider;
 
         }
