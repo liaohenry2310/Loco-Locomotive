@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
             mPlayerControllers.Add(controller);
             FindObjectOfType<TitleMenuControl>()?.UpdatePlayerStatus(mPlayerControllers.Count - 1, playerInput.currentControlScheme);
 
-            //Spawns player avatar if player joins late into the level.
+            //Spawns player avatar if player joins late into the level. (SHOULD ONLY BE USED FOR TESTING)
             if (playersSpawned)
             {
                 var avatar = Instantiate(playerPrefab, mInitialSpawnPoints[mPlayerControllers.Count - 1].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
