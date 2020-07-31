@@ -120,7 +120,7 @@ public class InputReciever : MonoBehaviour
 
     public bool IsUsingGamepad()
     {
-        return mPlayerInput.defaultControlScheme.Equals("Gamepad");
+        return mPlayerInput.currentControlScheme.Equals("Gamepad");
     }
 
     //Private functions
