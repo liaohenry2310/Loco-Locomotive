@@ -1,12 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TurretLoader : MonoBehaviour
 {
-    public void Reloadammo()
+
+    public event Action<DispenserData.Type> OnReloadTurret;
+
+    public void Reloadammo(DispenserData.Type type)
     {
-        TurretCannon turretCannon = gameObject.GetComponentInParent<TurretCannon>();
-        turretCannon.Reload();
-        Debug.Log("reload ammo");
+        // New code
+        OnReloadTurret?.Invoke(type);
+
+        // Old code
+        //TurretCannon turretCannon = gameObject.GetComponentInParent<TurretCannon>();
+        //turretCannon.Reload(type);
+        //Debug.Log("reload ammo");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

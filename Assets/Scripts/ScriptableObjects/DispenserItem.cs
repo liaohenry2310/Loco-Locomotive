@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "DispenserDataObject", menuName = "Dispenser")]
+[CreateAssetMenu(fileName = "DispenserDataObject", menuName = "DataObject/Dispenser")]
 public class DispenserItem : ScriptableObject
 {
-
     [SerializeField] private DispenserData.Type type = default;
     [SerializeField] private Color color = default;
     [SerializeField] private GameObject itemPrefab =  null;
