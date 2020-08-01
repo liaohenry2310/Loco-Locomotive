@@ -10,7 +10,6 @@ public class TurretHealth : MonoBehaviour
     public float repairHealth = 20;
     private void Start()
     {
-
         mCurrentHealth = MaxHealth;
         healthBar.SetMaxHealth(MaxHealth);
     }
@@ -22,10 +21,7 @@ public class TurretHealth : MonoBehaviour
         healthBar.SetHealth(mCurrentHealth);
     }
 
-    public bool IsAlive()
-    {
-        return mCurrentHealth > 0.0f;
-    }
+    public bool IsAlive => mCurrentHealth > 0.0f;
 
     public void RepairTurret()
     {

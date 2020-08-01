@@ -18,6 +18,7 @@ public class Repairkitcrate : MonoBehaviour
         {
             Player player = collision.GetComponent<Player>();
             player.repairkitcrate = null;
+
         }
     }
 }

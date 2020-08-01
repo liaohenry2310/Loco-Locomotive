@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     //Properties
     static public GameManager Instance { get { return sInstance; } }
 
-    public Vector3 ScreenBounds
+    public static Vector3 GetScreenBounds
     {
         get
         {
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
             return MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         }
     }
+
 
     //Public functions
     public void GameOver()

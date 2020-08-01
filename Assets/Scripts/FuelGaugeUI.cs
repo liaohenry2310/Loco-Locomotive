@@ -14,8 +14,11 @@ public class FuelGaugeUI : MonoBehaviour
     {
         mSliderFuel = GetComponentInChildren<Slider>();
         mFuelController = FindObjectOfType<FuelController>();
-        mFuelController.OnUpdateFuelUI += UpdateFuelUI;
-        mFuelController.OnFuelReloadUI += ReloadFuelUI;
+        if (mFuelController)
+        {
+            mFuelController.OnUpdateFuelUI += UpdateFuelUI;
+            mFuelController.OnFuelReloadUI += ReloadFuelUI;
+        }
     }
 
     private void UpdateFuelUI(float pct)

@@ -1,14 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class TurretRepair : MonoBehaviour
 {
+    private TurretHealth turretHealth;
+
+    private void Start()
+    {
+        _ = TryGetComponent(out turretHealth);
+    }
+
     public void Repair()
     {
-        TurretHealth turretHealth = gameObject.GetComponent<TurretHealth>();
         turretHealth.RepairTurret();
-        Debug.Log("repair turret");
+        Debug.Log("[TurretRepair] Repair complete!");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
