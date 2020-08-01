@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202b481ce62e3bf4285a7706de1f1e11, type: 3}
   m_Name: LaserDispenser
   m_EditorClassIdentifier: 
-  _type: 2
-  _color: {r: 0.8018868, g: 0.38584396, b: 0, a: 1}
+  type: 2
+  color: {r: 1, g: 0.36892498, b: 0, a: 1}
+  itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
+    type: 3}

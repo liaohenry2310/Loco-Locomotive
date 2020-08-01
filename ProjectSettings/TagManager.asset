@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Turret
   - FrontWagon
+  - DispenserObject
   - Train
   - ShieldEnemy  
   - ShieldArmorEnemy

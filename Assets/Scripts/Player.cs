@@ -3,45 +3,29 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-
-    #region dont need anymore
-    
-    public AmmoCrate ammoCrate;
-    public Repairkitcrate repairkitcrate;
-    public FuelCrate fuelCrate;
-
-    public bool isHoldingAmmo;
-    public bool isHoldingRepairKit;
-    public bool isHoldingFuel;
-
-    #endregion
-
     #region Machinaries
+
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
     public FireBox fireBox;
-
+    public DispenserObject dispenserObject;
     #endregion
 
     #region dispenser
-
-    private GameObject _itemDispenserSprite = default;
+    private GameObject _itemDispenserSprite = default; 
     public bool PlayerHasItem { get; private set; } = false;
     private SpriteRenderer _spriteRender;
-    private DispenserItem _currentDispenser;
-    public DispenserData.Type DispenserDataType;
-
+    private DispenserItem _currentItem;         // Item that the player is currently holding.
+    private DispenserItemData _itemToPickup;        // The type of dispenser the player is standing at if any.    
     #endregion
 
-    //public GameObject ammoSprite;
-    //public GameObject repairKitSprite;
-    //public GameObject fuelSprite;
-    //public GameObject playerSprite;
     public GameObject player;
     public GameObject spwanPoint;
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
+
+    public Vector3 itemOffset;
 
     [Header("Properties")]
     [SerializeField]
@@ -56,11 +40,21 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        _itemToPickup = new DispenserItemData()
+        {
+            itemColor = Color.white,
+            itemType = DispenserData.Type.None
+        };
+
+        _currentItem = new DispenserItem()
+        {
+            DispenserType = DispenserData.Type.None,
+            DispenserColor = Color.white,
+        };
+
         mRigidBody = GetComponent<Rigidbody2D>();
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
-
-
         foreach (var sprite in GetComponentsInChildren<SpriteRenderer>())
         {
             if (sprite.name == "CollectedItem")
@@ -70,98 +64,6 @@ public class Player : MonoBehaviour
                 _itemDispenserSprite.SetActive(false);
             }
         }
-
-        //ammoSprite.SetActive(false);
-        //repairKitSprite.SetActive(false);
-        //fuelSprite.SetActive(false);
-    }
-
-    private void Update()
-    {
-        ////ammo
-        //if (ammoCrate != null && mInputReceiver.GetSecondaryInput())
-        //{
-        //    isHoldingAmmo = true;
-        //    ammoSprite.SetActive(true);
-        //}
-        //else if (turretLoader != null && isHoldingAmmo && mInputReceiver.GetSecondaryInput())
-        //{
-        //    isHoldingAmmo = false;
-        //    ammoSprite.SetActive(false);
-        //    turretLoader.Reloadammo();
-        //}
-        //else if (isHoldingAmmo && mInputReceiver.GetSecondaryInput())
-        //{
-        //    ammoSprite.SetActive(false);
-        //    isHoldingAmmo = false;
-        //}
-
-
-        ////repairkit
-        //if (repairkitcrate != null && mInputReceiver.GetSecondaryInput())
-        //{
-        //    isHoldingRepairKit = true;
-        //    repairKitSprite.SetActive(true);
-        //}
-        //else if (turretRepair != null && isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
-        //{
-        //    isHoldingRepairKit = false;
-        //    repairKitSprite.SetActive(false);
-        //    turretRepair.Repair();
-
-        //}
-        //else if (isHoldingRepairKit && mInputReceiver.GetSecondaryInput())
-        //{
-        //    repairKitSprite.SetActive(false);
-        //    isHoldingRepairKit = false;
-        //}
-
-        ////fuel
-        //if (fuelCrate != null && mInputReceiver.GetSecondaryInput())
-        //{
-        //    isHoldingFuel = true;
-        //    fuelSprite.SetActive(true);
-        //}
-        //else if (fireBox != null && isHoldingFuel && mInputReceiver.GetSecondaryInput())
-        //{
-        //    isHoldingFuel = false;
-        //    fuelSprite.SetActive(false);
-        //    fireBox.AddFuel();
-        //}
-        //else if (isHoldingFuel && mInputReceiver.GetSecondaryInput())
-        //{
-        //    fuelSprite.SetActive(false);
-        //    isHoldingFuel = false;
-        //}
-
-        #region Dispenser
-
-        if (mInputReceiver.GetSecondaryInput())
-        {
-            if (DispenserDataType != DispenserData.Type.None)
-            {
-                PlayerHasItem = true;
-                _spriteRender.color = _currentDispenser.DispenserColor;
-                DispenserDataType = _currentDispenser.DispenserType;
-                _itemDispenserSprite.SetActive(true);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {DispenserDataType}");
-
-                //if (PlayerHasItem)
-                //{
-                PickUpAmmo();
-                PickUpFuel();
-                PickUpRepairKit();
-                //}
-            }
-            else
-            {
-                PlayerHasItem = false;
-                _itemDispenserSprite.SetActive(false);
-                Debug.Log($"Player has item? {PlayerHasItem} --- {DispenserDataType}");
-            }
-        }
-
-        #endregion
     }
 
     private void FixedUpdate()
@@ -191,60 +93,123 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Update()
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        #region Dispenser
+
+        if (mInputReceiver.GetSecondaryInput()) 
         {
-            Debug.Log("player died");
-            player.SetActive(false);
-            //ammoSprite.SetActive(false);
-            //repairKitSprite.SetActive(false);
-            //fuelSprite.SetActive(false);
-            _itemDispenserSprite.SetActive(false);
-            player.transform.localPosition = spwanPoint.transform.localPosition;
-            Invoke("Respawn", 5f);
-        }
-    }
-
-    private void Respawn()
-    {
-        Debug.Log("Respawn");
-        player.SetActive(true);
-    }
-
-    private void DisableHoldItem()
-    {
-        PlayerHasItem = false;
-        _itemDispenserSprite.SetActive(false);
-        DispenserDataType = DispenserData.Type.None;
-    }
-
-    private void PickUpFuel()
-    {
-        if (fireBox)
-        {
-            if (DispenserDataType == DispenserData.Type.Fuel)
+            // If we are at a dispenser
+            if (_itemToPickup.itemType != DispenserData.Type.None)
             {
-                fireBox.AddFuel();
-                DisableHoldItem();
+                if (PlayerHasItem)
+                {                   
+                    DropItem();// Drop it.
+                }
+                else
+                {                  
+                    PickUpItemFromDispenser(); // Pick up
+                }
             }
             else
             {
-                DisableHoldItem();
+                if (PlayerHasItem)
+                {
+                    // If we can use the item, ie Refeul, Repair, Reload ... 
+                    // Drop it, if we haven't used it.
+                    DropItem();                   
+                }
+                else
+                {
+                    //Player is not at a dispenser, and is not holding an item ... nothing to do.
+                    _itemDispenserSprite.SetActive(false);
+                }
             }
+
+            if(dispenserObject !=null)
+            {
+                _itemDispenserSprite.SetActive(true);
+                _spriteRender.color = dispenserObject.Sprite.color;             
+                PlayerHasItem = true;
+                dispenserObject.OnBecameInvisible();
+            }
+        }
+
+        #endregion
+    }
+
+    private void PickUpItemFromDispenser()
+    {
+        PlayerHasItem = true;
+        _currentItem.DispenserType = _itemToPickup.itemType;
+        _currentItem.DispenserColor = _itemToPickup.itemColor;
+        _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
+        _itemDispenserSprite.SetActive(true);
+        _spriteRender.color = _currentItem.DispenserColor;
+        Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
+    }
+
+    private void DropItem()
+    {
+        if(!fireBox && !turretRepair && !turretLoader)
+        {
+            // Place item on the ground.
+            var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform.position - itemOffset, Quaternion.identity); 
+            var dispenserObject = itemDropped.GetComponent<DispenserObject>();
+            if (dispenserObject != null)
+            { 
+                dispenserObject.Sprite.color = _currentItem.DispenserColor;
+                dispenserObject.StartDestructionTimer();
+               
+            }
+
+            _spriteRender.color = Color.white;
+            _itemDispenserSprite.SetActive(false);
+            PlayerHasItem = false;
+        }
+        else
+        {
+            UseItem();
         }
     }
 
-    private void PickUpRepairKit()
+    private void UseItem()
+    {
+        ReloadAmmo();
+        AddFuel();
+        RepairTurret();
+    }
+
+
+    private void DisableHoldItem()
+    {
+        _spriteRender.color = Color.white;
+        _itemDispenserSprite.SetActive(false);
+        PlayerHasItem = false;
+    }
+
+    private void AddFuel()
+    {
+        if (_currentItem.DispenserType == DispenserData.Type.Fuel)
+        {
+            fireBox.AddFuel();
+            DisableHoldItem();
+        }
+        else
+        {
+            DisableHoldItem();
+        }
+    }
+
+    private void RepairTurret()
     {
         if (turretRepair)
         {
-            if (DispenserDataType == DispenserData.Type.RepairKit)
+            if (_currentItem.DispenserType == DispenserData.Type.RepairKit)
             {
                 turretRepair.Repair();
                 DisableHoldItem();
             }
-
             else
             {
                 DisableHoldItem();
@@ -252,18 +217,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PickUpAmmo()
+    private void ReloadAmmo()
     {
         if (turretLoader)
         {
-            switch (DispenserDataType)
+            switch (_currentItem.DispenserType)
             {
                 case DispenserData.Type.LaserBeam:
                 case DispenserData.Type.Missile:
                 case DispenserData.Type.Railgun:
-                case DispenserData.Type.Normal:
+                case DispenserData.Type.Normal: // MachineGun
                     {
-                        turretLoader.Reloadammo(DispenserDataType);
+                        turretLoader.Reloadammo(_itemToPickup);
                         DisableHoldItem();
                     }
                     break;
@@ -277,25 +242,44 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetCurrentDispenser(DispenserItem dispenser)
+    // When we enter/exit the trigger box of the dispenser set the corresponding variable to tell which dispenser we are at.
+    public void SetCurrentDispenser(DispenserItem item)
     {
-        if (dispenser == null)
+        Debug.Log($"Setting Current Dispenser to {item?.DispenserType}");
+        // If the dispenser is null we have exited the trigger box of the dispenser we were just at.
+        if (item == null)
         {
             Debug.Log("Clearing the current dispenser type");
-
-            if (!PlayerHasItem)
-            {
-                DispenserDataType = DispenserData.Type.None;
-            }
+            _itemToPickup.itemType = DispenserData.Type.None;
+            _itemToPickup.itemColor = Color.white;
+            _itemToPickup.itemPrefab = null;
         }
         else
         {
-            if (!PlayerHasItem)
-            {
-                _currentDispenser = dispenser;
-                DispenserDataType = _currentDispenser.DispenserType;
-            }
+            _itemToPickup.itemType = item.DispenserType;
+            _itemToPickup.itemColor = item.DispenserColor;
+            _itemToPickup.itemPrefab = item.ItemPrefab;
         }
     }
+
+    #region Player Respawn
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("player died");
+            player.SetActive(false);
+            _itemDispenserSprite.SetActive(false);
+            player.transform.localPosition = spwanPoint.transform.localPosition;
+            Invoke("Respawn", 5f);
+        }
+    }
+
+    private void Respawn()
+    {
+        Debug.Log("Respawn");
+        player.SetActive(true);
+    }
+    #endregion
 
 }
