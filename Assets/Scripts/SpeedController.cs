@@ -19,7 +19,7 @@ public class SpeedController : MonoBehaviour
 
     private void Start()
     {
-        mScreenBounds = FindObjectOfType<GameManager>().ScreenBounds;
+        mScreenBounds = GameManager.GetScreenBounds;
         mInputReciever = GetComponent<InputReciever>();
         mFuelController = GetComponent<FuelController>();
     }

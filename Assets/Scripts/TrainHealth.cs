@@ -10,7 +10,6 @@ public class TrainHealth : MonoBehaviour
     private float restoreTime;
     private bool mIsTakingDamage;
     public HealthBar healthBar;
-    public GameManager gameManager;
 
     void Start()
     {
@@ -36,7 +35,7 @@ public class TrainHealth : MonoBehaviour
 
         if (IsAlive() == false) 
         {
-            gameManager.GameOver();
+            GameManager.Instance.GameOver();
         }
     }
 
