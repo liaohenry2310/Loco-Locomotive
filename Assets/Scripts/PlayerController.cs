@@ -14,15 +14,15 @@ public class PlayerController : MonoBehaviour
     private PlayerInput mPlayerInput;
     private bool mIsUsingControllable;
 
-    public void SetPlayer(ref Player player)
+    public void SetPlayer(Player player)
     {
         mPlayerAvatar = player;
         mPlayerAvatarReciver = mPlayerAvatar.GetComponent<InputReciever>();
-        mPlayerAvatarReciver.SetPlayerInput(ref mPlayerInput);
+        mPlayerAvatarReciver.SetPlayerInput(GetComponent<PlayerInput>());
         mPlayerAvatar.PlayerController = this;
     }
 
-    public void SetControllable(ref InputReciever controllable)
+    public void SetControllable(InputReciever controllable)
     {
         mPlayerControllableReciever = controllable;
     }
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         mPlayerInput = GetComponent<PlayerInput>();
         mIsUsingControllable = false;
     }
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
         if (mPlayerControllableReciever &&
             !mIsUsingControllable && 
             mPlayerInput.actions["Primary"].triggered && 
-            mPlayerControllableReciever.SetPlayerInput(ref mPlayerInput))
+            mPlayerControllableReciever.SetPlayerInput(mPlayerInput))
         {
             mIsUsingControllable = true;
             mPlayerAvatarReciver.DisablePlayerInput();
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
         else if (mPlayerControllableReciever && 
             mIsUsingControllable && 
             mPlayerInput.actions["Primary"].triggered && 
-            mPlayerAvatarReciver.SetPlayerInput(ref mPlayerInput))
+            mPlayerAvatarReciver.SetPlayerInput(mPlayerInput))
         {
             mIsUsingControllable = false;
             mPlayerControllableReciever.DisablePlayerInput();
