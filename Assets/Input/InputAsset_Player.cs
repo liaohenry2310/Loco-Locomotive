@@ -35,22 +35,38 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""interactions"": ""Press""
                 },
                 {
+                    ""name"": ""PrimaryHold"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd873c27-38a6-473d-9f37-9ef1dd276bf9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
                     ""name"": ""Secondary"",
                     ""type"": ""Button"",
                     ""id"": ""025f2fdd-1ec9-4db1-8df1-6538b8be16a5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""SecondaryHold"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa7211a8-fc9f-4907-b0c8-b3016cef29ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""4fb3156c-fc0f-4f04-866d-6004eba5b612"",
-                    ""path"": ""<Keyboard>/rightShift"",
+                    ""path"": ""<Keyboard>/period"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Arrows"",
+                    ""groups"": ""KeyboardRight"",
                     ""action"": ""Primary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -58,10 +74,10 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1ac0f01a-bcb0-48cf-b351-c2eb76f04a50"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""WASD"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Primary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -80,10 +96,10 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0100c763-f1f6-4abc-a76b-38e313e623a9"",
-                    ""path"": ""<Keyboard>/rightCtrl"",
+                    ""path"": ""<Keyboard>/slash"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Arrows"",
+                    ""groups"": ""KeyboardRight"",
                     ""action"": ""Secondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -91,10 +107,10 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3121a135-beeb-4bd1-8b96-a616a6966c17"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""WASD"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Secondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -111,7 +127,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""WASD"",
+                    ""name"": ""WASD Keys"",
                     ""id"": ""1d488174-1722-4265-bfd9-5ee318e5d9c7"",
                     ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
@@ -127,7 +143,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""WASD"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -138,7 +154,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""WASD"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -149,7 +165,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""WASD"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -160,13 +176,13 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""WASD"",
+                    ""groups"": ""KeyboardLeft"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Arrows"",
+                    ""name"": ""Directional Keys"",
                     ""id"": ""39966502-5ae3-4fa8-9fc0-eed9ed879e54"",
                     ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
@@ -182,7 +198,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Arrows"",
+                    ""groups"": ""KeyboardRight"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -193,7 +209,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Arrows"",
+                    ""groups"": ""KeyboardRight"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -204,7 +220,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Arrows"",
+                    ""groups"": ""KeyboardRight"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -215,7 +231,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Arrows"",
+                    ""groups"": ""KeyboardRight"",
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -274,14 +290,80 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""action"": ""Directional"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93682e27-b39f-40f6-92b1-4ac63edf8613"",
+                    ""path"": ""<Keyboard>/period"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardRight"",
+                    ""action"": ""PrimaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4972d51b-ad3c-417d-a223-62e01e32dd1d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardLeft"",
+                    ""action"": ""PrimaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ef21f8b-0b02-430d-a346-9e76912e1638"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PrimaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""664ac31a-f656-4c7a-a783-8385946d3dad"",
+                    ""path"": ""<Keyboard>/slash"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardRight"",
+                    ""action"": ""SecondaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ea3bbb9-068c-49ef-81c3-9784f915edac"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardLeft"",
+                    ""action"": ""SecondaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""381da621-59a7-42aa-9885-7097c411f7df"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SecondaryHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Arrows"",
-            ""bindingGroup"": ""Arrows"",
+            ""name"": ""KeyboardRight"",
+            ""bindingGroup"": ""KeyboardRight"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -291,8 +373,8 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""WASD"",
-            ""bindingGroup"": ""WASD"",
+            ""name"": ""KeyboardLeft"",
+            ""bindingGroup"": ""KeyboardLeft"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -318,7 +400,9 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
         m_Input = asset.FindActionMap("Input", throwIfNotFound: true);
         m_Input_Directional = m_Input.FindAction("Directional", throwIfNotFound: true);
         m_Input_Primary = m_Input.FindAction("Primary", throwIfNotFound: true);
+        m_Input_PrimaryHold = m_Input.FindAction("PrimaryHold", throwIfNotFound: true);
         m_Input_Secondary = m_Input.FindAction("Secondary", throwIfNotFound: true);
+        m_Input_SecondaryHold = m_Input.FindAction("SecondaryHold", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -370,14 +454,18 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
     private IInputActions m_InputActionsCallbackInterface;
     private readonly InputAction m_Input_Directional;
     private readonly InputAction m_Input_Primary;
+    private readonly InputAction m_Input_PrimaryHold;
     private readonly InputAction m_Input_Secondary;
+    private readonly InputAction m_Input_SecondaryHold;
     public struct InputActions
     {
         private @InputAsset_Player m_Wrapper;
         public InputActions(@InputAsset_Player wrapper) { m_Wrapper = wrapper; }
         public InputAction @Directional => m_Wrapper.m_Input_Directional;
         public InputAction @Primary => m_Wrapper.m_Input_Primary;
+        public InputAction @PrimaryHold => m_Wrapper.m_Input_PrimaryHold;
         public InputAction @Secondary => m_Wrapper.m_Input_Secondary;
+        public InputAction @SecondaryHold => m_Wrapper.m_Input_SecondaryHold;
         public InputActionMap Get() { return m_Wrapper.m_Input; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -393,9 +481,15 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 @Primary.started -= m_Wrapper.m_InputActionsCallbackInterface.OnPrimary;
                 @Primary.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnPrimary;
                 @Primary.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnPrimary;
+                @PrimaryHold.started -= m_Wrapper.m_InputActionsCallbackInterface.OnPrimaryHold;
+                @PrimaryHold.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnPrimaryHold;
+                @PrimaryHold.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnPrimaryHold;
                 @Secondary.started -= m_Wrapper.m_InputActionsCallbackInterface.OnSecondary;
                 @Secondary.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnSecondary;
                 @Secondary.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnSecondary;
+                @SecondaryHold.started -= m_Wrapper.m_InputActionsCallbackInterface.OnSecondaryHold;
+                @SecondaryHold.performed -= m_Wrapper.m_InputActionsCallbackInterface.OnSecondaryHold;
+                @SecondaryHold.canceled -= m_Wrapper.m_InputActionsCallbackInterface.OnSecondaryHold;
             }
             m_Wrapper.m_InputActionsCallbackInterface = instance;
             if (instance != null)
@@ -406,29 +500,35 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 @Primary.started += instance.OnPrimary;
                 @Primary.performed += instance.OnPrimary;
                 @Primary.canceled += instance.OnPrimary;
+                @PrimaryHold.started += instance.OnPrimaryHold;
+                @PrimaryHold.performed += instance.OnPrimaryHold;
+                @PrimaryHold.canceled += instance.OnPrimaryHold;
                 @Secondary.started += instance.OnSecondary;
                 @Secondary.performed += instance.OnSecondary;
                 @Secondary.canceled += instance.OnSecondary;
+                @SecondaryHold.started += instance.OnSecondaryHold;
+                @SecondaryHold.performed += instance.OnSecondaryHold;
+                @SecondaryHold.canceled += instance.OnSecondaryHold;
             }
         }
     }
     public InputActions @Input => new InputActions(this);
-    private int m_ArrowsSchemeIndex = -1;
-    public InputControlScheme ArrowsScheme
+    private int m_KeyboardRightSchemeIndex = -1;
+    public InputControlScheme KeyboardRightScheme
     {
         get
         {
-            if (m_ArrowsSchemeIndex == -1) m_ArrowsSchemeIndex = asset.FindControlSchemeIndex("Arrows");
-            return asset.controlSchemes[m_ArrowsSchemeIndex];
+            if (m_KeyboardRightSchemeIndex == -1) m_KeyboardRightSchemeIndex = asset.FindControlSchemeIndex("KeyboardRight");
+            return asset.controlSchemes[m_KeyboardRightSchemeIndex];
         }
     }
-    private int m_WASDSchemeIndex = -1;
-    public InputControlScheme WASDScheme
+    private int m_KeyboardLeftSchemeIndex = -1;
+    public InputControlScheme KeyboardLeftScheme
     {
         get
         {
-            if (m_WASDSchemeIndex == -1) m_WASDSchemeIndex = asset.FindControlSchemeIndex("WASD");
-            return asset.controlSchemes[m_WASDSchemeIndex];
+            if (m_KeyboardLeftSchemeIndex == -1) m_KeyboardLeftSchemeIndex = asset.FindControlSchemeIndex("KeyboardLeft");
+            return asset.controlSchemes[m_KeyboardLeftSchemeIndex];
         }
     }
     private int m_GamepadSchemeIndex = -1;
@@ -444,6 +544,8 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
     {
         void OnDirectional(InputAction.CallbackContext context);
         void OnPrimary(InputAction.CallbackContext context);
+        void OnPrimaryHold(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
+        void OnSecondaryHold(InputAction.CallbackContext context);
     }
 }
