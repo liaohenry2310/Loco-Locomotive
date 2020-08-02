@@ -249,4 +249,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde11816beb41e24f8e8b7dd152738c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 9156872675538006233}

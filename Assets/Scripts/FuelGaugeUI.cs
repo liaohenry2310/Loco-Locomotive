@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class FuelGaugeUI : MonoBehaviour
 {
-    [Header("Properties")]
+    //TODO Continuar investingando para melhorar isso
+    [Header("Fuel Gauge Properties")]
     [SerializeField] private float UpdateSpeedSeconds = 0.5f;
 
     private Slider mSliderFuel;
@@ -13,6 +14,7 @@ public class FuelGaugeUI : MonoBehaviour
     private void Awake()
     {
         mSliderFuel = GetComponentInChildren<Slider>();
+
         mFuelController = FindObjectOfType<FuelController>();
         if (mFuelController)
         {
@@ -43,6 +45,5 @@ public class FuelGaugeUI : MonoBehaviour
         mSliderFuel.value = amount;
         Debug.Log($"[FuelGaugeUI] {mSliderFuel.value}");
     }
-
 
 }

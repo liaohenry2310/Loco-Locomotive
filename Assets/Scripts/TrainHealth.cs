@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TrainHealth : MonoBehaviour
 {
@@ -16,12 +14,6 @@ public class TrainHealth : MonoBehaviour
         currentHealth = trainHealth;
         healthBar.SetMaxHealth(trainHealth);
     }
-
-    private void Update()
-    {
-
-    }
-
 
     public void TakeDamage(float amount)
     {

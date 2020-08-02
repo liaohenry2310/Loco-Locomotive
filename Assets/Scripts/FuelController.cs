@@ -1,11 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-public class FuelController : MonoBehaviour
+public class FuelController :MonoBehaviour
 {
     public event Action<float> OnUpdateFuelUI;
     public event Action<float> OnFuelReloadUI;
-
     public event Action OnGameOver;
 
     [Header("Properties")]
@@ -15,7 +14,7 @@ public class FuelController : MonoBehaviour
 
     void Start()
     {
-        OnGameOver += FindObjectOfType<GameManager>().GameOver;
+        OnGameOver += GameManager.Instance.GameOver;
         currentFuel = MaxFuel;
     }
 

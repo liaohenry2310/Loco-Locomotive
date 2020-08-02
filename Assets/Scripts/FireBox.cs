@@ -2,24 +2,18 @@
 
 public class FireBox : MonoBehaviour
 {
-    public float mMaxFuel;
-    public float mCurrentFuel;
-    public float mAddfuel;
+    [SerializeField] private float mAddfuel;
+    private FuelController _fuelController;
 
-    //private InputReciever mInputReciever;
-    private FuelController mFuelController;
     void Start()
     {
-    //    mInputReciever = GetComponent<InputReciever>();
-        mFuelController = FindObjectOfType<FuelController>();
-        //mCurrentFuel = mMaxFuel;
-        mCurrentFuel = 50;//for test
+        _fuelController = GetComponentInParent<FuelController>();
     }
 
     public void AddFuel()
     {
-        mFuelController.Reload(mAddfuel);
-        Debug.Log("added fuel");
+        _fuelController.Reload(mAddfuel);
+        Debug.Log($"[FireBox] Added fuel. -> {mAddfuel}");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,7 +26,7 @@ public class FireBox : MonoBehaviour
             {
                 player.fireBox = this;
             }
-            else 
+            else
             {
                 // log error.
             }
