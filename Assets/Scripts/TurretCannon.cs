@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TurretCannon : MonoBehaviour
 {
-    [Header("Properties")]
+    [Header("Turret Properties")]
     public Transform CannonHandler;
     public Transform CannonFirePoint;
 
@@ -13,8 +13,8 @@ public class TurretCannon : MonoBehaviour
     [Header("Exposed variables")]
     public float repairHealth;
 
-    private InputReciever mInputReciever;
-    private TurretHealth mTurretHealth;
+    private InputReciever _inputReciever;
+    private TurretHealth _turretHealth;
     private LineRenderer _laserSight;
 
     [Header("Laser Ammo set")]
@@ -30,7 +30,9 @@ public class TurretCannon : MonoBehaviour
     public float RailgunTimeFireRate = 0f;
     public float RailgunFireRate = 10f;
 
-    public DispenserData.Type _ammoType = DispenserData.Type.Normal;
+    public DispenserData.Type ammoType = DispenserData.Type.Normal;
+
+    private bool _isPlayerUsingGamePad = false;
 
     #region Weapons set
 
@@ -41,18 +43,20 @@ public class TurretCannon : MonoBehaviour
 
     void Start()
     {
-        _ = TryGetComponent(out mInputReciever);
+        _ = TryGetComponent(out _inputReciever);
         _ = TryGetComponent(out _weaponNormalGun);
         _ = TryGetComponent(out _weaponLaserBeam);
 
         AmmoText.text = _weaponNormalGun.CurrentAmmo.ToString();
-        mTurretHealth = GetComponentInParent<TurretHealth>();
+        _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
 
         if (TryGetComponent<TurretLoader>(out var turretLoader))
         {
             turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
         }
+
+        _isPlayerUsingGamePad = _inputReciever.IsUsingGamepad();
     }
 
     private void Update()
@@ -62,12 +66,17 @@ public class TurretCannon : MonoBehaviour
 
     private void HandlerCannon()
     {
-        if (mTurretHealth.IsAlive)
+        if (_turretHealth.IsAlive)
         {
-            CannonHandler.transform.Rotate(0.0f, 0.0f, -mInputReciever.GetDirectionalInput().x * CannonHandlerSpeed * Time.deltaTime);
-            bool setFire = mInputReciever.GetSecondaryHoldInput();
+            // Setting here either player using or not the gamepad and change the current direction 
+            float directionalX = _isPlayerUsingGamePad ?
+                _inputReciever.GetDirectionalInput().x :
+                _inputReciever.GetDirectionalInput().x;
 
-            switch (_ammoType)
+            CannonHandler.transform.Rotate(0.0f, 0.0f, -directionalX * CannonHandlerSpeed * Time.deltaTime);
+            bool setFire = _inputReciever.GetSecondaryHoldInput();
+
+            switch (ammoType)
             {
                 case DispenserData.Type.Normal:
                     {
@@ -101,7 +110,7 @@ public class TurretCannon : MonoBehaviour
             }
 
         }
-        _laserSight.gameObject.SetActive(mInputReciever.GetInUse() && _ammoType != DispenserData.Type.LaserBeam);
+        _laserSight.gameObject.SetActive(IsUsingLaserSight);
 
         //if (mTurretHealth.IsAlive())
         //{
@@ -111,6 +120,11 @@ public class TurretCannon : MonoBehaviour
 
         //mLineRenderer.gameObject.SetActive(mInputReciever.GetInUse());
     }
+
+    /// <summary>
+    /// Allow to check if the Player is controlling and not using the laser beam to active the laser sight
+    /// </summary>
+    private bool IsUsingLaserSight => _inputReciever.GetInUse() && ammoType != DispenserData.Type.LaserBeam;
 
     private void Railgun(bool setFire)
     {
@@ -147,18 +161,19 @@ public class TurretCannon : MonoBehaviour
 
     public void Reload(DispenserData.Type type)
     {
-        Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
-        _ammoType = type;
-        switch (_ammoType)
+        ammoType = type;
+        switch (ammoType)
         {
             case DispenserData.Type.Normal:
                 {
                     _weaponNormalGun.Reload();
+                    Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
                 }
                 break;
             case DispenserData.Type.LaserBeam:
                 {
                     _weaponLaserBeam.Reload();
+                    Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
                 }
                 break;
             case DispenserData.Type.Missile:

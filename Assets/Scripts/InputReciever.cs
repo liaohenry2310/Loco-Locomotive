@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -115,7 +114,11 @@ public class InputReciever : MonoBehaviour
 
     public bool IsUsingGamepad()
     {
-        return mPlayerInput.currentControlScheme.Equals("Gamepad");
+        // Reference 
+        // https://docs.microsoft.com/en-us/dotnet/standard/base-types/best-practices-strings
+        // String.Equals is cheaper
+        return string.Equals(mPlayerInput.currentControlScheme, "Gamepad", StringComparison.OrdinalIgnoreCase);
+        //return mPlayerInput.currentControlScheme.Equals("Gamepad");
     }
 
     //Private functions

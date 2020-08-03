@@ -4,22 +4,23 @@ using UnityEngine.UI;
 
 public class FuelGaugeUI : MonoBehaviour
 {
-    //TODO Continuar investingando para melhorar isso
+    
     [Header("Fuel Gauge Properties")]
-    [SerializeField] private float UpdateSpeedSeconds = 0.5f;
+    [SerializeField] 
+    private float _updateSpeedSeconds = 0.5f;
 
-    private Slider mSliderFuel;
-    private FuelController mFuelController;
+    private Slider _sliderFuel;
+    private FuelController _fuelController;
 
     private void Awake()
     {
-        mSliderFuel = GetComponentInChildren<Slider>();
+        _sliderFuel = GetComponentInChildren<Slider>();
 
-        mFuelController = FindObjectOfType<FuelController>();
-        if (mFuelController)
+        _fuelController = FindObjectOfType<FuelController>();
+        if (_fuelController)
         {
-            mFuelController.OnUpdateFuelUI += UpdateFuelUI;
-            mFuelController.OnFuelReloadUI += ReloadFuelUI;
+            _fuelController.OnUpdateFuelUI += UpdateFuelUI;
+            _fuelController.OnFuelReloadUI += ReloadFuelUI;
         }
     }
 
@@ -30,20 +31,20 @@ public class FuelGaugeUI : MonoBehaviour
 
     private IEnumerator ChangeFuelUI(float pct)
     {
-        float cachePct = mSliderFuel.value;
+        float cachePct = _sliderFuel.value;
         float elapsed = 0.0f;
-        while (elapsed < UpdateSpeedSeconds)
+        while (elapsed < _updateSpeedSeconds)
         {
             elapsed += Time.deltaTime;
-            mSliderFuel.value = Mathf.Lerp(cachePct, pct, elapsed / UpdateSpeedSeconds);
+            _sliderFuel.value = Mathf.Lerp(cachePct, pct, elapsed / _updateSpeedSeconds);
             yield return null;
         }
     }
 
     private void ReloadFuelUI(float amount)
     {
-        mSliderFuel.value = amount;
-        Debug.Log($"[FuelGaugeUI] {mSliderFuel.value}");
+        _sliderFuel.value = amount;
+        Debug.Log($"[FuelGaugeUI] {_sliderFuel.value}");
     }
 
 }

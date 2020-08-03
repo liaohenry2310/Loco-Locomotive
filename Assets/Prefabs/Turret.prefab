@@ -480,7 +480,7 @@ MonoBehaviour:
   RailgunAmmo: 100
   RailgunTimeFireRate: 0
   RailgunFireRate: 15
-  _ammoType: 1
+  ammoType: 1
 --- !u!114 &3622832100159998365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dcd43228b5169948bc6b42e68f69307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cannonFirePoint: {fileID: 3193508246254816230}
+  _cannonFirePoint: {fileID: 3193508245827852810}
   _currentAmmo: 0
   _fireRate: 7
   _spreadBulletFactor: 0.5
@@ -820,7 +820,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4759194333924550625}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.98, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3193508246254816230}

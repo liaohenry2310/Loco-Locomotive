@@ -2,7 +2,6 @@
 
 public class FireBox : MonoBehaviour
 {
-    [SerializeField] private float mAddfuel;
     private FuelController _fuelController;
 
     void Start()
@@ -12,8 +11,7 @@ public class FireBox : MonoBehaviour
 
     public void AddFuel()
     {
-        _fuelController.Reload(mAddfuel);
-        Debug.Log($"[FireBox] Added fuel. -> {mAddfuel}");
+        _fuelController.Reload();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
