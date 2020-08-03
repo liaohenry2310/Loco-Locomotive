@@ -9,14 +9,15 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> targetList;
 
-   // public GameObject groundArea;
+    // public GameObject groundArea;
     public GameObject topWagonCollider;
 
+    public GameObject trainArea;
 
     // Bounding Check
     private Camera MainCam;
     private Vector2 screenBounds;
-    private float leftRange ;
+    private float leftRange;
     private float rightRange;
 
     private float spawnY;
@@ -44,18 +45,25 @@ public class EnemySpawner : MonoBehaviour
     }
     public void CreatEnemies()
     {
-        
-        mEnemyNum = Random.Range(0, 2);       
+
+        mEnemyNum = Random.Range(0, 2);
         for (int i = 0; i < mEnemyNum; i++)
         {
             float x;
             x = Random.Range(leftRange, rightRange);
             GameObject enemy = Instantiate(Enemies, new Vector3(x, spawnY, 0), Quaternion.identity);
-            enemy.GetComponent<RiderEnemy>().targetList.AddRange(targetList);
-           // enemy.GetComponent<RiderEnemy>().groundArea = groundArea;
-            enemy.GetComponent<RiderEnemy>().topWagonCollider = topWagonCollider;
-
+            if (enemy.GetComponent<RiderEnemy>())
+            {
+                enemy.GetComponent<RiderEnemy>().targetList.AddRange(targetList);
+                // enemy.GetComponent<RiderEnemy>().groundArea = groundArea;
+                enemy.GetComponent<RiderEnemy>().topWagonCollider = topWagonCollider;
+            }
+            if (enemy.GetComponent<BasicEnemy>())
+            {
+                enemy.GetComponent<BasicEnemy>().trainArea = trainArea;
+            }
         }
+
     }
 
 

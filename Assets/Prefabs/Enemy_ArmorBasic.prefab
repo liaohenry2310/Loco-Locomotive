@@ -352,7 +352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be186a5fbb4f6c4684d139e9b54ccdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicEnemypaths: {fileID: 0}
+  basicEnemypaths: {fileID: 1995550045073571820, guid: 71592d0388637ab4ca27c332d93bda5b,
+    type: 3}
   stopDelay: 1.5
 --- !u!114 &4458041083292152137
 MonoBehaviour:
