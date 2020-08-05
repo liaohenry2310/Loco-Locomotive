@@ -117,7 +117,7 @@ public class InputReciever : MonoBehaviour
         // Reference 
         // https://docs.microsoft.com/en-us/dotnet/standard/base-types/best-practices-strings
         // String.Equals is cheaper
-        return string.Equals(mPlayerInput.currentControlScheme, "Gamepad", StringComparison.OrdinalIgnoreCase);
+        return string.Equals(mPlayerInput?.currentControlScheme, "Gamepad", StringComparison.OrdinalIgnoreCase);
         //return mPlayerInput.currentControlScheme.Equals("Gamepad");
     }
 
