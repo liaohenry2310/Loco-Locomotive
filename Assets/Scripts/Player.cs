@@ -228,7 +228,6 @@ public class Player : MonoBehaviour
                 case DispenserData.Type.Railgun:
                 case DispenserData.Type.Normal: // MachineGun
                     {
-                        //turretLoader.Reloadammo(_itemToPickup.itemType);
                         turretLoader.Reloadammo(_currentItem.DispenserType);
                         DisableHoldItem();
                     }
