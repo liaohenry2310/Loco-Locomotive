@@ -2228,6 +2228,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2720428000661332529, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: _ammountToReload
+      value: 5000
+      objectReference: {fileID: 0}
     - target: {fileID: 3164775860038843032, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: rectBloodPos

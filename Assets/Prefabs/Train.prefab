@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxFuel: 10000
-  _ammountToReload: 50
+  _ammountToReload: 5000
   currentFuel: 0
 --- !u!1 &8422186562159974324
 GameObject:
