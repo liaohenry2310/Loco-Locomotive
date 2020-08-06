@@ -172,11 +172,11 @@ public class RiderEnemy : MonoBehaviour
     // Check if landed on ground
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
-        //if (collision.gameObject == groundArea)
-        //{
-            //mCurrentState = State.OnGround;
-            //Destroy(gameObject);
-        //}
+    //if (collision.gameObject == groundArea)
+    //{
+    //mCurrentState = State.OnGround;
+    //Destroy(gameObject);
+    //}
     //}
 
     // Check if outside of screen 
@@ -203,12 +203,11 @@ public class RiderEnemy : MonoBehaviour
             if (target != null)
             {
 
-                if (Vector2.Distance(transform.position, target.transform.position) < distance)
-
+                if (target.GetComponent<TurretHealth>()?.IsAlive == true || (target.GetComponent<TurretHealth>() == null &&target.GetComponentInParent<TrainHealth>()?.IsAlive() == true))
                 {
-                    if (target.GetComponent<TurretHealth>()?.IsAlive == true || target.GetComponentInParent<TrainHealth>()?.IsAlive() == true)
-                    {
 
+                    if (Vector2.Distance(transform.position, target.transform.position) < distance)
+                    {
                         targetPos = (target.transform.position);
                         distance = Vector2.Distance(transform.position, target.transform.position);
                         currentTarget = target;

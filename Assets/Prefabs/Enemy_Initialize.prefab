@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5523676980249962704}
   m_Layer: 0
-  m_Name: BasicEnemyNeeds
+  m_Name: Enemy_Initialize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,8 +113,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5523676981723182034}
   - {fileID: 3077734416288245104}
+  - {fileID: 5523676981723182034}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -178,7 +178,7 @@ Transform:
   m_Children:
   - {fileID: 5523676981398445048}
   m_Father: {fileID: 5523676980249962704}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2483285810890065303
 PrefabInstance:
@@ -230,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 630548394737410279, guid: ec5e6a03049a99847be702b5c3664b5f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 630548394737410279, guid: ec5e6a03049a99847be702b5c3664b5f,
         type: 3}
