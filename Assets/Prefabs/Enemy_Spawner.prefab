@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3999341104010763622}
   - component: {fileID: 3999341104010763621}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: Enemy_Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,3 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemies: {fileID: 1557837876618408515, guid: 00e411bdee85ea94bae6009cff63ae56, type: 3}
+  targetList: []
+  topWagonCollider: {fileID: 0}
+  trainArea: {fileID: 0}
