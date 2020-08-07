@@ -190,15 +190,15 @@ public class Player : MonoBehaviour
 
     private void AddFuel()
     {
-        if (_currentItem.DispenserType == DispenserData.Type.Fuel)
+        if(fireBox)
         {
-            fireBox.AddFuel();
-            DisableHoldItem();
+            if (_currentItem.DispenserType == DispenserData.Type.Fuel)
+            {
+                fireBox.AddFuel();
+                DisableHoldItem();
+            }
         }
-        else
-        {
-            DisableHoldItem();
-        }
+
     }
 
     private void RepairTurret()
@@ -210,10 +210,7 @@ public class Player : MonoBehaviour
                 turretRepair.Repair();
                 DisableHoldItem();
             }
-            else
-            {
-                DisableHoldItem();
-            }
+
         }
     }
 
@@ -235,7 +232,7 @@ public class Player : MonoBehaviour
                 case DispenserData.Type.None:
                 default:
                     {
-                        DisableHoldItem();
+                       //nothing to do
                     }
                     break;
             }
