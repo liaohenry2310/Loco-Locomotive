@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemies;
+    public GameObject Enemies1;
     public List<GameObject> targetList;
     // public GameObject groundArea;
     public GameObject topWagonCollider;
@@ -17,6 +18,8 @@ public class EnemySpawner : MonoBehaviour
     private float spawnY;
     private int mEnemyNum;
 
+    float dealy = 5.0f;
+    float currentTime;
     void Start()
     {
         //Bounding Check
@@ -25,21 +28,27 @@ public class EnemySpawner : MonoBehaviour
         rightRange = screenBounds.x + 5.0f;
         leftRange = -screenBounds.x + 1.0f;
         // Function for Spawn Enemy. 
-        InvokeRepeating("CreatEnemies", 2, 1.0f);
+     //   InvokeRepeating("CreatEnemies", 2, 1.0f);
     }
     private void Update()
     {
         spawnY = transform.position.y;
+        if (Time.time > currentTime)
+        {
+            CreatEnemies();
+        currentTime = Time.time + dealy;
+        }
     }
+
     public void CreatEnemies()
     {
-
         mEnemyNum = Random.Range(0, 2);
         for (int i = 0; i < mEnemyNum; i++)
         {
             float x;
             x = Random.Range(leftRange, rightRange);
             GameObject enemy = Instantiate(Enemies, new Vector3(x, spawnY, 0), Quaternion.identity);
+            GameObject enemy1 = Instantiate(Enemies1, new Vector3(x, spawnY, 0), Quaternion.identity);
             if (enemy.GetComponent<RiderEnemy>())
             {
                 enemy.GetComponent<RiderEnemy>().targetList.AddRange(targetList);
@@ -49,6 +58,16 @@ public class EnemySpawner : MonoBehaviour
             if (enemy.GetComponent<BasicEnemy>())
             {
                 enemy.GetComponent<BasicEnemy>().trainArea = trainArea;
+            }
+            if (enemy1.GetComponent<RiderEnemy>())
+            {
+                enemy1.GetComponent<RiderEnemy>().targetList.AddRange(targetList);
+                // enemy.GetComponent<RiderEnemy>().groundArea = groundArea;
+                enemy1.GetComponent<RiderEnemy>().topWagonCollider = topWagonCollider;
+            }
+            if (enemy1.GetComponent<BasicEnemy>())
+            {
+                enemy1.GetComponent<BasicEnemy>().trainArea = trainArea;
             }
         }
     }
