@@ -10,14 +10,13 @@ public class BasicEnemyProjectile : MonoBehaviour
     Vector2 currentPos;
     public float damage;
 
-    private Vector2 screenBounds;
     float screenBottom;
 
     void Start()
     {
-        Camera MainCam = Camera.main;
-        screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
-        screenBottom = -screenBounds.y;
+        //Camera MainCam = Camera.main;
+        //screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+        screenBottom = -GameManager.GetScreenBounds.y;
 
     }
 
@@ -29,7 +28,7 @@ public class BasicEnemyProjectile : MonoBehaviour
         direction.Normalize();
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
-        if (currentPos.y<= screenBottom)
+        if (currentPos.y <= screenBottom)
         {
             gameObject.SetActive(false);
 
@@ -40,16 +39,14 @@ public class BasicEnemyProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-
-        if (collision.gameObject.CompareTag("FrontWagon")|| collision.gameObject.CompareTag("Train"))
+        if (collision.gameObject.CompareTag("Train")) //|| collision.gameObject.CompareTag("Train"))
         {
-
             collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
             //Debug.Log("basic doing damage to train");
             gameObject.SetActive(false);
         }
 
-        if (collision.gameObject.CompareTag("Turret") )
+        if (collision.gameObject.CompareTag("Turret"))
         {
 
             collision.gameObject.GetComponent<TurretHealth>().TakeDamage(damage);
@@ -61,7 +58,7 @@ public class BasicEnemyProjectile : MonoBehaviour
             Debug.Log("BasicEnemy Projectile set to false");
             gameObject.SetActive(false);
         }
-        
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

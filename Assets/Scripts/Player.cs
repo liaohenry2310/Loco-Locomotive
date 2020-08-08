@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region dispenser
-    private GameObject _itemDispenserSprite = default; 
+    private GameObject _itemDispenserSprite = default;
     public bool PlayerHasItem { get; private set; } = false;
     private SpriteRenderer _spriteRender;
     private DispenserItem _currentItem;         // Item that the player is currently holding.
@@ -97,17 +97,17 @@ public class Player : MonoBehaviour
     {
         #region Dispenser
 
-        if (mInputReceiver.GetSecondaryInput()) 
+        if (mInputReceiver.GetSecondaryInput())
         {
             // If we are at a dispenser
             if (_itemToPickup.itemType != DispenserData.Type.None)
             {
                 if (PlayerHasItem)
-                {                   
+                {
                     DropItem();// Drop it.
                 }
                 else
-                {                  
+                {
                     PickUpItemFromDispenser(); // Pick up
                 }
             }
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
                 {
                     // If we can use the item, ie Refeul, Repair, Reload ... 
                     // Drop it, if we haven't used it.
-                    DropItem();                   
+                    DropItem();
                 }
                 else
                 {
@@ -126,10 +126,10 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if(dispenserObject !=null)
+            if (dispenserObject != null)
             {
                 _itemDispenserSprite.SetActive(true);
-                _spriteRender.color = dispenserObject.Sprite.color;             
+                _spriteRender.color = dispenserObject.Sprite.color;
                 PlayerHasItem = true;
                 dispenserObject.OnBecameInvisible();
             }
@@ -151,16 +151,16 @@ public class Player : MonoBehaviour
 
     private void DropItem()
     {
-        if(!fireBox && !turretRepair && !turretLoader)
+        if (!fireBox && !turretRepair && !turretLoader)
         {
             // Place item on the ground.
-            var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform.position - itemOffset, Quaternion.identity); 
+            var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform.position - itemOffset, Quaternion.identity);
             var dispenserObject = itemDropped.GetComponent<DispenserObject>();
             if (dispenserObject != null)
-            { 
+            {
                 dispenserObject.Sprite.color = _currentItem.DispenserColor;
                 dispenserObject.StartDestructionTimer();
-               
+
             }
 
             _spriteRender.color = Color.white;
@@ -179,8 +179,7 @@ public class Player : MonoBehaviour
         AddFuel();
         RepairTurret();
     }
-
-
+    
     private void DisableHoldItem()
     {
         _spriteRender.color = Color.white;
@@ -190,7 +189,7 @@ public class Player : MonoBehaviour
 
     private void AddFuel()
     {
-        if(fireBox)
+        if (fireBox)
         {
             if (_currentItem.DispenserType == DispenserData.Type.Fuel)
             {
@@ -232,7 +231,7 @@ public class Player : MonoBehaviour
                 case DispenserData.Type.None:
                 default:
                     {
-                       //nothing to do
+                        //nothing to do
                     }
                     break;
             }
@@ -262,7 +261,8 @@ public class Player : MonoBehaviour
     #region Player Respawn
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") ||
+            collision.gameObject.CompareTag("ShieldArmorEnemy"))
         {
             Debug.Log("player died");
             player.SetActive(false);
@@ -277,5 +277,6 @@ public class Player : MonoBehaviour
         Debug.Log("Respawn");
         player.SetActive(true);
     }
+
     #endregion
 }

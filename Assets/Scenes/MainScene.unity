@@ -373,13 +373,18 @@ PrefabInstance:
     - target: {fileID: 4471316105299110448, guid: 607c5376cdf63d34b9518034942f10ff,
         type: 3}
       propertyPath: timeRemaining
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 4471316105299110448, guid: 607c5376cdf63d34b9518034942f10ff,
         type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 104124873}
+    - target: {fileID: 4471316105299110448, guid: 607c5376cdf63d34b9518034942f10ff,
+        type: 3}
+      propertyPath: timerIsRunning
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4471316105299110449, guid: 607c5376cdf63d34b9518034942f10ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1382,6 +1387,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 160049535}
+    - target: {fileID: 6000488070795297366, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6390608808084324986, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: m_Name
@@ -1526,11 +1536,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8422186562359730414, guid: b6613131770427b4788c7b479b96f323,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 7.79
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2120444875517603795, guid: b6613131770427b4788c7b479b96f323, type: 3}
