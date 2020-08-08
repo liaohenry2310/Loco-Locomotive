@@ -4,7 +4,13 @@ public class DispenserObject : MonoBehaviour
 {
     [SerializeField] private DestroyOnDelay _delayOnDestroy = null;
     [SerializeField] private SpriteRenderer _spriteRenderer = null;
+    [SerializeField] private DispenserData.Type type = default;
+    [SerializeField] private Color color = default;
+
     public SpriteRenderer Sprite { get { return _spriteRenderer; } }
+    public DispenserData.Type ObjectType { get { return type; } set { type = value; } }
+    public Color ObjectColor { get { return color; } set { color = value; } }
+
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
     public FireBox fireBox;

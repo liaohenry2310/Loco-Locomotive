@@ -52,6 +52,12 @@ public class Player : MonoBehaviour
             DispenserColor = Color.white,
         };
 
+        dispenserObject = new DispenserObject()
+        {
+            ObjectType = DispenserData.Type.None,
+            ObjectColor = Color.white,
+        };
+
         mRigidBody = GetComponent<Rigidbody2D>();
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
@@ -128,10 +134,14 @@ public class Player : MonoBehaviour
 
             if (dispenserObject != null)
             {
+                _currentItem.DispenserType = dispenserObject.ObjectType;
+                _currentItem.DispenserColor = dispenserObject.ObjectColor;
                 _itemDispenserSprite.SetActive(true);
                 _spriteRender.color = dispenserObject.Sprite.color;
                 PlayerHasItem = true;
                 dispenserObject.OnBecameInvisible();
+                Debug.Log($"Player repicked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
+
             }
         }
 
@@ -140,13 +150,16 @@ public class Player : MonoBehaviour
 
     private void PickUpItemFromDispenser()
     {
-        PlayerHasItem = true;
-        _currentItem.DispenserType = _itemToPickup.itemType;
-        _currentItem.DispenserColor = _itemToPickup.itemColor;
-        _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
-        _itemDispenserSprite.SetActive(true);
-        _spriteRender.color = _currentItem.DispenserColor;
-        Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
+        if (dispenserObject == null)
+        {
+            PlayerHasItem = true;
+            _currentItem.DispenserType = _itemToPickup.itemType;
+            _currentItem.DispenserColor = _itemToPickup.itemColor;
+            _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
+            _itemDispenserSprite.SetActive(true);
+            _spriteRender.color = _currentItem.DispenserColor;
+            Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
+        }
     }
 
     private void DropItem()
@@ -158,14 +171,16 @@ public class Player : MonoBehaviour
             var dispenserObject = itemDropped.GetComponent<DispenserObject>();
             if (dispenserObject != null)
             {
+                dispenserObject.ObjectType = _currentItem.DispenserType;
+                dispenserObject.ObjectColor = _currentItem.DispenserColor;
                 dispenserObject.Sprite.color = _currentItem.DispenserColor;
                 dispenserObject.StartDestructionTimer();
-
             }
 
             _spriteRender.color = Color.white;
             _itemDispenserSprite.SetActive(false);
             PlayerHasItem = false;
+            Debug.Log($"Player droped up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
         }
         else
         {
@@ -267,6 +282,7 @@ public class Player : MonoBehaviour
             Debug.Log("player died");
             player.SetActive(false);
             _itemDispenserSprite.SetActive(false);
+            PlayerHasItem = false;
             player.transform.localPosition = spwanPoint.transform.localPosition;
             Invoke("Respawn", 5f);
         }
