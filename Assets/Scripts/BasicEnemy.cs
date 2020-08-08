@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
-    public float health;
-
     public float damage = 10.0f;
 
     public float speed = 1.0f;
-
-    public float windSpeed = 1.5f;
+    public float maxSpeed = 1.0f;
 
     public GameObject trainArea;
 

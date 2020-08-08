@@ -238,10 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d669881b0dfba744dae4f440cda70bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   damage: 10
-  speed: 0
-  windSpeed: 1.5
+  speed: 1
+  maxSpeed: 1.5
   trainArea: {fileID: 0}
   shootingDelay: 2.04
 --- !u!114 &3276408233857933789
