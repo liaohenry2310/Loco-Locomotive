@@ -174,7 +174,7 @@ MonoBehaviour:
   MaxHealth: 100
   mCurrentHealth: 0
   healthBar: {fileID: 6161361658253203546}
-  repairHealth: 50
+  repairHealth: 100
 --- !u!114 &6848309198798939615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
     type: 3}
-  amountToPool: 50
+  amountToPool: 100
 --- !u!114 &4905486737238177977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cannonFirePoint: {fileID: 3193508245827852810}
   _currentAmmo: 0
-  _fireRate: 7
+  _fireRate: 14
   _spreadBulletFactor: 0.5
 --- !u!114 &2224037934594239160
 MonoBehaviour:

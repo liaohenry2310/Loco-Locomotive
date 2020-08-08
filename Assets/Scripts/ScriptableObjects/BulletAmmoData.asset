@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BulletAmmoData
   m_EditorClassIdentifier: 
   _damage: 5
-  _moveSpeed: 5
+  _moveSpeed: 20
