@@ -11,7 +11,7 @@ public class BasicEnemyPath : MonoBehaviour
     Vector2 direction;
     Vector2 currentPos;
     float speed;
-    float maxSpeed=5.0f;
+    float maxSpeed;
     int nextPoint;
     Vector2 velocity;
     public float stopDelay; 
@@ -34,6 +34,7 @@ public class BasicEnemyPath : MonoBehaviour
         TowardNextPoint();
 
         speed = GetComponent<BasicEnemy>().speed;
+        maxSpeed = GetComponent<BasicEnemy>().maxSpeed;
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class BasicEnemyPath : MonoBehaviour
         Vector2 force = Behavior();
         Vector2 acceleration = force / 0.5f;
         velocity += acceleration * Time.deltaTime;
-        float speed = velocity.magnitude;
+        speed = velocity.magnitude;
 
         if (speed > maxSpeed)
         {
