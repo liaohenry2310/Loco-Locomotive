@@ -30,7 +30,7 @@ public class WeaponLaserBeam : MonoBehaviour
                 if (collider)
                 {
                     var shieldEnemy = collider.GetComponentInParent<RiderEnemy>();
-                    if (shieldEnemy )//&& shieldEnemy.IsHasShield)
+                    if (shieldEnemy) //&& shieldEnemy.IsHasShield)
                     {
                         _LaserBeam.SetPosition(1, hit.point);
                     }
