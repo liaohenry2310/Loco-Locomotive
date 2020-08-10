@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4937cbf84eedc4448b3786998fc9b14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxFuel: 10000
-  _ammountToReload: 5000
+  _maxFuel: 2500
+  _ammountToReload: 2500
   currentFuel: 0
 --- !u!1 &8422186562159974324
 GameObject:

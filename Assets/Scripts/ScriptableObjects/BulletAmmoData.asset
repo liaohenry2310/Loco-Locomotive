@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a4dceeda385d74d955bfe695c3c906, type: 3}
   m_Name: BulletAmmoData
   m_EditorClassIdentifier: 
-  _damage: 5
+  _damage: 10
   _moveSpeed: 20

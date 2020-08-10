@@ -443,7 +443,7 @@ RectTransform:
   m_GameObject: {fileID: 2774364334045920903}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.00926, y: 0.00926, z: 0.00926}
+  m_LocalScale: {x: 1.000112, y: 1.000112, z: 1.000112}
   m_Children:
   - {fileID: 1287328280883042462}
   - {fileID: 1898235773831894105}
@@ -451,10 +451,10 @@ RectTransform:
   m_Father: {fileID: 5850019790843140707}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -960.00024, y: -539.9889}
-  m_SizeDelta: {x: -0.047851562, y: -250.88794}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1919.9521, y: 829.11206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1314518357368928893
 CanvasRenderer:
@@ -598,7 +598,7 @@ RectTransform:
   m_GameObject: {fileID: 4011190381385285867}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.00926, y: 0.00926, z: 0.00926}
+  m_LocalScale: {x: 1.000112, y: 1.000112, z: 1.000112}
   m_Children:
   - {fileID: 7827060282486451026}
   - {fileID: 6358044360400072335}
@@ -606,10 +606,10 @@ RectTransform:
   m_Father: {fileID: 5850019790843140707}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -960.00024, y: -539.9889}
-  m_SizeDelta: {x: -0.047851562, y: -250.88794}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1919.9521, y: 829.11206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8970886765816468167
 CanvasRenderer:
@@ -881,7 +881,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Restart
+  m_Text: Quit
 --- !u!1 &6882323841472502540
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 3239637703816880236}
   - component: {fileID: 8086803534143137264}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: LevelOver_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1207,6 +1207,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2774364334045920903}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8501976288514463732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1340,17 @@ MonoBehaviour:
       - m_Target: {fileID: 8899849556848381640}
         m_MethodName: Restart
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4011190381385285867}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

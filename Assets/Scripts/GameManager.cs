@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         Time.timeScale = 0.0f;
         GameOverPanel.SetActive(true);
+        GameOverPanel.GetComponentInChildren<Button>().Select();
     }
 
     public void YouWin()
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("You Win");
         Time.timeScale = 0.0f;
         YouWinPanel.SetActive(true);
+        YouWinPanel.GetComponentInChildren<Button>().Select();
     }
 
     //Private functions
@@ -67,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Quit()
@@ -102,6 +105,9 @@ public class GameManager : MonoBehaviour
             mInitialSpawnPoints = new List<Transform>(spawnpoints.GetComponentsInChildren<Transform>());
             mInitialSpawnPoints.RemoveAt(0);
         }
+
+        YouWinPanel.SetActive(false);
+        GameOverPanel.SetActive(false);
     }
 
     void OnPlayerJoined(PlayerInput playerInput)

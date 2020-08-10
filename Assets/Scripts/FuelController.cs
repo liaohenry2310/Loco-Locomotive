@@ -13,6 +13,7 @@ public class FuelController : MonoBehaviour
 
     [SerializeField]
     private float _ammountToReload = 50f;
+    private bool outOfFuel = false;
 
     public float currentFuel;
 
@@ -30,6 +31,9 @@ public class FuelController : MonoBehaviour
 
     public void CurrentFuel(float amount)
     {
+        if (outOfFuel)
+            return;
+
         currentFuel -= amount;
         currentFuel = Mathf.Clamp(currentFuel, 0.0f, _maxFuel);
         float currentPercentage = currentFuel / _maxFuel;
@@ -38,6 +42,7 @@ public class FuelController : MonoBehaviour
         {
             Debug.Log("[FuelController] Game over.");
             OnGameOver?.Invoke();
+            outOfFuel = true;
             return;
         }
     }
