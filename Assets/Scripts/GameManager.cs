@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,16 +11,15 @@ public class GameManager : MonoBehaviour
     public GameObject playerControllerPrefab;
     public GameObject GameOverPanel;
     public GameObject YouWinPanel;
-
-    private static GameManager sInstance;
-
     private List<PlayerController> mPlayerControllers;
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;
 
+    public bool IsGameOver { get; private set; } = false;
+
     //Properties
-    static public GameManager Instance { get { return sInstance; } }
+    static public GameManager Instance { get; private set; }
 
     public static Vector3 GetScreenBounds
     {
@@ -36,6 +34,7 @@ public class GameManager : MonoBehaviour
     //Public functions
     public void GameOver()
     {
+        IsGameOver = true;
         Debug.Log("Game Over");
         Time.timeScale = 0.0f;
         GameOverPanel.SetActive(true);
@@ -44,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void YouWin()
     {
+        IsGameOver = !IsGameOver;
         Debug.Log("You Win");
         Time.timeScale = 0.0f;
         YouWinPanel.SetActive(true);
@@ -53,13 +53,13 @@ public class GameManager : MonoBehaviour
     //Private functions
     private void Awake()
     {
-        if (sInstance)
+        if (Instance)
         {
             Destroy(gameObject);
         }
         else
         {
-            sInstance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnPlayers()
     {
-        if(playersSpawned)
+        if (playersSpawned)
         {
             return;
         }
@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
     public Color GetPlayerColor(int playerNum)
     {
         Color color = Color.black;
-        switch(playerNum)
+        switch (playerNum)
         {
             case 0:
                 color = Color.cyan;

@@ -1058,6 +1058,11 @@ PrefabInstance:
       propertyPath: turretMaxHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 3622832100159998365, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: _amountToPool
+      value: 1000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0087a0c1d37c0fd469d4f4baf1e54a12, type: 3}
 --- !u!4 &6390608808084324991 stripped

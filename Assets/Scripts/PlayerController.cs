@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -42,16 +39,16 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (mPlayerControllableReciever &&
-            !mIsUsingControllable && 
-            mPlayerInput.actions["Primary"].triggered && 
+            !mIsUsingControllable &&
+            mPlayerInput.actions["Primary"].triggered &&
             mPlayerControllableReciever.SetPlayerInput(mPlayerInput))
         {
             mIsUsingControllable = true;
             mPlayerAvatarReciver.DisablePlayerInput();
         }
-        else if (mPlayerControllableReciever && 
-            mIsUsingControllable && 
-            mPlayerInput.actions["Primary"].triggered && 
+        else if (mPlayerControllableReciever &&
+            mIsUsingControllable &&
+            mPlayerInput.actions["Primary"].triggered &&
             mPlayerAvatarReciver.SetPlayerInput(mPlayerInput))
         {
             mIsUsingControllable = false;

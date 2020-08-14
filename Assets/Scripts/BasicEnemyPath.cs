@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicEnemyPath : MonoBehaviour
@@ -14,7 +13,7 @@ public class BasicEnemyPath : MonoBehaviour
     float maxSpeed;
     int nextPoint;
     Vector2 velocity;
-    public float stopDelay; 
+    public float stopDelay;
     float delay;
 
     // Start is called before the first frame update
@@ -55,16 +54,16 @@ public class BasicEnemyPath : MonoBehaviour
             direction = velocity.normalized;
         }
 
-        transform.position += new Vector3 (velocity.x, velocity.y, 0.0f) * Time.deltaTime;
+        transform.position += new Vector3(velocity.x, velocity.y, 0.0f) * Time.deltaTime;
 
 
 
-        if (Vector2.Distance( gameObject.transform.position , paths[nextPoint].gameObject.transform.position)< 1.0f)
+        if (Vector2.Distance(gameObject.transform.position, paths[nextPoint].gameObject.transform.position) < 1.0f)
         {
-            delay-=Time.deltaTime;
-            if (delay<=0.0f)
+            delay -= Time.deltaTime;
+            if (delay <= 0.0f)
             {
-            TowardNextPoint();
+                TowardNextPoint();
                 delay = stopDelay;
             }
         }
@@ -74,13 +73,13 @@ public class BasicEnemyPath : MonoBehaviour
             direction = nextPos - currentPos;
             direction.Normalize();
             //transform.Translate(pos , Space.World);
-         
+
         }
     }
 
     void TowardNextPoint()
     {
-        int randomNum= Random.Range(0, paths.Count - 1);
+        int randomNum = Random.Range(0, paths.Count - 1);
         while (randomNum == nextPoint)
         {
             randomNum = Random.Range(0, paths.Count - 1);
@@ -98,16 +97,16 @@ public class BasicEnemyPath : MonoBehaviour
         //Vector2 desiredVelocity = posToDest.normalized * speed;
         //return desiredVelocity - velocity;
 
-       //Arrive
-       Vector2 posToDest = new Vector2(paths[nextPoint].transform.position.x, paths[nextPoint].transform.position.y) - new Vector2(transform.position.x, transform.position.y);
-       float distance = posToDest.magnitude;
-       if (distance <= 0.0f)
-           return new Vector2();
-       
-       float speed = Mathf.Min(maxSpeed, distance);
-       
-       Vector2 desiredVelocity = posToDest / distance * speed;
-       
-       return desiredVelocity - velocity;
+        //Arrive
+        Vector2 posToDest = new Vector2(paths[nextPoint].transform.position.x, paths[nextPoint].transform.position.y) - new Vector2(transform.position.x, transform.position.y);
+        float distance = posToDest.magnitude;
+        if (distance <= 0.0f)
+            return new Vector2();
+
+        float speed = Mathf.Min(maxSpeed, distance);
+
+        Vector2 desiredVelocity = posToDest / distance * speed;
+
+        return desiredVelocity - velocity;
     }
 }

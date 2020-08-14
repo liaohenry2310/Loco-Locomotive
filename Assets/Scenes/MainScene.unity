@@ -366,19 +366,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4471316105299110448, guid: 607c5376cdf63d34b9518034942f10ff,
         type: 3}
-      propertyPath: timeRemaining
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 4471316105299110448, guid: 607c5376cdf63d34b9518034942f10ff,
-        type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 104124873}
-    - target: {fileID: 4471316105299110448, guid: 607c5376cdf63d34b9518034942f10ff,
-        type: 3}
-      propertyPath: timerIsRunning
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4471316105299110449, guid: 607c5376cdf63d34b9518034942f10ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -538,7 +528,7 @@ GameObject:
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!81 &582910584
 AudioListener:
@@ -1058,6 +1048,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Initialize
       objectReference: {fileID: 0}
+    - target: {fileID: 5523676980249962705, guid: fd17a1cee1b96314da0ae87014804e7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd17a1cee1b96314da0ae87014804e7e, type: 3}
 --- !u!1 &1904021081 stripped
@@ -1126,7 +1121,7 @@ PrefabInstance:
     - target: {fileID: 9156872675538006055, guid: 997605a0b6613c74b9b85f0377074dfe,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9156872675538006055, guid: 997605a0b6613c74b9b85f0377074dfe,
         type: 3}
@@ -1601,8 +1596,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.41
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2120444875517603795, guid: b6613131770427b4788c7b479b96f323, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6613131770427b4788c7b479b96f323, type: 3}
 --- !u!4 &8422186562082057909 stripped
 Transform:

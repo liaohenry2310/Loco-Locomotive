@@ -25,10 +25,10 @@ public class TimeDown : MonoBehaviour
     }
 
     //Private functions
-    private void Awake()
+    private void Start()
     {
         textCountDown = GetComponent<Text>();
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = GameManager.Instance;
         timerIsRunning = true;
     }
 

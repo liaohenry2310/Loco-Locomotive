@@ -68,7 +68,7 @@ public class GameLoader : AsyncLoader
         // Setup Additional Systems as needed
         Debug.Log("Loading Modular Systems");
 
-        foreach(var comp in moduleComponents) 
+        foreach (var comp in moduleComponents)
         {
             if (comp is IGameModule)
             {

@@ -3,37 +3,24 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    //public static ObjectPooler SharedInstance;
-
     [Header("Properties")]
-    public GameObject objectToPool;
-    
-    public int amountToPool;
-    public int AmountToPool => amountToPool;
+    [SerializeField] private GameObject _objectToPool = default;
+    [SerializeField] private int _amountToPool = 0;
 
     private List<GameObject> pooledObjects;
 
+    public int AmountToPool => _amountToPool;
+
+
     private void Awake()
     {
-        //SharedInstance = this;
         pooledObjects = new List<GameObject>(AmountToPool);
         for (int i = 0; i < AmountToPool; ++i)
         {
-            GameObject obj = Instantiate(objectToPool);
+            GameObject obj = Instantiate(_objectToPool);
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
-    }
-
-    private void Start()
-    {
-        //pooledObjects = new List<GameObject>(AmountToPool);
-        //for (int i = 0; i < AmountToPool; ++i)
-        //{
-        //    GameObject obj = Instantiate(objectToPool);
-        //    obj.SetActive(false);
-        //    pooledObjects.Add(obj);
-        //}
     }
 
     public GameObject GetPooledObject()

@@ -6,7 +6,7 @@ public class WeaponNormalGun : MonoBehaviour
     [SerializeField] private Transform _cannonFirePoint = default;
     [SerializeField] private int _currentAmmo = 0;
     [SerializeField] private float _fireRate = 0f;
-    [SerializeField] private float _spreadBulletFactor = 0f;
+    [SerializeField] private float _spreadBulletFactor = 3f;
 
     private ObjectPooler bulletPooler;
     private float _timeToFire = 0f;
@@ -20,7 +20,7 @@ public class WeaponNormalGun : MonoBehaviour
     void Start()
     {
         _ = TryGetComponent(out bulletPooler);
-        _currentAmmo = bulletPooler.amountToPool;
+        _currentAmmo = bulletPooler.AmountToPool;
     }
 
     public void SetFire(bool isTrigger)
@@ -49,6 +49,6 @@ public class WeaponNormalGun : MonoBehaviour
         }
     }
 
-    public void Reload() => _currentAmmo = bulletPooler.amountToPool;
+    public void Reload() => _currentAmmo = bulletPooler.AmountToPool;
 
 }

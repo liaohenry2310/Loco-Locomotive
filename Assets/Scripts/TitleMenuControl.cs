@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleMenuControl : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public class TitleMenuControl : MonoBehaviour
             color = GameManager.Instance.GetPlayerColor(playerIndex);
         }
 
-        switch(controlScheme)
+        switch (controlScheme)
         {
             case "WASD":
                 statusText = "Ready!\nWASD Keyboard";

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyProjectilesManager : MonoBehaviour
@@ -33,12 +32,12 @@ public class EnemyProjectilesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public GameObject GetActiveProjectiles()
     {
-        foreach(GameObject gO in mBasicEP)
+        foreach (GameObject gO in mBasicEP)
         {
             if (gO.activeInHierarchy)
             {

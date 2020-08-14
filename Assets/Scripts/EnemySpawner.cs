@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -28,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
         rightRange = screenBounds.x + 5.0f;
         leftRange = -screenBounds.x + 1.0f;
         // Function for Spawn Enemy. 
-     //   InvokeRepeating("CreatEnemies", 2, 1.0f);
+        //   InvokeRepeating("CreatEnemies", 2, 1.0f);
     }
     private void Update()
     {
@@ -36,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
         if (Time.time > currentTime)
         {
             CreatEnemies();
-        currentTime = Time.time + dealy;
+            currentTime = Time.time + dealy;
         }
     }
 

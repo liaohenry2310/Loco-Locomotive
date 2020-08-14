@@ -15,12 +15,19 @@ public class WeaponLaserBeam : MonoBehaviour
 
     public void SetFire(bool isTrigger)
     {
+        if (GameManager.Instance.IsGameOver)
+        {
+            _LaserBeam.enabled = false;
+            return;
+        }
+
         if (isTrigger && CurrentAmmo > 0f)
         {
             if (!_LaserBeam.enabled)
             {
                 _LaserBeam.enabled = true;
             }
+
             RaycastHit2D hit = Physics2D.Raycast(_cannonFirePoint.transform.position, _cannonFirePoint.transform.up, _laserData.Range);
             _LaserBeam.SetPosition(0, _cannonFirePoint.transform.position);
             //_LaserBeam.SetPosition(1, _cannonFirePoint.transform.up * _laserData.Range); // nao precisa mais desse linha

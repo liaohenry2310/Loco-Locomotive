@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class FuelGaugeUI : MonoBehaviour
 {
-    
+
     [Header("Fuel Gauge Properties")]
-    [SerializeField] 
+    [SerializeField]
     private float _updateSpeedSeconds = 0.5f;
 
     private Slider _sliderFuel;
