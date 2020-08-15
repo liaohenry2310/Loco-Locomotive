@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     //Public functions
     public void GameOver()
     {

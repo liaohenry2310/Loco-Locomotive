@@ -5,10 +5,12 @@ public class WeaponNormalGun : MonoBehaviour
 {
     [SerializeField] private Transform _cannonFirePoint = default;
     [SerializeField] private int _currentAmmo = 0;
+    [SerializeField] private int _maxAmmo = 100;
     [SerializeField] private float _fireRate = 0f;
     [SerializeField] private float _spreadBulletFactor = 3f;
 
-    private ObjectPooler bulletPooler;
+    private ObjectPoolManager _objectPoolManager = null;
+    private ObjectPooler bulletPooler = null;
     private float _timeToFire = 0f;
 
     public int CurrentAmmo
@@ -17,10 +19,21 @@ public class WeaponNormalGun : MonoBehaviour
         private set { }
     }
 
+    private void Awake()
+    {
+        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+    }
+
     void Start()
     {
-        _ = TryGetComponent(out bulletPooler);
-        _currentAmmo = bulletPooler.AmountToPool;
+        if (TryGetComponent(out bulletPooler))
+        {
+            _currentAmmo = bulletPooler.AmountToPool;
+        }
+        else
+        {
+            Debug.Log("bullet pooler not found");
+        }
     }
 
     public void SetFire(bool isTrigger)
@@ -36,17 +49,20 @@ public class WeaponNormalGun : MonoBehaviour
         //x.transform.rotation = CannonFirePoint.rotation;
         //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
 
-        GameObject bullet = bulletPooler.GetPooledObject();
-        if (!bullet) return;
+        //GameObject bullet = bulletPooler.GetPooledObject();
+        GameObject bullet = _objectPoolManager.GetObjectFromPool("Bullet");
+        if (!bullet)
+        {
+            Debug.LogWarning("Bullet Object Pool is Empty");
+            return;
+        }
 
-        bullet.transform.SetPositionAndRotation(_cannonFirePoint.transform.position, 
+        bullet.transform.SetPositionAndRotation(_cannonFirePoint.transform.position,
             Quaternion.RotateTowards(_cannonFirePoint.transform.rotation, Random.rotation, _spreadBulletFactor));
         bullet.SetActive(true);
         _currentAmmo--;
-
-
     }
 
-    public void Reload() => _currentAmmo = bulletPooler.AmountToPool;
+    public void Reload() => _currentAmmo = _maxAmmo;
 
 }

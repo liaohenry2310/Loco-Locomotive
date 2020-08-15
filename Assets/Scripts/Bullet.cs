@@ -5,12 +5,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private AmmoData _ammoData = default;
     private Vector3 _screenBounds;
 
+    ObjectPoolManager _objectPoolManager = null;
+
     void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_ammoData.MoveSpeed != 0f)
         {
@@ -22,7 +24,7 @@ public class Bullet : MonoBehaviour
                 (transform.position.y >= _screenBounds.y) ||
                 (transform.position.y <= -_screenBounds.y))
             {
-                gameObject.SetActive(false);
+                RecycleBullet();
             }
         }
     }
@@ -32,7 +34,15 @@ public class Bullet : MonoBehaviour
         IDamageable<float> damageable = collision.GetComponentInParent<EnemyHealth>();
         if (damageable == null) return;
         damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
-        gameObject.SetActive(false);
+        RecycleBullet();
     }
 
+    private void RecycleBullet()
+    {
+        if (_objectPoolManager == null)
+        {
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        }
+        _objectPoolManager.RecycleObject(gameObject);
+    }
 }
