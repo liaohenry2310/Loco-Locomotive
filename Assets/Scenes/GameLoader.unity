@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 7492620779980578089, guid: 9658cb5415206694ca55c338bc7c3088,
     type: 3}
-  sceneIndexToLoad: 0
+  sceneIndexToLoad: 1
   moduleComponents:
   - {fileID: 1957254521}
 --- !u!4 &1957254520
@@ -268,5 +268,9 @@ MonoBehaviour:
   objectsToPool:
   - name: Bullet
     prefab: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
+      type: 3}
+    poolSize: 100
+  - name: Missile
+    prefab: {fileID: 1984966083921251406, guid: e4a526c07a77a5742ab2a11ae54e1e87,
       type: 3}
     poolSize: 100

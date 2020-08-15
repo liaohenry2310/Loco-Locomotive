@@ -25,10 +25,16 @@ public class TurretCannon : MonoBehaviour
     {
         _ = TryGetComponent(out _inputReciever);
         _ = TryGetComponent(out _weaponNormalGun);
-        _ = TryGetComponent(out _weaponLaserBeam);
         _ = TryGetComponent(out _weaponMissile);
+        if (TryGetComponent(out _weaponLaserBeam))
+        {
+            // Pensar em um jeito de fazer com Action delegates
+            //_weaponLaserBeam.OnTurretIsAlive += _turretHealth.IsAlive;
+        }
+
         _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
+
         if (TryGetComponent<TurretLoader>(out var turretLoader))
         {
             turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
@@ -37,7 +43,7 @@ public class TurretCannon : MonoBehaviour
 
     void Start()
     {
-        AmmoText.text = _weaponNormalGun.CurrentAmmo.ToString();
+        AmmoText.text = $"{_weaponNormalGun.CurrentAmmo}";
     }
 
     private void Update()
@@ -77,7 +83,6 @@ public class TurretCannon : MonoBehaviour
             float finalSpeed = -_inputReciever.DirectionalInput.x * CannonHandlerSpeed * time;
             _cannonHandler.transform.Rotate(0.0f, 0.0f, finalSpeed);
         }
-
 
         bool setFire = _inputReciever.GetSecondaryHoldInput();
 

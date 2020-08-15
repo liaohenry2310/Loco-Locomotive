@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class WeaponLaserBeam : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class WeaponLaserBeam : MonoBehaviour
 
     public void SetFire(bool isTrigger)
     {
+        // Quando a vida chegar a 0 tambem desabilitar o laser
         if (GameManager.Instance.IsGameOver)
         {
             _LaserBeam.enabled = false;

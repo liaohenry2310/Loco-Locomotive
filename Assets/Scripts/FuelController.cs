@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using UnityEngine;
 
 public class FuelController : MonoBehaviour
@@ -8,18 +9,22 @@ public class FuelController : MonoBehaviour
     public event Action OnGameOver;
 
     [Header("Fuel Controller Properties")]
-    [SerializeField]
-    private float _maxFuel = 100f;
+    [SerializeField] private float _maxFuel = 100f;
+    [SerializeField] private float _ammountToReload = 50f;
 
-    [SerializeField]
-    private float _ammountToReload = 50f;
+    [ReadOnly(true)] private float currentFuel;
     private bool outOfFuel = false;
-
-    public float currentFuel;
 
     void Start()
     {
-        OnGameOver += GameManager.Instance.GameOver;
+        if (GameManager.Instance)
+        {
+            OnGameOver += GameManager.Instance.GameOver;
+        }
+        else
+        {
+            Debug.LogWarning($"[FuelController] -- GameManager.Instance is null.");
+        }
         currentFuel = _maxFuel;
     }
 
@@ -31,8 +36,7 @@ public class FuelController : MonoBehaviour
 
     public void CurrentFuel(float amount)
     {
-        if (outOfFuel)
-            return;
+        if (outOfFuel) return;
 
         currentFuel -= amount;
         currentFuel = Mathf.Clamp(currentFuel, 0.0f, _maxFuel);

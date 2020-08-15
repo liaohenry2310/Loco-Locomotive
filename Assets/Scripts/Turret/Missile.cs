@@ -3,7 +3,11 @@
 public class Missile : MonoBehaviour
 {
     [SerializeField] private AmmoData _ammoData = default;
+    [SerializeField] private float _areaOfEffect = 50f; // preciso implementar esse efeito de dano em area
+
     private Vector3 _screenBounds;
+
+    ObjectPoolManager _objectPoolManager = null;
 
     private void Start()
     {
@@ -22,7 +26,7 @@ public class Missile : MonoBehaviour
                 (transform.position.y >= _screenBounds.y) ||
                 (transform.position.y <= -_screenBounds.y))
             {
-                gameObject.SetActive(false);
+                RecycleBullet();
             }
         }
     }
@@ -32,7 +36,16 @@ public class Missile : MonoBehaviour
         IDamageable<float> damageable = collision.GetComponentInParent<EnemyHealth>();
         if (damageable == null) return;
         damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
-        gameObject.SetActive(false);
+        RecycleBullet();
+    }
+
+    private void RecycleBullet()
+    {
+        if (_objectPoolManager == null)
+        {
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        }
+        _objectPoolManager.RecycleObject(gameObject);
     }
 
 }

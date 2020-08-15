@@ -13,7 +13,7 @@ public class TitleMenuControl : MonoBehaviour
     private void Start()
     {
         buttons = new List<Button>(LevelSelectPanel.GetComponentsInChildren<Button>());
-        buttons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
+        buttons[0].onClick.AddListener(() => { SceneManager.LoadScene(2); });
     }
 
     public void UpdatePlayerStatus(int playerIndex, string controlScheme)

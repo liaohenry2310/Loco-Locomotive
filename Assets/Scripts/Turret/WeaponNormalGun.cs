@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(ObjectPooler))]
 public class WeaponNormalGun : MonoBehaviour
 {
     [SerializeField] private Transform _cannonFirePoint = default;
@@ -10,7 +9,7 @@ public class WeaponNormalGun : MonoBehaviour
     [SerializeField] private float _spreadBulletFactor = 3f;
 
     private ObjectPoolManager _objectPoolManager = null;
-    private ObjectPooler bulletPooler = null;
+    //private ObjectPooler bulletPooler = null;
     private float _timeToFire = 0f;
 
     public int CurrentAmmo
@@ -24,16 +23,9 @@ public class WeaponNormalGun : MonoBehaviour
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
 
-    void Start()
+    private void Start()
     {
-        if (TryGetComponent(out bulletPooler))
-        {
-            _currentAmmo = bulletPooler.AmountToPool;
-        }
-        else
-        {
-            Debug.Log("bullet pooler not found");
-        }
+        _currentAmmo = _maxAmmo;
     }
 
     public void SetFire(bool isTrigger)

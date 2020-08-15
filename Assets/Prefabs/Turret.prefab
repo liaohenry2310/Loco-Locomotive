@@ -485,7 +485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cannonHandler: {fileID: 3193508246254816230}
   AmmoText: {fileID: 4929973643754829417}
-  ammoType: 3
+  ammoType: 1
   CannonHandlerSpeed: 55
 --- !u!114 &3622832100159998365
 MonoBehaviour:
@@ -516,6 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cannonFirePoint: {fileID: 3193508245827852810}
   _currentAmmo: 0
+  _maxAmmo: 100
   _fireRate: 14
   _spreadBulletFactor: 3
 --- !u!114 &2224037934594239160
@@ -548,6 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cannonFirePoint: {fileID: 3193508245827852810}
   _currentAmmo: 0
+  _maxAmmo: 100
   _fireRate: 2
 --- !u!1 &3193508246008629862
 GameObject:

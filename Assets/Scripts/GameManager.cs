@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+           // DontDestroyOnLoad(gameObject); // nao precisa disso
         }
 
         SceneManager.sceneLoaded += (scene, mode) => SceneLoaded();
