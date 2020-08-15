@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4342734095972644247}
   - component: {fileID: 4747602815507533995}
   m_Layer: 0
-  m_Name: pfBullet
+  m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,4 +109,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8034d2ee5f5872b42831bbff30f48b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmmoTypeData: {fileID: 11400000, guid: 0ea60b0481f4e0f4ca62a3892f91175d, type: 2}
+  _timeInSeconds: 5
+  _ammoData: {fileID: 11400000, guid: 0ea60b0481f4e0f4ca62a3892f91175d, type: 2}

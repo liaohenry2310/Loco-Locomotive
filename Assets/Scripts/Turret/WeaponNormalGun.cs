@@ -25,28 +25,26 @@ public class WeaponNormalGun : MonoBehaviour
 
     public void SetFire(bool isTrigger)
     {
-        if (isTrigger && (_currentAmmo > 0) && (Time.time >= _timeToFire))
-        {
-            _timeToFire = Time.time + (1f / _fireRate);
-            // bck original
-            //var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
-            //var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
-            //mCurrentAmmo--;
-            //x.transform.rotation = Quaternion.RotateTowards(CannonFirePoint.transform.rotation, Random.rotation, spreadFactor);
-            // bck original
-            //x.transform.rotation = CannonFirePoint.rotation;
-            //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
+        if (!(isTrigger && (_currentAmmo > 0) && (Time.time >= _timeToFire))) return;
+        _timeToFire = Time.time + (1f / _fireRate);
+        // bck original
+        //var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
+        //var x = Instantiate(BulletsPrefabs, CannonFirePoint.transform.position, Quaternion.identity);
+        //mCurrentAmmo--;
+        //x.transform.rotation = Quaternion.RotateTowards(CannonFirePoint.transform.rotation, Random.rotation, spreadFactor);
+        // bck original
+        //x.transform.rotation = CannonFirePoint.rotation;
+        //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
 
-            // novo teste
-            GameObject bullet = bulletPooler.GetPooledObject();
-            if (bullet)
-            {
-                bullet.transform.position = _cannonFirePoint.transform.position;
-                bullet.transform.rotation = Quaternion.RotateTowards(_cannonFirePoint.transform.rotation, Random.rotation, _spreadBulletFactor);
-                bullet.SetActive(true);
-                _currentAmmo--;
-            }
-        }
+        GameObject bullet = bulletPooler.GetPooledObject();
+        if (!bullet) return;
+
+        bullet.transform.SetPositionAndRotation(_cannonFirePoint.transform.position, 
+            Quaternion.RotateTowards(_cannonFirePoint.transform.rotation, Random.rotation, _spreadBulletFactor));
+        bullet.SetActive(true);
+        _currentAmmo--;
+
+
     }
 
     public void Reload() => _currentAmmo = bulletPooler.AmountToPool;

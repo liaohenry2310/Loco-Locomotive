@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 3622832100159998365}
   - component: {fileID: 4905486737238177977}
   - component: {fileID: 2224037934594239160}
+  - component: {fileID: 1981862455376678270}
   m_Layer: 0
   m_Name: BottonTurret
   m_TagString: Untagged
@@ -483,9 +484,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cannonHandler: {fileID: 3193508246254816230}
-  _cannonFirePoint: {fileID: 3193508245827852810}
   AmmoText: {fileID: 4929973643754829417}
-  ammoType: 1
+  ammoType: 3
   CannonHandlerSpeed: 55
 --- !u!114 &3622832100159998365
 MonoBehaviour:
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dafb072fbc2514b974254b675e4ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectToPool: {fileID: 3674944694516248002, guid: 99c611e4765f1b44184930c7422128c0,
+  _objectToPool: {fileID: 1984966083921251406, guid: e4a526c07a77a5742ab2a11ae54e1e87,
     type: 3}
   _amountToPool: 100
 --- !u!114 &4905486737238177977
@@ -534,6 +534,21 @@ MonoBehaviour:
   _laserData: {fileID: 11400000, guid: f2eedf2e5ac681c4685928515c33dd7a, type: 2}
   _LaserBeam: {fileID: 66850640662514850}
   MaxAmmo: 100
+--- !u!114 &1981862455376678270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508245829201166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b41d66c1fc787c48a6ada878a8ddfc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cannonFirePoint: {fileID: 3193508245827852810}
+  _currentAmmo: 0
+  _fireRate: 2
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0

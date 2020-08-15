@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Missile : MonoBehaviour
 {
     [SerializeField] private AmmoData _ammoData = default;
     private Vector3 _screenBounds;
 
-    void Start()
+    private void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
     }

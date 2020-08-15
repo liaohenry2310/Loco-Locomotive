@@ -17,6 +17,7 @@ public class TurretCannon : MonoBehaviour
 
     private WeaponNormalGun _weaponNormalGun;
     private WeaponLaserBeam _weaponLaserBeam;
+    private WeaponMissile _weaponMissile;
 
     #endregion
 
@@ -25,6 +26,7 @@ public class TurretCannon : MonoBehaviour
         _ = TryGetComponent(out _inputReciever);
         _ = TryGetComponent(out _weaponNormalGun);
         _ = TryGetComponent(out _weaponLaserBeam);
+        _ = TryGetComponent(out _weaponMissile);
         _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
         if (TryGetComponent<TurretLoader>(out var turretLoader))
@@ -41,7 +43,6 @@ public class TurretCannon : MonoBehaviour
     private void Update()
     {
         if (!_turretHealth.IsAlive) return;
-
         HandlerCannon();
     }
 
@@ -58,14 +59,12 @@ public class TurretCannon : MonoBehaviour
         float aimAngle = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
         Quaternion aimRotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
 
-        float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime) *0.010f;
+        float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime) * 0.010f;
         _cannonHandler.transform.rotation = Quaternion.Slerp(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
     }
 
-
     private void HandlerCannon()
     {
-
         // Setting here either player using or not the gamepad and change the current direction 
         float time = Time.deltaTime;
 
@@ -101,6 +100,12 @@ public class TurretCannon : MonoBehaviour
                 }
                 break;
             case DispenserData.Type.Missile:
+                {
+                    // Calling setFire from Weapon Missile
+                    _weaponMissile.SetFire(setFire);
+                    // Update the UI Text Canvas
+                    AmmoText.text = $"{_weaponMissile.CurrentAmmo}";
+                }
                 break;
             case DispenserData.Type.Railgun:
                 {
