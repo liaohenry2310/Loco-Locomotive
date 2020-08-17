@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a4dceeda385d74d955bfe695c3c906, type: 3}
   m_Name: MissileData
   m_EditorClassIdentifier: 
-  _damage: 50
-  _moveSpeed: 3
+  _damage: 100
+  _moveSpeed: 5
   _type: 3

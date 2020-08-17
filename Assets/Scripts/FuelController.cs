@@ -12,8 +12,19 @@ public class FuelController : MonoBehaviour
     [SerializeField] private float _maxFuel = 100f;
     [SerializeField] private float _ammountToReload = 50f;
 
-    [ReadOnly(true)] private float currentFuel;
+    [Header("Reference prefbas")]
+    [SerializeField] private FireBox _fireBox;
+
+    private float currentFuel;
     private bool outOfFuel = false;
+
+    private void Awake()
+    {
+        if (_fireBox)
+        {
+            _fireBox.OnReloadFuel += Reload;
+        }
+    }
 
     void Start()
     {

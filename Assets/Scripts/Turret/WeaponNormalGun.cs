@@ -9,7 +9,6 @@ public class WeaponNormalGun : MonoBehaviour
     [SerializeField] private float _spreadBulletFactor = 3f;
 
     private ObjectPoolManager _objectPoolManager = null;
-    //private ObjectPooler bulletPooler = null;
     private float _timeToFire = 0f;
 
     public int CurrentAmmo
@@ -41,7 +40,6 @@ public class WeaponNormalGun : MonoBehaviour
         //x.transform.rotation = CannonFirePoint.rotation;
         //AmmoCountText.text = $"Ammo: {--mCurrentAmmo}";
 
-        //GameObject bullet = bulletPooler.GetPooledObject();
         GameObject bullet = _objectPoolManager.GetObjectFromPool("Bullet");
         if (!bullet)
         {

@@ -274,3 +274,7 @@ MonoBehaviour:
     prefab: {fileID: 1984966083921251406, guid: e4a526c07a77a5742ab2a11ae54e1e87,
       type: 3}
     poolSize: 100
+  - name: MissileExplosion
+    prefab: {fileID: 4929149958375854797, guid: ca501149ee8ba98429ebf19ff206dbfa,
+      type: 3}
+    poolSize: 100

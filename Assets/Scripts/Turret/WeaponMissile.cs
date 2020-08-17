@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(ObjectPooler))]
 public class WeaponMissile : MonoBehaviour
 {
     [SerializeField] private Transform _cannonFirePoint = default;
     [SerializeField] private int _currentAmmo = 0;
     [SerializeField] private int _maxAmmo = 100;
     [SerializeField] private float _fireRate = 0f;
+    [SerializeField] private float _radiusAreaEffect = 0f;
 
     private ObjectPoolManager _objectPoolManager = null;
     private float _timeToFire = 0f;
+
+    public float RadiusAreaEffect => _radiusAreaEffect;
 
     public int CurrentAmmo
     {
@@ -49,6 +51,7 @@ public class WeaponMissile : MonoBehaviour
         missile.transform.SetPositionAndRotation(_cannonFirePoint.transform.position,
             _cannonFirePoint.transform.rotation);
         missile.SetActive(true);
+        missile.GetComponent<Missile>().AreaOfEffect = _radiusAreaEffect;
         _currentAmmo--;
     }
 

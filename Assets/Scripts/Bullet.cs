@@ -3,9 +3,9 @@
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private AmmoData _ammoData = default;
-    private Vector3 _screenBounds;
 
-    ObjectPoolManager _objectPoolManager = null;
+    private Vector3 _screenBounds;
+    private ObjectPoolManager _objectPoolManager = null;
 
     void Start()
     {

@@ -26,11 +26,11 @@ public class TurretCannon : MonoBehaviour
         _ = TryGetComponent(out _inputReciever);
         _ = TryGetComponent(out _weaponNormalGun);
         _ = TryGetComponent(out _weaponMissile);
-        if (TryGetComponent(out _weaponLaserBeam))
-        {
-            // Pensar em um jeito de fazer com Action delegates
-            //_weaponLaserBeam.OnTurretIsAlive += _turretHealth.IsAlive;
-        }
+        _ = TryGetComponent(out _weaponLaserBeam);
+        //{
+        //    // Pensar em um jeito de fazer com Action delegates
+        //    //_weaponLaserBeam.OnTurretIsAlive += _turretHealth.IsAlive;
+        //}
 
         _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
@@ -99,7 +99,7 @@ public class TurretCannon : MonoBehaviour
             case DispenserData.Type.LaserBeam:
                 {
                     // Calling setFire from Weapon Laser Beam
-                    _weaponLaserBeam.SetFire(setFire);
+                    _weaponLaserBeam.SetFire(setFire, _turretHealth.IsAlive);
                     // Update the UI Text Canvas
                     AmmoText.text = _weaponLaserBeam.CurrentAmmo.ToString();
                 }
@@ -195,11 +195,13 @@ public class TurretCannon : MonoBehaviour
                 }
                 break;
             case DispenserData.Type.Missile:
+                {
+                    _weaponMissile.Reload();
+                    Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
+                }
                 break;
-            case DispenserData.Type.Railgun:
-                break;
-            default:
-                break;
+            case DispenserData.Type.Railgun: break;
+            default: break;
         }
     }
 }

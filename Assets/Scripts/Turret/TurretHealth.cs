@@ -2,31 +2,31 @@
 
 public class TurretHealth : MonoBehaviour
 {
-    public float MaxHealth = 100f;
-    public float mCurrentHealth;
-
-    public HealthBar healthBar;
-    public float repairHealth = 20;
+    [SerializeField] private HealthBar _healthBar = default;
+    [SerializeField] private float _maxHealth = 100f;
+    [SerializeField] private float _currentHealth;
+    //public float repairHealth = 20;
     private void Start()
     {
-        mCurrentHealth = MaxHealth;
-        healthBar.SetMaxHealth(MaxHealth);
+        _currentHealth = _maxHealth;
+        _healthBar.SetMaxHealth(_maxHealth);
     }
 
     public void TakeDamage(float amount)
     {
-        mCurrentHealth -= amount;
-        mCurrentHealth = Mathf.Clamp(mCurrentHealth, 0.0f, MaxHealth);
-        healthBar.SetHealth(mCurrentHealth);
+        _currentHealth -= amount;
+        _currentHealth = Mathf.Clamp(_currentHealth, 0.0f, _maxHealth);
+        _healthBar.SetHealth(_currentHealth);
     }
 
-    public bool IsAlive => mCurrentHealth > 0.0f;
+    public bool IsAlive => _currentHealth > 0.0f;
 
     public void RepairTurret()
     {
-        mCurrentHealth += repairHealth;
-        mCurrentHealth = Mathf.Clamp(mCurrentHealth, repairHealth, MaxHealth);
-        healthBar.SetHealth(mCurrentHealth);
+        //mCurrentHealth += repairHealth;
+        //mCurrentHealth = Mathf.Clamp(mCurrentHealth, repairHealth, MaxHealth);
+        _currentHealth = _maxHealth;
+        _healthBar.SetHealth(_currentHealth);
     }
 }
 
