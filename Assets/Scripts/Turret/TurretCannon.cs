@@ -73,7 +73,6 @@ public class TurretCannon : MonoBehaviour
 
         //float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime) * 0.010f;
         float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime);
-        Debug.Log($"[GAMEPAD] speed: {timeSpeedSlerp}");
         //_cannonHandler.transform.rotation = Quaternion.Slerp(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
         _cannonHandler.transform.rotation = Quaternion.RotateTowards(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
     }
@@ -90,7 +89,6 @@ public class TurretCannon : MonoBehaviour
         else
         {
             float finalSpeed = -_inputReciever.DirectionalInput.x * CannonHandlerSpeed * time;
-            Debug.Log($"[KEYBOARD] speed: {finalSpeed}");
             _cannonHandler.transform.Rotate(0.0f, 0.0f, finalSpeed);
         }
 
