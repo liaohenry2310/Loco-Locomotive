@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         mTrain = GameObject.Find("Train");
         playersSpawned = false;
-        if (SceneManager.GetActiveScene().buildIndex > 0)
-            Invoke("SpawnPlayers", 1.0f);
+        if (SceneManager.GetActiveScene().buildIndex > 1)
+            Invoke(nameof(SpawnPlayers), 1.0f);
 
         GameObject spawnpoints = GameObject.Find("InitialSpawn");
         if (spawnpoints)

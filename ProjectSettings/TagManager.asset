@@ -11,9 +11,10 @@ TagManager:
   - FrontWagon
   - DispenserObject
   - Train
-  - ShieldEnemy  
+  - ShieldEnemy
   - ShieldArmorEnemy
   - ArmorEnemy
+  - Missile
   layers:
   - Default
   - TransparentFX

@@ -36,6 +36,8 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Missile")) return; // this line the bullet will not disappear when collide with the missile
+
 
         if (collision.gameObject.CompareTag("Train")) //|| collision.gameObject.CompareTag("Train"))
         {

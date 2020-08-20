@@ -13,7 +13,7 @@ public class FuelController : MonoBehaviour
     [SerializeField] private float _ammountToReload = 50f;
 
     [Header("Reference prefbas")]
-    [SerializeField] private FireBox _fireBox;
+    [SerializeField] private FireBox _fireBox = default;
 
     private float currentFuel;
     private bool outOfFuel = false;

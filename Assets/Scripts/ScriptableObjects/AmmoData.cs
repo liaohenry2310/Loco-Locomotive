@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "AmmoDataObject", menuName = "Weapon/Ammo")]
+[CreateAssetMenu(fileName = "AmmoDataObject", menuName = "Weapon/Ammo/Bullet")]
 public class AmmoData : ScriptableObject
 {
     [SerializeField] private float _damage = 0.0f;

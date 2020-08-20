@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     {
         if (_ammoData.MoveSpeed != 0f)
         {
-            transform.position += transform.up * (_ammoData.MoveSpeed * Time.deltaTime);
+            transform.position += transform.up * (_ammoData.MoveSpeed * Time.fixedDeltaTime);
 
             // set activated false prefabs when touch the camera bounds
             if ((transform.position.x >= _screenBounds.x) ||

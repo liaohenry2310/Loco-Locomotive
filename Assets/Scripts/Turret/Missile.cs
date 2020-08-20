@@ -2,13 +2,13 @@
 
 public class Missile : MonoBehaviour
 {
-    [SerializeField] private AmmoData _ammoData = default;
+    [SerializeField] private MissileData _missileData = default;
     [SerializeField] private ParticleSystem _explosionParticle = default;
     [SerializeField] private LayerMask _layerEnemyMask = default;
 
     private Vector3 _screenBounds;
+    private float _currentSpeed = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
-    public float AreaOfEffect { get; set; } = 50f;
 
     private void Awake()
     {
@@ -20,20 +20,22 @@ public class Missile : MonoBehaviour
         _screenBounds = GameManager.GetScreenBounds;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_ammoData.MoveSpeed != 0f)
-        {
-            transform.position += transform.up * (_ammoData.MoveSpeed * Time.deltaTime);
+        _currentSpeed += Mathf.Lerp(_missileData.MinSpeed, _missileData.MaxSpeed, _missileData.Acceleration * Time.fixedDeltaTime);
+        _currentSpeed = Mathf.Clamp(_currentSpeed, _missileData.MinSpeed, _missileData.MaxSpeed);
+        transform.Translate(transform.up * Time.fixedDeltaTime * _currentSpeed, Space.World);
+        // bck
+        //transform.position += transform.up * (_missileData.MoveSpeed * Time.deltaTime);
 
-            // set activated false prefabs when touch the camera bounds
-            if ((transform.position.x >= _screenBounds.x) ||
-                (transform.position.x <= -_screenBounds.x) ||
-                (transform.position.y >= _screenBounds.y) ||
-                (transform.position.y <= -_screenBounds.y))
-            {
-                RecycleBullet();
-            }
+        // set activated false prefabs when touch the camera bounds
+        if ((transform.position.x >= _screenBounds.x) ||
+            (transform.position.x <= -_screenBounds.x) ||
+            (transform.position.y >= _screenBounds.y) ||
+            (transform.position.y <= -_screenBounds.y))
+        {
+            RecycleBullet();
+            _currentSpeed = 0f;
         }
     }
 
@@ -45,7 +47,7 @@ public class Missile : MonoBehaviour
         //damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
 
 
-        //TODO: arrumar isso
+        //TODO: arrumar isso poista ta uma bosta
         // Usando o pool
         //explosion = _objectPoolManager.GetObjectFromPool("MissileExplosion");
         //if (!explosion)
@@ -65,7 +67,7 @@ public class Missile : MonoBehaviour
     private void MissileExplostion(Collider2D collision)
     {
         bool _triggerExplosionOnce = false;
-        var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, AreaOfEffect, _layerEnemyMask);
+        var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, _missileData.RadiusEffect, _layerEnemyMask);
         foreach (Collider2D enemy in colliders)
         {
             Debug.Log($"[Collider2D] -- {enemy.gameObject.name}");
@@ -79,18 +81,20 @@ public class Missile : MonoBehaviour
                 _triggerExplosionOnce = true;
             }
 
-            damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
+            damageable.TakeDamage(_missileData.Damage, _missileData.Type);
         }
+        if (colliders.Length == 0) return;
         RecycleBullet();
+        _currentSpeed = 0f;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(gameObject.transform.position, AreaOfEffect);
+        Gizmos.DrawSphere(gameObject.transform.position, _missileData.RadiusEffect);
 
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(gameObject.transform.position, AreaOfEffect);
+        Gizmos.DrawWireSphere(gameObject.transform.position, _missileData.RadiusEffect);
     }
 
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TurretCannon : MonoBehaviour
@@ -46,7 +47,12 @@ public class TurretCannon : MonoBehaviour
         AmmoText.text = $"{_weaponNormalGun.CurrentAmmo}";
     }
 
-    private void Update()
+    //private void Update()
+    //{
+       
+    //}
+
+    private void FixedUpdate()
     {
         if (!_turretHealth.IsAlive) return;
         HandlerCannon();
@@ -61,18 +67,21 @@ public class TurretCannon : MonoBehaviour
     {
         const float deadzone = 0.25f;
         Vector2 stickInput = new Vector2(_inputReciever.GetHorizontalInput(), _inputReciever.GetVerticalInput());
-        stickInput = (stickInput.magnitude < deadzone) ? Vector2.zero : stickInput.normalized * ((stickInput.magnitude - deadzone) / (1f - deadzone));
+        stickInput = (stickInput.magnitude < deadzone) ? Vector2.zero : stickInput.normalized; // * ((stickInput.magnitude - deadzone) / (1f - deadzone));
         float aimAngle = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
-        Quaternion aimRotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
+        Quaternion aimRotation = Quaternion.AngleAxis(aimAngle, _cannonHandler.transform.forward);
 
-        float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime) * 0.010f;
-        _cannonHandler.transform.rotation = Quaternion.Slerp(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
+        //float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime) * 0.010f;
+        float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime);
+        Debug.Log($"[GAMEPAD] speed: {timeSpeedSlerp}");
+        //_cannonHandler.transform.rotation = Quaternion.Slerp(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
+        _cannonHandler.transform.rotation = Quaternion.RotateTowards(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
     }
 
     private void HandlerCannon()
     {
         // Setting here either player using or not the gamepad and change the current direction 
-        float time = Time.deltaTime;
+        float time = Time.fixedDeltaTime;
 
         if (_inputReciever.IsUsingGamepad)
         {
@@ -81,6 +90,7 @@ public class TurretCannon : MonoBehaviour
         else
         {
             float finalSpeed = -_inputReciever.DirectionalInput.x * CannonHandlerSpeed * time;
+            Debug.Log($"[KEYBOARD] speed: {finalSpeed}");
             _cannonHandler.transform.Rotate(0.0f, 0.0f, finalSpeed);
         }
 
