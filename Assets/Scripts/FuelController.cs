@@ -19,8 +19,9 @@ public class FuelController : MonoBehaviour
 
     void Start()
     {
-        OnGameOver += GameManager.Instance.GameOver;
         currentFuel = _maxFuel;
+        OnGameOver += GameManager.Instance.GameOver;
+
     }
 
     public void Reload()

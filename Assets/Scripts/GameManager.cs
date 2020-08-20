@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;
-
     //Properties
     static public GameManager Instance { get { return sInstance; } }
 
@@ -31,7 +30,6 @@ public class GameManager : MonoBehaviour
             return MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         }
     }
-
 
     //Public functions
     public void GameOver()
@@ -48,7 +46,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         YouWinPanel.SetActive(true);
         YouWinPanel.GetComponentInChildren<Button>().Select();
+        PlayerPrefs.SetInt("levelReached", SceneManager.GetActiveScene().buildIndex +1);
     }
+
 
     //Private functions
     private void Awake()
@@ -79,19 +79,25 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+
     public void LoadNextLevel()
     {
         if (SceneManager.GetActiveScene().buildIndex - 1 < SceneManager.sceneCountInBuildSettings)
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     public void LoadTitleScreen()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
+
+
 
     void SceneLoaded()
     {
+
         //Resets level parameters and retrieve inital player spawn points.
         Time.timeScale = 1.0f;
         mTrain = GameObject.Find("Train");
@@ -106,8 +112,10 @@ public class GameManager : MonoBehaviour
             mInitialSpawnPoints.RemoveAt(0);
         }
 
+
         YouWinPanel.SetActive(false);
         GameOverPanel.SetActive(false);
+
     }
 
     void OnPlayerJoined(PlayerInput playerInput)
