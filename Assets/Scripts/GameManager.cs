@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerControllerPrefab;
     public GameObject GameOverPanel;
     public GameObject YouWinPanel;
+    public GameObject LevelSelectPanel;
+
     private List<PlayerController> mPlayerControllers;
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
@@ -47,7 +49,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         YouWinPanel.SetActive(true);
         YouWinPanel.GetComponentInChildren<Button>().Select();
+
+        PlayerPrefs.SetInt("levelReach", SceneManager.GetActiveScene().buildIndex);
+        Debug.Log(PlayerPrefs.GetInt("levelReach", SceneManager.GetActiveScene().buildIndex ));
+
     }
+
 
     //Private functions
     private void Awake()
@@ -67,12 +74,12 @@ public class GameManager : MonoBehaviour
         mPlayerControllers = new List<PlayerController>();
     }
 
-    public void Restart()
+    public void Restart()//Restart the game 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void Quit()
+    public void Quit()//Quit the game 
     {
         Debug.Log("Quit the game!");
         Application.Quit();
@@ -80,14 +87,20 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+
         if (SceneManager.GetActiveScene().buildIndex - 1 < SceneManager.sceneCountInBuildSettings)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void LoadTitleScreen()
+    public void LoadTitleScreen()//Main menu
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
+    public void LoadLevelScreen()//Level Select menu
+    {
+        SceneManager.LoadScene(2);
+    }
+
 
     void SceneLoaded()
     {
@@ -95,7 +108,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         mTrain = GameObject.Find("Train");
         playersSpawned = false;
-        if (SceneManager.GetActiveScene().buildIndex > 1)
+        if (SceneManager.GetActiveScene().buildIndex > 2)
             Invoke(nameof(SpawnPlayers), 1.0f);
 
         GameObject spawnpoints = GameObject.Find("InitialSpawn");
