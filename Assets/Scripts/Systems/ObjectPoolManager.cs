@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolManager : MonoBehaviour , IGameModule
+public class ObjectPoolManager : MonoBehaviour, IGameModule
 {
     [Serializable]
     public class PooledObject

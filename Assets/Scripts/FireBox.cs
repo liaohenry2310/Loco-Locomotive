@@ -1,17 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class FireBox : MonoBehaviour
 {
-    private FuelController _fuelController;
-
-    void Start()
-    {
-        _fuelController = GetComponentInParent<FuelController>();
-    }
+    public event Action OnReloadFuel;
 
     public void AddFuel()
     {
-        _fuelController.Reload();
+        OnReloadFuel?.Invoke();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

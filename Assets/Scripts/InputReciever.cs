@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputReciever : MonoBehaviour
@@ -42,17 +41,7 @@ public class InputReciever : MonoBehaviour
         }
     }
 
-    public Vector2 GetDirectionalInput()
-    {
-        if (mPlayerInput)
-        {
-            return mPlayerInput.actions["Directional"].ReadValue<Vector2>();
-        }
-        else
-        {
-            return Vector2.zero;
-        }
-    }
+    public Vector2 DirectionalInput => mPlayerInput ? mPlayerInput.actions["Directional"].ReadValue<Vector2>() : Vector2.zero;
 
     public float GetHorizontalInput()
     {
@@ -112,14 +101,7 @@ public class InputReciever : MonoBehaviour
         return mSecondaryHeld;
     }
 
-    public bool IsUsingGamepad()
-    {
-        // Reference 
-        // https://docs.microsoft.com/en-us/dotnet/standard/base-types/best-practices-strings
-        // String.Equals is cheaper
-        return string.Equals(mPlayerInput?.currentControlScheme, "Gamepad", StringComparison.OrdinalIgnoreCase);
-        //return mPlayerInput.currentControlScheme.Equals("Gamepad");
-    }
+    public bool IsUsingGamepad => mPlayerInput ? string.CompareOrdinal(mPlayerInput.currentControlScheme, "Gamepad") == 0 : false;
 
     //Private functions
     private void Start()

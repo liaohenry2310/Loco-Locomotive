@@ -1,50 +1,48 @@
 ﻿using UnityEngine;
 
-public class Bullet : ProjectileAmmo
+public class Bullet : MonoBehaviour
 {
-    private Vector3 screenBouds;
+    [SerializeField] private AmmoData _ammoData = default;
+
+    private Vector3 _screenBounds;
+    private ObjectPoolManager _objectPoolManager = null;
 
     void Start()
     {
-        screenBouds = GameManager.GetScreenBounds;
-        AmmoType = DispenserData.Type.Normal;
+        _screenBounds = GameManager.GetScreenBounds;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (AmmoTypeData.MoveSpeed != 0f)
+        if (_ammoData.MoveSpeed != 0f)
         {
-            transform.position += transform.up * (AmmoTypeData.MoveSpeed * Time.deltaTime);
+            transform.position += transform.up * (_ammoData.MoveSpeed * Time.fixedDeltaTime);
 
-            // Destroy prefabs when touch the camera bounds
-            if ((transform.position.x >= screenBouds.x) ||
-                (transform.position.x <= -screenBouds.x) ||
-                (transform.position.y >= screenBouds.y) ||
-                (transform.position.y <= -screenBouds.y))
+            // set activated false prefabs when touch the camera bounds
+            if ((transform.position.x >= _screenBounds.x) ||
+                (transform.position.x <= -_screenBounds.x) ||
+                (transform.position.y >= _screenBounds.y) ||
+                (transform.position.y <= -_screenBounds.y))
             {
-                gameObject.SetActive(false);
+                RecycleBullet();
             }
-
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         IDamageable<float> damageable = collision.GetComponentInParent<EnemyHealth>();
-        if (damageable != null)
-        {
-            damageable.TakeDamage(AmmoTypeData.Damage, AmmoType);
-            gameObject.SetActive(false);
-        }
-
-
-        // Old code
-        //if (collision.CompareTag("Enemy"))
-        //{
-        //    BasicEnemy enemy = collision.gameObject.GetComponentInParent<BasicEnemy>();
-        //    enemy.TakeDamage(_bulletData.Damage);
-        //    gameObject.SetActive(false);
-        //}
+        if (damageable == null) return;
+        damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
+        RecycleBullet();
     }
 
+    private void RecycleBullet()
+    {
+        if (_objectPoolManager == null)
+        {
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        }
+        _objectPoolManager.RecycleObject(gameObject);
+    }
 }

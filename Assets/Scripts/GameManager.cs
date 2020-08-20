@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,15 +11,15 @@ public class GameManager : MonoBehaviour
     public GameObject playerControllerPrefab;
     public GameObject GameOverPanel;
     public GameObject YouWinPanel;
-
-    private static GameManager sInstance;
-
     private List<PlayerController> mPlayerControllers;
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;
+
+    public bool IsGameOver { get; private set; } = false;
+
     //Properties
-    static public GameManager Instance { get { return sInstance; } }
+    static public GameManager Instance { get; private set; }
 
     public static Vector3 GetScreenBounds
     {
@@ -34,6 +33,7 @@ public class GameManager : MonoBehaviour
     //Public functions
     public void GameOver()
     {
+        IsGameOver = true;
         Debug.Log("Game Over");
         Time.timeScale = 0.0f;
         GameOverPanel.SetActive(true);
@@ -42,25 +42,24 @@ public class GameManager : MonoBehaviour
 
     public void YouWin()
     {
+        IsGameOver = !IsGameOver;
         Debug.Log("You Win");
         Time.timeScale = 0.0f;
         YouWinPanel.SetActive(true);
         YouWinPanel.GetComponentInChildren<Button>().Select();
-        PlayerPrefs.SetInt("levelReached", SceneManager.GetActiveScene().buildIndex +1);
     }
-
 
     //Private functions
     private void Awake()
     {
-        if (sInstance)
+        if (Instance)
         {
             Destroy(gameObject);
         }
         else
         {
-            sInstance = this;
-            DontDestroyOnLoad(gameObject);
+            Instance = this;
+           // DontDestroyOnLoad(gameObject); // nao precisa disso
         }
 
         SceneManager.sceneLoaded += (scene, mode) => SceneLoaded();
@@ -79,31 +78,25 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-
     public void LoadNextLevel()
     {
         if (SceneManager.GetActiveScene().buildIndex - 1 < SceneManager.sceneCountInBuildSettings)
-        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
     }
 
     public void LoadTitleScreen()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
-
-
 
     void SceneLoaded()
     {
-
         //Resets level parameters and retrieve inital player spawn points.
         Time.timeScale = 1.0f;
         mTrain = GameObject.Find("Train");
         playersSpawned = false;
-        if (SceneManager.GetActiveScene().buildIndex > 0)
-            Invoke("SpawnPlayers", 1.0f);
+        if (SceneManager.GetActiveScene().buildIndex > 1)
+            Invoke(nameof(SpawnPlayers), 1.0f);
 
         GameObject spawnpoints = GameObject.Find("InitialSpawn");
         if (spawnpoints)
@@ -112,10 +105,8 @@ public class GameManager : MonoBehaviour
             mInitialSpawnPoints.RemoveAt(0);
         }
 
-
         YouWinPanel.SetActive(false);
         GameOverPanel.SetActive(false);
-
     }
 
     void OnPlayerJoined(PlayerInput playerInput)
@@ -147,7 +138,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnPlayers()
     {
-        if(playersSpawned)
+        if (playersSpawned)
         {
             return;
         }
@@ -167,7 +158,7 @@ public class GameManager : MonoBehaviour
     public Color GetPlayerColor(int playerNum)
     {
         Color color = Color.black;
-        switch(playerNum)
+        switch (playerNum)
         {
             case 0:
                 color = Color.cyan;

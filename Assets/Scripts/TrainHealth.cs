@@ -2,7 +2,7 @@
 
 public class TrainHealth : MonoBehaviour
 {
-    public float trainHealth =1000;
+    public float trainHealth = 1000;
 
     public float currentHealth;
     private float restoreTime;
@@ -20,12 +20,12 @@ public class TrainHealth : MonoBehaviour
         if (IsAlive())
         {
             currentHealth -= amount;
-           // currentHealth = Mathf.Max(currentHealth, 0f);
+            // currentHealth = Mathf.Max(currentHealth, 0f);
             Debug.Log("[Health] Lost " + amount + "hp. Current health: " + currentHealth);
             healthBar.SetHealth(currentHealth);
         }
 
-        if (IsAlive() == false) 
+        if (IsAlive() == false)
         {
             GameManager.Instance.GameOver();
         }
@@ -33,15 +33,15 @@ public class TrainHealth : MonoBehaviour
 
     public void Restore()
     {
-        if(currentHealth < trainHealth)
+        if (currentHealth < trainHealth)
         {
-            if(restoreTime > 20f )
+            if (restoreTime > 20f)
             {
                 currentHealth += 5;
                 restoreTime = 0;
             }
             restoreTime += Time.deltaTime;
-                    
+
         }
     }
     public bool IsAlive()

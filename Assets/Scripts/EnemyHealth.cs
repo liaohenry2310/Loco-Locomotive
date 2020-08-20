@@ -33,17 +33,17 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
             ArmorLogic(takingDamage, damageType);
         }
 
-       if (CompareTag("ShieldArmorEnemy"))
-       {
-           if (GetComponentInChildren<EnemyShieldHealth>().ShieldIsActive())
-           {
-               ShieldLogic(takingDamage, damageType);
-           }
-           else
-           {
-               ArmorLogic(takingDamage, damageType);
-           }
-       }
+        if (CompareTag("ShieldArmorEnemy"))
+        {
+            if (GetComponentInChildren<EnemyShieldHealth>().ShieldIsActive())
+            {
+                ShieldLogic(takingDamage, damageType);
+            }
+            else
+            {
+                ArmorLogic(takingDamage, damageType);
+            }
+        }
     }
 
     public bool IsAlive()
