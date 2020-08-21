@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578651486872913646}
   - component: {fileID: 578651486872913633}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 578651486874710864}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578651486905402538}
   - component: {fileID: 578651486905402541}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ProjectileSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 578651487066272696}
   - component: {fileID: 578651487066272699}
   - component: {fileID: 6157653765621864766}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Enemy_Projectile
   m_TagString: Enemy
   m_Icon: {fileID: 0}

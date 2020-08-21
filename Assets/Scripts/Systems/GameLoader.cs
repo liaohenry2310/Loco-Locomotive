@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameLoader : AsyncLoader
 {
-    public int sceneIndexToLoad = 1;
+    [SerializeField] private GameObject _gameManager = null;
+    [SerializeField] private int sceneIndexToLoad = 1;
     private static int _sceneIndex = 1;
     private static GameLoader _instance; // The only singleton you should have.
 
@@ -60,6 +61,8 @@ public class GameLoader : AsyncLoader
         // Setup Core Systems
         Debug.Log("Loading Core Systems");
 
+        Instantiate(_gameManager, SystemsParent);
+
         yield return null;
     }
 
@@ -68,7 +71,7 @@ public class GameLoader : AsyncLoader
         // Setup Additional Systems as needed
         Debug.Log("Loading Modular Systems");
 
-        foreach(var comp in moduleComponents) 
+        foreach (var comp in moduleComponents)
         {
             if (comp is IGameModule)
             {

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LadderController : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class LadderController : MonoBehaviour
     private void Start()
     {
         Transform[] transforms = GetComponentsInChildren<Transform>();
-        foreach(Transform transform in transforms)
+        foreach (Transform transform in transforms)
         {
             if (transform.gameObject.name == "LadderTop")
             {

@@ -9,11 +9,10 @@ public class TrainController : MonoBehaviour
 
     private FuelController _fuelController;
 
-    private void Start()
+    private void Awake()
     {
         _ = TryGetComponent(out _fuelController);
     }
-
     private void Update()
     {
         _fuelController.CurrentFuel(1.0f / FuelUpdateRate);

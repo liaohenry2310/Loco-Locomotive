@@ -91,4 +91,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb4a1019822bc4a98738c0c7d89e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeRemaining: 300
+  timeRemaining: 300
+  timerIsRunning: 1

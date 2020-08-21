@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NormalDispenser
   m_EditorClassIdentifier: 
   type: 1
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 0.9811321, g: 0.673685, b: 0.087931626, a: 1}
   itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
     type: 3}

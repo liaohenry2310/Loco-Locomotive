@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RiderEnemy : Enemy
@@ -203,7 +201,7 @@ public class RiderEnemy : Enemy
             if (target != null)
             {
 
-                if (target.GetComponent<TurretHealth>()?.IsAlive == true || (target.GetComponent<TurretHealth>() == null &&target.GetComponentInParent<TrainHealth>()?.IsAlive() == true))
+                if (target.GetComponent<TurretHealth>()?.IsAlive == true || (target.GetComponent<TurretHealth>() == null && target.GetComponentInParent<TrainHealth>()?.IsAlive() == true))
                 {
 
                     if (Vector2.Distance(transform.position, target.transform.position) < distance)

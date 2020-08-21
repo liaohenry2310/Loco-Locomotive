@@ -1,20 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleMenuControl : MonoBehaviour
 {
-    public GameObject LevelSelectPanel;
+
     public GameObject[] PlayerStatuses;
 
-    private List<Button> buttons;
-
-    private void Start()
+    public void LoadLevelScreen()
     {
-        buttons = new List<Button>(LevelSelectPanel.GetComponentsInChildren<Button>());
-        buttons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
+        SceneManager.LoadScene(2);
     }
 
     public void UpdatePlayerStatus(int playerIndex, string controlScheme)
@@ -27,7 +23,7 @@ public class TitleMenuControl : MonoBehaviour
             color = GameManager.Instance.GetPlayerColor(playerIndex);
         }
 
-        switch(controlScheme)
+        switch (controlScheme)
         {
             case "WASD":
                 statusText = "Ready!\nWASD Keyboard";

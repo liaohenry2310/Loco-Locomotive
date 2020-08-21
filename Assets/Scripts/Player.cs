@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
         AddFuel();
         RepairTurret();
     }
-    
+
     private void DisableHoldItem()
     {
         _spriteRender.color = Color.white;
