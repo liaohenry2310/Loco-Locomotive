@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RiderEnemy : MonoBehaviour
+public class RiderEnemy : Enemy
 {
 
     // Basic Enemy Stuffs....
@@ -29,13 +29,13 @@ public class RiderEnemy : MonoBehaviour
     public float damage;
 
     // Target
-    public List<GameObject> targetList;
+  //  public List<GameObject> targetList;
     private GameObject currentTarget;
     private Vector3 targetPos;
     private Vector3 direction;
 
     //Train Landing area
-    public GameObject topWagonCollider;
+   // public GameObject topWagonCollider;
 
     // Pos. 
     private Vector3 currentPos;
@@ -79,7 +79,7 @@ public class RiderEnemy : MonoBehaviour
     void Update()
     {
         // check if is hitting the bottom of the screen.
-        if (currentPos.y <= screenBottom)
+        if (OutsideScreen())
         {
             gameObject.SetActive(false);
 
@@ -130,7 +130,7 @@ public class RiderEnemy : MonoBehaviour
                 }
 
                 // " ? " < -- Ternary operator  " if not currentTarget not equal the first script , then go to the second one . "
-                if (currentTarget.GetComponent<TurretHealth>()?.IsAlive == false || currentTarget.GetComponentInParent<TrainHealth>()?.IsAlive() == false)
+                if (currentTarget?.GetComponent<TurretHealth>()?.IsAlive == false || currentTarget?.GetComponentInParent<TrainHealth>()?.IsAlive() == false )
                 {
                     currentTarget = null;
                 }
@@ -162,9 +162,9 @@ public class RiderEnemy : MonoBehaviour
     // Check if landed on train
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == topWagonCollider)
+        if (collision.gameObject == landingCollider)
         {
-            transform.parent = topWagonCollider.gameObject.transform;
+            transform.parent = landingCollider.gameObject.transform;
             mCurrentState = State.OnTrain;
         }
     }
@@ -221,5 +221,9 @@ public class RiderEnemy : MonoBehaviour
             mCurrentState = State.Nothing;
             Debug.Log("Out of target.");
         }
+    }
+    public bool OutsideScreen()
+    {
+        return currentPos.y <= screenBottom;
     }
 }

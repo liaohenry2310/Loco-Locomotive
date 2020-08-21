@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : Enemy
 {
     public float damage = 10.0f;
 
     public float speed = 1.0f;
     public float maxSpeed = 1.0f;
 
-    public GameObject trainArea;
+   // public GameObject trainArea;
 
     EnemyProjectilesManager mProjectiles;
 
@@ -47,8 +47,6 @@ public class BasicEnemy : MonoBehaviour
         projectile.SetActive(true);
 
         projectile.transform.position = gameObject.transform.position;
-
     }
 
-    
 }

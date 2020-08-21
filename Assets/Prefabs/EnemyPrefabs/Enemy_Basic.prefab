@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3276408233857933763}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.38, y: 4.26, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.57586, y: 1, z: 0.57586}
   m_Children:
   - {fileID: 3276408233613842307}
@@ -238,10 +238,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d669881b0dfba744dae4f440cda70bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetList: []
+  topWagonCollider: {fileID: 0}
+  trainArea: {fileID: 0}
   damage: 10
   speed: 1
   maxSpeed: 1.5
-  trainArea: {fileID: 0}
   shootingDelay: 2.04
 --- !u!114 &3276408233857933789
 MonoBehaviour:

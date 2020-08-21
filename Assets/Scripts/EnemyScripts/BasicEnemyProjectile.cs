@@ -14,9 +14,12 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     void Start()
     {
+
         //Camera MainCam = Camera.main;
         //screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+
         screenBottom = -GameManager.GetScreenBounds.y;
+
 
     }
 
@@ -36,28 +39,32 @@ public class BasicEnemyProjectile : MonoBehaviour
         //float dis = Vector3.Distance(currentPos, targetPos);
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if (collision.gameObject.CompareTag("Train")) //|| collision.gameObject.CompareTag("Train"))
+        if (collision.gameObject.GetComponentInParent<TrainHealth>())
         {
             collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
             //Debug.Log("basic doing damage to train");
             gameObject.SetActive(false);
         }
 
-        if (collision.gameObject.CompareTag("Turret"))
+        if (collision.gameObject.GetComponent<TurretHealth>())
         {
 
             collision.gameObject.GetComponent<TurretHealth>().TakeDamage(damage);
             Debug.Log("basic doing damage to Turret");
             gameObject.SetActive(false);
         }
-        else if (!collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("BasicEnemy Projectile set to false");
-            gameObject.SetActive(false);
-        }
+      //  if (!collision.gameObject.GetComponent<TurretHealth>() || !collision.gameObject.GetComponentInParent<TrainHealth>())
+      //  {
+      //      collision.isTrigger = false;
+      //  }
+       // else 
+       // {
+       //     //  Debug.Log("BasicEnemy Projectile set to false");
+       //     //  gameObject.SetActive(false);
+       // }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -70,5 +77,5 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     }
 
-
+    
 }

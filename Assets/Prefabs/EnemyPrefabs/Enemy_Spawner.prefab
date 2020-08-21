@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3999341104010763620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,7 +106,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857a02103a6d2284d9e4d7e83df3ffe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemies: {fileID: 1557837876618408515, guid: 00e411bdee85ea94bae6009cff63ae56, type: 3}
+  EnemiesPrefabList: []
+  _wave: {fileID: 0}
   targetList: []
-  topWagonCollider: {fileID: 0}
+  landingCollider: {fileID: 0}
   trainArea: {fileID: 0}
+  topL: {fileID: 0}
+  bomR: {fileID: 0}
+  delay: 5

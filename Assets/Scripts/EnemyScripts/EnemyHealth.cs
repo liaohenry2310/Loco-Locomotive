@@ -11,10 +11,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {
 
-        if (CompareTag("Enemy"))
-        {
-            HpLogic(takingDamage, damageType);
-        }
 
         if (CompareTag("ShieldEnemy"))
         {
@@ -44,6 +40,10 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
                ArmorLogic(takingDamage, damageType);
            }
        }
+        else if (true)
+        {
+            HpLogic(takingDamage, damageType);
+        }
     }
 
     public bool IsAlive()
