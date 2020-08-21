@@ -42,6 +42,11 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Bullet")) // When bullet comming from Turret, just set false the enemy bullet
+        {
+            gameObject.SetActive(false);
+        }
+
         if (collision.gameObject.GetComponentInParent<TrainHealth>())
         {
             collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);

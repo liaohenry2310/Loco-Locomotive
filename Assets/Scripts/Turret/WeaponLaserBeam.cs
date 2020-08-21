@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponLaserBeam : MonoBehaviour
 {
@@ -39,19 +38,19 @@ public class WeaponLaserBeam : MonoBehaviour
                 Collider2D collider = hit.collider;
                 if (collider)
                 {
-                    var shieldEnemy = collider.GetComponentInParent<RiderEnemy>();
-                    if (shieldEnemy) //&& shieldEnemy.IsHasShield)
+                    var shieldEnemy = collider.gameObject.GetComponentInChildren<EnemyShieldHealth>();
+                    if (shieldEnemy && shieldEnemy.ShieldIsActive)
                     {
                         _LaserBeam.SetPosition(1, hit.point);
                     }
                     else
                     {
                         _LaserBeam.SetPosition(1, _cannonFirePoint.transform.up * _laserData.Range);
-                    }
-                    IDamageable<float> damageable = collider.GetComponentInParent<EnemyHealth>();
-                    if (damageable != null)
-                    {
-                        damageable.TakeDamage(_laserData.Damage * Time.time, _laserData.LaserType);
+                        IDamageable<float> damageable = collider.GetComponentInParent<EnemyHealth>();
+                        if (damageable != null)
+                        {
+                            damageable.TakeDamage(_laserData.Damage * Time.time, _laserData.LaserType);
+                        }
                     }
                 }
             }

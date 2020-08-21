@@ -108,7 +108,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2203334844806377501}
   m_Father: {fileID: 1178324292671610623}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -202,7 +203,6 @@ Transform:
   m_Children:
   - {fileID: 1178324292406093986}
   - {fileID: 1178324291594194478}
-  - {fileID: 2203334844806377501}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -239,10 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d669881b0dfba744dae4f440cda70bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetList: []
+  landingCollider: {fileID: 0}
+  trainArea: {fileID: 0}
   damage: 10
   speed: 1
   maxSpeed: 1.5
-  trainArea: {fileID: 0}
   shootingDelay: 2.04
 --- !u!114 &1178324292671610620
 MonoBehaviour:
@@ -283,7 +285,7 @@ GameObject:
   - component: {fileID: 2203334844806377501}
   - component: {fileID: 4596765255585076094}
   - component: {fileID: 27920180844558474}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,8 +303,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.017, z: -0.0002}
   m_LocalScale: {x: 0.7, y: 0.42, z: 1.7365332}
   m_Children: []
-  m_Father: {fileID: 1178324292671610623}
-  m_RootOrder: 2
+  m_Father: {fileID: 1178324291594194478}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4596765255585076094
 SpriteRenderer:
