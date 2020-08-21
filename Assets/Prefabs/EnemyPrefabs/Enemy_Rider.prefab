@@ -90,10 +90,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 20598139663676580}
-  - component: {fileID: 20598139663676581}
-  - component: {fileID: 147188168048315308}
   - component: {fileID: 20598139663676583}
   - component: {fileID: 6437053351019522685}
+  - component: {fileID: 20598139663676581}
+  - component: {fileID: 147188168048315308}
   m_Layer: 9
   m_Name: Enemy_Rider
   m_TagString: Enemy
@@ -116,39 +116,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &20598139663676581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20598139663676602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c93c689bb7718147b8ab9debc513692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetList: []
-  landingCollider: {fileID: 0}
-  trainArea: {fileID: 0}
-  fallSpeed: 0.5
-  gravity: 1
-  windSpeed: 0.55
-  damage: 2.5
-  trainHealth: {fileID: 0}
---- !u!114 &147188168048315308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20598139663676602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ab80ff0845e9c4e80c3ca98318950f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 15
 --- !u!50 &20598139663676583
 Rigidbody2D:
   serializedVersion: 4
@@ -196,3 +163,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.50138944, y: 0.4953819}
   m_EdgeRadius: 0
+--- !u!114 &20598139663676581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20598139663676602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c93c689bb7718147b8ab9debc513692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetList: []
+  landingCollider: {fileID: 0}
+  trainArea: {fileID: 0}
+  fallSpeed: 0.5
+  gravity: 1
+  windSpeed: 0.55
+  damage: 2.5
+  trainHealth: {fileID: 0}
+--- !u!114 &147188168048315308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20598139663676602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ab80ff0845e9c4e80c3ca98318950f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 15

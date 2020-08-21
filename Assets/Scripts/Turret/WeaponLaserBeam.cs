@@ -46,7 +46,7 @@ public class WeaponLaserBeam : MonoBehaviour
                     else
                     {
                         _LaserBeam.SetPosition(1, _cannonFirePoint.transform.up * _laserData.Range);
-                        IDamageable<float> damageable = collider.GetComponentInParent<EnemyHealth>();
+                        IDamageable<float> damageable = collider.GetComponent<EnemyHealth>();
                         if (damageable != null)
                         {
                             damageable.TakeDamage(_laserData.Damage * Time.time, _laserData.LaserType);

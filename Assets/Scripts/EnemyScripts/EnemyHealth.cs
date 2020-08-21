@@ -5,13 +5,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
     // regular type 
     public float health;
 
-
-
-
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {
-
-
         if (CompareTag("ShieldEnemy"))
         {
             if (!GetComponentInChildren<EnemyShieldHealth>().ShieldIsActive)
@@ -40,7 +35,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
                 ArmorLogic(takingDamage, damageType);
             }
         }
-        else if (true)
+
+        if (CompareTag("Enemy"))
         {
             HpLogic(takingDamage, damageType);
         }
@@ -87,6 +83,5 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
         }
 
     }
-
 
 }
