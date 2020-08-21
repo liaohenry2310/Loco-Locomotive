@@ -11,7 +11,7 @@ public class WeaponNormalGun : MonoBehaviour
     private ObjectPoolManager _objectPoolManager = null;
     private float _timeToFire = 0f;
 
-    public float CurrentAmmo { get; private set; } = 0.0f;
+    public float CurrentAmmo { get => _currentAmmo; private set { } }
 
     private void Awake()
     {
