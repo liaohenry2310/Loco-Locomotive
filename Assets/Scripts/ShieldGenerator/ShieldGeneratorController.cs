@@ -6,7 +6,7 @@ public class ShieldGeneratorController : MonoBehaviour
     public event Action OnControllShield;
 
     [SerializeField] private ShieldControl _shieldControl;
-    
+
     private InputReciever _inputReciever;
 
 
