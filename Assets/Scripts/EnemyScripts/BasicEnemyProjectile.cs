@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class BasicEnemyProjectile : MonoBehaviour
 {
@@ -12,9 +14,12 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     void Start()
     {
+
         //Camera MainCam = Camera.main;
         //screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
+
         screenBottom = -GameManager.GetScreenBounds.y;
+
 
     }
 
@@ -34,30 +39,37 @@ public class BasicEnemyProjectile : MonoBehaviour
         //float dis = Vector3.Distance(currentPos, targetPos);
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Missile")) return; // this line the bullet will not disappear when collide with the missile
+        if (collision.CompareTag("Bullet")) // When bullet comming from Turret, just set false the enemy bullet
+        {
+            gameObject.SetActive(false);
+        }
 
-
-        if (collision.gameObject.CompareTag("Train")) //|| collision.gameObject.CompareTag("Train"))
+        if (collision.gameObject.GetComponentInParent<TrainHealth>())
         {
             collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
             //Debug.Log("basic doing damage to train");
             gameObject.SetActive(false);
         }
 
-        if (collision.gameObject.CompareTag("Turret"))
+        if (collision.gameObject.GetComponent<TurretHealth>())
         {
 
             collision.gameObject.GetComponent<TurretHealth>().TakeDamage(damage);
             Debug.Log("basic doing damage to Turret");
             gameObject.SetActive(false);
         }
-        else if (!collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("BasicEnemy Projectile set to false");
-            gameObject.SetActive(false);
-        }
+      //  if (!collision.gameObject.GetComponent<TurretHealth>() || !collision.gameObject.GetComponentInParent<TrainHealth>())
+      //  {
+      //      collision.isTrigger = false;
+      //  }
+       // else 
+       // {
+       //     //  Debug.Log("BasicEnemy Projectile set to false");
+       //     //  gameObject.SetActive(false);
+       // }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -70,5 +82,5 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     }
 
-
+    
 }

@@ -31,9 +31,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IDamageable<float> damageable = collision.GetComponentInParent<EnemyHealth>();
-        if (damageable == null) return;
-        damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
+        IDamageable<float> damageable = collision.GetComponent<EnemyHealth>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
+        }
         RecycleBullet();
     }
 

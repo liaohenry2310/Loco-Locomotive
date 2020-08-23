@@ -71,7 +71,7 @@ public class Missile : MonoBehaviour
         foreach (Collider2D enemy in colliders)
         {
             Debug.Log($"[Collider2D] -- {enemy.gameObject.name}");
-            IDamageable<float> damageable = enemy.GetComponentInParent<EnemyHealth>();
+            IDamageable<float> damageable = enemy.GetComponent<EnemyHealth>();
             if (damageable == null) return;
             if (!_triggerExplosionOnce)
             {

@@ -5,15 +5,12 @@ using UnityEngine.UI;
 
 public class TitleMenuControl : MonoBehaviour
 {
-    public GameObject LevelSelectPanel;
+
     public GameObject[] PlayerStatuses;
 
-    private List<Button> buttons;
-
-    private void Start()
+    public void LoadLevelScreen()
     {
-        buttons = new List<Button>(LevelSelectPanel.GetComponentsInChildren<Button>());
-        buttons[0].onClick.AddListener(() => { SceneManager.LoadScene(2); });
+        SceneManager.LoadScene(2);
     }
 
     public void UpdatePlayerStatus(int playerIndex, string controlScheme)

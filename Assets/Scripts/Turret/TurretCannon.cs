@@ -47,11 +47,6 @@ public class TurretCannon : MonoBehaviour
         AmmoText.text = $"{_weaponNormalGun.CurrentAmmo}";
     }
 
-    //private void Update()
-    //{
-       
-    //}
-
     private void FixedUpdate()
     {
         if (!_turretHealth.IsAlive) return;

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3999341104010763625}
   - component: {fileID: 3999341104010763624}
   - component: {fileID: 3999341104010763623}
-  - component: {fileID: 3999341104010763622}
   - component: {fileID: 3999341104010763621}
   m_Layer: 0
   m_Name: Enemy_Spawner
@@ -28,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3999341104010763620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,19 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3999341104010763622
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3999341104010763620}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3999341104010763621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +92,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857a02103a6d2284d9e4d7e83df3ffe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemies: {fileID: 1557837876618408515, guid: 00e411bdee85ea94bae6009cff63ae56, type: 3}
+  EnemiesPrefabList: []
+  _wave: {fileID: 0}
   targetList: []
-  topWagonCollider: {fileID: 0}
+  landingCollider: {fileID: 0}
   trainArea: {fileID: 0}
+  wormhole: {fileID: 0}
+  wormholeRSpeed: 0
+  wormholegrowthRate: 0.5
+  topL: {fileID: 0}
+  bomR: {fileID: 0}
