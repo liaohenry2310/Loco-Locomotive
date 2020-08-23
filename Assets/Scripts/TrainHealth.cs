@@ -3,7 +3,6 @@
 public class TrainHealth : MonoBehaviour
 {
     public float trainHealth = 1000;
-
     public float currentHealth;
     private float restoreTime;
     private bool mIsTakingDamage;

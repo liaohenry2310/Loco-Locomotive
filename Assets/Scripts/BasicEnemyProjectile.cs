@@ -15,7 +15,6 @@ public class BasicEnemyProjectile : MonoBehaviour
         //Camera MainCam = Camera.main;
         //screenBounds = MainCam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCam.transform.position.z));
         screenBottom = -GameManager.GetScreenBounds.y;
-
     }
 
     void Update()
@@ -48,7 +47,6 @@ public class BasicEnemyProjectile : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Turret"))
         {
-
             collision.gameObject.GetComponent<TurretHealth>().TakeDamage(damage);
             Debug.Log("basic doing damage to Turret");
             gameObject.SetActive(false);

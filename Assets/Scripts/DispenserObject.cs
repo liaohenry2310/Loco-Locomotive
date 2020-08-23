@@ -14,6 +14,7 @@ public class DispenserObject : MonoBehaviour
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
     public FireBox fireBox;
+    public ItemIndicator itemIndicator;
 
     public void StartDestructionTimer()
     {

@@ -195,11 +195,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3193508244445371709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db734dc4fcf9a544b65fd43074f0bb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 952dbb330d0def742b535815b6327d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 6161361658253203547}
-  offset: {x: 0.4, y: 0.3, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &4734786320888962673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,11 +209,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3193508244445371709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db734dc4fcf9a544b65fd43074f0bb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 952dbb330d0def742b535815b6327d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 4929973643754829416}
-  offset: {x: 0.6, y: 0.3, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &3193508244648082379
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +537,6 @@ MonoBehaviour:
   _currentAmmo: 0
   _maxAmmo: 30
   _fireRate: 1
-  _radiusAreaEffect: 0.5
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0
