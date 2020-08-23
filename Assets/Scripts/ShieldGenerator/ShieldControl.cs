@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class ShieldControl : MonoBehaviour
 {
-    public event Action OnControllShield;
+    public event Action<bool> OnControllShield;
 
-    [NonSerialized] private InputReciever _inputReciever;
+    private InputReciever _inputReciever;
 
     private void Awake()
     {
@@ -15,22 +15,9 @@ public class ShieldControl : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void Update()
     {
-        if (collider.CompareTag("Player"))
-        {
-            Player player = collider.GetComponent<Player>();
-            //player.turretLoader = this;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.CompareTag("Player"))
-        {
-            Player player = collider.GetComponent<Player>();
-            //player.turretLoader = this;
-        }
+        OnControllShield?.Invoke(_inputReciever.GetSecondaryHoldInput());
     }
 
 }
