@@ -45,7 +45,7 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private void ActivateShield(bool isOnActivation)
     {
-        if (isOnActivation && !_coolDownToActivated)
+        if (isOnActivation && !_coolDownToActivated && !_ShieldCollider.enabled)
         {
             if (_ChargeTimerCoroutine == null)
             {
@@ -76,7 +76,7 @@ public class ShieldGeneratorController : MonoBehaviour
         {
             _chargerTimer = 0f;
             yield return StartCoroutine(BarrierTimer());
-        }        
+        }
     }
 
     private IEnumerator BarrierTimer()

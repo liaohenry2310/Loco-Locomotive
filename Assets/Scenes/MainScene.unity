@@ -327,6 +327,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 4398221100930772567, guid: 09bc966e2663fc94e8dbdf28b8de6326,
+        type: 3}
+      propertyPath: m_Name
+      value: EnergyShield
+      objectReference: {fileID: 0}
     - target: {fileID: 7755465248911781629, guid: 09bc966e2663fc94e8dbdf28b8de6326,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -386,6 +391,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960060685588061196, guid: 09bc966e2663fc94e8dbdf28b8de6326,
+        type: 3}
+      propertyPath: m_UsedByEffector
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09bc966e2663fc94e8dbdf28b8de6326, type: 3}
@@ -1326,7 +1336,7 @@ PrefabInstance:
     - target: {fileID: 7098286363416638740, guid: fd17a1cee1b96314da0ae87014804e7e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd17a1cee1b96314da0ae87014804e7e, type: 3}
