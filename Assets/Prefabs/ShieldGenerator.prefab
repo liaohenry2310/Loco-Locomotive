@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 5828304557206650689}
   - component: {fileID: 5301037923769205767}
   - component: {fileID: 1252978002716008448}
+  - component: {fileID: 4875780662953308363}
   m_Layer: 0
   m_Name: ShieldController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7600660399189214374
 Transform:
@@ -90,7 +91,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -106,6 +107,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4875780662953308363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487727294036403195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270e7490651702644a950c092c9062be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2206257753183179550
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,14 +128,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7755465248911781629}
-  - component: {fileID: 8311719035281023558}
   - component: {fileID: 7479730292659729952}
   m_Layer: 0
   m_Name: ShieldGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7755465248911781629
 Transform:
@@ -140,18 +152,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8311719035281023558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206257753183179550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 270e7490651702644a950c092c9062be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7479730292659729952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af82d558c06617e4cac5fb3d5f2f85cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shieldGenerator: {fileID: 0}
+  _shieldControl: {fileID: 0}
 --- !u!1 &5920308514594056130
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8773517258562592949
 Transform:
@@ -255,7 +255,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
