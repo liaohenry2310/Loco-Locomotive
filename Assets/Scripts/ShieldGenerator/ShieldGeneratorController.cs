@@ -5,7 +5,7 @@ public class ShieldGeneratorController : MonoBehaviour
 {
     [SerializeField] private ShieldGeneratorData _shieldGeneratorData;
     [SerializeField] private ShieldControl _shieldControl;
-    [SerializeField] private CircleCollider2D _ShieldCollider;
+    [SerializeField] private CircleCollider2D _shieldCollider;
 
     private WaitForSeconds _waitOneSecond;
     private WaitForSeconds _waitCoolDown;
@@ -19,7 +19,7 @@ public class ShieldGeneratorController : MonoBehaviour
     private void Awake()
     {
         _shieldControl.OnControllShield += ActivateShield;
-        _ShieldCollider.enabled = false;
+        _shieldCollider.enabled = false;
     }
 
     private void Start()
@@ -45,7 +45,7 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private void ActivateShield(bool isOnActivation)
     {
-        if (isOnActivation && !_coolDownToActivated && !_ShieldCollider.enabled)
+        if (isOnActivation && !_coolDownToActivated && !_shieldCollider.enabled)
         {
             if (_ChargeTimerCoroutine == null)
             {
@@ -81,11 +81,11 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private IEnumerator BarrierTimer()
     {
-        _ShieldCollider.enabled = true;
-        Debug.Log($"[BarrierTimer] {_ShieldCollider.enabled}");
+        _shieldCollider.enabled = true;
+        Debug.Log($"[BarrierTimer] {_shieldCollider.enabled}");
         yield return _waitBarrierTimer; // wait for the barrier 
-        _ShieldCollider.enabled = false;
-        Debug.Log($"[BarrierTimer] {_ShieldCollider.enabled}");
+        _shieldCollider.enabled = false;
+        Debug.Log($"[BarrierTimer] {_shieldCollider.enabled}");
         _coolDownToActivated = true;
         Debug.Log($"[CoolDown] {_coolDownToActivated}");
         yield return _waitCoolDown; // after start to cooldown
