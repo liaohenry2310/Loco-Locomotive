@@ -44,7 +44,12 @@ public class BasicEnemyProjectile : MonoBehaviour
             //Debug.Log("basic doing damage to train");
             gameObject.SetActive(false);
         }
-
+        if (collision.gameObject.CompareTag("Player")) //|| collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            //Debug.Log("basic doing damage to Player");
+            gameObject.SetActive(false);
+        }
         if (collision.gameObject.CompareTag("Turret"))
         {
             collision.gameObject.GetComponent<TurretHealth>().TakeDamage(damage);
@@ -56,6 +61,7 @@ public class BasicEnemyProjectile : MonoBehaviour
             Debug.Log("BasicEnemy Projectile set to false");
             gameObject.SetActive(false);
         }
+
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
