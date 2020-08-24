@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerControllerPrefab;
     public GameObject GameOverPanel;
     public GameObject YouWinPanel;
-    private List<PlayerController> mPlayerControllers;
+    public List<PlayerController> mPlayerControllers;
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;

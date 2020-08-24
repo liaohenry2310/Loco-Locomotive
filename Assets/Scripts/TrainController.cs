@@ -3,7 +3,7 @@
 [RequireComponent(typeof(FuelController))]
 public class TrainController : MonoBehaviour
 {
-
+    
     [Header("Train Properties")]
     [SerializeField] private float FuelUpdateRate = 4.0f;
 
@@ -15,6 +15,11 @@ public class TrainController : MonoBehaviour
     }
     private void Update()
     {
-        _fuelController.CurrentFuel(1.0f / FuelUpdateRate);
+        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        _fuelController.CurrentFuel(player.Length / FuelUpdateRate);
+        Debug.Log(player.Length);
+
     }
+
+
 }
