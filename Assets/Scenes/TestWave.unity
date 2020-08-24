@@ -1620,6 +1620,21 @@ PrefabInstance:
       propertyPath: trainArea
       value: 
       objectReference: {fileID: 293452454}
+    - target: {fileID: 7098286362129012674, guid: fd17a1cee1b96314da0ae87014804e7e,
+        type: 3}
+      propertyPath: wormholeSpawnDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098286362129012674, guid: fd17a1cee1b96314da0ae87014804e7e,
+        type: 3}
+      propertyPath: wormholegrowthRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098286362129012674, guid: fd17a1cee1b96314da0ae87014804e7e,
+        type: 3}
+      propertyPath: wormholeSpawnTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7098286363416638740, guid: fd17a1cee1b96314da0ae87014804e7e,
         type: 3}
       propertyPath: m_Name

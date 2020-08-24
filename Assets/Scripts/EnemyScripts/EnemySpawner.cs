@@ -42,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject wormhole;
     public float wormholeRSpeed = 0.0f;
     public float wormholegrowthRate = 0.5f;
+    public float wormholeSpawnTime = 0.0f;
     public Transform topL, bomR;
     // Bounding Check
     private Camera MainCam;
@@ -73,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
         }
         wormhole.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         enabledWormhole = false;
-        CreatEnemies();
+        StartCoroutine(CreatEnemies());
 
     }
     private void Update()
@@ -83,7 +84,7 @@ public class EnemySpawner : MonoBehaviour
         {
             currentWave++;
             currentNumber = 0;
-            CreatEnemies();
+            StartCoroutine(CreatEnemies());
         }
         if (enabledWormhole)
         {
@@ -99,8 +100,16 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    public void CreatEnemies()
+    public IEnumerator CreatEnemies()
     {
+        EnemyType enemyType;
+        int numOfEnemis;
+
+        enemyType = _wave._waves[currentWave].enemyType;
+        numOfEnemis = _wave._waves[currentWave].numOfEnemies;
+        enemySpawnDelay = _wave._waves[currentWave].wave_delay;
+
+        yield return new WaitForSeconds(enemySpawnDelay);
         enabledWormhole = true;
         //wormhole randpos;
         float x;
@@ -110,14 +119,9 @@ public class EnemySpawner : MonoBehaviour
         y = UnityEngine.Random.Range(topL.position.y, bomR.position.y);
         wormhole.gameObject.transform.position = new Vector3(x, y, 0.0f);
 
+        StartCoroutine(helloEnemy(numOfEnemis, wormholeSpawnTime, enemyType));
 
-        EnemyType enemyType;
-        int numOfEnemis;
 
-        enemyType = _wave._waves[currentWave].enemyType;
-        numOfEnemis = _wave._waves[currentWave].numOfEnemies;
-        enemySpawnDelay = _wave._waves[currentWave].wave_delay;
-        StartCoroutine(helloEnemy(numOfEnemis, enemySpawnDelay, enemyType));
     }
     public IEnumerator helloEnemy(int numOfEnemis, float timedelay, EnemyType enemyType)
     {
