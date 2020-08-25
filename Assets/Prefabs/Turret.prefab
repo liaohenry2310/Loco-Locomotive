@@ -537,7 +537,6 @@ MonoBehaviour:
   _currentAmmo: 0
   _maxAmmo: 30
   _fireRate: 1
-  _radiusAreaEffect: 0.5
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0

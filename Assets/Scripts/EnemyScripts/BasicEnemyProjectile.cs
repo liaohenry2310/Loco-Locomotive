@@ -61,15 +61,25 @@ public class BasicEnemyProjectile : MonoBehaviour
             Debug.Log("basic doing damage to Turret");
             gameObject.SetActive(false);
         }
-      //  if (!collision.gameObject.GetComponent<TurretHealth>() || !collision.gameObject.GetComponentInParent<TrainHealth>())
-      //  {
-      //      collision.isTrigger = false;
-      //  }
-       // else 
-       // {
-       //     //  Debug.Log("BasicEnemy Projectile set to false");
-       //     //  gameObject.SetActive(false);
-       // }
+
+        var shieldGen = collision.GetComponent<ShieldTurret>(); // when bullet hit the ShieldGenerator GameObject
+        if (shieldGen)
+        {
+            shieldGen.IShieldGenerator.TakeDamage(damage);
+            gameObject.SetActive(false);
+
+        }
+
+
+        //  if (!collision.gameObject.GetComponent<TurretHealth>() || !collision.gameObject.GetComponentInParent<TrainHealth>())
+        //  {
+        //      collision.isTrigger = false;
+        //  }
+        // else 
+        // {
+        //     //  Debug.Log("BasicEnemy Projectile set to false");
+        //     //  gameObject.SetActive(false);
+        // }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -82,5 +92,5 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     }
 
-    
+
 }
