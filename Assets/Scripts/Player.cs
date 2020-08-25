@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
+    public IShieldGenerator shieldGenerator;
     public FireBox fireBox;
     public DispenserObject dispenserObject;
     #endregion
@@ -142,7 +143,6 @@ public class Player : MonoBehaviour
                 PlayerHasItem = true;
                 dispenserObject.OnBecameInvisible();
                 Debug.Log($"Player repicked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
-
             }
         }
         if (GetComponent<PlayerHealth>().IsAlive() == false)
@@ -164,13 +164,13 @@ public class Player : MonoBehaviour
             _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
             _itemDispenserSprite.SetActive(true);
             _spriteRender.color = _currentItem.DispenserColor;
-            Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
+            Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor}");
         }
     }
 
     private void DropItem()
     {
-        if (!fireBox && !turretRepair && !turretLoader)
+        if (!fireBox && !turretRepair && !turretLoader && shieldGenerator == null)
         {
             // Place item on the ground.
             var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform.position - itemOffset, Quaternion.identity);
@@ -224,14 +224,19 @@ public class Player : MonoBehaviour
 
     private void RepairTurret()
     {
-        if (turretRepair)
+        if (_currentItem.DispenserType == DispenserData.Type.RepairKit)
         {
-            if (_currentItem.DispenserType == DispenserData.Type.RepairKit)
+            if (turretRepair)
             {
                 turretRepair.Repair();
                 DisableHoldItem();
             }
 
+            if (shieldGenerator != null)
+            {
+                shieldGenerator.Repair();
+                DisableHoldItem();
+            }
         }
     }
 
