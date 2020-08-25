@@ -145,6 +145,11 @@ public class Player : MonoBehaviour
 
             }
         }
+        if (GetComponent<PlayerHealth>().IsAlive() == false)
+        {
+            _itemDispenserSprite.SetActive(false);
+            PlayerHasItem = false;
+        }
 
         #endregion
     }
@@ -272,16 +277,6 @@ public class Player : MonoBehaviour
             _itemToPickup.itemType = item.DispenserType;
             _itemToPickup.itemColor = item.DispenserColor;
             _itemToPickup.itemPrefab = item.ItemPrefab;
-        }
-    }
-
-
-    public void PlayerDied()
-    {
-        if(GetComponent<PlayerHealth>().IsAlive() ==false)
-        {
-            _itemDispenserSprite.SetActive(false);
-            PlayerHasItem = false;
         }
     }
 }

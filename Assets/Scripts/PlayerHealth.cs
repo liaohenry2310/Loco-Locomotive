@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth;
     private float restoreTime;
     private bool mIsTakingDamage;
+    private bool takeDamage = false;
+    private bool restore = false;
+
     public HealthBar healthBar;
     public GameObject player;
 
@@ -19,55 +22,48 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        if (currentHealth == playerHealth)
+        if (currentHealth >= playerHealth)
         {
+            currentHealth = playerHealth;
             healthBar.gameObject.SetActive(false);
         }
-        else if(currentHealth < playerHealth)
+        else if(currentHealth < playerHealth && currentHealth>0.0f)
         {
             healthBar.gameObject.SetActive(true);
         }
-    }
-    public void Restore()
-    {
-        if (currentHealth < playerHealth)
+
+        restoreTime += Time.deltaTime;
+        if (restoreTime > 3.0f)
         {
-            if (restoreTime > 3.0f)
-            {
-                currentHealth += 30;
-                restoreTime = 0;
-            }
-            restoreTime += Time.deltaTime;
+            restore = true;
+            takeDamage = false;
+            restoreTime = 0;
         }
-    }
-
-    public bool IsAlive()
-    {
-        if (currentHealth <= 0.0f)
+        if (currentHealth > 0.0f && currentHealth < playerHealth && restore == true && takeDamage == false)
         {
-            return false;
+            currentHealth += 30;
+            healthBar.SetHealth(currentHealth);
+            restore = false;
         }
-        return true;
-    }
-
-    public void TakeDamage(float amount)
-    {
-        healthBar.gameObject.SetActive(true);
-        currentHealth -= amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0.0f, playerHealth);
-        healthBar.SetHealth(currentHealth);
-    }
-
-
-    private void Died()
-    {
-        if (IsAlive() ==false)
+        if (IsAlive() == false)
         {
             Debug.Log("player died");
             player.SetActive(false);
             Invoke("Respawn", 5f);
         }
-
+    }
+    public bool IsAlive()
+    {
+        return currentHealth > 0f;
+    }
+    public void TakeDamage(float amount)
+    {
+        restoreTime = 0;
+        takeDamage = true;
+        healthBar.gameObject.SetActive(true);
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0.0f, playerHealth);
+        healthBar.SetHealth(currentHealth);
     }
     private void Respawn()
     {

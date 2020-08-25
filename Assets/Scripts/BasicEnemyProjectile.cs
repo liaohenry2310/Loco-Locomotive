@@ -37,17 +37,10 @@ public class BasicEnemyProjectile : MonoBehaviour
     {
         if (collision.CompareTag("Missile")) return; // this line the bullet will not disappear when collide with the missile
 
-
         if (collision.gameObject.CompareTag("Train")) //|| collision.gameObject.CompareTag("Train"))
         {
             collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
             //Debug.Log("basic doing damage to train");
-            gameObject.SetActive(false);
-        }
-        if (collision.gameObject.CompareTag("Player")) //|| collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
-            //Debug.Log("basic doing damage to Player");
             gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("Turret"))
@@ -61,14 +54,19 @@ public class BasicEnemyProjectile : MonoBehaviour
             Debug.Log("BasicEnemy Projectile set to false");
             gameObject.SetActive(false);
         }
-
-
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("BasicEnemy Projectile set to false");
+            gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            Debug.Log("basic doing damage to Player");
             gameObject.SetActive(false);
         }
 

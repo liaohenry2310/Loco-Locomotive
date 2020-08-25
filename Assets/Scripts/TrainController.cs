@@ -17,9 +17,5 @@ public class TrainController : MonoBehaviour
     {
         GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
         _fuelController.CurrentFuel(player.Length / FuelUpdateRate);
-        Debug.Log(player.Length);
-
     }
-
-
 }
