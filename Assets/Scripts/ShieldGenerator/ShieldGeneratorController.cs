@@ -5,16 +5,16 @@ public class ShieldGeneratorController : MonoBehaviour
 {
     [SerializeField] private ShieldGeneratorData _shieldGeneratorData;
     [SerializeField] private ShieldControl _shieldControl;
+    [SerializeField] private ShieldTurret _shieldTurret;
     [SerializeField] private CircleCollider2D _shieldCollider;
+    [SerializeField] private HealthBar _healthBar = default;
 
+    private IEnumerator _ChargeTimerCoroutine;
     private WaitForSeconds _waitOneSecond;
     private WaitForSeconds _waitCoolDown;
     private WaitForSeconds _waitBarrierTimer;
-    private IEnumerator _ChargeTimerCoroutine;
 
-    private float _curretHealth = 0.0f;
-    private float _chargerTimer = 0f;
-    private bool _coolDownToActivated = false;
+    private ShieldGenerator _shieldGenerator;
 
     private void Awake()
     {
@@ -24,28 +24,16 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private void Start()
     {
+        _shieldGenerator = new ShieldGenerator(_shieldGeneratorData, _healthBar);
+        _shieldTurret.IShieldGenerator = _shieldGenerator;
         _waitOneSecond = new WaitForSeconds(1f);
         _waitCoolDown = new WaitForSeconds(_shieldGeneratorData.CoolDownTime);
         _waitBarrierTimer = new WaitForSeconds(_shieldGeneratorData.BarrierDuration);
-        _curretHealth = _shieldGeneratorData.MaxHealth;
-    }
-
-    public void TakeDamage(float damage)
-    {
-        _curretHealth -= damage;
-        _curretHealth = Mathf.Clamp(_curretHealth, 0f, _shieldGeneratorData.MaxHealth);
-    }
-
-    public bool IsAlive => _curretHealth > 0f;
-
-    public void Repair()
-    {
-        _curretHealth = _shieldGeneratorData.MaxHealth;
     }
 
     private void ActivateShield(bool isOnActivation)
     {
-        if (isOnActivation && !_coolDownToActivated && !_shieldCollider.enabled)
+        if (isOnActivation && !_shieldGenerator.CoolDownToActivated && !_shieldCollider.enabled)
         {
             if (_ChargeTimerCoroutine == null)
             {
@@ -59,22 +47,22 @@ public class ShieldGeneratorController : MonoBehaviour
             {
                 StopCoroutine(_ChargeTimerCoroutine);
                 _ChargeTimerCoroutine = null;
-                _chargerTimer = 0f;
+                _shieldGenerator.ChargerTimer = 0f;
             }
         }
     }
 
     private IEnumerator ChargetTimer()
     {
-        while (_shieldGeneratorData.ChargeTime > _chargerTimer)
+        while (_shieldGeneratorData.ChargeTime > _shieldGenerator.ChargerTimer)
         {
-            Debug.Log($"ChargerTime = {_chargerTimer}");
+            Debug.Log($"ChargerTime = {_shieldGenerator.ChargerTimer}");
             yield return _waitOneSecond;
-            _chargerTimer++;
+            _shieldGenerator.ChargerTimer++;
         }
-        if (_shieldGeneratorData.ChargeTime == _chargerTimer)
+        if (_shieldGeneratorData.ChargeTime == _shieldGenerator.ChargerTimer)
         {
-            _chargerTimer = 0f;
+            _shieldGenerator.ChargerTimer = 0f;
             yield return StartCoroutine(BarrierTimer());
         }
     }
@@ -86,11 +74,12 @@ public class ShieldGeneratorController : MonoBehaviour
         yield return _waitBarrierTimer; // wait for the barrier 
         _shieldCollider.enabled = false;
         Debug.Log($"[BarrierTimer] {_shieldCollider.enabled}");
-        _coolDownToActivated = true;
-        Debug.Log($"[CoolDown] {_coolDownToActivated}");
-        yield return _waitCoolDown; // after start to cooldown
-        _coolDownToActivated = false;
-        Debug.Log($"[CoolDown] {_coolDownToActivated}");
+        _shieldGenerator.CoolDownToActivated = true;
+        Debug.Log($"[CoolDown] {_shieldGenerator.CoolDownToActivated}");
+        yield return _waitCoolDown; // after barrier finished, start to cooldown
+        _shieldGenerator.CoolDownToActivated = false;
+        Debug.Log($"[CoolDown] {_shieldGenerator.CoolDownToActivated}");
+        StopCoroutine(_ChargeTimerCoroutine);
     }
 
 }
