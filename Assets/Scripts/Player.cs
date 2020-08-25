@@ -14,13 +14,14 @@ public class Player : MonoBehaviour
     #region dispenser
     private GameObject _itemDispenserSprite = default;
     public bool PlayerHasItem { get; private set; } = false;
+
     private SpriteRenderer _spriteRender;
     private DispenserItem _currentItem;         // Item that the player is currently holding.
     private DispenserItemData _itemToPickup;        // The type of dispenser the player is standing at if any.    
     #endregion
 
     public GameObject player;
-    public GameObject spwanPoint;
+    //public GameObject spwanPoint;
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
@@ -144,6 +145,11 @@ public class Player : MonoBehaviour
 
             }
         }
+        if (GetComponent<PlayerHealth>().IsAlive() == false)
+        {
+            _itemDispenserSprite.SetActive(false);
+            PlayerHasItem = false;
+        }
 
         #endregion
     }
@@ -175,6 +181,7 @@ public class Player : MonoBehaviour
                 dispenserObject.ObjectColor = _currentItem.DispenserColor;
                 dispenserObject.Sprite.color = _currentItem.DispenserColor;
                 dispenserObject.StartDestructionTimer();
+                dispenserObject.itemIndicator.gameObject.SetActive(true);
             }
 
             _spriteRender.color = Color.white;
@@ -272,27 +279,4 @@ public class Player : MonoBehaviour
             _itemToPickup.itemPrefab = item.ItemPrefab;
         }
     }
-
-    #region Player Respawn
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy") ||
-            collision.gameObject.CompareTag("ShieldArmorEnemy"))
-        {
-            Debug.Log("player died");
-            player.SetActive(false);
-            _itemDispenserSprite.SetActive(false);
-            PlayerHasItem = false;
-            player.transform.localPosition = spwanPoint.transform.localPosition;
-            Invoke("Respawn", 5f);
-        }
-    }
-
-    private void Respawn()
-    {
-        Debug.Log("Respawn");
-        player.SetActive(true);
-    }
-
-    #endregion
 }
