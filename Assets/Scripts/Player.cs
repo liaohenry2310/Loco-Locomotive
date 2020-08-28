@@ -45,13 +45,16 @@ public class Player : MonoBehaviour
         _itemToPickup = new DispenserItemData()
         {
             itemColor = Color.white,
-            itemType = DispenserData.Type.None
+            itemType = DispenserData.Type.None,
+            sprite = null
+           
         };
 
         _currentItem = new DispenserItem()
         {
             DispenserType = DispenserData.Type.None,
             DispenserColor = Color.white,
+            sprite = null
         };
 
         dispenserObject = new DispenserObject()
@@ -138,6 +141,7 @@ public class Player : MonoBehaviour
             {
                 _currentItem.DispenserType = dispenserObject.ObjectType;
                 _currentItem.DispenserColor = dispenserObject.ObjectColor;
+                _currentItem.sprite = dispenserObject.sprite;
                 _itemDispenserSprite.SetActive(true);
                 _spriteRender.color = dispenserObject.Sprite.color;
                 PlayerHasItem = true;
@@ -161,6 +165,7 @@ public class Player : MonoBehaviour
             PlayerHasItem = true;
             _currentItem.DispenserType = _itemToPickup.itemType;
             _currentItem.DispenserColor = _itemToPickup.itemColor;
+            _currentItem.sprite = dispenserObject.sprite;
             _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
             _itemDispenserSprite.SetActive(true);
             _spriteRender.color = _currentItem.DispenserColor;
@@ -180,6 +185,7 @@ public class Player : MonoBehaviour
                 dispenserObject.ObjectType = _currentItem.DispenserType;
                 dispenserObject.ObjectColor = _currentItem.DispenserColor;
                 dispenserObject.Sprite.color = _currentItem.DispenserColor;
+                dispenserObject.sprite = _currentItem.sprite;
                 dispenserObject.StartDestructionTimer();
                 dispenserObject.itemIndicator.gameObject.SetActive(true);
             }
@@ -276,12 +282,14 @@ public class Player : MonoBehaviour
             _itemToPickup.itemType = DispenserData.Type.None;
             _itemToPickup.itemColor = Color.white;
             _itemToPickup.itemPrefab = null;
+            _itemToPickup.sprite = null;
         }
         else
         {
             _itemToPickup.itemType = item.DispenserType;
             _itemToPickup.itemColor = item.DispenserColor;
             _itemToPickup.itemPrefab = item.ItemPrefab;
+            _itemToPickup.sprite = item.sprite;
         }
     }
 }

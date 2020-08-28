@@ -6,10 +6,12 @@ public class DispenserObject : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer = null;
     [SerializeField] private DispenserData.Type type = default;
     [SerializeField] private Color color = default;
+    [SerializeField] private Sprite sp = null;
 
     public SpriteRenderer Sprite { get { return _spriteRenderer; } }
     public DispenserData.Type ObjectType { get { return type; } set { type = value; } }
     public Color ObjectColor { get { return color; } set { color = value; } }
+    public Sprite sprite { get { return sp; } set { sp = value; } }
 
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
@@ -35,6 +37,8 @@ public class DispenserObject : MonoBehaviour
                 return;
             }
             player.dispenserObject = this;
+
+
         }
     }
 
@@ -49,7 +53,6 @@ public class DispenserObject : MonoBehaviour
                 return;
             }
             player.dispenserObject = null;
-
 
         }
     }
