@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ShieldTurret : MonoBehaviour
+public class EMPTurret : MonoBehaviour
 {
     public IMachineriesActions IMachineriesAction { get; set; }
 

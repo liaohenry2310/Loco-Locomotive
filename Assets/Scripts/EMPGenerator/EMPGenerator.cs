@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 
-public class ShieldGenerator : IMachineriesActions
+public class EMPGenerator : IMachineriesActions
 {
+    public float ChargerTimer { get; set; } = 0f;
+    public bool CoolDownToActivated { get; set; } = false;
+
     private readonly HealthBar _healthBar;
     private readonly float _maxHealth;
     private float _curretHealth = 0.0f;
 
-    public float ChargerTimer { get; set; } = 0f;
-    public bool CoolDownToActivated { get; set; } = false;
-
-    public ShieldGenerator(HealthBar healthBar, float maxHealth)
+    public EMPGenerator(HealthBar healthBar, float maxHealth)
     {
         _healthBar = healthBar;
         _maxHealth = maxHealth;
@@ -26,7 +26,7 @@ public class ShieldGenerator : IMachineriesActions
     {
         _curretHealth = _maxHealth;
         _healthBar.SetHealth(_curretHealth);
-        Debug.Log("[ShieldGenerator] -- Repair complete.");
+        Debug.Log("[EMPGenerator] -- Repair complete.");
     }
 
     public void TakeDamage(float amount)

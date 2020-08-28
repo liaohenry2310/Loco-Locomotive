@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 
     public TurretRepair turretRepair;
     public TurretLoader turretLoader;
-    public IShieldGenerator shieldGenerator;
+    public IMachineriesActions machineriesActions;
     public FireBox fireBox;
     public DispenserObject dispenserObject;
     #endregion
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
 
     private void DropItem()
     {
-        if (!fireBox && !turretRepair && !turretLoader && shieldGenerator == null)
+        if (!fireBox && !turretRepair && !turretLoader && machineriesActions == null)
         {
             // Place item on the ground.
             var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform.position - itemOffset, Quaternion.identity);
@@ -232,9 +232,9 @@ public class Player : MonoBehaviour
                 DisableHoldItem();
             }
 
-            if (shieldGenerator != null)
+            if (machineriesActions != null)
             {
-                shieldGenerator.Repair();
+                machineriesActions.Repair();
                 DisableHoldItem();
             }
         }

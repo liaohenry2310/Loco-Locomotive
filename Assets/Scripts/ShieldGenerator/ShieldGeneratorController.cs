@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class ShieldGeneratorController : MonoBehaviour
 {
-    [SerializeField] private ShieldGeneratorData _shieldGeneratorData;
-    [SerializeField] private ShieldControl _shieldControl;
-    [SerializeField] private ShieldTurret _shieldTurret;
-    [SerializeField] private CircleCollider2D _shieldCollider;
+    [SerializeField] private ShieldGeneratorData _shieldGeneratorData = default;
+    [SerializeField] private ShieldControl _shieldControl = default;
+    [SerializeField] private ShieldTurret _shieldTurret = default;
+    [SerializeField] private CircleCollider2D _shieldCollider = default;
     [SerializeField] private HealthBar _healthBar = default;
 
     private IEnumerator _ChargeTimerCoroutine;
@@ -24,8 +24,8 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private void Start()
     {
-        _shieldGenerator = new ShieldGenerator(_shieldGeneratorData, _healthBar);
-        _shieldTurret.IShieldGenerator = _shieldGenerator;
+        _shieldGenerator = new ShieldGenerator(_healthBar , _shieldGeneratorData.MaxHealth);
+        _shieldTurret.IMachineriesAction = _shieldGenerator;
         _waitOneSecond = new WaitForSeconds(1f);
         _waitCoolDown = new WaitForSeconds(_shieldGeneratorData.CoolDownTime);
         _waitBarrierTimer = new WaitForSeconds(_shieldGeneratorData.BarrierDuration);
@@ -56,7 +56,7 @@ public class ShieldGeneratorController : MonoBehaviour
     {
         while (_shieldGeneratorData.ChargeTime > _shieldGenerator.ChargerTimer)
         {
-            Debug.Log($"ChargerTime = {_shieldGenerator.ChargerTimer}");
+            Debug.Log($"[ShieldGenerator] -- ChargerTime = {_shieldGenerator.ChargerTimer}");
             yield return _waitOneSecond;
             _shieldGenerator.ChargerTimer++;
         }

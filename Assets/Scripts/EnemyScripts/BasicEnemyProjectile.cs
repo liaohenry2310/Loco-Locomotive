@@ -71,9 +71,15 @@ public class BasicEnemyProjectile : MonoBehaviour
         var shieldGen = collision.GetComponent<ShieldTurret>(); // when bullet hit the ShieldGenerator GameObject
         if (shieldGen)
         {
-            shieldGen.IShieldGenerator.TakeDamage(damage);
+            shieldGen.IMachineriesAction.TakeDamage(damage);
             gameObject.SetActive(false);
+        }
 
+        var empGen = collision.GetComponent<EMPTurret>(); // when bullet hit the EMPGenerator GameObject
+        if (empGen)
+        {
+            empGen.IMachineriesAction.TakeDamage(damage);
+            gameObject.SetActive(false);
         }
         //  if (!collision.gameObject.GetComponent<TurretHealth>() || !collision.gameObject.GetComponentInParent<TrainHealth>())
         //  {
