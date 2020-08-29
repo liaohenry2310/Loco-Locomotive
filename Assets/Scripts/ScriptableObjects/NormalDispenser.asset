@@ -17,3 +17,4 @@ MonoBehaviour:
   itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
     type: 3}
   sp: {fileID: 21300000, guid: 95858fee3bedf974e96d77419ec615c2, type: 3}
+  Objectsp: {fileID: 21300000, guid: 285bf3eda9692ba45ad7780ccb1886d7, type: 3}

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject LevelSelectPanel;
     public Sprite[] sprites;
 
-    private List<PlayerController> mPlayerControllers;
+    public List<PlayerController> mPlayerControllers;
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;

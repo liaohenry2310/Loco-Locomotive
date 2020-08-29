@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 527756486265460786}
   - component: {fileID: 1287599583439126182}
   - component: {fileID: 255434421445963934}
+  - component: {fileID: 4709698679891506420}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -139,6 +140,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 7039961384364244262}
   offset: {x: 0.3, y: -0.1, z: 0}
+--- !u!114 &4709698679891506420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273384162629241499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946e085517e60c6459fc4f5fd03d4461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 4ab6eb626d906df49b0c4c647cb69b0b, type: 3}
+  - {fileID: 21300000, guid: e2418c1ab21e33848b676de3755d60d0, type: 3}
+  - {fileID: 21300000, guid: 61271309ec1d3e446926f7bbc886dcbe, type: 3}
+  - {fileID: 21300000, guid: 12a1aa4810bcb3e4396dc33c25a18179, type: 3}
+  - {fileID: 21300000, guid: ee839838b19c49147b09e1118cd4fcb3, type: 3}
+  - {fileID: 21300000, guid: 10cd9cd17de76444391491c12ee774d9, type: 3}
+  - {fileID: 21300000, guid: 79ed5a056cd14cf4895abeda6cd85a2d, type: 3}
+  - {fileID: 21300000, guid: bf4a633be9c2edb4cacf39da927a6b54, type: 3}
+  players: {fileID: 2273384162629241499}
 --- !u!1 &5582386144012646314
 GameObject:
   m_ObjectHideFlags: 0
