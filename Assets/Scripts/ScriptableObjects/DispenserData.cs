@@ -20,4 +20,5 @@ public class DispenserItemData
     public Color itemColor = Color.white;
     public GameObject itemPrefab = null;
     public Sprite sprite = null;
+    public Sprite Objectsprite = null;
 }

@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         {
             ObjectType = DispenserData.Type.None,
             ObjectColor = Color.white,
-            sprite = null
+            Objectsprite = null
 
         };
 
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
 
                 _currentItem.DispenserType = dispenserObject.ObjectType;
                 _currentItem.DispenserColor = dispenserObject.ObjectColor;
-                _currentItem.sprite = dispenserObject.sprite;
+                _currentItem.Objectsprite = dispenserObject.Objectsprite;
 
                 _collectedItemObject.SetActive(true);
                 PlayerHasItem = true;
@@ -163,11 +163,14 @@ public class Player : MonoBehaviour
             PlayerHasItem = true;
             _currentItem.DispenserType = _itemToPickup.itemType;
             _currentItem.DispenserColor = _itemToPickup.itemColor;
-            _currentItem.sprite = _itemToPickup.sprite;
+            _currentItem.Objectsprite = _itemToPickup.Objectsprite;
 
             _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
+
             _collectedItemObject.SetActive(true);
-            _collectedItemSprite.sprite = _currentItem.sprite;
+
+            _collectedItemSprite.sprite = _currentItem.Objectsprite;
+
             Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor}");
         }
     }
@@ -179,12 +182,15 @@ public class Player : MonoBehaviour
             // Place item on the ground.
             var itemDropped = GameObject.Instantiate(_currentItem.ItemPrefab, transform.position - itemOffset, Quaternion.identity);
             var dispenserObject = itemDropped.GetComponent<DispenserObject>();
+            dispenserObject.Sprite.sprite = _collectedItemSprite.sprite;
+
             if (dispenserObject != null)
             {
                 dispenserObject.ObjectType = _currentItem.DispenserType;
                 dispenserObject.ObjectColor = _currentItem.DispenserColor;
                 dispenserObject.Sprite.color = _currentItem.DispenserColor;
-                dispenserObject.sprite = _currentItem.sprite;
+
+                //dispenserObject.sprite = _collectedItemSprite.sprite;
 
                 dispenserObject.StartDestructionTimer();
                 dispenserObject.itemIndicator.gameObject.SetActive(true);
@@ -282,14 +288,14 @@ public class Player : MonoBehaviour
             _itemToPickup.itemType = DispenserData.Type.None;
             _itemToPickup.itemColor = Color.white;
             _itemToPickup.itemPrefab = null;
-            _itemToPickup.sprite = null;
+            _itemToPickup.Objectsprite = null;
         }
         else
         {
             _itemToPickup.itemType = item.DispenserType;
             _itemToPickup.itemColor = item.DispenserColor;
             _itemToPickup.itemPrefab = item.ItemPrefab;
-            _itemToPickup.sprite = item.sprite;
+            _itemToPickup.Objectsprite = item.Objectsprite;
         }
     }
 }
