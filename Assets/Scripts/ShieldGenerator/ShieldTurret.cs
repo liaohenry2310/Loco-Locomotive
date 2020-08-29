@@ -2,14 +2,15 @@
 
 public class ShieldTurret : MonoBehaviour
 {
-    public IMachineriesActions IMachineriesAction { get; set; }
+    public IReparable IReparable { get; set; }
+    public IDamageable<float> IDamageble { get; set; }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
         {
             Player player = collider.GetComponent<Player>();
-            player.machineriesActions = IMachineriesAction;
+            player.reparableActions = IReparable;
         }
     }
 
@@ -18,7 +19,7 @@ public class ShieldTurret : MonoBehaviour
         if (collider.CompareTag("Player"))
         {
             Player player = collider.GetComponent<Player>();
-            player.machineriesActions = null;
+            player.reparableActions = null;
         }
     }
 }

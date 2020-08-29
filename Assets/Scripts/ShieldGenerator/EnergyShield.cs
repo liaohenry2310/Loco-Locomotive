@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnergyShield : MonoBehaviour
 {
     [NonSerialized] private Color _color;
-
+    //TODO: continuar daqui, usar polygon collider ao inves de Sphere Collider
     private void Start()
     {
         _color = Color.blue;

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class ShieldGeneratorController : MonoBehaviour
 {
-    [SerializeField] private ShieldGeneratorData _shieldGeneratorData = default;
-    [SerializeField] private ShieldControl _shieldControl = default;
-    [SerializeField] private ShieldTurret _shieldTurret = default;
-    [SerializeField] private CircleCollider2D _shieldCollider = default;
-    [SerializeField] private HealthBar _healthBar = default;
+    [SerializeField] private ShieldGeneratorData _shieldGeneratorData = null;
+    [SerializeField] private ShieldControl _shieldControl = null;
+    [SerializeField] private ShieldTurret _shieldTurret = null;
+    [SerializeField] private CircleCollider2D _shieldCollider = null;
+    [SerializeField] private HealthBar _healthBar = null;
 
     private IEnumerator _ChargeTimerCoroutine;
     private WaitForSeconds _waitOneSecond;
@@ -25,7 +25,8 @@ public class ShieldGeneratorController : MonoBehaviour
     private void Start()
     {
         _shieldGenerator = new ShieldGenerator(_healthBar , _shieldGeneratorData.MaxHealth);
-        _shieldTurret.IMachineriesAction = _shieldGenerator;
+        _shieldTurret.IReparable = _shieldGenerator;
+        _shieldTurret.IDamageble = _shieldGenerator;
         _waitOneSecond = new WaitForSeconds(1f);
         _waitCoolDown = new WaitForSeconds(_shieldGeneratorData.CoolDownTime);
         _waitBarrierTimer = new WaitForSeconds(_shieldGeneratorData.BarrierDuration);

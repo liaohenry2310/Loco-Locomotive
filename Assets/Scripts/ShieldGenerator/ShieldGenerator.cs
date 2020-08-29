@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ShieldGenerator : IMachineriesActions
+public class ShieldGenerator : IReparable, IDamageable<float>
 {
     private readonly HealthBar _healthBar;
     private readonly float _maxHealth;
@@ -35,4 +35,7 @@ public class ShieldGenerator : IMachineriesActions
         _curretHealth = Mathf.Clamp(_curretHealth, 0f, _maxHealth);
         _healthBar.SetHealth(_curretHealth);
     }
+
+    public void TakeDamage(float damage, DispenserData.Type damageType)
+    {}
 }

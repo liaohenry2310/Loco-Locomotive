@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EMPGenerator : IMachineriesActions
+public class EMPGenerator : IReparable, IDamageable<float>
 {
     public float ChargerTimer { get; set; } = 0f;
     public bool CoolDownToActivated { get; set; } = false;
@@ -34,5 +34,10 @@ public class EMPGenerator : IMachineriesActions
         _curretHealth -= amount;
         _curretHealth = Mathf.Clamp(_curretHealth, 0f, _maxHealth);
         _healthBar.SetHealth(_curretHealth);
+    }
+
+    public void TakeDamage(float damage, DispenserData.Type damageType)
+    {
+        TakeDamage(damage);
     }
 }

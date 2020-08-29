@@ -28,8 +28,8 @@ public class EMPGeneratorController : MonoBehaviour
     private void Start()
     {
         _empGenerator = new EMPGenerator(_healthBar, _empData.MaxHealth);
-        _empTurret.IMachineriesAction = _empGenerator;
-
+        _empTurret.IReparable = _empGenerator;
+        _empTurret.IDamageable = _empGenerator;
         _waitOneSecond = new WaitForSeconds(1f);
         _waitCoolDown = new WaitForSeconds(_empData.CoolDownTime);
     }
