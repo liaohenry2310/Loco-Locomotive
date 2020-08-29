@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: EnemyLevel_1
   m_EditorClassIdentifier: 
   _waves:
+  - enemyType: 5
+    numOfEnemies: 3
+    wave_delay: 5
   - enemyType: 1
     numOfEnemies: 3
     wave_delay: 5
-  - enemyType: 2
-    numOfEnemies: 3
-    wave_delay: 5
-  - enemyType: 3
+  - enemyType: 7
     numOfEnemies: 3
     wave_delay: 5

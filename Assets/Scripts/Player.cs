@@ -61,11 +61,14 @@ public class Player : MonoBehaviour
         {
             ObjectType = DispenserData.Type.None,
             ObjectColor = Color.white,
+            sprite = null
+
         };
 
         mRigidBody = GetComponent<Rigidbody2D>();
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
+
         foreach (var sprite in GetComponentsInChildren<SpriteRenderer>())
         {
             if (sprite.name == "CollectedItem")
@@ -139,11 +142,13 @@ public class Player : MonoBehaviour
 
             if (dispenserObject != null)
             {
+
                 _currentItem.DispenserType = dispenserObject.ObjectType;
                 _currentItem.DispenserColor = dispenserObject.ObjectColor;
                 _currentItem.sprite = dispenserObject.sprite;
+
                 _itemDispenserSprite.SetActive(true);
-                _spriteRender.color = dispenserObject.Sprite.color;
+                //_spriteRender.color = dispenserObject.Sprite.color;
                 PlayerHasItem = true;
                 dispenserObject.OnBecameInvisible();
                 Debug.Log($"Player repicked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
@@ -165,10 +170,11 @@ public class Player : MonoBehaviour
             PlayerHasItem = true;
             _currentItem.DispenserType = _itemToPickup.itemType;
             _currentItem.DispenserColor = _itemToPickup.itemColor;
-            _currentItem.sprite = dispenserObject.sprite;
+            _currentItem.sprite = _itemToPickup.sprite;
+
             _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
             _itemDispenserSprite.SetActive(true);
-            _spriteRender.color = _currentItem.DispenserColor;
+            //_spriteRender.color = _currentItem.DispenserColor;
             Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor}");
         }
     }
@@ -186,6 +192,7 @@ public class Player : MonoBehaviour
                 dispenserObject.ObjectColor = _currentItem.DispenserColor;
                 dispenserObject.Sprite.color = _currentItem.DispenserColor;
                 dispenserObject.sprite = _currentItem.sprite;
+
                 dispenserObject.StartDestructionTimer();
                 dispenserObject.itemIndicator.gameObject.SetActive(true);
             }

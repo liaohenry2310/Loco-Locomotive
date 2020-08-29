@@ -20,7 +20,7 @@ public class TitleMenuControl : MonoBehaviour
         Sprite sprite = null;
         if (!string.IsNullOrEmpty(controlScheme))
         {
-            sprite = GameManager.Instance.GetPlayerSprite(playerIndex);
+            sprite = GameManager.Instance.sprites[playerIndex];
             
         }
 

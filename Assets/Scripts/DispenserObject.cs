@@ -26,6 +26,7 @@ public class DispenserObject : MonoBehaviour
         }
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -37,7 +38,6 @@ public class DispenserObject : MonoBehaviour
                 return;
             }
             player.dispenserObject = this;
-
 
         }
     }

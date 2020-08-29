@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
                 //Remove this line of code if changing color of player avatar sprite is unwanted
                 //avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(mPlayerControllers.Count - 1);
-                avatar.GetComponentInChildren<SpriteRenderer>().sprite = GetPlayerSprite(mPlayerControllers.Count - 1);
+                avatar.GetComponentInChildren<SpriteRenderer>().sprite = sprites[mPlayerControllers.Count - 1];
 
             }
         }
@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
             
             //Remove this line of code if changing color of player avatar sprite is unwanted
             //avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(i);
-            avatar.GetComponentInChildren<SpriteRenderer>().sprite = GetPlayerSprite(i);
+            avatar.GetComponentInChildren<SpriteRenderer>().sprite = sprites[i];
         }
 
         playersSpawned = true;
@@ -192,24 +192,5 @@ public class GameManager : MonoBehaviour
     //    }
     //    return color;
     //}
-    public Sprite GetPlayerSprite(int playerNum)
-    {
-        Sprite sprite = null;
-        switch (playerNum)
-        {
-            case 0:
-                sprite = Resources.Load("Assert/Sprite/Player_Robot1_Front.png", typeof(Sprite)) as Sprite;
-                break;
-            case 1:
-                sprite = Resources.Load("Assert/Sprite/Player_Robot2_Front.png", typeof(Sprite)) as Sprite;
-                break;
-            case 2:
-                sprite = Resources.Load("Assert/Sprite/Player_Robot3_Front.png", typeof(Sprite)) as Sprite;
-                break;
-            case 3:
-                sprite = Resources.Load("Assert/Sprite/Player_Robot4_Front.png", typeof(Sprite)) as Sprite;
-                break;
-        }
-        return sprite;
-    }
+
 }
