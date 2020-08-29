@@ -13,10 +13,11 @@ public class Player : MonoBehaviour
     #endregion
 
     #region dispenser
-    private GameObject _itemDispenserSprite = default;
+    [SerializeField] private GameObject _collectedItemObject = null;
+
     public bool PlayerHasItem { get; private set; } = false;
 
-    private SpriteRenderer _spriteRender;
+    private SpriteRenderer _collectedItemSprite;
     private DispenserItem _currentItem;         // Item that the player is currently holding.
     private DispenserItemData _itemToPickup;        // The type of dispenser the player is standing at if any.    
     #endregion
@@ -69,15 +70,8 @@ public class Player : MonoBehaviour
         mInputReceiver = GetComponent<InputReciever>();
         mPlayerHeight = GetComponent<CapsuleCollider2D>().size.y;
 
-        foreach (var sprite in GetComponentsInChildren<SpriteRenderer>())
-        {
-            if (sprite.name == "CollectedItem")
-            {
-                _spriteRender = sprite;
-                _itemDispenserSprite = sprite.gameObject;
-                _itemDispenserSprite.SetActive(false);
-            }
-        }
+        _collectedItemSprite = _collectedItemObject.GetComponent<SpriteRenderer>();
+        _collectedItemObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -136,7 +130,7 @@ public class Player : MonoBehaviour
                 else
                 {
                     //Player is not at a dispenser, and is not holding an item ... nothing to do.
-                    _itemDispenserSprite.SetActive(false);
+                    _collectedItemObject.SetActive(false);
                 }
             }
 
@@ -147,8 +141,7 @@ public class Player : MonoBehaviour
                 _currentItem.DispenserColor = dispenserObject.ObjectColor;
                 _currentItem.sprite = dispenserObject.sprite;
 
-                _itemDispenserSprite.SetActive(true);
-                //_spriteRender.color = dispenserObject.Sprite.color;
+                _collectedItemObject.SetActive(true);
                 PlayerHasItem = true;
                 dispenserObject.OnBecameInvisible();
                 Debug.Log($"Player repicked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
@@ -156,7 +149,7 @@ public class Player : MonoBehaviour
         }
         if (GetComponent<PlayerHealth>().IsAlive() == false)
         {
-            _itemDispenserSprite.SetActive(false);
+            _collectedItemObject.SetActive(false);
             PlayerHasItem = false;
         }
 
@@ -173,8 +166,8 @@ public class Player : MonoBehaviour
             _currentItem.sprite = _itemToPickup.sprite;
 
             _currentItem.ItemPrefab = _itemToPickup.itemPrefab;
-            _itemDispenserSprite.SetActive(true);
-            //_spriteRender.color = _currentItem.DispenserColor;
+            _collectedItemObject.SetActive(true);
+            _collectedItemSprite.sprite = _currentItem.sprite;
             Debug.Log($"Player picked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor}");
         }
     }
@@ -197,8 +190,8 @@ public class Player : MonoBehaviour
                 dispenserObject.itemIndicator.gameObject.SetActive(true);
             }
 
-            _spriteRender.color = Color.white;
-            _itemDispenserSprite.SetActive(false);
+            _collectedItemSprite.color = Color.white;
+            _collectedItemObject.SetActive(false);
             PlayerHasItem = false;
             Debug.Log($"Player droped up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
         }
@@ -217,8 +210,8 @@ public class Player : MonoBehaviour
 
     private void DisableHoldItem()
     {
-        _spriteRender.color = Color.white;
-        _itemDispenserSprite.SetActive(false);
+        _collectedItemSprite.color = Color.white;
+        _collectedItemObject.SetActive(false);
         PlayerHasItem = false;
     }
 
