@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class EMPGeneratorController : MonoBehaviour
 {
-    [SerializeField] private EMPGeneratorData _empData = default;
-    [SerializeField] private EMPControl _empControl = default;
-    [SerializeField] private EMPTurret _empTurret = default;
-    [SerializeField] private HealthBar _healthBar = default;
+    [SerializeField] private EMPGeneratorData _empData = null;
+    [SerializeField] private EMPControl _empControl = null;
+    [SerializeField] private EMPTurret _empTurret = null;
+    [SerializeField] private HealthBar _healthBar = null;
 
-    private EMPShockWave _empShockWave = default;
+    private EMPShockWave _empShockWave = null;
 
     private IEnumerator _chargeTimerCoroutine;
     private WaitForSeconds _waitOneSecond;

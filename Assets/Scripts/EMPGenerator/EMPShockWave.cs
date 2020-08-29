@@ -2,8 +2,7 @@
 
 public class EMPShockWave : MonoBehaviour
 {
-    [SerializeField] private LayerMask _layerEnemyMask = default;
-
+    [SerializeField] private LayerMask _layerEnemyMask = LayerMask.NameToLayer("Default");
     private ParticleSystem _shockWaveParticle;
     private CircleCollider2D _circleCollider;
 
@@ -28,7 +27,10 @@ public class EMPShockWave : MonoBehaviour
         if (_shockWaveParticle.isPlaying)
         {
             var main = _shockWaveParticle.main;
-            _circleCollider.radius += Mathf.Lerp(_shockWaveParticle.sizeOverLifetime.size.curve.keys[0].value, _shockWaveParticle.sizeOverLifetime.size.curve.keys[2].value, main.simulationSpeed / (_speedRate * 4f));
+            _circleCollider.radius += Time.deltaTime * 12.0f;
+            _circleCollider.radius = Mathf.Clamp(_circleCollider.radius, 0.0f, 12.0f);
+
+            Debug.Log($"<color=lime> Radius: {_circleCollider.radius}</color>");
         }
         else
         {
