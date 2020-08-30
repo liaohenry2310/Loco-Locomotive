@@ -40,9 +40,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject landingCollider;
     public GameObject trainArea;
     public GameObject wormhole;
-    public float wormholeRSpeed = 0.0f;
-    public float wormholegrowthRate = 0.5f;
-    public float wormholeSpawnTime = 0.0f;
+    private float wormholeSpawnTime = 0.0f;
+    private bool enabledWormhole;
     public Transform topL, bomR;
     // Bounding Check
     private Camera MainCam;
@@ -51,10 +50,10 @@ public class EnemySpawner : MonoBehaviour
     private float rightRange;
     private float spawnY;
     private int mEnemyNum;
-    private bool enabledWormhole;
 
-    private float enemySpawnDelay = 0.0f;
-    float currentTime;
+
+
+    //int numOfEnemis;
     void Start()
     {
         //Bounding Check
@@ -72,58 +71,50 @@ public class EnemySpawner : MonoBehaviour
                 EnemyPrefab.Add(prefab.enemyType, prefab.prefab);
             }
         }
-        wormhole.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        enabledWormhole = false;
-        StartCoroutine(CreatEnemies());
-
+        StartCoroutine(CreatEnemies(_wave._waves[currentWave]));
     }
     private void Update()
     {
-        spawnY = transform.position.y;
-        if (_wave._waves[currentWave].numOfEnemies <= currentNumber && _wave._waves.Count > currentWave + 1 && !enabledWormhole)
+        if (_wave._waves[currentWave].numOfEnemies <= currentNumber && _wave._waves.Count > currentWave+1 )
         {
-            currentWave++;
+            ++currentWave;
             currentNumber = 0;
-            StartCoroutine(CreatEnemies());
+            StartCoroutine(CreatEnemies(_wave._waves[currentWave]));
         }
-        if (enabledWormhole)
-        {
-            if (_wave._waves[currentWave].numOfEnemies <= currentNumber)
-            {
-                WormholeDispear();
-            }
-            else
-            {
-                Wormhole();
-            }
-        }
+
+
 
     }
 
-    public IEnumerator CreatEnemies()
+    public IEnumerator CreatEnemies(EnemyLevel.EnemyIniti enemyInit)
     {
-        EnemyType enemyType;
-        int numOfEnemis;
 
-        enemyType = _wave._waves[currentWave].enemyType;
-        numOfEnemis = _wave._waves[currentWave].numOfEnemies;
-        enemySpawnDelay = _wave._waves[currentWave].wave_delay;
 
-        yield return new WaitForSeconds(enemySpawnDelay);
-        enabledWormhole = true;
-        //wormhole randpos;
+        yield return new WaitForSeconds(enemyInit.wave_delay);
+
         float x;
         float y;
 
         x = UnityEngine.Random.Range(topL.position.x, bomR.position.x);
         y = UnityEngine.Random.Range(topL.position.y, bomR.position.y);
-        wormhole.gameObject.transform.position = new Vector3(x, y, 0.0f);
+        GameObject go= Instantiate(wormhole, new Vector3(x,y,0.0f), Quaternion.identity); ;
+        go.transform.position = new Vector3(x, y,wormhole.transform.position.z);
 
-        StartCoroutine(helloEnemy(numOfEnemis, wormholeSpawnTime, enemyType));
+        Wormhole wormholeComponent = go.GetComponent<Wormhole>();
+        wormholeComponent.wormholeDuration = Time.time + enemyInit.wormholeSpawnTime;
+        wormholeComponent.wormholeRSpeed = enemyInit.wormholeRotationSpeed;
+        wormholeComponent.wormholeGrowthRate =enemyInit.wormholeGrowthRate;
+
+        EnemyType enemyType = enemyInit.enemyType;
+        int numOfEnemis = enemyInit.numOfEnemies;
+        float enemySpawnDelay = enemyInit.wave_delay;
+
+
+        StartCoroutine(helloEnemy(numOfEnemis, wormholeSpawnTime, enemyType,go.transform.position));
 
 
     }
-    public IEnumerator helloEnemy(int numOfEnemis, float timedelay, EnemyType enemyType)
+    public IEnumerator helloEnemy(int numOfEnemis, float timedelay, EnemyType enemyType,Vector3 spawnPos)
     {
 
         yield return new WaitForSeconds(timedelay);
@@ -132,7 +123,7 @@ public class EnemySpawner : MonoBehaviour
         {
 
             GameObject enemy = null;
-            enemy = Instantiate(EnemyPrefab[enemyType], wormhole.transform.position, Quaternion.identity);
+            enemy = Instantiate(EnemyPrefab[enemyType], spawnPos, Quaternion.identity);
 
             enemy.GetComponent<Enemy>().targetList.AddRange(targetList);
             enemy.GetComponent<Enemy>().landingCollider = landingCollider;
@@ -142,24 +133,5 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    public void Wormhole()
-    {
 
-        wormhole.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        wormhole.transform.Rotate(0.0f, 0.0f, wormholeRSpeed);
-        wormhole.transform.localScale += new Vector3(1f, 1f, 1f) * Time.deltaTime * wormholegrowthRate;
-    }
-
-    public void WormholeDispear()
-    {
-
-        wormhole.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        wormhole.transform.Rotate(0.0f, 0.0f, wormholeRSpeed);
-        wormhole.transform.localScale -= new Vector3(1f, 1f, 1f) * Time.deltaTime * wormholegrowthRate;
-        if (wormhole.transform.localScale.x <= 0.0f)
-        {
-            enabledWormhole = false;
-            wormhole.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        }
-    }
 }

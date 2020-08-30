@@ -795,6 +795,16 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 584718551}
+    - target: {fileID: 3868326784507324838, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868326784507324838, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3948017464631657899, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: m_Enabled
@@ -830,6 +840,16 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 584718551}
+    - target: {fileID: 4954414279298657760, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954414279298657760, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5136373667121308532, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1633,7 +1653,7 @@ PrefabInstance:
     - target: {fileID: 7098286362129012674, guid: fd17a1cee1b96314da0ae87014804e7e,
         type: 3}
       propertyPath: wormholeSpawnTime
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7098286363416638740, guid: fd17a1cee1b96314da0ae87014804e7e,
         type: 3}

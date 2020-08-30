@@ -19,11 +19,7 @@ public class BasicEnemyPath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //gameObject.GetComponentsInChildren<Transform>() ->
-        //foreach (var item in basicEnemypaths.gameObject.GetComponentsInChildren<Transform>())
-        //{
-        //    paths.Add(item);
-        //}
+
         delay = stopDelay;
         for (int i = 0; i < basicEnemypaths.transform.childCount; ++i)
         {
