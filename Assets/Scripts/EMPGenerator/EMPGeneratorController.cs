@@ -19,10 +19,17 @@ public class EMPGeneratorController : MonoBehaviour
 
     private void Awake()
     {
-        _empControl.OnTriggerEMP += UnleashEMP;
-
         _empShockWave = GetComponentInChildren<EMPShockWave>();
+    }
 
+    private void OnEnable()
+    {
+        _empControl.OnTriggerEMP += UnleashEMP; // Register event just after Awake
+    }
+
+    private void OnDisable()
+    {
+        _empControl.OnTriggerEMP -= UnleashEMP; // Unregister event right after destroy
     }
 
     private void Start()

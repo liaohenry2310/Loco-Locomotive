@@ -1,20 +1,33 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnergyShield : MonoBehaviour
 {
-    [NonSerialized] private Color _color;
-    //TODO: continuar daqui, usar polygon collider ao inves de Sphere Collider
-    private void Start()
+    private SpriteRenderer _spriteEnergyBarrier = null;
+    private PolygonCollider2D _polygonCollider2D = null;
+
+    private void Awake()
     {
-        _color = Color.blue;
-        _color.a = 0.2f;
+        if (!TryGetComponent(out _spriteEnergyBarrier))
+        {
+            Debug.LogWarning($"[EMPShockWave] -- Failed to get the component: {_spriteEnergyBarrier.name}");
+        }
+        if (!TryGetComponent(out _polygonCollider2D))
+        {
+            Debug.LogWarning($"[EMPShockWave] -- Failed to get the component: {_polygonCollider2D.name}");
+        }
     }
 
-    private void OnDrawGizmos()
+    private void Start()
     {
-        Gizmos.color = _color;
-        Gizmos.DrawSphere(gameObject.transform.position, 1.5f);
+        _spriteEnergyBarrier.enabled = false;
+    }
+
+    public bool IsShieldActivated => _spriteEnergyBarrier.enabled;
+
+    public void ActivateEnergyBarrier(bool activate)
+    {
+        _spriteEnergyBarrier.enabled = activate;
+        _polygonCollider2D.enabled = activate;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

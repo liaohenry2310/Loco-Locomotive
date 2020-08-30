@@ -6,7 +6,7 @@ public class ShieldGeneratorController : MonoBehaviour
     [SerializeField] private ShieldGeneratorData _shieldGeneratorData = null;
     [SerializeField] private ShieldControl _shieldControl = null;
     [SerializeField] private ShieldTurret _shieldTurret = null;
-    [SerializeField] private CircleCollider2D _shieldCollider = null;
+    [SerializeField] private EnergyShield _energyShield = null;
     [SerializeField] private HealthBar _healthBar = null;
 
     private IEnumerator _ChargeTimerCoroutine;
@@ -15,11 +15,14 @@ public class ShieldGeneratorController : MonoBehaviour
     private WaitForSeconds _waitBarrierTimer;
 
     private ShieldGenerator _shieldGenerator;
-
-    private void Awake()
+    private void OnEnable()
     {
         _shieldControl.OnControllShield += ActivateShield;
-        _shieldCollider.enabled = false;
+    }
+
+    private void OnDisable()
+    {
+        _shieldControl.OnControllShield -= ActivateShield;
     }
 
     private void Start()
@@ -34,7 +37,7 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private void ActivateShield(bool isOnActivation)
     {
-        if (isOnActivation && !_shieldGenerator.CoolDownToActivated && !_shieldCollider.enabled)
+        if (isOnActivation && !_shieldGenerator.CoolDownToActivated && !_energyShield.IsShieldActivated)
         {
             if (_ChargeTimerCoroutine == null)
             {
@@ -70,17 +73,12 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private IEnumerator BarrierTimer()
     {
-        _shieldCollider.enabled = true;
-        Debug.Log($"[BarrierTimer] {_shieldCollider.enabled}");
+        _energyShield.ActivateEnergyBarrier(true);
         yield return _waitBarrierTimer; // wait for the barrier 
-        _shieldCollider.enabled = false;
-        Debug.Log($"[BarrierTimer] {_shieldCollider.enabled}");
+        _energyShield.ActivateEnergyBarrier(false);
         _shieldGenerator.CoolDownToActivated = true;
-        Debug.Log($"[CoolDown] {_shieldGenerator.CoolDownToActivated}");
         yield return _waitCoolDown; // after barrier finished, start to cooldown
         _shieldGenerator.CoolDownToActivated = false;
-        Debug.Log($"[CoolDown] {_shieldGenerator.CoolDownToActivated}");
-        StopCoroutine(_ChargeTimerCoroutine);
     }
 
 }
