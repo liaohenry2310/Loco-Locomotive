@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EMPGeneratorDataObject
   m_EditorClassIdentifier: 
   _chargeTime: 3
-  _coolDownTime: 1
+  _coolDownTime: 15
   _shockWaveSpeedRate: 10
   _maxHealth: 250

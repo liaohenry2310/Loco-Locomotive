@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ShieldGeneratorDataObject
   m_EditorClassIdentifier: 
   _chargeTime: 3
-  _coolDownTime: 15
-  _barrierDuration: 3
+  _coolDownTime: 10
+  _barrierDuration: 5
   _maxHealth: 250
