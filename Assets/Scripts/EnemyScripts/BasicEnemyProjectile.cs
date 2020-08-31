@@ -42,6 +42,11 @@ public class BasicEnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.GetComponent<ParticleSystem>())
+        {
+            return; // when release the EMP just ignore the bullets
+        }
+
         if (collision.CompareTag("Bullet")) // When bullet comming from Turret, just set false the enemy bullet
         {
             gameObject.SetActive(false);
@@ -71,14 +76,14 @@ public class BasicEnemyProjectile : MonoBehaviour
         var shieldGen = collision.GetComponent<ShieldTurret>(); // when bullet hit the ShieldGenerator GameObject
         if (shieldGen)
         {
-            shieldGen.IMachineriesAction.TakeDamage(damage);
+            shieldGen.IDamageble.TakeDamage(damage);
             gameObject.SetActive(false);
         }
 
         var empGen = collision.GetComponent<EMPTurret>(); // when bullet hit the EMPGenerator GameObject
         if (empGen)
         {
-            empGen.IMachineriesAction.TakeDamage(damage);
+            empGen.IDamageable.TakeDamage(damage);
             gameObject.SetActive(false);
         }
         //  if (!collision.gameObject.GetComponent<TurretHealth>() || !collision.gameObject.GetComponentInParent<TrainHealth>())

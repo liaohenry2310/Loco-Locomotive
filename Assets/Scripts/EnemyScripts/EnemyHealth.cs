@@ -84,4 +84,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
 
     }
 
+    public void TakeDamage(float damage)
+    {}
 }
