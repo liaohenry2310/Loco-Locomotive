@@ -1496,6 +1496,11 @@ MonoBehaviour:
   GameOverPanel: {fileID: 4011190381385285867}
   YouWinPanel: {fileID: 2774364334045920903}
   LevelSelectPanel: {fileID: 0}
+  sprites:
+  - {fileID: 21300000, guid: 4ab6eb626d906df49b0c4c647cb69b0b, type: 3}
+  - {fileID: 21300000, guid: 61271309ec1d3e446926f7bbc886dcbe, type: 3}
+  - {fileID: 21300000, guid: 61271309ec1d3e446926f7bbc886dcbe, type: 3}
+  - {fileID: 21300000, guid: 79ed5a056cd14cf4895abeda6cd85a2d, type: 3}
 --- !u!114 &762728000
 MonoBehaviour:
   m_ObjectHideFlags: 0

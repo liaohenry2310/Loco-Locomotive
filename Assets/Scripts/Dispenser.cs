@@ -8,6 +8,7 @@ public class Dispenser : MonoBehaviour
     private void Start()
     {
         SpriteRenderer go = GetComponentInChildren<SpriteRenderer>();
+        go.sprite = _dispenserItem.sprite;
         go.color = _dispenserItem.DispenserColor;
     }
 

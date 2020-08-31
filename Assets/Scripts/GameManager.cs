@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverPanel;
     public GameObject YouWinPanel;
     public GameObject LevelSelectPanel;
+    public Sprite[] sprites;
 
-    private List<PlayerController> mPlayerControllers;
+    public List<PlayerController> mPlayerControllers;
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;
@@ -137,7 +138,9 @@ public class GameManager : MonoBehaviour
                 mPlayerControllers[mPlayerControllers.Count - 1].SetPlayer(avatar);
 
                 //Remove this line of code if changing color of player avatar sprite is unwanted
-                avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(mPlayerControllers.Count - 1);
+                //avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(mPlayerControllers.Count - 1);
+                avatar.GetComponentInChildren<SpriteRenderer>().sprite = sprites[mPlayerControllers.Count - 1];
+
             }
         }
     }
@@ -160,32 +163,35 @@ public class GameManager : MonoBehaviour
         {
             var avatar = Instantiate(playerPrefab, mInitialSpawnPoints[i].position, Quaternion.identity, mTrain.transform).GetComponent<Player>();
             mPlayerControllers[i].SetPlayer(avatar);
-
+            
             //Remove this line of code if changing color of player avatar sprite is unwanted
-            avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(i);
+            //avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(i);
+            avatar.GetComponentInChildren<SpriteRenderer>().sprite = sprites[i];
+
         }
 
         playersSpawned = true;
     }
 
-    public Color GetPlayerColor(int playerNum)
-    {
-        Color color = Color.black;
-        switch (playerNum)
-        {
-            case 0:
-                color = Color.cyan;
-                break;
-            case 1:
-                color = Color.magenta;
-                break;
-            case 2:
-                color = Color.yellow;
-                break;
-            case 3:
-                color = Color.grey;
-                break;
-        }
-        return color;
-    }
+    //public Color GetPlayerColor(int playerNum)
+    //{
+    //    Color color = Color.black;
+    //    switch (playerNum)
+    //    {
+    //        case 0:
+    //            color = Color.cyan;
+    //            break;
+    //        case 1:
+    //            color = Color.magenta;
+    //            break;
+    //        case 2:
+    //            color = Color.yellow;
+    //            break;
+    //        case 3:
+    //            color = Color.grey;
+    //            break;
+    //    }
+    //    return color;
+    //}
+
 }

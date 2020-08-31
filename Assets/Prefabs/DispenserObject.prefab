@@ -271,6 +271,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 8489893473840538294}
   type: 0
   color: {r: 0, g: 0, b: 0, a: 0}
+  sp: {fileID: 0}
   turretRepair: {fileID: 0}
   turretLoader: {fileID: 0}
   fireBox: {fileID: 0}

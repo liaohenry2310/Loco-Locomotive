@@ -1819,16 +1819,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8422186562061083481}
     m_Modifications:
-    - target: {fileID: 1932772364985254193, guid: aa175490ac6323544888ef11e86b4675,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1932772364985254193, guid: aa175490ac6323544888ef11e86b4675,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1932772365525470768, guid: aa175490ac6323544888ef11e86b4675,
         type: 3}
       propertyPath: mAddfuel

@@ -16,11 +16,12 @@ public class TitleMenuControl : MonoBehaviour
     public void UpdatePlayerStatus(int playerIndex, string controlScheme)
     {
         string statusText = null;
-        Color color = Color.white;
-
+        //Color color = Color.white;
+        Sprite sprite = null;
         if (!string.IsNullOrEmpty(controlScheme))
         {
-            color = GameManager.Instance.GetPlayerColor(playerIndex);
+            sprite = GameManager.Instance.sprites[playerIndex];
+            
         }
 
         switch (controlScheme)
@@ -40,6 +41,6 @@ public class TitleMenuControl : MonoBehaviour
         }
 
         PlayerStatuses[playerIndex].GetComponentInChildren<Text>().text = statusText;
-        PlayerStatuses[playerIndex].GetComponentInChildren<Image>().color = color;
+        PlayerStatuses[playerIndex].GetComponentInChildren<Image>().sprite = sprite;
     }
 }
