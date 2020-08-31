@@ -15,25 +15,79 @@ MonoBehaviour:
   _waves:
   - enemyType: 1
     numOfEnemies: 3
-    wave_delay: 0
-    wormholeRotationSpeed: 2
-    wormholeGrowthRate: 3
-    wormholeSpawnTime: 0.5
-  - enemyType: 2
-    numOfEnemies: 3
-    wave_delay: 0
-    wormholeRotationSpeed: 5
-    wormholeGrowthRate: 3
-    wormholeSpawnTime: 0.5
-  - enemyType: 3
-    numOfEnemies: 3
     wave_delay: 5
-    wormholeRotationSpeed: 5
-    wormholeGrowthRate: 3
-    wormholeSpawnTime: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
   - enemyType: 1
     numOfEnemies: 3
-    wave_delay: 3
-    wormholeRotationSpeed: 5
-    wormholeGrowthRate: 3
-    wormholeSpawnTime: 0.5
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 30
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 30
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 30
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
+  - enemyType: 1
+    numOfEnemies: 3
+    wave_delay: 0.5
+    wormholeRotationSpeed: 2
+    wormholeGrowthRate: 1
+    wormholeSpawnTime: 1
