@@ -10,7 +10,7 @@ public class ParallaxScrollingBG : MonoBehaviour
 
     void Start()
     {
-        startPos = transform.position;
+        startPos.x = transform.position.x;
     }
 
     void Update()
