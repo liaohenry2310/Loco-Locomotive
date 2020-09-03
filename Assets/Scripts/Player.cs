@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -24,6 +25,8 @@ public class Player : MonoBehaviour
 
     public GameObject player;
     //public GameObject spwanPoint;
+    public Sprite[] sprites;
+    public Sprite[] spriteSide;
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
@@ -39,7 +42,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D mRigidBody;
     private InputReciever mInputReceiver;
     private float mPlayerHeight;
-
+    private PlayerInput playerIndex;
 
     private void Start()
     {
@@ -63,7 +66,6 @@ public class Player : MonoBehaviour
             ObjectType = DispenserData.Type.None,
             ObjectColor = Color.white,
             Objectsprite = null
-
         };
 
         mRigidBody = GetComponent<Rigidbody2D>();
@@ -105,6 +107,8 @@ public class Player : MonoBehaviour
     {
         #region Dispenser
 
+
+
         if (mInputReceiver.GetSecondaryInput())
         {
             // If we are at a dispenser
@@ -112,6 +116,7 @@ public class Player : MonoBehaviour
             {
                 if (PlayerHasItem)
                 {
+
                     DropItem();// Drop it.
                 }
                 else
@@ -147,6 +152,15 @@ public class Player : MonoBehaviour
                 Debug.Log($"Player repicked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
             }
         }
+
+        if (mInputReceiver.GetPrimaryInput() && PlayerHasItem)
+        {
+            if (turretLoader)
+            {
+                DropItem();
+            }
+        }
+
         if (GetComponent<PlayerHealth>().IsAlive() == false)
         {
             _collectedItemObject.SetActive(false);
@@ -154,6 +168,28 @@ public class Player : MonoBehaviour
         }
 
         #endregion
+
+        //for (int i = 0;i < ;i++)
+        //{
+        //    if (mInputReceiver.GetHorizontalInput() > 0)
+        //    {
+        //        player.GetComponentInChildren<SpriteRenderer>().sprite = spriteSide[i];
+        //        player.GetComponentInChildren<SpriteRenderer>().flipX = true;
+        //    }
+        //    else if (mInputReceiver.GetHorizontalInput() < 0)
+        //    {
+        //        player.GetComponentInChildren<SpriteRenderer>().sprite = spriteSide[i];
+        //        player.GetComponentInChildren<SpriteRenderer>().flipX = false;
+
+        //    }
+        //    else if (mInputReceiver.GetHorizontalInput() == 0)
+        //    {
+        //        player.GetComponentInChildren<SpriteRenderer>().sprite = sprites[i];
+        //    }
+        //}
+
+
+
     }
 
     private void PickUpItemFromDispenser()

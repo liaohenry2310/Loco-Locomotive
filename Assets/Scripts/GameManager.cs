@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;
-
+    private InputReciever mInputReceiver;
     public bool IsGameOver { get; private set; } = false;
 
     //Properties
@@ -173,6 +173,10 @@ public class GameManager : MonoBehaviour
         playersSpawned = true;
     }
 
+    public int Playercount()
+    {
+        return mPlayerControllers.Count;
+    }
     //public Color GetPlayerColor(int playerNum)
     //{
     //    Color color = Color.black;
