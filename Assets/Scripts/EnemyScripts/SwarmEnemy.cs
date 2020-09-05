@@ -29,23 +29,21 @@ public class SwarmEnemy : MonoBehaviour
     public GameObject swarmType;
     public List<Transform> swarmNeighbors = new List<Transform>();
     bool spawnGroup = false;
+    
     //Time delay
-    bool isDelay;
+    bool isSwitchingBehaviour = false;
+
     // Change Enemy State .
-    private State mCurrentState = State.GroupSeparation;
-    enum State
+    public enum State
     {
         Nothing,
         GroupCohesion,
         GroupSeparation,
         Attack
     }
+    private State mCurrentState = State.GroupSeparation;
     void Start()
     {
-        //for (int i = 0; i < GroupOfSize; ++i)
-        //{
-        //    swarmNeighbors.Add(Instantiate(swarmType));
-        //}
         delay = stopDelay;
         speed = 2.0f;
         spawnGroup = true;
@@ -68,106 +66,56 @@ public class SwarmEnemy : MonoBehaviour
     {
         Vector2 move = Vector2.zero;
         float defaultDelay = 1f;
-        if (mCurrentState == State.GroupCohesion)
+
+        Debug.Log($"Current State: {mCurrentState}");
+        switch (mCurrentState)
         {
-            foreach (var agent in swarmNeighbors)
-            {
-                move = BehaviourUpdate.BehaviourUpdated(CohesionBehavior.CalculateMove(agent.transform, swarmNeighbors), 5.0f);
-                move *= speed;
-                if (move.sqrMagnitude > squareMaxSpeed)
+            case State.Attack:
+                break;
+            case State.GroupCohesion:
+                foreach (var agent in swarmNeighbors)
                 {
-                    move = move.normalized * maxSpeed;
+                    move = BehaviourUpdate.BehaviourUpdated(CohesionBehavior.CalculateMove(agent.transform, swarmNeighbors), 5.0f);
+                    move *= speed;
+                    if (move.sqrMagnitude > squareMaxSpeed)
+                    {
+                        move = move.normalized * maxSpeed;
+                    }
+                    agent.transform.position += (Vector3)move * Time.deltaTime;
                 }
-                agent.transform.position += (Vector3)move * Time.deltaTime;
 
-                //move += cohesion.CalculateMove(agent.transform, swarmNeighbors);
-                //Vector2 acceleration = move / 0.5f;
-                //velocity += acceleration * Time.deltaTime;
-                //speed = velocity.sqrMagnitude;
-                //
-                //if (speed > maxSpeed)
-                //{
-                //    velocity = velocity / (speed * maxSpeed);
-                //}
-                //if (speed > 0.0f)
-                //{
-                //    direction = velocity.normalized;
-                //}
-                //
-                //agent.transform.position += new Vector3(velocity.x, velocity.y, 0.0f) * Time.deltaTime;
-            }
-            //isDelay = true;
-            StartCoroutine(timeDelayFuc(defaultDelay));
-            mCurrentState = State.GroupSeparation;
-
-        }
-        if (mCurrentState == State.GroupSeparation)
-        {
-            foreach (var agent in swarmNeighbors)
-            {
-                move = BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighbors, separationRadius), 5.0f);
-                //move=behaviourUpdate.BehaviourUpdated(wander.WanderMove(agent.transform,5.0f,2.0f,10.0f,speed,velocity), 5.0f);
-                move *= speed;
-                if (move.sqrMagnitude > squareMaxSpeed)
+                if (!isSwitchingBehaviour)
                 {
-                    move = move.normalized * maxSpeed;
+                    StartCoroutine(TimeDelayFuc(defaultDelay, State.GroupSeparation));
+                    isSwitchingBehaviour = true;
                 }
-                agent.transform.position += (Vector3)move * Time.deltaTime;
-            }
-            //isDelay = true;
-            StartCoroutine(timeDelayFuc(defaultDelay));
-            mCurrentState = State.GroupCohesion;
-        }
-        //foreach (var agent in swarmNeighbors)
-        //{
-        //    move += behaviourUpdate.BehaviourUpdated(seek.SeekMove()
-        //         move *= speed;
-        //    if (move.sqrMagnitude > squareMaxSpeed)
-        //    {
-        //        move = move.normalized * maxSpeed;
-        //    }
-        //    agent.transform.position += (Vector3)velocity * Time.deltaTime;
-        //}
-        //Vector2 Seekforce = seek.SeekMove(this.transform,direction,speed,velocity);
-        //Vector2 Seperationforce = separation.SeparationMove(this.transform, swarmNeighbors, separationRadius);
-        //Vector2 force = Seekforce + Seperationforce;
-        //
-        //Vector2 acceleration = force / 0.5f;
-        //velocity += acceleration * Time.deltaTime;
-        //speed = velocity.magnitude;
-        //
-        //if (speed > maxSpeed)
-        //{
-        //    velocity = velocity / (speed * maxSpeed);
-        //}
-        //if (speed > 0.0f)
-        //{
-        //    direction = velocity.normalized;
-        //}
-        //
-        //transform.position += new Vector3(velocity.x, velocity.y, 0.0f) * Time.deltaTime;
-        //if (Vector2.Distance(gameObject.transform.position, nextPos) < 1.0f)
-        //{
-        //    delay -= Time.deltaTime;
-        //    if (delay <= 0.0f)
-        //    {
-        //        ArriveBehaviour arrive =new ArriveBehaviour();
-        //        nextPos=arrive.TowardNextPoint(paths);
-        //        delay = stopDelay;
-        //    }
-        //}
-        //else
-        //{
-        //    currentPos = gameObject.transform.position;
-        //    direction = nextPos - currentPos;
-        //    direction.Normalize();
-        //    //transform.Translate(pos , Space.World);
-        //}
+                break;
+            case State.GroupSeparation:
+                foreach (var agent in swarmNeighbors)
+                {
+                    move = BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighbors, separationRadius), 5.0f);
+                    //move=behaviourUpdate.BehaviourUpdated(wander.WanderMove(agent.transform,5.0f,2.0f,10.0f,speed,velocity), 5.0f);
+                    move *= speed;
+                    if (move.sqrMagnitude > squareMaxSpeed)
+                    {
+                        move = move.normalized * maxSpeed;
+                    }
+                    agent.transform.position += (Vector3)move * Time.deltaTime;
+                }
 
+                if (!isSwitchingBehaviour)
+                {
+                    StartCoroutine(TimeDelayFuc(defaultDelay, State.GroupCohesion));
+                    isSwitchingBehaviour = true;
+                }
+                break;
+            case State.Nothing:
+                break;
+            default:
+                Debug.LogWarning($"Case {mCurrentState} Not handled");
+                break;
+        }
     }
-
-
-
 
     void SpawnGroup()
     {
@@ -184,11 +132,10 @@ public class SwarmEnemy : MonoBehaviour
         spawnGroup = false;
     }
 
-    public IEnumerator timeDelayFuc(float timedelay)
+    public IEnumerator TimeDelayFuc(float timedelay, State newState)
     {
         yield return new WaitForSeconds(timedelay);
-        //isDelay = false ;
+        mCurrentState = newState;
+        isSwitchingBehaviour = false;
     }
-
-
 }
