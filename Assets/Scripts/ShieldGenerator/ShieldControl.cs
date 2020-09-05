@@ -7,8 +7,12 @@ public class ShieldControl : MonoBehaviour
 
     private InputReciever _inputReciever;
 
+    public SpriteRenderer SpriteShieldController { get; private set; }
+
     private void Awake()
     {
+        SpriteShieldController = GetComponent<SpriteRenderer>();
+
         if (!TryGetComponent(out _inputReciever))
         {
             Debug.LogWarning($"[ShiledGenerator] -- Failed to get the component: {_inputReciever.name}");
@@ -17,7 +21,7 @@ public class ShieldControl : MonoBehaviour
 
     private void Update()
     {
-        OnControllShield?.Invoke(_inputReciever.GetSecondaryHoldInput());
+        OnControllShield?.Invoke(_inputReciever.GetSecondaryInput());
     }
 
 }

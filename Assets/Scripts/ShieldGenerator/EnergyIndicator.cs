@@ -7,7 +7,7 @@ public class EnergyIndicator
 
     private readonly float _chargeTime = 0.0f;
     private readonly float _coolDownTime = 0.0f;
-    private float _currentTime = 0.0f;
+    public float _currentTime = 0.0f;
 
     public EnergyIndicator(float chargeTime, float coolDownTime)
     {
@@ -28,7 +28,6 @@ public class EnergyIndicator
     public void UpdateChargeTime(float chargeTime)
     {
         _currentTime = Mathf.Clamp(chargeTime, 0.0f, _chargeTime);
-        Debug.Log($"[INDICATOR] >> {_currentTime}");
         OnChargeTimeChanged?.Invoke(true);
     }
 

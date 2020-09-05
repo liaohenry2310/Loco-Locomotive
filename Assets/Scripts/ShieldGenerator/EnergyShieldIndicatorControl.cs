@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class EnergyShieldIndicatorControl : MonoBehaviour
 {
     [SerializeField] private ShieldGeneratorData _shieldGeneratorData = null;
     [SerializeField] private Transform _bar = null;
-    
+    [SerializeField] private float _updateSpeedSeconds = 0.5f;
+
+
     public EnergyIndicator EnergyIndicator { get; private set; }
 
     private SpriteRenderer _spriteRenderer;
@@ -39,7 +42,25 @@ public class EnergyShieldIndicatorControl : MonoBehaviour
             _spriteRenderer.color = Color.blue;
             scaleY = EnergyIndicator.GetCoolDonwTimePercent();
         }
-        _bar.localScale = new Vector3(1.0f, scaleY, 1.0f);
+        StartCoroutine(UpdateIndicatorUI(scaleY));
+        //_bar.localScale = new Vector3(1.0f, scaleY, 1.0f);
+    }
+
+
+    private IEnumerator UpdateIndicatorUI(float percentage)
+    {
+        Debug.Log("Update Indicator UI");
+        //float cachePct = EnergyIndicator._currentTime;
+        float elapsed = 0.0f;
+        float lerpVal = 0.0f;
+        while (elapsed < _updateSpeedSeconds)
+        {
+            lerpVal = Mathf.Lerp(lerpVal, percentage, elapsed / Time.deltaTime);
+            elapsed += Time.deltaTime;
+            _bar.localScale = new Vector3(1.0f, lerpVal, 1.0f);
+            yield return null;
+        }
+
     }
 
 }

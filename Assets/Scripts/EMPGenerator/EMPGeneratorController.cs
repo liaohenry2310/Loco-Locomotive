@@ -19,7 +19,7 @@ public class EMPGeneratorController : MonoBehaviour
     private void Awake()
     {
         _empShockWave = GetComponentInChildren<EMPShockWave>();
-        _empIndicatorControl.gameObject.SetActive(false);
+        EnableChargingSprite(false);
     }
 
     private void OnEnable()
@@ -42,24 +42,11 @@ public class EMPGeneratorController : MonoBehaviour
 
     private void UnleashEMP(bool isOnActivation)
     {
-        if (isOnActivation && !_empGenerator.CoolDownToActivated)
+        // new behaviour with one click
+        if (isOnActivation && _chargeTimerCoroutine == null)
         {
-            if (_chargeTimerCoroutine == null)
-            {
-                _empIndicatorControl.gameObject.SetActive(true);
-                _chargeTimerCoroutine = ChargetTimer();
-                StartCoroutine(_chargeTimerCoroutine);
-            }
-        }
-        else
-        {
-            if (_chargeTimerCoroutine != null)
-            {
-                StopCoroutine(_chargeTimerCoroutine);
-                _chargeTimerCoroutine = null;
-                _empGenerator.ChargerTimer = 0f;
-                _empIndicatorControl.EnergyIndicator.UpdateChargeTime(_empGenerator.ChargerTimer);
-            }
+            _chargeTimerCoroutine = ChargetTimer();
+            StartCoroutine(_chargeTimerCoroutine);
         }
     }
 
@@ -72,7 +59,9 @@ public class EMPGeneratorController : MonoBehaviour
         }
         if (_empData.ChargeTime == _empGenerator.ChargerTimer)
         {
+            EnableChargingSprite(true);
             _empGenerator.ChargerTimer = 0f;
+            StopCoroutine(_chargeTimerCoroutine);
             yield return StartCoroutine(CoolDownChargeTimer());
         }
     }
@@ -84,12 +73,32 @@ public class EMPGeneratorController : MonoBehaviour
         _empGenerator.CoolDownToActivated = true;
         float coolDown = _empData.CoolDownTime;
         _empIndicatorControl.EnergyIndicator.UpdateCoolDownTime(coolDown);
+
+        EnableChargingSprite(true);
+
         while (coolDown >= 0.0f)
         {
             yield return _waitOneSecond;
             _empIndicatorControl.EnergyIndicator.UpdateCoolDownTime(--coolDown);
         }
+        EnableChargingSprite(false);
         _empGenerator.CoolDownToActivated = false;
-        _empIndicatorControl.gameObject.SetActive(false);
+
+        _chargeTimerCoroutine = null;
     }
+
+    private void EnableChargingSprite(bool enable)
+    {
+        if (enable)
+        {
+            _empTurret.SpriteEMPTurret.sprite = _empData.GetEMPSprites(1);
+            _empControl.SpriteEMPController.sprite = _empData.GetEMPSprites(3);
+        }
+        else
+        {
+            _empTurret.SpriteEMPTurret.sprite = _empData.GetEMPSprites(0);
+            _empControl.SpriteEMPController.sprite = _empData.GetEMPSprites(2);
+        }
+    }
+
 }

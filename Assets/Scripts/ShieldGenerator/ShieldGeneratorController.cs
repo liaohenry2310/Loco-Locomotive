@@ -11,14 +11,14 @@ public class ShieldGeneratorController : MonoBehaviour
     [SerializeField] private HealthBar _healthBar = null;
     [SerializeField] private EnergyShieldIndicatorControl _energyIndicatorControl = null;
 
-    private IEnumerator _ChargeTimerCoroutine;
+    private IEnumerator _chargeTimerCoroutine;
     private WaitForSeconds _waitOneSecond;
     private WaitForSeconds _waitBarrierTimer;
     private ShieldGenerator _shieldGenerator;
 
     private void Awake()
     {
-        _energyIndicatorControl.gameObject.SetActive(false);
+        EnableChargingSprite(false);
     }
 
     private void OnEnable()
@@ -42,28 +42,13 @@ public class ShieldGeneratorController : MonoBehaviour
 
     private void ActivateShield(bool isOnActivation)
     {
-        if (isOnActivation && !_shieldGenerator.CoolDownToActivated && !_energyShield.IsShieldActivated)
+        // new behaviour with one click
+        if (isOnActivation && _chargeTimerCoroutine == null)
         {
-            if (_ChargeTimerCoroutine == null)
-            {
-                _energyIndicatorControl.gameObject.SetActive(true);
-                _ChargeTimerCoroutine = ChargetTimer();
-                StartCoroutine(_ChargeTimerCoroutine);
-            }
+            _chargeTimerCoroutine = ChargetTimer();
+            StartCoroutine(_chargeTimerCoroutine);
         }
-        else
-        {
-            if (_ChargeTimerCoroutine != null)
-            {
-                StopCoroutine(_ChargeTimerCoroutine);
-                _ChargeTimerCoroutine = null;
-                if (!_energyShield.IsShieldActivated)
-                {
-                    _shieldGenerator.ChargerTimer = 0f;
-                    _energyIndicatorControl.EnergyIndicator.UpdateChargeTime(_shieldGenerator.ChargerTimer);
-                }
-            }
-        }
+        
     }
 
     private IEnumerator ChargetTimer()
@@ -76,7 +61,9 @@ public class ShieldGeneratorController : MonoBehaviour
         }
         if (_shieldGeneratorData.ChargeTime == _shieldGenerator.ChargerTimer)
         {
+            EnableChargingSprite(true);
             _shieldGenerator.ChargerTimer = 0f;
+            StopCoroutine(_chargeTimerCoroutine);
             yield return StartCoroutine(BarrierTimer());
         }
     }
@@ -90,9 +77,11 @@ public class ShieldGeneratorController : MonoBehaviour
         _energyShield.ActivateEnergyBarrier(false);
         //---- Start the cooldown timer
         _shieldGenerator.CoolDownToActivated = true;
-        
+
         float barrierCooldDown = _shieldGeneratorData.CoolDownTime;
         _energyIndicatorControl.EnergyIndicator.UpdateCoolDownTime(barrierCooldDown);
+
+        EnableChargingSprite(false);
 
         while (barrierCooldDown >= 0.0f)
         {
@@ -100,7 +89,23 @@ public class ShieldGeneratorController : MonoBehaviour
             _energyIndicatorControl.EnergyIndicator.UpdateCoolDownTime(--barrierCooldDown);
         }
         _shieldGenerator.CoolDownToActivated = false;
-        _energyIndicatorControl.gameObject.SetActive(false);
+
+        _chargeTimerCoroutine = null;
+
+    }
+
+    private void EnableChargingSprite(bool enable)
+    {
+        if (enable)
+        {
+            _shieldTurret.SpriteShieldTurret.sprite = _shieldGeneratorData.GetShieldSprites(1);
+            _shieldControl.SpriteShieldController.sprite = _shieldGeneratorData.GetShieldSprites(3);
+        }
+        else
+        {
+            _shieldTurret.SpriteShieldTurret.sprite = _shieldGeneratorData.GetShieldSprites(0);
+            _shieldControl.SpriteShieldController.sprite = _shieldGeneratorData.GetShieldSprites(2);
+        }
     }
 
 }
