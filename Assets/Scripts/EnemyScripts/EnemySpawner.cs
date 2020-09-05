@@ -16,7 +16,8 @@ public class EnemySpawner : MonoBehaviour
         Enemy_Rider,
         Enemy_ArmorRider,
         Enemy_ShieldRider,
-        Enemy_ShieldArmorRider
+        Enemy_ShieldArmorRider,
+        Enemy_SwarmGroup
     }
     [Serializable]
     public class EnemiesPrefabObject
@@ -128,12 +129,32 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(timedelay);
 
+        List<GameObject> swarmNeighbors = new List<GameObject>();
+
         for (int i = 0; i < numOfEnemis; ++i)
         {
 
             GameObject enemy = null;
             enemy = Instantiate(EnemyPrefab[enemyType], wormhole.transform.position, Quaternion.identity);
 
+            //if (enemyType == EnemyType.Enemy_SwarmGroup)
+            //{
+            //    SwarmEnemy swarmEnemy = enemy.GetComponent<SwarmEnemy>();
+            //    swarmNeighbors.Add(enemy);
+            //    for (int j = 0; j < swarmEnemy.GroupOfSize; ++j)
+            //    {
+            //        swarmNeighbors.Add(Instantiate(enemy));
+            //    }
+            //    for (int k = 0; k < swarmNeighbors.Count; ++k)
+            //    {
+            //        swarmNeighbors[k].GetComponent<SwarmEnemy>().swarmNeighbors = swarmNeighbors;
+            //        swarmNeighbors[k].GetComponent<Enemy>().targetList.AddRange(targetList);
+            //        swarmNeighbors[k].GetComponent<Enemy>().landingCollider = landingCollider;
+            //        swarmNeighbors[k].GetComponent<Enemy>().trainArea = trainArea;
+            //    }
+            //    ++currentNumber;
+            //    continue;
+            //}
             enemy.GetComponent<Enemy>().targetList.AddRange(targetList);
             enemy.GetComponent<Enemy>().landingCollider = landingCollider;
             enemy.GetComponent<Enemy>().trainArea = trainArea;

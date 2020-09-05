@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7810132641769029431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7810132641769029435}
+  - component: {fileID: 7810132641769029434}
+  - component: {fileID: 7810132641769029433}
+  - component: {fileID: 7810132641769029432}
+  m_Layer: 9
+  m_Name: SwarmGroup
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7810132641769029435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810132641769029431}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7810132641769029434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810132641769029431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fda014b364dcf6e45a0652bd5dc460ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentPrefab: {fileID: 6594178654247984400, guid: 7f12969f230fc2446b1fc4aea951eb5f,
+    type: 3}
+  behavior: {fileID: 11400000, guid: 7c7527e5f7cccb64c85916bbd1493080, type: 2}
+  agentCount: 10
+  movement: 5
+  maxSpeed: 5
+  neighborRadius: 0.3
+  avoidanceRadiusMultiplier: 1
+--- !u!114 &7810132641769029433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810132641769029431}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ccceedab0bea5744850b80a4ff38893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mWanderRadius: 5
+  mWanderDistance: 5
+  mWanderJitter: 10
+  speed: 5
+  maxSpeed: 10
+--- !u!114 &7810132641769029432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810132641769029431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0a1e458d8bd944eb76f06dc1bfe2fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicEnemypaths: {fileID: 1995550045073571820, guid: 71592d0388637ab4ca27c332d93bda5b,
+    type: 3}
+  speed: 8
+  maxSpeed: 12
+  stopDelay: 0
+  delay: 0
