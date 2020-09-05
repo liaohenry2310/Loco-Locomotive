@@ -8,12 +8,7 @@ public class SwarmEnemy : MonoBehaviour
     List<Transform> paths = new List<Transform>();
     public GameObject basicEnemypaths;
     //Behaviours
-    ArriveBehaviour arrive;
-    CohesionBehavior cohesion = new CohesionBehavior();
-    SeekBehaviour seek = new SeekBehaviour();
-    SeparationBehavior separation = new SeparationBehavior();
-    BehaviourUpdate behaviourUpdate = new BehaviourUpdate();
-    WanderBehavior wander = new WanderBehavior();
+
     //separation
     public float separationRadius;
     //For behavior
@@ -66,7 +61,7 @@ public class SwarmEnemy : MonoBehaviour
             swarmNeighbors.Add(enemy.transform);
         }
         squareMaxSpeed = maxSpeed * maxSpeed;
-        mCurrentState = State.GroupSeparation;
+        mCurrentState = State.GroupCohesion;
     }
 
     void Update()
@@ -77,7 +72,7 @@ public class SwarmEnemy : MonoBehaviour
         {
             foreach (var agent in swarmNeighbors)
             {
-                move = behaviourUpdate.BehaviourUpdated(cohesion.CalculateMove(agent.transform, swarmNeighbors), 5.0f);
+                move = BehaviourUpdate.BehaviourUpdated(CohesionBehavior.CalculateMove(agent.transform, swarmNeighbors), 5.0f);
                 move *= speed;
                 if (move.sqrMagnitude > squareMaxSpeed)
                 {
@@ -110,7 +105,7 @@ public class SwarmEnemy : MonoBehaviour
         {
             foreach (var agent in swarmNeighbors)
             {
-                move = behaviourUpdate.BehaviourUpdated(separation.SeparationMove(agent.transform, swarmNeighbors, separationRadius), 5.0f);
+                move = BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighbors, separationRadius), 5.0f);
                 //move=behaviourUpdate.BehaviourUpdated(wander.WanderMove(agent.transform,5.0f,2.0f,10.0f,speed,velocity), 5.0f);
                 move *= speed;
                 if (move.sqrMagnitude > squareMaxSpeed)

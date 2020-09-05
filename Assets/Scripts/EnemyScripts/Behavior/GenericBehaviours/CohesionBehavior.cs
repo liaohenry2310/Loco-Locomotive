@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CohesionBehavior : MonoBehaviour
+public static class CohesionBehavior 
 {
-    public Vector2 CalculateMove (Transform agent, List<Transform> neighbors)
+    public static Vector2 CalculateMove (Transform agent, List<Transform> neighbors)
     {
         //if no neighbors, return no adjustment
         if (neighbors.Count == 0)

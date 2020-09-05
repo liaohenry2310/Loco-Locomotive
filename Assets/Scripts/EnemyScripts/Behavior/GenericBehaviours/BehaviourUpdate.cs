@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BehaviourUpdate : MonoBehaviour
+public static class BehaviourUpdate
 {
-    public Vector2 BehaviourUpdated(Vector2 behaviourMove, float weight)
+    public static Vector2 BehaviourUpdated(Vector2 behaviourMove, float weight)
     {
         Vector2 move = Vector2.zero;
         Vector2 partialMove = behaviourMove;

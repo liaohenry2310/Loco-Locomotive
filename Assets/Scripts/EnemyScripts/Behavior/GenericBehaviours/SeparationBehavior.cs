@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeparationBehavior : MonoBehaviour
+public static class SeparationBehavior 
 {
-    public Vector2 SeparationMove(Transform agent, List<Transform> neighbors,float separationRadius)
+    public static Vector2 SeparationMove(Transform agent, List<Transform> neighbors,float separationRadius)
     {
         //if no neighbors, return no adjustment
         if (neighbors.Count == 0)
