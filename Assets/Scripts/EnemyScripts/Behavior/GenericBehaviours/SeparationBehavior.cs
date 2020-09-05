@@ -6,6 +6,7 @@ public static class SeparationBehavior
 {
     public static Vector2 SeparationMove(Transform agent, List<Transform> neighbors,float separationRadius)
     {
+        float dampeningValue = 0.9f;
         //if no neighbors, return no adjustment
         if (neighbors.Count == 0)
             return Vector2.zero;
@@ -23,6 +24,6 @@ public static class SeparationBehavior
         }
         if (nAvoid > 0)
             separationMove /= nAvoid;
-        return separationMove;
+        return separationMove * dampeningValue;
     }
 }

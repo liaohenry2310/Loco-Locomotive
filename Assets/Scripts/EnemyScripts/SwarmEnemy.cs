@@ -95,12 +95,12 @@ public class SwarmEnemy : MonoBehaviour
                 {
                     move = BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighbors, separationRadius), 5.0f);
                     //move=behaviourUpdate.BehaviourUpdated(wander.WanderMove(agent.transform,5.0f,2.0f,10.0f,speed,velocity), 5.0f);
-                    move *= speed;
-                    if (move.sqrMagnitude > squareMaxSpeed)
-                    {
-                        move = move.normalized * maxSpeed;
-                    }
-                    agent.transform.position += (Vector3)move * Time.deltaTime;
+                    move = (move.normalized * (Time.deltaTime * speed));
+                    //if (move.sqrMagnitude > squareMaxSpeed)
+                    //{
+                    //    move = move.normalized * maxSpeed;
+                    //}
+                    agent.transform.position += (Vector3)move;
                 }
 
                 if (!isSwitchingBehaviour)
