@@ -40,53 +40,58 @@ public class ShieldGeneratorController : MonoBehaviour
         _waitBarrierTimer = new WaitForSeconds(_shieldGeneratorData.BarrierDuration);
     }
 
-    private void ActivateShield(bool isOnActivation)
+    private void ActivateShield()
     {
         // new behaviour with one click
-        if (isOnActivation && _chargeTimerCoroutine == null)
+        if (_chargeTimerCoroutine == null)
         {
-            _chargeTimerCoroutine = ChargetTimer();
+            _chargeTimerCoroutine = ChargeTimer();
             StartCoroutine(_chargeTimerCoroutine);
         }
-        
     }
 
-    private IEnumerator ChargetTimer()
+    private IEnumerator ChargeTimer()
     {
         while (_shieldGeneratorData.ChargeTime > _shieldGenerator.ChargerTimer)
         {
             yield return _waitOneSecond;
-            _energyIndicatorControl.EnergyIndicator.UpdateChargeTime(++_shieldGenerator.ChargerTimer);
-
+            _energyIndicatorControl.EnergyIndicatorInstance.UpdateChargeTime(++_shieldGenerator.ChargerTimer);
         }
+
         if (_shieldGeneratorData.ChargeTime == _shieldGenerator.ChargerTimer)
         {
             EnableChargingSprite(true);
+            _energyIndicatorControl.FillEnergyIndicatorUIAsync(OnEnergyIndicatorCharged);
+
             _shieldGenerator.ChargerTimer = 0f;
-            StopCoroutine(_chargeTimerCoroutine);
             yield return StartCoroutine(BarrierTimer());
         }
+    }
+
+    private void OnEnergyIndicatorCharged()
+    {
+        Debug.Log("Energy Indicator Full");
     }
 
     private IEnumerator BarrierTimer()
     {
         //---- Start the barrier timer
         _energyShield.ActivateEnergyBarrier(true);
-        _energyIndicatorControl.EnergyIndicator.UpdateChargeTime(_shieldGeneratorData.ChargeTime);
+        _energyIndicatorControl.EnergyIndicatorInstance.UpdateChargeTime(_shieldGeneratorData.ChargeTime);
         yield return _waitBarrierTimer; // wait for the barrier 
         _energyShield.ActivateEnergyBarrier(false);
         //---- Start the cooldown timer
         _shieldGenerator.CoolDownToActivated = true;
 
         float barrierCooldDown = _shieldGeneratorData.CoolDownTime;
-        _energyIndicatorControl.EnergyIndicator.UpdateCoolDownTime(barrierCooldDown);
+        _energyIndicatorControl.EnergyIndicatorInstance.UpdateCoolDownTime(barrierCooldDown);
 
         EnableChargingSprite(false);
 
         while (barrierCooldDown >= 0.0f)
         {
             yield return _waitOneSecond;
-            _energyIndicatorControl.EnergyIndicator.UpdateCoolDownTime(--barrierCooldDown);
+            _energyIndicatorControl.EnergyIndicatorInstance.UpdateCoolDownTime(--barrierCooldDown);
         }
         _shieldGenerator.CoolDownToActivated = false;
 

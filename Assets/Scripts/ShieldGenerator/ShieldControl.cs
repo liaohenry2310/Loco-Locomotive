@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShieldControl : MonoBehaviour
 {
-    public event Action<bool> OnControllShield;
+    public event Action OnControllShield;
 
     private InputReciever _inputReciever;
 
@@ -21,7 +21,10 @@ public class ShieldControl : MonoBehaviour
 
     private void Update()
     {
-        OnControllShield?.Invoke(_inputReciever.GetSecondaryInput());
+        if (_inputReciever.GetSecondaryInput())
+        {
+            OnControllShield?.Invoke();
+        }
     }
 
 }

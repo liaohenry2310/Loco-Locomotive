@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnergyShieldIndicatorControl : MonoBehaviour
@@ -7,26 +8,25 @@ public class EnergyShieldIndicatorControl : MonoBehaviour
     [SerializeField] private Transform _bar = null;
     [SerializeField] private float _updateSpeedSeconds = 0.5f;
 
-
-    public EnergyIndicator EnergyIndicator { get; private set; }
+    public EnergyIndicator EnergyIndicatorInstance { get; private set; }
 
     private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
-        EnergyIndicator = new EnergyIndicator(_shieldGeneratorData.ChargeTime, _shieldGeneratorData.CoolDownTime);
+        EnergyIndicatorInstance = new EnergyIndicator(_shieldGeneratorData.ChargeTime, _shieldGeneratorData.CoolDownTime);
         _bar.localScale = new Vector3(1.0f, 0.0f, 1.0f);
         _spriteRenderer = _bar.GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()
     {
-        EnergyIndicator.OnChargeTimeChanged += EnergyIndicatorChanged;
+        EnergyIndicatorInstance.OnChargeTimeChanged += EnergyIndicatorChanged;
     }
 
     private void OnDisable()
     {
-        EnergyIndicator.OnChargeTimeChanged -= EnergyIndicatorChanged;
+        EnergyIndicatorInstance.OnChargeTimeChanged -= EnergyIndicatorChanged;
     }
 
     private void EnergyIndicatorChanged(bool chargeTime)
@@ -35,17 +35,49 @@ public class EnergyShieldIndicatorControl : MonoBehaviour
         if (chargeTime)
         {
             _spriteRenderer.color = Color.green;
-            scaleY = EnergyIndicator.GetChargeTimePercent();
+            scaleY = EnergyIndicatorInstance.GetChargeTimePercent();
         }
         else
         {
             _spriteRenderer.color = Color.blue;
-            scaleY = EnergyIndicator.GetCoolDonwTimePercent();
+            scaleY = EnergyIndicatorInstance.GetCoolDonwTimePercent();
         }
-        StartCoroutine(UpdateIndicatorUI(scaleY));
+        //StartCoroutine(UpdateIndicatorUI(scaleY));
         //_bar.localScale = new Vector3(1.0f, scaleY, 1.0f);
     }
 
+    public void StartEnergyIndicatorCooldownAsync(Action callback)
+    {
+        StartCoroutine(StartEnergyIndicatorCooldown(callback));
+    }
+
+    private IEnumerator StartEnergyIndicatorCooldown(Action callback)
+    {
+        // Do you cooldown update
+        yield return null;
+        callback?.Invoke();
+    }
+
+    public void FillEnergyIndicatorUIAsync(Action onComplete)
+    {
+        StartCoroutine(FillEnergyIndicatorUI(onComplete));
+    }
+
+    private IEnumerator FillEnergyIndicatorUI(Action onComplete)
+    {
+        float timeToCharge = EnergyIndicatorInstance.ChargeTime;
+        float elapsedTime = 0.0f;
+        while (timeToCharge > 0.0f)
+        {
+            timeToCharge -= Time.deltaTime;
+            elapsedTime += Time.deltaTime;
+            float percentage = elapsedTime / timeToCharge;
+            float fillAmount = Mathf.Lerp(0.0f, 1.0f, percentage);
+            _bar.localScale = new Vector3(1.0f, fillAmount, 1.0f);
+            yield return null;
+        }
+        onComplete?.Invoke();
+    }
 
     private IEnumerator UpdateIndicatorUI(float percentage)
     {
@@ -60,7 +92,5 @@ public class EnergyShieldIndicatorControl : MonoBehaviour
             _bar.localScale = new Vector3(1.0f, lerpVal, 1.0f);
             yield return null;
         }
-
     }
-
 }
