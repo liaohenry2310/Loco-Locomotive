@@ -2,12 +2,14 @@
 
 public class EMPGenerator : IReparable, IDamageable<float>
 {
-    public float ChargerTimer { get; set; } = 0f;
-    public bool CoolDownToActivated { get; set; } = false;
-
     private readonly HealthBar _healthBar;
     private readonly float _maxHealth;
     private float _curretHealth = 0.0f;
+
+    public float ChargerTimer { get; set; } = 0f;
+    public bool CoolDownToActivated { get; set; } = false;
+
+    public bool IsReadyToUse { get; set; } = true;
 
     public EMPGenerator(HealthBar healthBar, float maxHealth)
     {

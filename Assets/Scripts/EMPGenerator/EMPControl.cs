@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class EMPControl : MonoBehaviour
 {
-    public event Action<bool> OnTriggerEMP;
+    public event Action OnTriggerEMP;
 
     private InputReciever _inputReciever;
     public SpriteRenderer SpriteEMPController { get; private set; }
-
 
     private void Awake()
     {
@@ -21,6 +20,9 @@ public class EMPControl : MonoBehaviour
 
     private void Update()
     {
-        OnTriggerEMP?.Invoke(_inputReciever.GetSecondaryInput());
+        if (_inputReciever.GetSecondaryInput())
+        {
+            OnTriggerEMP?.Invoke();
+        }
     }
 }

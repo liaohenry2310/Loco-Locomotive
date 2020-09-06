@@ -11,15 +11,13 @@ public class EMPGeneratorController : MonoBehaviour
     [SerializeField] private EMPIndicatorControl _empIndicatorControl = null;
 
     private EMPShockWave _empShockWave = null;
-
-    private IEnumerator _chargeTimerCoroutine;
-    private WaitForSeconds _waitOneSecond;
     private EMPGenerator _empGenerator;
 
     private void Awake()
     {
         _empShockWave = GetComponentInChildren<EMPShockWave>();
         EnableChargingSprite(false);
+        _empIndicatorControl.SetUp(_empData.ChargeTime, _empData.CoolDownTime);
     }
 
     private void OnEnable()
@@ -37,54 +35,32 @@ public class EMPGeneratorController : MonoBehaviour
         _empGenerator = new EMPGenerator(_healthBar, _empData.MaxHealth);
         _empTurret.IReparable = _empGenerator;
         _empTurret.IDamageable = _empGenerator;
-        _waitOneSecond = new WaitForSeconds(1f);
     }
 
-    private void UnleashEMP(bool isOnActivation)
+    private void UnleashEMP()
     {
         // new behaviour with one click
-        if (isOnActivation && _chargeTimerCoroutine == null)
+        if (_empGenerator.IsReadyToUse)
         {
-            _chargeTimerCoroutine = ChargetTimer();
-            StartCoroutine(_chargeTimerCoroutine);
+            _empGenerator.IsReadyToUse = false;
+            _empIndicatorControl.FillEnergyIndicatorUIAsync(OnEnergyIndicatorCharged);
         }
     }
 
-    private IEnumerator ChargetTimer()
+    private void OnEnergyIndicatorCharged()
     {
-        while (_empData.ChargeTime > _empGenerator.ChargerTimer)
-        {
-            yield return _waitOneSecond;
-            _empIndicatorControl.EnergyIndicator.UpdateChargeTime(++_empGenerator.ChargerTimer);
-        }
-        if (_empData.ChargeTime == _empGenerator.ChargerTimer)
-        {
-            EnableChargingSprite(true);
-            _empGenerator.ChargerTimer = 0f;
-            StopCoroutine(_chargeTimerCoroutine);
-            yield return StartCoroutine(CoolDownChargeTimer());
-        }
-    }
-
-    private IEnumerator CoolDownChargeTimer()
-    {
-        _empShockWave.PlayShockWave(_empData.ShockWaveSpeedRate); //Unleash the shock wave from here...
-
-        _empGenerator.CoolDownToActivated = true;
-        float coolDown = _empData.CoolDownTime;
-        _empIndicatorControl.EnergyIndicator.UpdateCoolDownTime(coolDown);
-
         EnableChargingSprite(true);
+        _empShockWave.PlayShockWave(_empData.ShockWaveSpeedRate); //Unleash the shock wave from here...
+        _empGenerator.CoolDownToActivated = true;
+        EnableChargingSprite(true);
+        _empIndicatorControl.StartEnergyIndicatorCooldownAsync(OnEnergyIndicatorCoolDown);
+    }
 
-        while (coolDown >= 0.0f)
-        {
-            yield return _waitOneSecond;
-            _empIndicatorControl.EnergyIndicator.UpdateCoolDownTime(--coolDown);
-        }
-        EnableChargingSprite(false);
+    private void OnEnergyIndicatorCoolDown()
+    {
         _empGenerator.CoolDownToActivated = false;
-
-        _chargeTimerCoroutine = null;
+        _empGenerator.IsReadyToUse = true;
+        EnableChargingSprite(false);
     }
 
     private void EnableChargingSprite(bool enable)

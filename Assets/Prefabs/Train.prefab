@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d85f6a5e320c540893837278a455f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableDebugLogging: 0
   trainHealth: 1000
   currentHealth: 0
   healthBar: {fileID: 0}

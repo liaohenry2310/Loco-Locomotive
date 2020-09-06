@@ -9,6 +9,8 @@ public class ShieldGenerator : IReparable, IDamageable<float>
     public float ChargerTimer { get; set; } = 0f;
     public bool CoolDownToActivated { get; set; } = false;
 
+    public bool IsReadyToUse { get; set; } = true;
+
     public ShieldGenerator(HealthBar healthBar, float maxHealth)
     {
         _healthBar = healthBar;
@@ -26,7 +28,7 @@ public class ShieldGenerator : IReparable, IDamageable<float>
     {
         _curretHealth = _maxHealth;
         _healthBar.SetHealth(_curretHealth);
-        Debug.Log("[ShieldGenerator] -- Repair complete.");
+        Debug.Log("[ShieldGenerator] --- Repair complete.");
     }
 
     public void TakeDamage(float amount)

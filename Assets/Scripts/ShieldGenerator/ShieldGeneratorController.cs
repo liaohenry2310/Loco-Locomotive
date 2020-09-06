@@ -11,14 +11,13 @@ public class ShieldGeneratorController : MonoBehaviour
     [SerializeField] private HealthBar _healthBar = null;
     [SerializeField] private EnergyShieldIndicatorControl _energyIndicatorControl = null;
 
-    private IEnumerator _chargeTimerCoroutine;
-    private WaitForSeconds _waitOneSecond;
     private WaitForSeconds _waitBarrierTimer;
     private ShieldGenerator _shieldGenerator;
 
     private void Awake()
     {
         EnableChargingSprite(false);
+        _energyIndicatorControl.SetUp(_shieldGeneratorData.ChargeTime, _shieldGeneratorData.CoolDownTime);
     }
 
     private void OnEnable()
@@ -36,67 +35,42 @@ public class ShieldGeneratorController : MonoBehaviour
         _shieldGenerator = new ShieldGenerator(_healthBar, _shieldGeneratorData.MaxHealth);
         _shieldTurret.IReparable = _shieldGenerator;
         _shieldTurret.IDamageble = _shieldGenerator;
-        _waitOneSecond = new WaitForSeconds(1f);
         _waitBarrierTimer = new WaitForSeconds(_shieldGeneratorData.BarrierDuration);
     }
 
     private void ActivateShield()
     {
         // new behaviour with one click
-        if (_chargeTimerCoroutine == null)
+        if (_shieldGenerator.IsReadyToUse)
         {
-            _chargeTimerCoroutine = ChargeTimer();
-            StartCoroutine(_chargeTimerCoroutine);
-        }
-    }
-
-    private IEnumerator ChargeTimer()
-    {
-        while (_shieldGeneratorData.ChargeTime > _shieldGenerator.ChargerTimer)
-        {
-            yield return _waitOneSecond;
-            _energyIndicatorControl.EnergyIndicatorInstance.UpdateChargeTime(++_shieldGenerator.ChargerTimer);
-        }
-
-        if (_shieldGeneratorData.ChargeTime == _shieldGenerator.ChargerTimer)
-        {
-            EnableChargingSprite(true);
+            _shieldGenerator.IsReadyToUse = false;
             _energyIndicatorControl.FillEnergyIndicatorUIAsync(OnEnergyIndicatorCharged);
-
-            _shieldGenerator.ChargerTimer = 0f;
-            yield return StartCoroutine(BarrierTimer());
         }
     }
 
     private void OnEnergyIndicatorCharged()
     {
-        Debug.Log("Energy Indicator Full");
+        EnableChargingSprite(true);
+        StartCoroutine(BarrierTimer());
+    }
+
+    private void OnEnergyIndicatorCoolDown()
+    {
+        _shieldGenerator.CoolDownToActivated = false;
+        _shieldGenerator.IsReadyToUse = true;
+        EnableChargingSprite(false);
     }
 
     private IEnumerator BarrierTimer()
     {
         //---- Start the barrier timer
         _energyShield.ActivateEnergyBarrier(true);
-        _energyIndicatorControl.EnergyIndicatorInstance.UpdateChargeTime(_shieldGeneratorData.ChargeTime);
         yield return _waitBarrierTimer; // wait for the barrier 
         _energyShield.ActivateEnergyBarrier(false);
+
         //---- Start the cooldown timer
         _shieldGenerator.CoolDownToActivated = true;
-
-        float barrierCooldDown = _shieldGeneratorData.CoolDownTime;
-        _energyIndicatorControl.EnergyIndicatorInstance.UpdateCoolDownTime(barrierCooldDown);
-
-        EnableChargingSprite(false);
-
-        while (barrierCooldDown >= 0.0f)
-        {
-            yield return _waitOneSecond;
-            _energyIndicatorControl.EnergyIndicatorInstance.UpdateCoolDownTime(--barrierCooldDown);
-        }
-        _shieldGenerator.CoolDownToActivated = false;
-
-        _chargeTimerCoroutine = null;
-
+        _energyIndicatorControl.StartEnergyIndicatorCooldownAsync(OnEnergyIndicatorCoolDown);
     }
 
     private void EnableChargingSprite(bool enable)

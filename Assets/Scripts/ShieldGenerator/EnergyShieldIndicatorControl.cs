@@ -4,46 +4,22 @@ using UnityEngine;
 
 public class EnergyShieldIndicatorControl : MonoBehaviour
 {
-    [SerializeField] private ShieldGeneratorData _shieldGeneratorData = null;
     [SerializeField] private Transform _bar = null;
-    [SerializeField] private float _updateSpeedSeconds = 0.5f;
-
-    public EnergyIndicator EnergyIndicatorInstance { get; private set; }
 
     private SpriteRenderer _spriteRenderer;
+    private float _chargeTimer = 0.0f;
+    private float _coolDownTimer = 0.0f;
 
     private void Awake()
     {
-        EnergyIndicatorInstance = new EnergyIndicator(_shieldGeneratorData.ChargeTime, _shieldGeneratorData.CoolDownTime);
         _bar.localScale = new Vector3(1.0f, 0.0f, 1.0f);
         _spriteRenderer = _bar.GetComponentInChildren<SpriteRenderer>();
     }
 
-    private void OnEnable()
+    public void SetUp(float chargetTimer, float coolDownTimer)
     {
-        EnergyIndicatorInstance.OnChargeTimeChanged += EnergyIndicatorChanged;
-    }
-
-    private void OnDisable()
-    {
-        EnergyIndicatorInstance.OnChargeTimeChanged -= EnergyIndicatorChanged;
-    }
-
-    private void EnergyIndicatorChanged(bool chargeTime)
-    {
-        float scaleY;
-        if (chargeTime)
-        {
-            _spriteRenderer.color = Color.green;
-            scaleY = EnergyIndicatorInstance.GetChargeTimePercent();
-        }
-        else
-        {
-            _spriteRenderer.color = Color.blue;
-            scaleY = EnergyIndicatorInstance.GetCoolDonwTimePercent();
-        }
-        //StartCoroutine(UpdateIndicatorUI(scaleY));
-        //_bar.localScale = new Vector3(1.0f, scaleY, 1.0f);
+        _chargeTimer = chargetTimer;
+        _coolDownTimer = coolDownTimer;
     }
 
     public void StartEnergyIndicatorCooldownAsync(Action callback)
@@ -53,8 +29,19 @@ public class EnergyShieldIndicatorControl : MonoBehaviour
 
     private IEnumerator StartEnergyIndicatorCooldown(Action callback)
     {
-        // Do you cooldown update
-        yield return null;
+        _spriteRenderer.color = Color.blue;
+        float timeToCoolDown = _coolDownTimer;
+        float elapsedTime = 0.0f;
+        while (_bar.localScale.y > 0.0f)
+        {
+            timeToCoolDown -= Time.deltaTime;
+            elapsedTime += Time.deltaTime;
+            float percentage = elapsedTime / timeToCoolDown;
+            float fillAmount = Mathf.Lerp(1.0f, 0.0f, percentage);
+            _bar.localScale = new Vector3(1.0f, fillAmount, 1.0f);
+            yield return null;
+        }
+        _bar.localScale = new Vector3(1.0f, 0.0f, 1.0f);
         callback?.Invoke();
     }
 
@@ -65,9 +52,10 @@ public class EnergyShieldIndicatorControl : MonoBehaviour
 
     private IEnumerator FillEnergyIndicatorUI(Action onComplete)
     {
-        float timeToCharge = EnergyIndicatorInstance.ChargeTime;
+        _spriteRenderer.color = Color.green;
+        float timeToCharge = _chargeTimer;
         float elapsedTime = 0.0f;
-        while (timeToCharge > 0.0f)
+        while (_bar.localScale.y < 1.0f)
         {
             timeToCharge -= Time.deltaTime;
             elapsedTime += Time.deltaTime;
@@ -76,21 +64,8 @@ public class EnergyShieldIndicatorControl : MonoBehaviour
             _bar.localScale = new Vector3(1.0f, fillAmount, 1.0f);
             yield return null;
         }
+        _bar.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         onComplete?.Invoke();
     }
 
-    private IEnumerator UpdateIndicatorUI(float percentage)
-    {
-        Debug.Log("Update Indicator UI");
-        //float cachePct = EnergyIndicator._currentTime;
-        float elapsed = 0.0f;
-        float lerpVal = 0.0f;
-        while (elapsed < _updateSpeedSeconds)
-        {
-            lerpVal = Mathf.Lerp(lerpVal, percentage, elapsed / Time.deltaTime);
-            elapsed += Time.deltaTime;
-            _bar.localScale = new Vector3(1.0f, lerpVal, 1.0f);
-            yield return null;
-        }
-    }
 }

@@ -16,3 +16,8 @@ MonoBehaviour:
   _coolDownTime: 15
   _shockWaveSpeedRate: 10
   _maxHealth: 250
+  sprites:
+  - {fileID: 21300000, guid: e718ac501bfcde64c80cf948c706b289, type: 3}
+  - {fileID: 21300000, guid: d696a1d36848312499688e33654c4dfd, type: 3}
+  - {fileID: 21300000, guid: 4281405fe44b7bc4588110d272897ae3, type: 3}
+  - {fileID: 21300000, guid: 898df4dbe7617264da1d89c04d2107c5, type: 3}
