@@ -4,10 +4,10 @@ using UnityEngine.UI;
 public class TurretCannon : MonoBehaviour
 {
     [Header("Turret Publics Attr")]
-    [SerializeField] private Transform _cannonHandler = default;
-    [SerializeField] private Text AmmoText = default;
+    [SerializeField] private Transform _cannonHandler = null;
+    [SerializeField] private Text AmmoText = null;
     [SerializeField] private DispenserData.Type ammoType = DispenserData.Type.Normal;
-    [SerializeField] private float CannonHandlerSpeed = 55f;
+    [SerializeField] private float CannonHandlerSpeed = 55.0f;
 
     private InputReciever _inputReciever;
     private TurretHealth _turretHealth;
@@ -75,17 +75,6 @@ public class TurretCannon : MonoBehaviour
     {
         // Setting here either player using or not the gamepad and change the current direction 
         float time = Time.fixedDeltaTime;
-
-        if (_inputReciever.IsUsingGamepad)
-        {
-            UsingGamePad(time);
-        }
-        else
-        {
-            float finalSpeed = -_inputReciever.DirectionalInput.x * CannonHandlerSpeed * time;
-            _cannonHandler.transform.Rotate(0.0f, 0.0f, finalSpeed);
-        }
-
         bool setFire = _inputReciever.GetSecondaryHoldInput();
 
         switch (ammoType)
@@ -100,6 +89,8 @@ public class TurretCannon : MonoBehaviour
                 break;
             case DispenserData.Type.LaserBeam:
                 {
+                    // only condition to use laser beam cannon time * 0.5f
+                    time *= 0.5f; 
                     // Calling setFire from Weapon Laser Beam
                     _weaponLaserBeam.SetFire(setFire, _turretHealth.IsAlive);
                     // Update the UI Text Canvas
@@ -128,6 +119,16 @@ public class TurretCannon : MonoBehaviour
                 break;
         }
         _laserSight.gameObject.SetActive(IsUsingLaserSight);
+
+        if (_inputReciever.IsUsingGamepad)
+        {
+            UsingGamePad(time);
+        }
+        else
+        {
+            float finalSpeed = -_inputReciever.DirectionalInput.x * CannonHandlerSpeed * time;
+            _cannonHandler.transform.Rotate(0.0f, 0.0f, finalSpeed);
+        }
     }
 
     /// <summary>

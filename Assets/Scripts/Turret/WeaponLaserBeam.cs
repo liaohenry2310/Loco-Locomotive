@@ -2,10 +2,10 @@
 
 public class WeaponLaserBeam : MonoBehaviour
 {
-    [SerializeField] private Transform _cannonFirePoint = default;
-    [SerializeField] private LaserData _laserData = default;
-    [SerializeField] private LineRenderer _LaserBeam = default;
-    [SerializeField] private LayerMask _layerEnemyMask = default;
+    [SerializeField] private Transform _cannonFirePoint = null;
+    [SerializeField] private LaserData _laserData = null;
+    [SerializeField] private LineRenderer _LaserBeam = null;
+    [SerializeField] private LayerMask _layerEnemyMask = 0;
 
     [Header("Ammo capacity")]
     [SerializeField] private float _maxAmmo = 30f;

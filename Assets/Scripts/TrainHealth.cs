@@ -2,7 +2,7 @@
 
 public class TrainHealth : MonoBehaviour
 {
-    [SerializeField] private bool enableDebugLogging = false;
+    [SerializeField] private bool _enableDebugLogging = false;
     public float trainHealth = 1000;
     public float currentHealth;
     private float restoreTime;
@@ -21,7 +21,7 @@ public class TrainHealth : MonoBehaviour
         {
             currentHealth -= amount;
             // currentHealth = Mathf.Max(currentHealth, 0f);
-            if (enableDebugLogging)
+            if (_enableDebugLogging)
             {
                 Debug.Log("[Health] Lost " + amount + "hp. Current health: " + currentHealth);
             }
