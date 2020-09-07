@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 2707284850885791706}
   - component: {fileID: 6039931014834086861}
   m_Layer: 0
-  m_Name: 1
+  m_Name: Sky_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1103223401367730116}
   - component: {fileID: 6031605052145365681}
   m_Layer: 0
-  m_Name: 2
+  m_Name: Cloud_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +408,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: cc679fc22b8f59546a5f3e537c559781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -734,7 +734,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: cc679fc22b8f59546a5f3e537c559781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 8874835990036857313}
   - component: {fileID: 991339708546103784}
   m_Layer: 0
-  m_Name: 5
+  m_Name: Mountain_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 8881804568911564409}
   - component: {fileID: 7461843543234499126}
   m_Layer: 0
-  m_Name: 4
+  m_Name: And_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1258,7 +1258,7 @@ GameObject:
   - component: {fileID: 3018083091524986570}
   - component: {fileID: 3604965345982909498}
   m_Layer: 0
-  m_Name: 3
+  m_Name: Cloud_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1446,7 +1446,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: cc679fc22b8f59546a5f3e537c559781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1608,7 +1608,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: cc679fc22b8f59546a5f3e537c559781, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -1712,7 +1712,7 @@ GameObject:
   - component: {fileID: 7513035622699236987}
   - component: {fileID: 7096673711832925247}
   m_Layer: 0
-  m_Name: 6
+  m_Name: Cactus_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

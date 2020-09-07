@@ -22,11 +22,9 @@ public class Player : MonoBehaviour
     private DispenserItem _currentItem;         // Item that the player is currently holding.
     private DispenserItemData _itemToPickup;        // The type of dispenser the player is standing at if any.    
     #endregion
-
     public GameObject player;
     //public GameObject spwanPoint;
-    public Sprite[] sprites;
-    public Sprite[] spriteSide;
+
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
@@ -42,7 +40,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D mRigidBody;
     private InputReciever mInputReceiver;
     private float mPlayerHeight;
-    private PlayerInput playerIndex;
 
     private void Start()
     {
@@ -106,9 +103,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         #region Dispenser
-
-
-
         if (mInputReceiver.GetSecondaryInput())
         {
             // If we are at a dispenser
@@ -152,15 +146,6 @@ public class Player : MonoBehaviour
                 Debug.Log($"Player repicked up item --- Type: {_currentItem.DispenserType} Color: {_currentItem.DispenserColor.ToString()}");
             }
         }
-
-        if (mInputReceiver.GetPrimaryInput() && PlayerHasItem)
-        {
-            if (turretLoader)
-            {
-                DropItem();
-            }
-        }
-
         if (GetComponent<PlayerHealth>().IsAlive() == false)
         {
             _collectedItemObject.SetActive(false);
@@ -168,30 +153,20 @@ public class Player : MonoBehaviour
         }
 
         #endregion
-
-        //for (int i = 0;i < ;i++)
-        //{
-        //    if (mInputReceiver.GetHorizontalInput() > 0)
-        //    {
-        //        player.GetComponentInChildren<SpriteRenderer>().sprite = spriteSide[i];
-        //        player.GetComponentInChildren<SpriteRenderer>().flipX = true;
-        //    }
-        //    else if (mInputReceiver.GetHorizontalInput() < 0)
-        //    {
-        //        player.GetComponentInChildren<SpriteRenderer>().sprite = spriteSide[i];
-        //        player.GetComponentInChildren<SpriteRenderer>().flipX = false;
-
-        //    }
-        //    else if (mInputReceiver.GetHorizontalInput() == 0)
-        //    {
-        //        player.GetComponentInChildren<SpriteRenderer>().sprite = sprites[i];
-        //    }
-        //}
-
-
+        //If player holding an item, it can not interact with turret/Machiners
+        if (turretLoader || shieldGenerator != null)
+        {
+            if (PlayerHasItem)
+            {
+                mInputReceiver.OnDisablePrimaryInput();
+            }
+            else if (!PlayerHasItem)
+            {
+                mInputReceiver.EnablePrimaryInput();
+            }
+        }
 
     }
-
     private void PickUpItemFromDispenser()
     {
         if (dispenserObject == null)

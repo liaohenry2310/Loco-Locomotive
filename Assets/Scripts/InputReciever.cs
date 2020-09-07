@@ -40,7 +40,21 @@ public class InputReciever : MonoBehaviour
             mPlayerInput = null;
         }
     }
+    public void OnDisablePrimaryInput()
+    {
+        if (mInUse)
+        {
+            mPlayerInput.actions["Primary"].Disable();
+        }
+    }
 
+    public void EnablePrimaryInput()
+    {
+        if (mInUse)
+        {
+            mPlayerInput.actions["Primary"].Enable();
+        }
+    }
     public Vector2 DirectionalInput => mPlayerInput ? mPlayerInput.actions["Directional"].ReadValue<Vector2>() : Vector2.zero;
 
     public float GetHorizontalInput()
