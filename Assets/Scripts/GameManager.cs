@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     private List<Transform> mInitialSpawnPoints;
     private GameObject mTrain;
     private bool playersSpawned = false;
-
     public bool IsGameOver { get; private set; } = false;
 
     //Properties
@@ -167,9 +166,8 @@ public class GameManager : MonoBehaviour
             //Remove this line of code if changing color of player avatar sprite is unwanted
             //avatar.GetComponentInChildren<SpriteRenderer>().color = GetPlayerColor(i);
             avatar.GetComponentInChildren<SpriteRenderer>().sprite = sprites[i];
-
         }
-
+        
         playersSpawned = true;
     }
 
