@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
 
         #endregion
         //If player holding an item, it can not interact with turret/Machiners
-        if (turretLoader || shieldGenerator != null)
+        if (turretLoader || reparableActions != null)
         {
             if (PlayerHasItem)
             {
