@@ -8,7 +8,7 @@ public class SwarmEnemyGroup : Enemy
     public List<Transform> paths = new List<Transform>();
     public GameObject basicEnemypaths;
     //Behaviours
-
+     
     //separation
     public float separationRadius;
     //For behavior
