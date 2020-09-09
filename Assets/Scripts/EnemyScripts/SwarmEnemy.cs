@@ -15,7 +15,7 @@ public class SwarmEnemy : MonoBehaviour
             Debug.Log("Train taking damage");
             Destroy(gameObject); 
         }
-
+          
         if (collision.gameObject.GetComponent<TurretHealth>())
         {
             collision.gameObject.GetComponent<TurretHealth>().TakeDamage(damage);
