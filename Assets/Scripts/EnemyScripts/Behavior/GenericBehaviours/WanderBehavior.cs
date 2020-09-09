@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class WanderBehavior 
 {
-    public static Vector2 WanderMove(Transform agent, float mWanderRadius, float mWanderDistance, float mWanderJitter, float speed, Vector2 velocity)
+    public static Vector2 WanderMove(Transform agent, float mWanderRadius, float mWanderDistance, float mWanderJitter, float speed)
     {
 
         Vector2 mWanderPoint = Vector2.zero;
@@ -14,7 +14,7 @@ public static class WanderBehavior
         var wanderTarget = mWanderPoint + new Vector2( 0.0f, mWanderDistance );
         var localToWorld = agent.transform.localToWorldMatrix;
         Vector2 destination = localToWorld.MultiplyVector((Vector3)wanderTarget);
-        mWanderPoint = SeekBehaviour.SeekMove(agent, destination, speed, velocity);
+        mWanderPoint = SeekBehaviour.SeekMove(agent, destination, speed);
         //mRenderPoint = destination;
         return mWanderPoint;
     }

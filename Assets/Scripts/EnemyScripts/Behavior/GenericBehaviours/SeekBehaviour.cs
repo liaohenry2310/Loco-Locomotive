@@ -4,12 +4,12 @@ using UnityEngine;
 
 public static class SeekBehaviour 
 {
-    public static Vector2 SeekMove(Transform agent, Vector2 direction, float speed, Vector2 velocity)
+    public static Vector2 SeekMove(Transform agent, Vector2 direction, float speed)
     {
-        //Steering
-        Vector2 posToDest = direction - (Vector2)agent.transform.localPosition;
+        //Seek
+        Vector2 posToDest = direction - (Vector2)agent.transform.position;
         Vector2 desiredVelocity = posToDest.normalized * speed;
-        return desiredVelocity - velocity;
+        return desiredVelocity ;
 
     }
 }

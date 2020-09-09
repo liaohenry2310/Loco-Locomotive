@@ -79,7 +79,7 @@ MonoBehaviour:
     prefab: {fileID: 2976500086480401285, guid: 527a29d5762f80f4aa37a6caf1c0bee2,
       type: 3}
   - enemyType: 9
-    prefab: {fileID: 7810132641769029431, guid: 8cabe95807576d241a9101a17b3f2380,
+    prefab: {fileID: 8832564206156139112, guid: f2aecc04bcc7e5948a8af9009117061b,
       type: 3}
   _wave: {fileID: 11400000, guid: 222c2fc129c7ac9429e65966018783f4, type: 2}
   targetList:

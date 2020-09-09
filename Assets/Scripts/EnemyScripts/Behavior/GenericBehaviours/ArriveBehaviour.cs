@@ -4,8 +4,13 @@ using UnityEngine;
 public static class ArriveBehaviour 
 {
 
-    public static Vector2 TowardNextPoint(List<Transform> paths)
+    public static Vector2 TowardNextPoint(GameObject pathObject)
     {
+        List<Transform> paths = new List<Transform>();
+        for (int i = 0; i < pathObject.transform.childCount; ++i)
+        {
+            paths.Add(pathObject.transform.GetChild(i));
+        }
         Vector2 nextPos;
         int nextPoint=0;
         int randomNum = Random.Range(0, paths.Count - 1);

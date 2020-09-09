@@ -136,26 +136,30 @@ public class EnemySpawner : MonoBehaviour
 
             GameObject enemy = null;
             enemy = Instantiate(EnemyPrefab[enemyType], wormhole.transform.position, Quaternion.identity);
-
-            //if (enemyType == EnemyType.Enemy_SwarmGroup)
-            //{
-            //    SwarmEnemy swarmEnemy = enemy.GetComponent<SwarmEnemy>();
-            //    swarmNeighbors.Add(enemy);
-            //    for (int j = 0; j < swarmEnemy.GroupOfSize; ++j)
-            //    {
-            //        swarmNeighbors.Add(Instantiate(enemy));
-            //    }
-            //    for (int k = 0; k < swarmNeighbors.Count; ++k)
-            //    {
-            //        swarmNeighbors[k].GetComponent<SwarmEnemy>().swarmNeighbors = swarmNeighbors;
-            //        swarmNeighbors[k].GetComponent<Enemy>().targetList.AddRange(targetList);
-            //        swarmNeighbors[k].GetComponent<Enemy>().landingCollider = landingCollider;
-            //        swarmNeighbors[k].GetComponent<Enemy>().trainArea = trainArea;
-            //    }
-            //    ++currentNumber;
-            //    continue;
-            //}
-            enemy.GetComponent<Enemy>().targetList.AddRange(targetList);
+            if (enemyType == EnemyType.Enemy_SwarmGroup)
+            {
+                SwarmEnemyGroup swarmEnemy = enemy.GetComponent<SwarmEnemyGroup>();
+                swarmEnemy.SpawnGroup(wormhole.transform.position);
+            }
+                //if (enemyType == EnemyType.Enemy_SwarmGroup)
+                //{
+                //    SwarmEnemy swarmEnemy = enemy.GetComponent<SwarmEnemy>();
+                //    swarmNeighbors.Add(enemy);
+                //    for (int j = 0; j < swarmEnemy.GroupOfSize; ++j)
+                //    {
+                //        swarmNeighbors.Add(Instantiate(enemy));
+                //    }
+                //    for (int k = 0; k < swarmNeighbors.Count; ++k)
+                //    {
+                //        swarmNeighbors[k].GetComponent<SwarmEnemy>().swarmNeighbors = swarmNeighbors;
+                //        swarmNeighbors[k].GetComponent<Enemy>().targetList.AddRange(targetList);
+                //        swarmNeighbors[k].GetComponent<Enemy>().landingCollider = landingCollider;
+                //        swarmNeighbors[k].GetComponent<Enemy>().trainArea = trainArea;
+                //    }
+                //    ++currentNumber;
+                //    continue;
+                //}
+                enemy.GetComponent<Enemy>().targetList.AddRange(targetList);
             enemy.GetComponent<Enemy>().landingCollider = landingCollider;
             enemy.GetComponent<Enemy>().trainArea = trainArea;
             ++currentNumber;

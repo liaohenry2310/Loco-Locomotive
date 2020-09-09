@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4503170902c1e9e438888c8bdcf79d1e, type: 3}
   m_Name: EnemyLevel_1
   m_EditorClassIdentifier: 
-  _waves: []
+  _waves:
+  - enemyType: 9
+    numOfEnemies: 1
+    wave_delay: 1
