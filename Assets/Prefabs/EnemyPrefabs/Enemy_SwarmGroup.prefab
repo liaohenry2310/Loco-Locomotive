@@ -49,7 +49,7 @@ MonoBehaviour:
   paths: []
   basicEnemypaths: {fileID: 1995550045073571820, guid: 71592d0388637ab4ca27c332d93bda5b,
     type: 3}
-  separationRadius: 1
+  separationRadius: 1.5
   maxSpeed: 10
   speed: 5
   stopDelay: 0
