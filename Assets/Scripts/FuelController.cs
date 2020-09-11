@@ -18,16 +18,12 @@ public class FuelController : MonoBehaviour
     private float currentFuel;
     private bool outOfFuel = false;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (_fireBox)
         {
             _fireBox.OnReloadFuel += Reload;
         }
-    }
-
-    void Start()
-    {
         if (GameManager.Instance)
         {
             OnGameOver += GameManager.Instance.GameOver;
@@ -36,6 +32,17 @@ public class FuelController : MonoBehaviour
         {
             Debug.LogWarning($"[FuelController] -- GameManager.Instance is null.");
         }
+    }
+
+    private void OnDisable()
+    {
+        _fireBox.OnReloadFuel -= Reload;
+        OnGameOver -= GameManager.Instance.GameOver;
+    }
+
+    private void Start()
+    {
+       
         currentFuel = _maxFuel;
     }
 

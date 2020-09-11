@@ -1112,7 +1112,7 @@ PrefabInstance:
     - target: {fileID: 1932772365525470769, guid: aa175490ac6323544888ef11e86b4675,
         type: 3}
       propertyPath: m_Name
-      value: FireBox (1)
+      value: FireBox
       objectReference: {fileID: 0}
     - target: {fileID: 1932772365525470770, guid: aa175490ac6323544888ef11e86b4675,
         type: 3}
@@ -1177,6 +1177,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1406043196}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1406043198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1932772365525470768, guid: aa175490ac6323544888ef11e86b4675,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406043196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0a5c8a83ce2d04c8bb1f05661640a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1449620258
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,7 +2093,7 @@ PrefabInstance:
     - target: {fileID: 5197663987849638616, guid: e89113ba3c3e62546b1dc84b0f7a093b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5197663987849638616, guid: e89113ba3c3e62546b1dc84b0f7a093b,
         type: 3}
@@ -2269,7 +2281,7 @@ PrefabInstance:
     - target: {fileID: 8423933440595827720, guid: efecaf21ce57971449ae854595ca1aee,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8423933440595827720, guid: efecaf21ce57971449ae854595ca1aee,
         type: 3}
@@ -2413,7 +2425,7 @@ PrefabInstance:
     - target: {fileID: 8423933440595827720, guid: efecaf21ce57971449ae854595ca1aee,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8423933440595827720, guid: efecaf21ce57971449ae854595ca1aee,
         type: 3}
@@ -2469,7 +2481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxFuel: 2500
   _ammountToReload: 2500
-  _fireBox: {fileID: 0}
+  _fireBox: {fileID: 1406043198}
 --- !u!1001 &5994997883485518631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2535,7 +2547,7 @@ PrefabInstance:
     - target: {fileID: 1447207519561791685, guid: dbe5dc7f3399fc247b894ea24dadb082,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1447207519561791685, guid: dbe5dc7f3399fc247b894ea24dadb082,
         type: 3}
@@ -2671,7 +2683,7 @@ PrefabInstance:
     - target: {fileID: 8423933440595827720, guid: efecaf21ce57971449ae854595ca1aee,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8423933440595827720, guid: efecaf21ce57971449ae854595ca1aee,
         type: 3}

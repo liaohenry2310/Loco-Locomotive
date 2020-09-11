@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d85f6a5e320c540893837278a455f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableDebugLogging: 0
+  _enableDebugLogging: 0
   trainHealth: 1000
   currentHealth: 0
   healthBar: {fileID: 0}
@@ -271,7 +271,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxFuel: 2500
   _ammountToReload: 2500
-  _fireBox: {fileID: 7940699603002667067}
+  _fireBox: {fileID: 1932772365525470768, guid: aa175490ac6323544888ef11e86b4675,
+    type: 3}
 --- !u!1 &8422186562159974324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1917,18 +1918,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa175490ac6323544888ef11e86b4675, type: 3}
---- !u!114 &7940699603002667067 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1932772365525470768, guid: aa175490ac6323544888ef11e86b4675,
-    type: 3}
-  m_PrefabInstance: {fileID: 8422186562331704843}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0a5c8a83ce2d04c8bb1f05661640a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7940699603002667065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1932772365525470770, guid: aa175490ac6323544888ef11e86b4675,
