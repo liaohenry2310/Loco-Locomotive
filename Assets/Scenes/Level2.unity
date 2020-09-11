@@ -2018,7 +2018,7 @@ PrefabInstance:
     - target: {fileID: 1932772365525470769, guid: aa175490ac6323544888ef11e86b4675,
         type: 3}
       propertyPath: m_Name
-      value: FireBox (1)
+      value: FireBox
       objectReference: {fileID: 0}
     - target: {fileID: 1932772365525470770, guid: aa175490ac6323544888ef11e86b4675,
         type: 3}
@@ -2083,6 +2083,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1907377447}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1907377449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1932772365525470768, guid: aa175490ac6323544888ef11e86b4675,
+    type: 3}
+  m_PrefabInstance: {fileID: 1907377447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0a5c8a83ce2d04c8bb1f05661640a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2067480018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2782,6 +2794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d85f6a5e320c540893837278a455f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enableDebugLogging: 0
   trainHealth: 1000
   currentHealth: 0
   healthBar: {fileID: 160049535}
@@ -2928,7 +2941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxFuel: 2500
   _ammountToReload: 2500
-  _fireBox: {fileID: 0}
+  _fireBox: {fileID: 1907377449}
 --- !u!1001 &5994997883485518631
 PrefabInstance:
   m_ObjectHideFlags: 0

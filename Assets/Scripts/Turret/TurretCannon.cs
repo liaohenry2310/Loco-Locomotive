@@ -34,7 +34,7 @@ public class TurretCannon : MonoBehaviour
 
         _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
-
+        _laserSight.gameObject.SetActive(false);  // Disable by default for now
         if (TryGetComponent<TurretLoader>(out var turretLoader))
         {
             turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
@@ -118,7 +118,8 @@ public class TurretCannon : MonoBehaviour
             default:
                 break;
         }
-        _laserSight.gameObject.SetActive(IsUsingLaserSight);
+        // Disable by default for now
+        //_laserSight.gameObject.SetActive(IsUsingLaserSight); 
 
         if (_inputReciever.IsUsingGamepad)
         {
@@ -134,7 +135,7 @@ public class TurretCannon : MonoBehaviour
     /// <summary>
     /// Allow to check if the Player is controlling and not using the laser beam to active the laser sight
     /// </summary>
-    private bool IsUsingLaserSight => _inputReciever.GetInUse() && ammoType != DispenserData.Type.LaserBeam;
+   // private bool IsUsingLaserSight => _inputReciever.GetInUse() && ammoType != DispenserData.Type.LaserBeam;
 
     #region Railgun - BACKLOG
 
