@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -21,9 +22,9 @@ public class Player : MonoBehaviour
     private DispenserItem _currentItem;         // Item that the player is currently holding.
     private DispenserItemData _itemToPickup;        // The type of dispenser the player is standing at if any.    
     #endregion
-
     public GameObject player;
     //public GameObject spwanPoint;
+
 
     public LadderController LadderController { get; set; }
     public PlayerController PlayerController { get; set; }
@@ -39,7 +40,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D mRigidBody;
     private InputReciever mInputReceiver;
     private float mPlayerHeight;
-
 
     private void Start()
     {
@@ -63,7 +63,6 @@ public class Player : MonoBehaviour
             ObjectType = DispenserData.Type.None,
             ObjectColor = Color.white,
             Objectsprite = null
-
         };
 
         mRigidBody = GetComponent<Rigidbody2D>();
@@ -104,7 +103,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         #region Dispenser
-
         if (mInputReceiver.GetSecondaryInput())
         {
             // If we are at a dispenser
@@ -112,6 +110,7 @@ public class Player : MonoBehaviour
             {
                 if (PlayerHasItem)
                 {
+
                     DropItem();// Drop it.
                 }
                 else
@@ -154,8 +153,20 @@ public class Player : MonoBehaviour
         }
 
         #endregion
-    }
+        //If player holding an item, it can not interact with turret/Machiners
+        if (turretLoader || reparableActions != null)
+        {
+            if (PlayerHasItem)
+            {
+                mInputReceiver.OnDisablePrimaryInput();
+            }
+            else if (!PlayerHasItem)
+            {
+                mInputReceiver.EnablePrimaryInput();
+            }
+        }
 
+    }
     private void PickUpItemFromDispenser()
     {
         if (dispenserObject == null)

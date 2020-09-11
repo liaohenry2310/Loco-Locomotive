@@ -31,6 +31,16 @@ public class BasicEnemyProjectile : MonoBehaviour
         direction.Normalize();
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
 
+        float singleStep = speed * Time.deltaTime;
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, singleStep, 0.0f);
+        Debug.DrawRay(transform.position, newDirection, Color.red);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, newDirection);
+
+        //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        //Quaternion q = Quaternion.AngleAxis(angle - 80.0f, Vector3.forward);
+        ////transform.rotation = q;
+        //transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
+
         if (currentPos.y <= screenBottom)
         {
             gameObject.SetActive(false);
@@ -38,7 +48,6 @@ public class BasicEnemyProjectile : MonoBehaviour
         }
         //float dis = Vector3.Distance(currentPos, targetPos);
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
