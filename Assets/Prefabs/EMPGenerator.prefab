@@ -161,7 +161,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 9, y: 15}
   m_EdgeRadius: 0
 --- !u!114 &2950359586438952248
 MonoBehaviour:
@@ -212,8 +212,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2609460475101767118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0.202, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 8433659963341704061}
   m_RootOrder: 0
@@ -256,7 +256,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: eeae03047371e804996ee7999573fba3, type: 3}
   m_Color: {r: 0.018378438, g: 0.5566038, b: 0.071887046, a: 1}
   m_FlipX: 0
@@ -5306,8 +5306,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 414034185806789563}
+  - component: {fileID: 6618558086313522855}
   - component: {fileID: 3045911686850532023}
-  - component: {fileID: 2225797712881451709}
   - component: {fileID: 7439671935238441367}
   m_Layer: 0
   m_Name: EMPTurret
@@ -5330,6 +5330,32 @@ Transform:
   m_Father: {fileID: 9089032263770283047}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6618558086313522855
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935470878155595123}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 16.29, y: 10.71}
+    newSize: {x: 16.29, y: 10.71}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15, y: 7}
+  m_EdgeRadius: 0
 --- !u!212 &3045911686850532023
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5380,22 +5406,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2225797712881451709
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8935470878155595123}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.49999997
 --- !u!114 &7439671935238441367
 MonoBehaviour:
   m_ObjectHideFlags: 0
