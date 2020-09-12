@@ -17,6 +17,7 @@ public class ShieldGeneratorController : MonoBehaviour
     private void Awake()
     {
         EnableChargingSprite(false);
+        _energyShield.ActivateEnergyBarrier(false);
         _energyIndicatorControl.SetUp(_shieldGeneratorData.ChargeTime, _shieldGeneratorData.CoolDownTime);
     }
 
