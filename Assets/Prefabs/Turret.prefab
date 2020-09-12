@@ -108,8 +108,6 @@ GameObject:
   - component: {fileID: 3193508244445371705}
   - component: {fileID: 721506998748541635}
   - component: {fileID: 7215980287957974815}
-  - component: {fileID: 6848309198798939615}
-  - component: {fileID: 4734786320888962673}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -189,34 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f342d3f22374f9847a27627472452162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6848309198798939615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508244445371709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 952dbb330d0def742b535815b6327d72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 6161361658253203547}
-  offset: {x: 0, y: 0, z: 0}
---- !u!114 &4734786320888962673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508244445371709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 952dbb330d0def742b535815b6327d72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 4929973643754829416}
-  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &3193508244648082379
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,9 +474,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cannonFirePoint: {fileID: 3193508245827852810}
   _currentAmmo: 0
-  _maxAmmo: 500
-  _fireRate: 15
-  _spreadBulletFactor: 3
+  _maxAmmo: 75
+  _fireRate: 10
+  _spreadBulletFactor: 5
 --- !u!114 &2224037934594239160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,7 +495,7 @@ MonoBehaviour:
   _layerEnemyMask:
     serializedVersion: 2
     m_Bits: 512
-  _maxAmmo: 100
+  _maxAmmo: 30
 --- !u!114 &1981862455376678270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,8 +928,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.5019608}
-      key1: {r: 0.9245283, g: 0.67182297, b: 0.06541473, a: 1}
+      key0: {r: 0, g: 0.78180194, b: 1, a: 0.5019608}
+      key1: {r: 0.121395506, g: 0.26144165, b: 0.8301887, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1250,12 +1220,27 @@ PrefabInstance:
     - target: {fileID: 1440265130293439954, guid: a45542b5c2aa28e44b435867d9d3c573,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1440265130293439954, guid: a45542b5c2aa28e44b435867d9d3c573,
         type: 3}
       propertyPath: m_FontData.m_MinSize
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440265130293439954, guid: a45542b5c2aa28e44b435867d9d3c573,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440265130293439954, guid: a45542b5c2aa28e44b435867d9d3c573,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440265130293439954, guid: a45542b5c2aa28e44b435867d9d3c573,
+        type: 3}
+      propertyPath: m_Text
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1440265130293439955, guid: a45542b5c2aa28e44b435867d9d3c573,
         type: 3}

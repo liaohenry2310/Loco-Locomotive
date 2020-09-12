@@ -102,7 +102,7 @@ MonoBehaviour:
   damage: 10
   speed: 1
   maxSpeed: 1.5
-  shootingDelay: 2.04
+  shootingDelay: 10
 --- !u!114 &1178324292671610620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ab80ff0845e9c4e80c3ca98318950f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
+  health: 100
 --- !u!1 &3617118702975787520
 GameObject:
   m_ObjectHideFlags: 0

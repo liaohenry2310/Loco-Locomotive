@@ -182,7 +182,7 @@ MonoBehaviour:
   damage: 10
   speed: 1
   maxSpeed: 1.5
-  shootingDelay: 2.04
+  shootingDelay: 10
 --- !u!114 &3276408233857933789
 MonoBehaviour:
   m_ObjectHideFlags: 0

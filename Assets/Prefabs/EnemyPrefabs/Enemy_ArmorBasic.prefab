@@ -275,7 +275,7 @@ MonoBehaviour:
   targetList: []
   landingCollider: {fileID: 0}
   trainArea: {fileID: 0}
-  damage: 10
+  damage: 5
   speed: 1
   maxSpeed: 1.5
   shootingDelay: 2.04
