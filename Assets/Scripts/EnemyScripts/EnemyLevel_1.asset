@@ -16,19 +16,19 @@ MonoBehaviour:
   - enemyType: 1
     numOfEnemies: 3
     wave_delay: 5
-    wormholeRotationSpeed: 2
+    wormholeRotationSpeed: 3
     wormholeGrowthRate: 1
     wormholeSpawnTime: 1
   - enemyType: 1
     numOfEnemies: 3
     wave_delay: 0.5
-    wormholeRotationSpeed: 2
+    wormholeRotationSpeed: 3
     wormholeGrowthRate: 1
     wormholeSpawnTime: 1
   - enemyType: 1
     numOfEnemies: 3
     wave_delay: 0.5
-    wormholeRotationSpeed: 2
+    wormholeRotationSpeed: 3
     wormholeGrowthRate: 1
     wormholeSpawnTime: 1
   - enemyType: 1
