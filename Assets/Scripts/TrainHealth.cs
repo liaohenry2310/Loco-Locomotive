@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TrainHealth : MonoBehaviour
+public class TrainHealth : MonoBehaviour,IDamageable<float>
 {
     [SerializeField] private bool _enableDebugLogging = false;
     public float trainHealth = 1000;
@@ -54,5 +54,10 @@ public class TrainHealth : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public void TakeDamage(float damage, DispenserData.Type damageType)
+    {
+        throw new System.NotImplementedException();
     }
 }

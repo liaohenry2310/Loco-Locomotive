@@ -16,7 +16,8 @@ public class EnemySpawner : MonoBehaviour
         Enemy_Rider,
         Enemy_ArmorRider,
         Enemy_ShieldRider,
-        Enemy_ShieldArmorRider
+        Enemy_ShieldArmorRider,
+        Enemy_SwarmGroup
     }
     [Serializable]
     public class EnemiesPrefabObject
@@ -101,7 +102,7 @@ public class EnemySpawner : MonoBehaviour
         go.transform.position = new Vector3(x, y,wormhole.transform.position.z);
 
         Wormhole wormholeComponent = go.GetComponent<Wormhole>();
-        wormholeComponent.wormholeDuration = Time.time + enemyInit.wormholeSpawnTime;
+        wormholeComponent.wormholeDuration += Time.time;
         wormholeComponent.wormholeRSpeed = enemyInit.wormholeRotationSpeed;
         wormholeComponent.wormholeGrowthRate =enemyInit.wormholeGrowthRate;
 
@@ -117,7 +118,7 @@ public class EnemySpawner : MonoBehaviour
     public IEnumerator helloEnemy(int numOfEnemis, float timedelay, EnemyType enemyType,Vector3 spawnPos)
     {
 
-        yield return new WaitForSeconds(timedelay);
+        yield return new WaitForSeconds(timedelay+1.0f);
 
         for (int i = 0; i < numOfEnemis; ++i)
         {

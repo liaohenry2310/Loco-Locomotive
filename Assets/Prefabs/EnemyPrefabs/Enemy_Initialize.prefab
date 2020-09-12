@@ -78,6 +78,9 @@ MonoBehaviour:
   - enemyType: 8
     prefab: {fileID: 2976500086480401285, guid: 527a29d5762f80f4aa37a6caf1c0bee2,
       type: 3}
+  - enemyType: 9
+    prefab: {fileID: 8832564206156139112, guid: f2aecc04bcc7e5948a8af9009117061b,
+      type: 3}
   _wave: {fileID: 11400000, guid: 222c2fc129c7ac9429e65966018783f4, type: 2}
   targetList:
   - {fileID: 0}
@@ -87,9 +90,6 @@ MonoBehaviour:
   trainArea: {fileID: 0}
   wormhole: {fileID: 2504264668946031664, guid: 8ae6f2ec814cefc40b8069931b22cf61,
     type: 3}
-  wormholeRSpeed: 3
-  wormholegrowthRate: 2
-  wormholeSpawnTime: 2
   topL: {fileID: 7098286362222313103}
   bomR: {fileID: 7098286362554681901}
 --- !u!1 &7098286362222313102

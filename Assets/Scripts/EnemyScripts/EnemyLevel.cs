@@ -14,7 +14,7 @@ public class EnemyLevel : ScriptableObject
 
         public float wormholeRotationSpeed = 0.0f;
         public float wormholeGrowthRate = 0.0f;
-        public float wormholeSpawnTime = 0.0f;
+        //public float wormholeSpawnTime = 0.0f;
 
         //[HideInInspector]
         private bool startedSpawn = false;
