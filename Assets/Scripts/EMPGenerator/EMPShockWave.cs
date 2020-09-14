@@ -29,7 +29,6 @@ public class EMPShockWave : MonoBehaviour
         {
             _circleCollider.radius += Time.deltaTime * _speedRate;
             _circleCollider.radius = Mathf.Clamp(_circleCollider.radius, 0.0f, _maxColliderRadius);
-            Debug.Log($"<color=lime> Radius: {_circleCollider.radius}</color>");
         }
         else
         {

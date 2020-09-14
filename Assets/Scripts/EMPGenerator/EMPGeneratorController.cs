@@ -16,7 +16,6 @@ public class EMPGeneratorController : MonoBehaviour
     private void Awake()
     {
         _empShockWave = GetComponentInChildren<EMPShockWave>();
-        EnableChargingSprite(false);
         _empIndicatorControl.SetUp(_empData.ChargeTime, _empData.CoolDownTime);
     }
 
@@ -35,6 +34,7 @@ public class EMPGeneratorController : MonoBehaviour
         _empGenerator = new EMPGenerator(_healthBar, _empData.MaxHealth);
         _empTurret.IReparable = _empGenerator;
         _empTurret.IDamageable = _empGenerator;
+        EnableChargingSprite(false);
     }
 
     private void UnleashEMP()
