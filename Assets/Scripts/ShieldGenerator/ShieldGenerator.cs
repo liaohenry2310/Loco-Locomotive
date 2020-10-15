@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 public class ShieldGenerator : IReparable, IDamageable<float>
 {
@@ -38,6 +39,4 @@ public class ShieldGenerator : IReparable, IDamageable<float>
         _healthBar.SetHealth(_curretHealth);
     }
 
-    public void TakeDamage(float damage, DispenserData.Type damageType)
-    {}
-}
+}   

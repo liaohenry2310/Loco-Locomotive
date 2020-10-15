@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 109861088147740253}
   - component: {fileID: 3751501732197584893}
   - component: {fileID: 2720428000661332529}
+  - component: {fileID: 1931758443403924158}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -274,6 +275,19 @@ MonoBehaviour:
   _ammountToReload: 2500
   _fireBox: {fileID: 1932772365525470768, guid: aa175490ac6323544888ef11e86b4675,
     type: 3}
+--- !u!114 &1931758443403924158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422186562061083480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2939b89f5d2531c42ac63e2f6dd28696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
 --- !u!1 &8422186562159974324
 GameObject:
   m_ObjectHideFlags: 0

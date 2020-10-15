@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 public class WeaponLaserBeam : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class WeaponLaserBeam : MonoBehaviour
                     else
                     {
                         _LaserBeam.SetPosition(1, _cannonFirePoint.transform.up * _laserData.Range);
-                        IDamageable<float> damageable = collider.GetComponent<EnemyHealth>();
+                        IDamageableType<float> damageable = collider.GetComponent<EnemyHealth>();
                         if (damageable != null)
                         {
                             damageable.TakeDamage(_laserData.Damage * Time.deltaTime, _laserData.LaserType);
