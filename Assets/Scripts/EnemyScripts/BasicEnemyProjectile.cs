@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,6 +61,14 @@ public class BasicEnemyProjectile : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+
+        IDamageable<float> damageable = collision.GetComponentInParent<IDamageable<float>>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage);
+        }
+
 
         if (collision.gameObject.GetComponentInParent<TrainHealth>())
         {

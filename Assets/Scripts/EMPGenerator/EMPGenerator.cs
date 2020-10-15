@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 public class EMPGenerator : IReparable, IDamageable<float>
 {
@@ -37,9 +38,5 @@ public class EMPGenerator : IReparable, IDamageable<float>
         _curretHealth = Mathf.Clamp(_curretHealth, 0f, _maxHealth);
         _healthBar.SetHealth(_curretHealth);
     }
-
-    public void TakeDamage(float damage, DispenserData.Type damageType)
-    {
-        TakeDamage(damage);
-    }
+   
 }

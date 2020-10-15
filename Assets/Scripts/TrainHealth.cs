@@ -28,10 +28,10 @@ public class TrainHealth : MonoBehaviour
             healthBar.SetHealth(currentHealth);
         }
 
-        if (IsAlive() == false)
-        {
-            GameManager.Instance.GameOver();
-        }
+        //if (IsAlive() == false)
+        //{
+        //    GameManager.Instance.GameOver();
+        //}
     }
 
     public void Restore()

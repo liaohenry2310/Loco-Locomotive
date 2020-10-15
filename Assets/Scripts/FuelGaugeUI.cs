@@ -17,6 +17,7 @@ public class FuelGaugeUI : MonoBehaviour
         _sliderFuel = GetComponentInChildren<Slider>();
 
         _fuelController = FindObjectOfType<FuelController>();
+
         if (_fuelController)
         {
             _fuelController.OnUpdateFuelUI += UpdateFuelUI;

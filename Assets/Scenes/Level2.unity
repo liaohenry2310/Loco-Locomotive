@@ -2561,6 +2561,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2715148111031832993, guid: 62664212289364342910307177547305,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.97374994
+      objectReference: {fileID: 0}
     - target: {fileID: 4295306171297160079, guid: 62664212289364342910307177547305,
         type: 3}
       propertyPath: ContactFilter2D.layerMask.m_Bits
@@ -2670,6 +2675,11 @@ PrefabInstance:
         type: 3}
       propertyPath: TriggerModule.inside
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433659963341704061, guid: 62664212289364342910307177547305,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9875
       objectReference: {fileID: 0}
     - target: {fileID: 8830211642262153818, guid: 62664212289364342910307177547305,
         type: 3}
