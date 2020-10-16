@@ -41,6 +41,7 @@ public class Train : MonoBehaviour, IDamageable<float>
 
     private void Update()
     {
+        // Check how many player has on the scene to increate the FuelRate
         CurrentFuel(1.0f / _trainData.FuelRate);
     }
 
