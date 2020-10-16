@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class Train : MonoBehaviour, IDamageable<float>
 {
-    #region Members
-
-    [SerializeField] private TrainData _trainData = null;
-
     public event Action<float> OnUpdateHealthUI;  // HealthUI Action
     public event Action<float> OnUpdateFuelUI;    // FuelUI Action
     public event Action<float> OnFuelReloadUI;    // FireBox Action
     public event Action OnGameOver;               // GameManager action
 
-    private Turret[] _listTurrets;
+    #region Members
 
+    [SerializeField] private TrainData _trainData = null;
+    [SerializeField] private FireBox _fireBox = null;
+
+    private Turret[] _listTurrets;
     // Health
     private float _currentHealth = 0f;
-
     // Fuel Controller
     private float _currentFuel = 0f;
     private bool _outOfFuel = false;
@@ -38,12 +37,12 @@ public class Train : MonoBehaviour, IDamageable<float>
 
     private void OnEnable()
     {
-        _trainData.FireBox.OnReloadFuel += ReloadFuel;
+        _fireBox.OnReloadFuel += ReloadFuel;
     }
 
     private void OnDisable()
     {
-        _trainData.FireBox.OnReloadFuel -= ReloadFuel;
+        _fireBox.OnReloadFuel -= ReloadFuel;
     }
 
     private void Update()
