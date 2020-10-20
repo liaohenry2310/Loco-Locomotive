@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour, IDamageable<float>
+public class EnemyHealth : MonoBehaviour, IDamageableType<float>
 {
     // regular type 
     public float health;
@@ -83,7 +84,4 @@ public class EnemyHealth : MonoBehaviour, IDamageable<float>
         }
 
     }
-
-    public void TakeDamage(float damage)
-    {}
 }

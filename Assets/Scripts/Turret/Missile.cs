@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
@@ -71,7 +72,7 @@ public class Missile : MonoBehaviour
         foreach (Collider2D enemy in colliders)
         {
             Debug.Log($"[Collider2D] -- {enemy.gameObject.name}");
-            IDamageable<float> damageable = enemy.GetComponent<EnemyHealth>();
+            IDamageableType<float> damageable = enemy.GetComponent<EnemyHealth>();
             if (damageable == null) return;
             if (!_triggerExplosionOnce)
             {

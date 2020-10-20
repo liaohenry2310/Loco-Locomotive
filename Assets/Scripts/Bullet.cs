@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IDamageable<float> damageable = collision.GetComponent<EnemyHealth>();
+        IDamageableType<float> damageable = collision.GetComponent<EnemyHealth>();
         if (damageable != null)
         {
             damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
