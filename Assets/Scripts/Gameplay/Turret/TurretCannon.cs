@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class TurretCannon : MonoBehaviour
+public class TurretCannon : MonoBehaviour, IInteractable
 {
     [Header("Turret Publics Attr")]
     [SerializeField] private Transform _cannonHandler = null;
@@ -9,9 +11,13 @@ public class TurretCannon : MonoBehaviour
     [SerializeField] private DispenserData.Type ammoType = DispenserData.Type.Normal;
     [SerializeField] private float CannonHandlerSpeed = 55.0f;
 
-    private InputReciever _inputReciever;
+    //TODO: Refactor
+    //private InputReciever _inputReciever;
     private TurretHealth _turretHealth;
     private LineRenderer _laserSight;
+
+    private PlayerV1 _player;
+    private Vector2 _rotation;
 
     #region Weapons set
 
@@ -23,7 +29,7 @@ public class TurretCannon : MonoBehaviour
 
     private void Awake()
     {
-        _ = TryGetComponent(out _inputReciever);
+        //_ = TryGetComponent(out _inputReciever);
         _ = TryGetComponent(out _weaponNormalGun);
         _ = TryGetComponent(out _weaponMissile);
         _ = TryGetComponent(out _weaponLaserBeam);
@@ -48,35 +54,39 @@ public class TurretCannon : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_turretHealth.IsAlive) return;
-        HandlerCannon();
+        //if (!_turretHealth.IsAlive) return;
+        //HandlerCannon();
+        _cannonHandler.Rotate(0f, 0f, -_rotation.x);
     }
 
+    //TODO: Refactoring
     /// <summary>
     ///  Logic to use proper the analogic left sitck from Gamepad.
     ///  Reference:
     /// https://web.archive.org/web/20130418234531/http://www.gamasutra.com/blogs/JoshSutphin/20130416/190541/Doing_Thumbstick_Dead_Zones_Right.php"
     /// </summary>
-    private void UsingGamePad(float deltaTime)
-    {
-        const float deadzone = 0.25f;
-        Vector2 stickInput = new Vector2(_inputReciever.GetHorizontalInput(), _inputReciever.GetVerticalInput());
-        stickInput = (stickInput.magnitude < deadzone) ? Vector2.zero : stickInput.normalized; // * ((stickInput.magnitude - deadzone) / (1f - deadzone));
-        float aimAngle = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
-        Quaternion aimRotation = Quaternion.AngleAxis(aimAngle, _cannonHandler.transform.forward);
+    //private void UsingGamePad(float deltaTime)
+    //{
+    //    const float deadzone = 0.25f;
+    //    Vector2 stickInput = new Vector2(_inputReciever.GetHorizontalInput(), _inputReciever.GetVerticalInput());
+    //    stickInput = (stickInput.magnitude < deadzone) ? Vector2.zero : stickInput.normalized; // * ((stickInput.magnitude - deadzone) / (1f - deadzone));
+    //    float aimAngle = Mathf.Atan2(-stickInput.x, stickInput.y) * Mathf.Rad2Deg;
+    //    Quaternion aimRotation = Quaternion.AngleAxis(aimAngle, _cannonHandler.transform.forward);
 
-        //float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime) * 0.010f;
-        float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime);
-        //_cannonHandler.transform.rotation = Quaternion.Slerp(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
-        _cannonHandler.transform.rotation = Quaternion.RotateTowards(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
-    }
+    //    //float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime) * 0.010f;
+    //    float timeSpeedSlerp = (stickInput.magnitude * CannonHandlerSpeed * deltaTime);
+    //    //_cannonHandler.transform.rotation = Quaternion.Slerp(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
+    //    _cannonHandler.transform.rotation = Quaternion.RotateTowards(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
+    //}
 
     private void HandlerCannon()
     {
         // Setting here either player using or not the gamepad and change the current direction 
         float time = Time.fixedDeltaTime;
-        bool setFire = _inputReciever.GetSecondaryHoldInput();
+        //TODO: Refactoring
+        //bool setFire = _inputReciever.GetSecondaryHoldInput();
 
+        bool setFire = false;
         switch (ammoType)
         {
             case DispenserData.Type.Normal:
@@ -90,7 +100,7 @@ public class TurretCannon : MonoBehaviour
             case DispenserData.Type.LaserBeam:
                 {
                     // only condition to use laser beam cannon time * 0.5f
-                    time *= 0.5f; 
+                    time *= 0.5f;
                     // Calling setFire from Weapon Laser Beam
                     _weaponLaserBeam.SetFire(setFire, _turretHealth.IsAlive);
                     // Update the UI Text Canvas
@@ -121,15 +131,15 @@ public class TurretCannon : MonoBehaviour
         // Disable by default for now
         //_laserSight.gameObject.SetActive(IsUsingLaserSight); 
 
-        if (_inputReciever.IsUsingGamepad)
-        {
-            UsingGamePad(time);
-        }
-        else
-        {
-            float finalSpeed = -_inputReciever.DirectionalInput.x * CannonHandlerSpeed * time;
-            _cannonHandler.transform.Rotate(0.0f, 0.0f, finalSpeed);
-        }
+        //if (_inputReciever.IsUsingGamepad)
+        //{
+        //    UsingGamePad(time);
+        //}
+        //else
+        //{
+        //    float finalSpeed = -_inputReciever.DirectionalInput.x * CannonHandlerSpeed * time;
+        //    _cannonHandler.transform.Rotate(0.0f, 0.0f, finalSpeed);
+        //}
     }
 
     /// <summary>
@@ -207,5 +217,38 @@ public class TurretCannon : MonoBehaviour
             case DispenserData.Type.Railgun: break;
             default: break;
         }
+    }
+
+    private void Fire(bool setFire)
+    {
+        Debug.Log("Fire Fire ...");
+    }
+
+    public void Interact(PlayerV1 player)
+    {
+        _player = player;
+        _player.Interactable = this;
+        _player.SwapActionControlToPlayer(false);
+    }
+
+
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        _rotation = context.action.ReadValue<Vector2>();
+    }
+
+    public void OnDetach(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            _player.SwapActionControlToPlayer(true);
+            _player.Interactable = null;
+        }
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        Fire(context.started);
     }
 }

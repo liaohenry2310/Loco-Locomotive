@@ -8,7 +8,7 @@ public class EnemyLevel : ScriptableObject
     [Serializable]
     public class EnemyIniti
     {
-        public EnemySpawner.EnemyType enemyType =0;
+        //public EnemySpawner.EnemyType enemyType =0;
         public int numOfEnemies =0;
         public float wave_delay = 0;
 

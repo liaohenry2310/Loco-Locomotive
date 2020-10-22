@@ -366,13 +366,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3193508245829201167}
   - component: {fileID: 5484456570076948174}
-  - component: {fileID: 368823916}
   - component: {fileID: 368823915}
   - component: {fileID: 3842135290332426558}
   - component: {fileID: 4905486737238177977}
   - component: {fileID: 2224037934594239160}
   - component: {fileID: 1981862455376678270}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BottonTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,8 +386,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3193508245829201166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.382, z: 0}
-  m_LocalScale: {x: 0.61259747, y: 0.6585423, z: 0.61259747}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0}
   m_Children:
   - {fileID: 3193508246271272651}
   m_Father: {fileID: 3193508244445371704}
@@ -407,7 +406,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.007457316, y: -0.10813165}
+  m_Offset: {x: 0, y: -0.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -418,20 +417,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7804965, y: 0.92286825}
+  m_Size: {x: 0.5, y: 0.9}
   m_EdgeRadius: 0
---- !u!114 &368823916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508245829201166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 270e7490651702644a950c092c9062be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &368823915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,7 +810,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: b82b685842c184d43a1f7ddfadd75bca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

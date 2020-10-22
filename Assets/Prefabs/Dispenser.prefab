@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8423933440595827720}
   - component: {fileID: 4104291619305554482}
   - component: {fileID: 224469411452684929}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Dispenser
   m_TagString: Untagged
   m_Icon: {fileID: 0}

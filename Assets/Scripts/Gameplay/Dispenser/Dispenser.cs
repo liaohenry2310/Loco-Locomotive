@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Dispenser : MonoBehaviour
+public class Dispenser : MonoBehaviour, Interfaces.IInteractable
 {
     [Header("Attributes")]
     [SerializeField] private DispenserItem _dispenserItem = default;
@@ -12,34 +12,38 @@ public class Dispenser : MonoBehaviour
         go.color = _dispenserItem.DispenserColor;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        Player player = collision.GetComponent<Player>();
+    //        if (!player)
+    //        {
+    //            Debug.LogError($"Dispenser {gameObject.name} failed to find player");
+    //            return;
+    //        }
+
+    //        player.SetCurrentDispenser(_dispenserItem);
+    //    }
+    //}
+
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        Player player = collision.GetComponent<Player>();
+    //        if (!player)
+    //        {
+    //            Debug.LogError($"Dispenser {gameObject.name} failed to find player");
+    //            return;
+    //        }
+
+    //        player.SetCurrentDispenser(null);
+    //    }
+    //}
+
+    public void Interact(PlayerV1 player)
     {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            if (!player)
-            {
-                Debug.LogError($"Dispenser {gameObject.name} failed to find player");
-                return;
-            }
-
-            player.SetCurrentDispenser(_dispenserItem);
-        }
+        Debug.Log($"{gameObject.name}");
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            if (!player)
-            {
-                Debug.LogError($"Dispenser {gameObject.name} failed to find player");
-                return;
-            }
-
-            player.SetCurrentDispenser(null);
-        }
-    }
-
 }

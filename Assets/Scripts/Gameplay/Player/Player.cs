@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -87,7 +86,7 @@ public class Player : MonoBehaviour
             if (vertical != 0.0f)
             {
                 mRigidBody.velocity = new Vector2(0.0f, vertical * movementSpeed);
-                transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.GetLadderTopPosition().y + mPlayerHeight * 0.5f));
+                transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + mPlayerHeight * 0.5f));
             }
             else
             {
