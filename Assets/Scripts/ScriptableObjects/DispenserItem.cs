@@ -4,7 +4,7 @@
 public class DispenserItem : ScriptableObject
 {
     [SerializeField] private DispenserData.Type type = DispenserData.Type.None;
-    [SerializeField] private Color color = Color.white;
+    [SerializeField] private Color color = Color.white; 
     [SerializeField] private GameObject itemPrefab = null;
     [SerializeField] private Sprite sp = null;
     [SerializeField] private Sprite Objectsp = null;
