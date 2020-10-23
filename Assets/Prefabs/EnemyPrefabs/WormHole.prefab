@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2504264668946031665}
-  - component: {fileID: 1434378378529473121}
+  - component: {fileID: 6540300251250640421}
   m_Layer: 0
-  m_Name: WormHole
-  m_TagString: Untagged
+  m_Name: Wormhole
+  m_TagString: Wormhole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1434378378529473121
+--- !u!114 &6540300251250640421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,12 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2504264668946031664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9108fbab56ce3b4f969a0c7727d87fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cb1b6bf6913b8e42a4f2dbff1a4eab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wormholeRSpeed: 1
-  wormholeGrowthRate: 2
-  wormholeDuration: 2
+  _spinSpeed: 5
+  _scaleDeltaSpeed: 0.5
 --- !u!1 &5348447137119373392
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "EnemyLevel", menuName = "EnemyLevelInit/Waves")]
+//[CreateAssetMenu(fileName = "EnemyLevel", menuName = "EnemyLevelInit/Waves")]
 public class EnemyLevel : ScriptableObject
 {
     [Serializable]
     public class EnemyIniti
     {
-        public EnemySpawner.EnemyType enemyType =0;
+        public EnemySpawner_old.EnemyType enemyType =0;
         public int numOfEnemies =0;
         public float wave_delay = 0;
 

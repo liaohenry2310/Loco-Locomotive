@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner_old : MonoBehaviour
 {
     public enum EnemyType
     {
@@ -100,7 +100,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject go= Instantiate(wormhole, new Vector3(x,y,0.0f), Quaternion.identity); ;
         go.transform.position = new Vector3(x, y,wormhole.transform.position.z);
 
-        Wormhole wormholeComponent = go.GetComponent<Wormhole>();
+        Wormhole_old wormholeComponent = go.GetComponent<Wormhole_old>();
         wormholeComponent.wormholeDuration = Time.time + enemyInit.wormholeSpawnTime;
         wormholeComponent.wormholeRSpeed = enemyInit.wormholeRotationSpeed;
         wormholeComponent.wormholeGrowthRate =enemyInit.wormholeGrowthRate;

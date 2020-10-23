@@ -15,6 +15,7 @@ TagManager:
   - ShieldArmorEnemy
   - ArmorEnemy
   - Missile
+  - Wormhole
   layers:
   - Default
   - TransparentFX

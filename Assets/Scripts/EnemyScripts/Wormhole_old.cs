@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wormhole : MonoBehaviour
+public class Wormhole_old : MonoBehaviour
 {
 
     public float wormholeRSpeed = 0.0f;
