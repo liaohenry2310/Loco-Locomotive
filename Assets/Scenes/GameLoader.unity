@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 7492620779980578089, guid: 9658cb5415206694ca55c338bc7c3088,
     type: 3}
-  sceneIndexToLoad: 1
+  sceneIndexToLoad: 2
   moduleComponents:
   - {fileID: 1957254521}
 --- !u!4 &1957254520
@@ -274,3 +274,7 @@ MonoBehaviour:
     prefab: {fileID: 1984966083921251406, guid: e4a526c07a77a5742ab2a11ae54e1e87,
       type: 3}
     poolSize: 100
+  - name: Wormhole
+    prefab: {fileID: 2504264668946031664, guid: 8ae6f2ec814cefc40b8069931b22cf61,
+      type: 3}
+    poolSize: 10

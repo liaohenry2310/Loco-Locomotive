@@ -1,16 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "TrainDataObject", menuName = "Train/Train")]
-public class TrainData : ScriptableObject
+public class TrainData : ScriptableObject, ISerializationCallbackReceiver
 {
-    [SerializeField] private float _maxHealth = 1000f;
-    [SerializeField] private float _maxFuel = 2500f;
-    [SerializeField] private float _fuelRate = 4f;
-    [SerializeField] private FireBox _fireBox = null;
+    public float MaxHealth = 2500.0f;
+    public float MaxFuel = 2500.0f;
+    public float FuelRate = 10.0f;
 
-    public float MaxHealth => _maxHealth;
-    public float MaxFuel => _maxFuel;
-    public float FuelRate => _fuelRate;
-    public FireBox FireBox => _fireBox;
+    [NonSerialized] public float CurrentHealth;
+    [NonSerialized] public float CurrentFuel;
 
+    public void OnAfterDeserialize()
+    {
+        CurrentHealth = MaxHealth;
+        CurrentFuel = MaxFuel;
+    }
+
+    public void OnBeforeSerialize()
+    { }
 }

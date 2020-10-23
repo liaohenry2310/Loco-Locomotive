@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
+  _fireBox: {fileID: 5174616094373833238}
 --- !u!224 &333451913 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4023630566684917226, guid: f8906122d17a42e4f8422618c7973008,
