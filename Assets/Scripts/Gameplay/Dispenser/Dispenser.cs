@@ -1,33 +1,40 @@
 ﻿using Interfaces;
+using Items;
 using UnityEngine;
 
-public class Dispenser : MonoBehaviour, Interfaces.IInteractable
+namespace Dispenser
 {
-    [SerializeField] private DispenserItem _dispenserItem;
 
-    private SpriteRenderer _spriteRenderer;
-
-    public Vector3 itemOffset;
-
-    private void Awake()
+    public class Dispenser : MonoBehaviour, IInteractable
     {
-        _ = TryGetComponent(out _spriteRenderer);
-    }
+        [SerializeField] private DispenserItem _dispenserItem;
+        [SerializeField] private Vector3 itemOffset = Vector3.zero;
 
-    private void Start()
-    {
-        _spriteRenderer.sprite = _dispenserItem.DispenserSprite;
-    }
+        private SpriteRenderer _spriteRenderer;
 
-    public void Interact(PlayerV1 player)
-    { 
-        Debug.Log($"{gameObject.name}");
-        if (!player.GetChildCount)
+        private void Awake()
         {
-            GameObject itemGo = Instantiate(_dispenserItem.ItemPerfab, player.transform.position - itemOffset, Quaternion.identity);
-            Item item = itemGo.GetComponent<Item>();
-            item.Setup(ref _dispenserItem);
-            item.Pickup(ref player);
+            if (!TryGetComponent(out _spriteRenderer))
+            {
+                Debug.LogWarning("Fail to load SpriteRenderer component!.");
+            }
+
+        }
+
+        private void Start()
+        {
+            _spriteRenderer.sprite = _dispenserItem.DispenserSprite;
+        }
+
+        public void Interact(PlayerV1 player)
+        {
+            if (!player.GetItem)
+            {
+                GameObject itemGo = Instantiate(_dispenserItem.ItemPerfab, player.transform.position - itemOffset, Quaternion.identity);
+                Item item = itemGo.GetComponent<Item>();
+                item.Setup(ref _dispenserItem);
+                item.Pickup(ref player);
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemIndicator : MonoBehaviour
@@ -10,7 +8,8 @@ public class ItemIndicator : MonoBehaviour
     public Transform text;
     public int targetProcess = 5;
     private float currentAmout = 0;
-    Item item;
+    Items.Item item;
+
     void Update()
     {
         if (currentAmout < targetProcess)

@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Items;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -79,14 +80,13 @@ public class TurretCannon : MonoBehaviour, IInteractable
     //    _cannonHandler.transform.rotation = Quaternion.RotateTowards(_cannonHandler.transform.rotation, aimRotation, timeSpeedSlerp);
     //}
 
-    private void HandlerCannon()
+    private void HandlerCannon(bool setFire)
     {
         // Setting here either player using or not the gamepad and change the current direction 
         float time = Time.fixedDeltaTime;
         //TODO: Refactoring
         //bool setFire = _inputReciever.GetSecondaryHoldInput();
-
-        bool setFire = false;
+        
         switch (ammoType)
         {
             case DispenserData.Type.Normal:
@@ -199,29 +199,22 @@ public class TurretCannon : MonoBehaviour, IInteractable
             case DispenserData.Type.Normal:
                 {
                     _weaponNormalGun.Reload();
-                    Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
                 }
                 break;
             case DispenserData.Type.LaserBeam:
                 {
                     _weaponLaserBeam.Reload();
-                    Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
                 }
                 break;
             case DispenserData.Type.Missile:
                 {
                     _weaponMissile.Reload();
-                    Debug.Log($"[{gameObject.transform.parent.name}] Turret reloaded!");
                 }
                 break;
             case DispenserData.Type.Railgun: break;
             default: break;
         }
-    }
-
-    private void Fire(bool setFire)
-    {
-        Debug.Log("Fire Fire ...");
+        Debug.Log($"Ammo: {ammoType} reloaded!");
     }
 
     public void Interact(PlayerV1 player)
@@ -229,6 +222,14 @@ public class TurretCannon : MonoBehaviour, IInteractable
         _player = player;
         _player.Interactable = this;
         _player.SwapActionControlToPlayer(false);
+
+        Item item = _player.GetItem;
+        if (item)
+        {
+            Reload(item.ItemType);
+            item.DestroyAfterUse();
+        }
+
     }
 
     public void OnRotate(InputAction.CallbackContext context)
@@ -247,8 +248,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
-        Fire(context.started);
+        HandlerCannon(context.started);
     }
 
 }

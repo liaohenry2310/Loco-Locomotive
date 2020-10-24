@@ -135,8 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ec810a95a03f34a9cd9e90cd151cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayOnDestroy: {fileID: 0}
-  boxCollider2D: {fileID: 8489893474380361141}
-  itemOffset: {x: 0, y: 0, z: 0}
+  _itemOffset: {x: 0, y: 0, z: 0}
   itemIndicator: {fileID: 0}
   dropitem: 0

@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Items;
 using Manager;
 using System.Collections;
 using UnityEngine;
@@ -15,7 +16,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private Rigidbody2D _rigidBody;
     private Vector2 _axis = Vector2.zero;
     private float _playerHeight;
-
 
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
@@ -39,10 +39,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
             if (_axis.y != 0.0f)
             {
-                //_rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
-                _rigidBody.MovePosition(new Vector2(LadderController.transform.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
-                //_rigidBody.velocity = new Vector2(0.0f, _axis.y * _speed);
-                //transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.GetLadderTopPosition().y + mPlayerHeight * 0.5f));
+                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
+                //_rigidBody.MovePosition(new Vector2(LadderController.transform.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
+                //_rigidBody.velocity = new Vector2(0.0f, _axis.y * _playerData.Speed);
+                //transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
                 //Vector2 playerUsingLadder =  new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
                 //_rigidBody.MovePosition(playerUsingLadder);
 
@@ -58,16 +58,19 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         }
     }
    
+    /// <summary>
+    /// Initialize all the components and necessary set up 
+    /// </summary>
     public void Initialized()
     {
         if (!TryGetComponent(out _playerInput))
         {
-            Debug.LogWarning($"Fail to load Player Input component!.");
+            Debug.LogWarning("Fail to load Player Input component!.");
         }
 
         if (!TryGetComponent(out _rigidBody))
         {
-            Debug.LogWarning($"Fail to load RigidBody component!.");
+            Debug.LogWarning("Fail to load RigidBody component!.");
         }
 
         _healthBar = GetComponentInChildren<Visuals.HealthBar>();
@@ -151,7 +154,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
         if (colliders.Length == 0)
         {
-            Item item = GetChildCount;
+            Item item = GetItem;
             if(item)
             {
                 item.DropItem();
@@ -171,17 +174,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         // when press input secondary
     }
 
-    public void SwapActionControlToPlayer(bool isPlayer)
-    {
-        if (isPlayer)
-        {
-            _playerInput.SwitchCurrentActionMap("Input");
-        }
-        else
-        {
-            _playerInput.SwitchCurrentActionMap("Turret");
-        }
-    }
+    public void SwapActionControlToPlayer(bool isPlayer) => _playerInput.SwitchCurrentActionMap(isPlayer ? "Input" : "Turret");
 
     public void TakeDamage(float damage)
     {
@@ -217,6 +210,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         transform.position = RespawnPoint;
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
     }
-    public Item GetChildCount => GetComponentInChildren<Item>();
+
+    public Item GetItem => GetComponentInChildren<Item>();
 
 }

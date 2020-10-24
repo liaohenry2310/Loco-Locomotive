@@ -1,37 +1,18 @@
-﻿using System;
+﻿using Interfaces;
+using System;
 using UnityEngine;
 
-public class FireBox : MonoBehaviour
+public class FireBox : MonoBehaviour, IInteractable
 {
     public event Action OnReloadFuel;
 
-    public void AddFuel()
+    public void Interact(PlayerV1 player)
     {
-        OnReloadFuel?.Invoke();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        if (player.GetItem.ItemType == DispenserData.Type.Fuel)
         {
-            Player player = collision.GetComponent<Player>();
-            // safety first.
-            if (player)
-            {
-                player.fireBox = this;
-            }
-            else
-            {
-                // log error.
-            }
+            OnReloadFuel?.Invoke();
+            player.GetItem.DestroyAfterUse();
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            player.fireBox = null;
-        }
-    }
+   
 }
