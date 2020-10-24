@@ -19,8 +19,6 @@ public class LevelManager : MonoBehaviour
     public Text textCountDown;
     #endregion
 
-
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -97,4 +95,13 @@ public class LevelManager : MonoBehaviour
         //GameWinPanel.GetComponentInChildren<Button>().Select();
     }
 
+    public void LoadNextLevel()
+    {
+        gameManager.LoadNextLevel();
+    }
+
+    public void ReturnToMainMenu()
+    {
+        gameManager.ReturnToMainMenu();
+    }
 }
