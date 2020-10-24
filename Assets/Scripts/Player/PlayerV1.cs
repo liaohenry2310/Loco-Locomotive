@@ -33,14 +33,14 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     {
         // make movement
         _rigidBody.MovePosition(new Vector2(transform.position.x + (_axis.x * _playerData.Speed * Time.fixedDeltaTime), _rigidBody.position.y));
-
         if (LadderController)
         {
             _rigidBody.gravityScale = 0.0f;
 
             if (_axis.y != 0.0f)
             {
-                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
+                //_rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
+                _rigidBody.MovePosition(new Vector2(LadderController.transform.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
                 //_rigidBody.velocity = new Vector2(0.0f, _axis.y * _speed);
                 //transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.GetLadderTopPosition().y + mPlayerHeight * 0.5f));
                 //Vector2 playerUsingLadder =  new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
@@ -57,7 +57,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             _rigidBody.gravityScale = _playerData.Gravity;
         }
     }
-
+   
     public void Initialized()
     {
         if (!TryGetComponent(out _playerInput))
@@ -82,7 +82,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void OnDirectional(InputAction.CallbackContext context)
     {
-        _axis = context.action.ReadValue<Vector2>();
+        _axis = context.ReadValue<Vector2>();
     }
 
     public void OnPrimary(InputAction.CallbackContext context)

@@ -28,11 +28,11 @@ public class LadderController : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            PlayerV1 player = collision.GetComponent<PlayerV1>();
-            player.LadderController = this;
+            PlayerV1 _player = collision.GetComponent<PlayerV1>();
+            _player.LadderController = this;
             foreach (BoxCollider2D floor in _passbleFloors)
             {
-                Physics2D.IgnoreCollision(player.GetComponent<CapsuleCollider2D>(), floor, true);
+                Physics2D.IgnoreCollision(_player.GetComponent<CapsuleCollider2D>(), floor, true);
             }
         }
     }
@@ -46,11 +46,11 @@ public class LadderController : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            PlayerV1 player = collision.GetComponent<PlayerV1>();
-            player.LadderController = null;
+            PlayerV1 _player = collision.GetComponent<PlayerV1>();
+            _player.LadderController = null;
             foreach (BoxCollider2D floor in _passbleFloors)
             {
-                Physics2D.IgnoreCollision(player.GetComponent<CapsuleCollider2D>(), floor, false);
+                Physics2D.IgnoreCollision(_player.GetComponent<CapsuleCollider2D>(), floor, false);
             }
         }
     }

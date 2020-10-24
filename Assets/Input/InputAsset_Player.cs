@@ -20,9 +20,9 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Directional"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""6cc00bd9-8d2b-46ad-a57c-1c79b4c7ed75"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -32,7 +32,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""id"": ""445d21e0-c89f-4967-a307-0712ba942eca"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Secondary"",
@@ -40,7 +40,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                     ""id"": ""025f2fdd-1ec9-4db1-8df1-6538b8be16a5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
