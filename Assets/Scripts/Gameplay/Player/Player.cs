@@ -135,7 +135,6 @@ public class Player : MonoBehaviour
 
         //    if (dispenserObject != null)
         //    {
-
         //        _currentItem.DispenserType = dispenserObject.ObjectType;
         //        _currentItem.DispenserColor = dispenserObject.ObjectColor;
         //        _currentItem.Objectsprite = dispenserObject.Objectsprite;

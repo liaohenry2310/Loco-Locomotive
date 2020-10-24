@@ -151,7 +151,11 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
         if (colliders.Length == 0)
         {
-            // Drop item
+            Item item = GetChildCount;
+            if(item)
+            {
+                item.DropItem();
+            }
         }
     }
 
@@ -213,5 +217,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         transform.position = RespawnPoint;
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
     }
+    public Item GetChildCount => GetComponentInChildren<Item>();
 
 }

@@ -10,7 +10,7 @@ public class ItemIndicator : MonoBehaviour
     public Transform text;
     public int targetProcess = 5;
     private float currentAmout = 0;
-
+    Item item;
     void Update()
     {
         if (currentAmout < targetProcess)

@@ -3,23 +3,19 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractable
 {
-    [SerializeField] private DestroyOnDelay _delayOnDestroy = null;
-
     public DispenserData.Type Type { get; set; } = DispenserData.Type.None;
 
     public BoxCollider2D boxCollider2D = null;
-    public SpriteRenderer _spriteRenderer = null;
+    private SpriteRenderer _spriteRenderer = null;
 
     public Vector3 itemOffset;
 
     public ItemIndicator itemIndicator;
+    public bool dropitem = false;
 
-    public void StartDestructionTimer()
+    private void Awake()
     {
-        if (_delayOnDestroy)
-        {
-            _delayOnDestroy.BeginTimer();
-        }
+        _ = TryGetComponent(out _spriteRenderer);
     }
 
     public void Setup(ref DispenserItem dispenserItem)
@@ -28,8 +24,9 @@ public class Item : MonoBehaviour, IInteractable
         Type = dispenserItem.Type;
     }
 
-    public void Pickup(ref Player player)
+    public void Pickup(ref PlayerV1 player)
     {
+        dropitem = false;
         transform.SetParent(player.transform);
         transform.position += itemOffset;
         boxCollider2D.enabled = false;
@@ -37,17 +34,17 @@ public class Item : MonoBehaviour, IInteractable
 
     public void DropItem()
     {
+        dropitem = true;
         boxCollider2D.enabled = true;
         transform.SetParent(null);
     }
 
-    public void Interact(Player player)
+    public void Interact(PlayerV1 player)
     {
         Pickup(ref player);
     }
 
-    public void OnBecameInvisible()
-    {
-        Destroy(this.gameObject);
-    }
+
+
+
 }
