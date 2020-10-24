@@ -231,10 +231,9 @@ public class TurretCannon : MonoBehaviour, IInteractable
         _player.SwapActionControlToPlayer(false);
     }
 
-
     public void OnRotate(InputAction.CallbackContext context)
     {
-        _rotation = context.action.ReadValue<Vector2>();
+        _rotation = context.ReadValue<Vector2>();
     }
 
     public void OnDetach(InputAction.CallbackContext context)
@@ -251,4 +250,5 @@ public class TurretCannon : MonoBehaviour, IInteractable
         if (!context.performed) return;
         Fire(context.started);
     }
+
 }

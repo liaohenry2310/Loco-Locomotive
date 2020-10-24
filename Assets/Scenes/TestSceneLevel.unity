@@ -511,12 +511,12 @@ PrefabInstance:
     - target: {fileID: 3282630171284024497, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.92
+      value: 0.881
       objectReference: {fileID: 0}
     - target: {fileID: 3282630171284024497, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.612
+      value: -7.443
       objectReference: {fileID: 0}
     - target: {fileID: 3622356640219717585, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
@@ -546,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 4794171080225180022, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.478
+      value: 0.449
       objectReference: {fileID: 0}
     - target: {fileID: 4794171080659679623, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
@@ -578,10 +578,15 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6390608808084324991, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.023
+      objectReference: {fileID: 0}
     - target: {fileID: 6390608808930308680, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.424
+      value: -0.414
       objectReference: {fileID: 0}
     - target: {fileID: 7918420693472243166, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
@@ -667,6 +672,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072009113009911207, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.756
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072009113009911207, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.089
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6613131770427b4788c7b479b96f323, type: 3}
