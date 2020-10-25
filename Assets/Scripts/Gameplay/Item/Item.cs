@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour, IInteractable
 {
@@ -11,13 +12,27 @@ public class Item : MonoBehaviour, IInteractable
     public Vector3 itemOffset;
 
     public ItemIndicator itemIndicator;
-    public bool dropitem = false;
-
+    public float count = 5.0f;
     private void Awake()
     {
         _ = TryGetComponent(out _spriteRenderer);
     }
+    private void Update()
+    {
+        if (boxCollider2D.enabled == true)
+        {
+            count -= Time.deltaTime;
+            if (count <= 0.0f)
+            {
+                Destroy(gameObject);
+            }
 
+        }
+        else
+        {
+            count = 5.0f;
+        }
+    }
     public void Setup(ref DispenserItem dispenserItem)
     {
         _spriteRenderer.sprite = dispenserItem.ItemSprite;
@@ -26,7 +41,6 @@ public class Item : MonoBehaviour, IInteractable
 
     public void Pickup(ref PlayerV1 player)
     {
-        dropitem = false;
         transform.SetParent(player.transform);
         transform.position += itemOffset;
         boxCollider2D.enabled = false;
@@ -34,7 +48,6 @@ public class Item : MonoBehaviour, IInteractable
 
     public void DropItem()
     {
-        dropitem = true;
         boxCollider2D.enabled = true;
         transform.SetParent(null);
     }
@@ -43,8 +56,4 @@ public class Item : MonoBehaviour, IInteractable
     {
         Pickup(ref player);
     }
-
-
-
-
 }
