@@ -15,7 +15,6 @@ public class BasicEnemy : MonoBehaviour
     private Transform _topRightBound;
     private Transform _botLeftBound;
     private List<Vector2> _targetPositions;
-    private EnemySpawner _spawnerbound;
     private float _currentHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
 
@@ -25,12 +24,12 @@ public class BasicEnemy : MonoBehaviour
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
-    public void SetNewData()// List<Vector2> targetPositions)
+    public void SetNewData(Transform topRight, Transform bottomLeft)
     {
         //Reset all relevant gameplay data so it can be used again when recieved by the object pooler.
 
-        _topRightBound = _spawnerbound.TopRight;
-        _botLeftBound = _spawnerbound.BottomLeft;
+        _topRightBound = topRight;
+        _botLeftBound = bottomLeft;
         //_targetPositions = targetPositions;
         _currentHealth = enemyData.MaxHealth;
 

@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
         x = UnityEngine.Random.Range(TopRight.position.x, BottomLeft.position.x);
         y = UnityEngine.Random.Range(TopRight.position.y, BottomLeft.position.y);
         GameObject _wormhole = _objectPoolManager.GetObjectFromPool("Wormhole");
-        _wormhole.gameObject.GetComponent<Wormhole>().SetInitData(wave);
+        _wormhole.gameObject.GetComponent<Wormhole>().SetInitData(wave,TopRight,BottomLeft);
         _wormhole.transform.position = new Vector3(x, y, _wormhole.transform.position.z);
         //_wormhole = Instantiate(_wormhole, new Vector3(x, y, 0.0f), Quaternion.identity);
         _wormhole.SetActive(true);

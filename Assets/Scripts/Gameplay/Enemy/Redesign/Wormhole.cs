@@ -14,21 +14,27 @@ public class Wormhole : MonoBehaviour
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
 
+    private Transform _topright;
+    private Transform _bottomLeft;
+
     //private void Start()
     //{
     //    _screenBounds = GameManager.GetScreenBounds;
     //}
-    private void Awake()
-    {
-        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-    }
+    //private void Awake()
+    //{
+    //    _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+    //}
 
-    public void SetInitData(EnemyWaveData.EnemyWave wave)
+    public void SetInitData(EnemyWaveData.EnemyWave wave, Transform topRight, Transform bottomLeft )
     {
         _waveData = wave;
         _maxScale = wave.WormholeSize;
         _currentScale = 0.0f;
         _spawnedEnemy = false;
+        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        _topright = topRight;
+        _bottomLeft = bottomLeft;
     }
 
     void Update()
@@ -76,7 +82,7 @@ public class Wormhole : MonoBehaviour
             case EnemyWaveData.EnemyType.Basic:
                 {
                     GameObject _enemyType = _objectPoolManager.GetObjectFromPool("BasicEnemy");
-                    _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData();// (null);
+                    _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);// (null);
                     _enemyType.transform.position = new Vector3(transform.position.x,transform.position.y,transform.localPosition.z);
                     _enemyType.SetActive(true);
                         break;
@@ -87,9 +93,11 @@ public class Wormhole : MonoBehaviour
             default:
                 break;
         }
-           //Pick a random spot inside the wormhole.
-           //Spawn the desired enemy prefab, from the object pool, at the random spot.
-       }
+
+            //Pick a random spot inside the wormhole.
+            //Spawn the desired enemy prefab, from the object pool, at the random spot.
+        }
+            _spawnedEnemy = false;
     }
 
 
