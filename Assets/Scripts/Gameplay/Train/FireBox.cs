@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Items;
 using System;
 using UnityEngine;
 
@@ -8,11 +9,12 @@ public class FireBox : MonoBehaviour, IInteractable
 
     public void Interact(PlayerV1 player)
     {
-        if (player.GetItem.ItemType == DispenserData.Type.Fuel)
+        Item item = player.GetItem;
+        if (item != null && item.ItemType == DispenserData.Type.Fuel)
         {
             OnReloadFuel?.Invoke();
-            player.GetItem.DestroyAfterUse();
+            item.DestroyAfterUse();
         }
     }
-   
+
 }
