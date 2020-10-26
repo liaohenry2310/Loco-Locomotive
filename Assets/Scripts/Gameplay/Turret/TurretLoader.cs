@@ -11,20 +11,21 @@ public class TurretLoader : MonoBehaviour
         OnReloadTurret?.Invoke(type);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            player.turretLoader = this;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            player.turretLoader = null;
-        }
-    }
+    //TODO: Refactor
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        Player player = collision.GetComponent<Player>();
+    //        player.turretLoader = this;
+    //    }
+    //}
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        Player player = collision.GetComponent<Player>();
+    //        player.turretLoader = null;
+    //    }
+    //}
 }
