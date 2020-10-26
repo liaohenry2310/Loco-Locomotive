@@ -104,4 +104,8 @@ public class LevelManager : MonoBehaviour
     {
         gameManager.ReturnToMainMenu();
     }
+    public void LoadScene(int sceneIndex)
+    {
+        gameManager.LoadScene(sceneIndex);
+    }
 }

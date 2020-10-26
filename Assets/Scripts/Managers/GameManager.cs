@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 public class GameManager : MonoBehaviour
 {
-    public GameObject LevelSelectPanel;
-    private GameObject mTrain;
 
 
     //Properties
     static public GameManager Instance { get; private set; }
+
+    private int level;
 
     public static Vector3 GetScreenBounds
     {
@@ -34,8 +30,13 @@ public class GameManager : MonoBehaviour
             Instance = this;
            // DontDestroyOnLoad(gameObject); // nao precisa disso
         }
+    }
 
-        SceneManager.sceneLoaded += (scene, mode) => SceneLoaded();
+    public void Update()
+    {
+        level = SceneManager.GetActiveScene().buildIndex;
+        PlayerPrefs.SetInt("Level", level);
+        Debug.Log(level);
     }
 
     public void Restart()//Restart the game 
@@ -43,11 +44,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-
-
     public void LoadNextLevel()
     {
-
         if (SceneManager.GetActiveScene().buildIndex - 1 < SceneManager.sceneCountInBuildSettings)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
@@ -56,10 +54,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    public void LoadLevelScreen()//Level Select menu
-    {
-        SceneManager.LoadScene(2);
-    }
 
     public void QuitGame()//Quit the game 
     {
@@ -67,9 +61,23 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    void SceneLoaded()
+    public void LoadScene(int sceneIndex)
     {
-        Time.timeScale = 1.0f;
-        mTrain = GameObject.Find("Train");
+        SceneManager.LoadScene(sceneIndex);
     }
+
+    public string GetLevelNames()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+
+    public int LevelCompleted()
+    {
+        if (SceneManager.GetActiveScene().buildIndex >2)
+            return SceneManager.GetActiveScene().buildIndex - 1;
+        else
+            return 2;
+    }
+
+
 }
