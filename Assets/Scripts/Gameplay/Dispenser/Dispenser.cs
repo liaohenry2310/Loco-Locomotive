@@ -1,45 +1,33 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
-public class Dispenser : MonoBehaviour
+public class Dispenser : MonoBehaviour, Interfaces.IInteractable
 {
-    [Header("Attributes")]
-    [SerializeField] private DispenserItem _dispenserItem = default;
+    [SerializeField] private DispenserItem _dispenserItem;
+
+    private SpriteRenderer _spriteRenderer;
+
+    public Vector3 itemOffset;
+
+    private void Awake()
+    {
+        _ = TryGetComponent(out _spriteRenderer);
+    }
 
     private void Start()
     {
-        SpriteRenderer go = GetComponentInChildren<SpriteRenderer>();
-        go.sprite = _dispenserItem.sprite;
-        go.color = _dispenserItem.DispenserColor;
+        _spriteRenderer.sprite = _dispenserItem.DispenserSprite;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+    public void Interact(PlayerV1 player)
+    { 
+        Debug.Log($"{gameObject.name}");
+        if (!player.GetChildCount)
         {
-            Player player = collision.GetComponent<Player>();
-            if (!player)
-            {
-                Debug.LogError($"Dispenser {gameObject.name} failed to find player");
-                return;
-            }
-
-            player.SetCurrentDispenser(_dispenserItem);
+            GameObject itemGo = Instantiate(_dispenserItem.ItemPerfab, player.transform.position - itemOffset, Quaternion.identity);
+            Item item = itemGo.GetComponent<Item>();
+            item.Setup(ref _dispenserItem);
+            item.Pickup(ref player);
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Player player = collision.GetComponent<Player>();
-            if (!player)
-            {
-                Debug.LogError($"Dispenser {gameObject.name} failed to find player");
-                return;
-            }
-
-            player.SetCurrentDispenser(null);
-        }
-    }
-
 }

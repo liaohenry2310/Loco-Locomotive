@@ -14,11 +14,11 @@ public static class DispenserData
     }
 }
 
-public class DispenserItemData
-{
-    public DispenserData.Type itemType;
-    public Color itemColor = Color.white;
-    public GameObject itemPrefab = null;
-    public Sprite sprite = null;
-    public Sprite Objectsprite = null;
-}
+//public class DispenserItemData
+//{
+//    public DispenserData.Type itemType;
+//    //public Color itemColor = Color.white; //->don't need anymore
+//    public GameObject itemPrefab = null;
+//    public Sprite sprite = null;
+//    public Sprite Objectsprite = null;
+//}

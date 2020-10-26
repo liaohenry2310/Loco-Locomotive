@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
 public class InputReciever : MonoBehaviour
 {
     private PlayerInput mPlayerInput;

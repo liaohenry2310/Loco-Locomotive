@@ -274,3 +274,7 @@ MonoBehaviour:
     prefab: {fileID: 1984966083921251406, guid: e4a526c07a77a5742ab2a11ae54e1e87,
       type: 3}
     poolSize: 100
+  - name: Wormhole
+    prefab: {fileID: 2504264668946031664, guid: 8ae6f2ec814cefc40b8069931b22cf61,
+      type: 3}
+    poolSize: 10

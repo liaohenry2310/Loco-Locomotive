@@ -63,6 +63,7 @@ public class BasicEnemyProjectile : MonoBehaviour
         }
 
 
+        // Every Object implement IDamageable get damage calling TakeDamage(damage)
         IDamageable<float> damageable = collision.GetComponentInParent<IDamageable<float>>();
         if (damageable != null)
         {
@@ -70,12 +71,12 @@ public class BasicEnemyProjectile : MonoBehaviour
         }
 
 
-        if (collision.gameObject.GetComponentInParent<TrainHealth>())
-        {
-            collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
-            //Debug.Log("basic doing damage to train");
-            gameObject.SetActive(false);
-        }
+        //if (collision.gameObject.GetComponentInParent<TrainHealth>())
+        //{
+        //    collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
+        //    //Debug.Log("basic doing damage to train");
+        //    gameObject.SetActive(false);
+        //}
 
         if (collision.gameObject.GetComponent<TurretHealth>())
         {

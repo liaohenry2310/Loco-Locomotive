@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// I will delete this script in the FUTURE.
+/// Cyro.
+/// </summary>
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
