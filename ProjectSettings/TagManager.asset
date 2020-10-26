@@ -6,7 +6,6 @@ TagManager:
   tags:
   - PassableFloor
   - Bullet
-  - Enemy
   - Turret
   - FrontWagon
   - DispenserObject
@@ -16,6 +15,7 @@ TagManager:
   - ArmorEnemy
   - Missile
   - Wormhole
+  - BasicEnemy
   layers:
   - Default
   - TransparentFX

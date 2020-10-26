@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         if (playerInput.TryGetComponent(out PlayerController controller))
         {
             mPlayerControllers.Add(controller);
-            FindObjectOfType<TitleMenuControl>()?.UpdatePlayerStatus(mPlayerControllers.Count - 1, playerInput.currentControlScheme);
+           // FindObjectOfType<TitleMenuControl>()?.UpdatePlayerStatus(mPlayerControllers.Count - 1, playerInput.currentControlScheme);
 
             //Spawns player avatar if player joins late into the level. (SHOULD ONLY BE USED FOR TESTING)
             if (playersSpawned)
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     {
         int index = mPlayerControllers.IndexOf(playerInput.GetComponent<PlayerController>());
         mPlayerControllers.RemoveAt(index);
-        FindObjectOfType<TitleMenuControl>()?.UpdatePlayerStatus(index, null);
+        //FindObjectOfType<TitleMenuControl>()?.UpdatePlayerStatus(index, null);
     }
 
     void SpawnPlayers()

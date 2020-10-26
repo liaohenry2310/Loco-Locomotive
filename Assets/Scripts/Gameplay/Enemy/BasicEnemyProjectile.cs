@@ -70,9 +70,9 @@ public class BasicEnemyProjectile : MonoBehaviour
         }
 
 
-        if (collision.gameObject.GetComponentInParent<TrainHealth>())
+        if (collision.gameObject.GetComponentInParent<Train>())
         {
-            collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
+            collision.gameObject.GetComponentInParent<Train>().TakeDamage(damage);
             //Debug.Log("basic doing damage to train");
             gameObject.SetActive(false);
         }

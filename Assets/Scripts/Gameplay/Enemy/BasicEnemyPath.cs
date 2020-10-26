@@ -28,8 +28,8 @@ public class BasicEnemyPath : MonoBehaviour
         }
         TowardNextPoint();
 
-        speed = GetComponent<BasicEnemy>().speed;
-        maxSpeed = GetComponent<BasicEnemy>().maxSpeed;
+        speed = GetComponent<BasicEnemy_old>().speed;
+        maxSpeed = GetComponent<BasicEnemy_old>().maxSpeed;
     }
 
     // Update is called once per frame

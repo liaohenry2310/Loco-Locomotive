@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if ((Time.time > _nextWaveTime) )
+        if ((Time.time > _nextWaveTime) && _curretWaveIndex < enemyWaves.waveData.Count )
           //  && _curretWaveIndex<=enemyWaves.waveData.Count())
         {
             var wave = enemyWaves.waveData[_curretWaveIndex++];

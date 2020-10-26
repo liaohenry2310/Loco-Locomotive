@@ -11,14 +11,13 @@ public class Wormhole : MonoBehaviour
     private float _currentScale = 0.0f;
     private float _maxScale = 1.0f;
     private bool _spawnedEnemy = false;
-
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
 
-    private void Start()
-    {
-        _screenBounds = GameManager.GetScreenBounds;
-    }
+    //private void Start()
+    //{
+    //    _screenBounds = GameManager.GetScreenBounds;
+    //}
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
@@ -43,7 +42,10 @@ public class Wormhole : MonoBehaviour
             transform.localScale += new Vector3(transform.localScale.x, transform.localScale.y, 1f) * Time.deltaTime;//*_scaleDeltaSpeed*_spinSpeed ;
             _currentScale = transform.localScale.x;
 
-            //transform.localScale.y += _scaleDeltaSpeed * Time.deltatime;
+            if (_currentScale >= _maxScale/2)
+            {
+                _spawnedEnemy = true;
+            }
         }
         else   {
             transform.Rotate(0.0f, 0.0f, _spinSpeed);
@@ -53,6 +55,10 @@ public class Wormhole : MonoBehaviour
                 RecycleWormhole();
             }
         }
+        if (_spawnedEnemy)
+        {
+           SpawnEnemies();
+        }
 
 
 
@@ -60,11 +66,30 @@ public class Wormhole : MonoBehaviour
 
     void SpawnEnemies()
     {
-       // for (int i = 0; i < _waveData.NumToSpawn; ++i)
-       // {
-       //     //Pick a random spot inside the wormhole.
-       //     //Spawn the desired enemy prefab, from the object pool, at the random spot.
-       // }
+
+        for (int i = 0; i < _waveData.NumToSpawn; ++i)
+       {
+            
+        //GameObject _enemyType;
+        switch (_waveData.EnemyType)
+        {
+            case EnemyWaveData.EnemyType.Basic:
+                {
+                    GameObject _enemyType = _objectPoolManager.GetObjectFromPool("BasicEnemy");
+                    _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData();// (null);
+                    _enemyType.transform.position = new Vector3(transform.position.x,transform.position.y,transform.localPosition.z);
+                    _enemyType.SetActive(true);
+                        break;
+                }
+            case EnemyWaveData.EnemyType.Swarm:
+                //_enemyType = _objectPoolManager.GetObjectFromPool("SwarmEnemy");
+                break;
+            default:
+                break;
+        }
+           //Pick a random spot inside the wormhole.
+           //Spawn the desired enemy prefab, from the object pool, at the random spot.
+       }
     }
 
 
