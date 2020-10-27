@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using GamePlay;
+using Interfaces;
 using System;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class Train : MonoBehaviour, IDamageable<float>
 
     [SerializeField] private TrainData _trainData = null;
     [SerializeField] private FireBox _fireBox = null;
+
+    public uint PlayerCount { get; set; } = 1;
 
     private Turret[] _listTurrets;
     private bool _outOfFuel = false;
@@ -42,7 +45,7 @@ public class Train : MonoBehaviour, IDamageable<float>
     private void Update()
     {
         // Check how many player has on the scene to increate the FuelRate
-        CurrentFuel(1.0f / _trainData.FuelRate);
+        CurrentFuel(PlayerCount / _trainData.FuelRate);
     }
 
     private void ReloadFuel()

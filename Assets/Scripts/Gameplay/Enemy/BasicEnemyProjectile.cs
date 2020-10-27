@@ -63,12 +63,12 @@ public class BasicEnemyProjectile : MonoBehaviour
         }
 
 
+        // Every Object implement IDamageable get damage calling TakeDamage(damage)
         IDamageable<float> damageable = collision.GetComponentInParent<IDamageable<float>>();
         if (damageable != null)
         {
             damageable.TakeDamage(damage);
         }
-
 
         if (collision.gameObject.GetComponentInParent<Train>())
         {

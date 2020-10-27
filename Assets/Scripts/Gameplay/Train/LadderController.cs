@@ -3,14 +3,9 @@ using UnityEngine;
 
 public class LadderController : MonoBehaviour
 {
-    private Player player;
-    private Vector2 ladderTopPosition;
-    private List<BoxCollider2D> passbleFloors = new List<BoxCollider2D>();
+    public Vector2 LadderTopPosition { get; private set; } = Vector2.zero;
 
-    public Vector2 GetLadderTopPosition()
-    {
-        return ladderTopPosition;
-    }
+    private readonly List<BoxCollider2D> _passbleFloors = new List<BoxCollider2D>();
 
     private void Start()
     {
@@ -19,7 +14,7 @@ public class LadderController : MonoBehaviour
         {
             if (transform.gameObject.name == "LadderTop")
             {
-                ladderTopPosition = transform.position;
+                LadderTopPosition = transform.position;
             }
         }
     }
@@ -28,16 +23,16 @@ public class LadderController : MonoBehaviour
     {
         if (collision.CompareTag("PassableFloor"))
         {
-            passbleFloors.Add(collision.GetComponent<BoxCollider2D>());
+            _passbleFloors.Add(collision.GetComponent<BoxCollider2D>());
         }
 
         if (collision.CompareTag("Player"))
         {
-            player = collision.GetComponent<Player>();
-            player.LadderController = this;
-            foreach (BoxCollider2D floor in passbleFloors)
+            PlayerV1 _player = collision.GetComponent<PlayerV1>();
+            _player.LadderController = this;
+            foreach (BoxCollider2D floor in _passbleFloors)
             {
-                Physics2D.IgnoreCollision(player.GetComponent<CapsuleCollider2D>(), floor, true);
+                Physics2D.IgnoreCollision(_player.GetComponent<CapsuleCollider2D>(), floor, true);
             }
         }
     }
@@ -46,16 +41,16 @@ public class LadderController : MonoBehaviour
     {
         if (collision.CompareTag("PassableFloor"))
         {
-            passbleFloors.Remove(collision.GetComponent<BoxCollider2D>());
+            _passbleFloors.Remove(collision.GetComponent<BoxCollider2D>());
         }
 
         if (collision.CompareTag("Player"))
         {
-            player = collision.GetComponent<Player>();
-            player.LadderController = null;
-            foreach (BoxCollider2D floor in passbleFloors)
+            PlayerV1 _player = collision.GetComponent<PlayerV1>();
+            _player.LadderController = null;
+            foreach (BoxCollider2D floor in _passbleFloors)
             {
-                Physics2D.IgnoreCollision(player.GetComponent<CapsuleCollider2D>(), floor, false);
+                Physics2D.IgnoreCollision(_player.GetComponent<CapsuleCollider2D>(), floor, false);
             }
         }
     }

@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 7492620779980578089, guid: 9658cb5415206694ca55c338bc7c3088,
     type: 3}
-  sceneIndexToLoad: 3
+  sceneIndexToLoad: 1
   moduleComponents:
   - {fileID: 1957254521}
 --- !u!4 &1957254520

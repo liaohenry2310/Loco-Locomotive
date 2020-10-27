@@ -38,6 +38,7 @@ public class RiderEnemy : Enemy
     // Pos. 
     private Vector3 currentPos;
     public Train trainHealth;
+
     private Vector2 mColliderSize;
 
     //// Check Gound
@@ -128,10 +129,12 @@ public class RiderEnemy : Enemy
                 }
 
                 // " ? " < -- Ternary operator  " if not currentTarget not equal the first script , then go to the second one . "
+
                 if (currentTarget?.GetComponent<TurretHealth>()?.IsAlive == false)// || currentTarget?.GetComponentInParent<Train>()?.IsAlive() == false )
                 {
                     currentTarget = null;
                 }
+                
                 if (currentTarget == null)
                 {
                     mCurrentState = State.OnTrain;
@@ -211,6 +214,7 @@ public class RiderEnemy : Enemy
                         currentTarget = target;
                     }
                 }
+
             }
         }
 

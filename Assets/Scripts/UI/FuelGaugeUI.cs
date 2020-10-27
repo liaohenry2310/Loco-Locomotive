@@ -2,6 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
 public class FuelGaugeUI : MonoBehaviour
 {
 
@@ -15,9 +21,7 @@ public class FuelGaugeUI : MonoBehaviour
     private void Awake()
     {
         _sliderFuel = GetComponentInChildren<Slider>();
-
-      //  _fuelController = FindObjectOfType<FuelController>();
-
+       //_fuelController = FindObjectOfType<FuelController>();
         //if (_fuelController)
         //{
         //    _fuelController.OnUpdateFuelUI += UpdateFuelUI;
