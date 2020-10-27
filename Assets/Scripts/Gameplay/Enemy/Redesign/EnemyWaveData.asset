@@ -18,7 +18,3 @@ MonoBehaviour:
     NumToSpawn: 5
     TimeDelay: 0
     WormholeSize: 2
-  - EnemyType: 0
-    NumToSpawn: 10
-    TimeDelay: 5
-    WormholeSize: 2
