@@ -1,10 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Scenes/EnemySpawner.unity.meta
-guid: 335a0967fdfa7f647b35a78f51080b51
-=======
 guid: c3944e593bc2935499a8e6ae8661f84c
 folderAsset: yes
->>>>>>> develop:Assets/Scripts/Player.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

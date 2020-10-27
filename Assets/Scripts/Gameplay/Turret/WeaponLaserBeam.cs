@@ -18,11 +18,11 @@ public class WeaponLaserBeam : MonoBehaviour
     public void SetFire(bool isTrigger, bool turretIsAlive = true)
     {
         // when trigger game over or turret is dead, disable the line renderer
-        if (GameManager.Instance.IsGameOver || !turretIsAlive)
-        {
-            _LaserBeam.enabled = false;
-            return;
-        }
+        //if (GameManager.Instance.IsGameOver || !turretIsAlive)
+        //{
+        //    _LaserBeam.enabled = false;
+        //    return;
+        //}
 
         if (isTrigger && CurrentAmmo > 0f)
         {

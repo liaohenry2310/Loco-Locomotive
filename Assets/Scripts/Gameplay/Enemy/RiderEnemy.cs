@@ -37,7 +37,8 @@ public class RiderEnemy : Enemy
 
     // Pos. 
     private Vector3 currentPos;
-  //  public TrainHealth trainHealth;
+    public Train trainHealth;
+
     private Vector2 mColliderSize;
 
     //// Check Gound
@@ -123,17 +124,17 @@ public class RiderEnemy : Enemy
                 }
                 if (currentTarget != null && currentTarget.gameObject.tag == "FrontWagon")
                 {
-                  //  currentTarget.GetComponentInParent<TrainHealth>().TakeDamage(10.0f);
+                    currentTarget.GetComponentInParent<Train>().TakeDamage(10.0f);
                     Debug.Log("FrontWagon taking damage");
                 }
 
                 // " ? " < -- Ternary operator  " if not currentTarget not equal the first script , then go to the second one . "
 
-                //TODO: Falar com Kairus sobre essa logica dele.
-                //if (currentTarget?.GetComponent<TurretHealth>()?.IsAlive == false || currentTarget?.GetComponentInParent<TrainHealth>()?.IsAlive() == false )
-                //{
-                //    currentTarget = null;
-                //}
+                if (currentTarget?.GetComponent<TurretHealth>()?.IsAlive == false)// || currentTarget?.GetComponentInParent<Train>()?.IsAlive() == false )
+                {
+                    currentTarget = null;
+                }
+                
                 if (currentTarget == null)
                 {
                     mCurrentState = State.OnTrain;
@@ -202,17 +203,18 @@ public class RiderEnemy : Enemy
         {
             if (target != null)
             {
-                //TODO: Falar com Kairus sobre essa logica q ele fez.
-                //if (target.GetComponent<TurretHealth>()?.IsAlive == true || (target.GetComponent<TurretHealth>() == null && target.GetComponentInParent<TrainHealth>()?.IsAlive() == true))
-                //{
 
-                //    if (Vector2.Distance(transform.position, target.transform.position) < distance)
-                //    {
-                //        targetPos = (target.transform.position);
-                //        distance = Vector2.Distance(transform.position, target.transform.position);
-                //        currentTarget = target;
-                //    }
-                //}
+                if (target.GetComponent<TurretHealth>()?.IsAlive == true || (target.GetComponent<TurretHealth>() == null))// && target.GetComponentInParent<Train>()?.IsAlive() == true))
+                {
+
+                    if (Vector2.Distance(transform.position, target.transform.position) < distance)
+                    {
+                        targetPos = (target.transform.position);
+                        distance = Vector2.Distance(transform.position, target.transform.position);
+                        currentTarget = target;
+                    }
+                }
+
             }
         }
 

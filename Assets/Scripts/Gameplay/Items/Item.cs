@@ -1,6 +1,5 @@
 ﻿using Interfaces;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Items
 {
@@ -16,6 +15,7 @@ namespace Items
 
         private SpriteRenderer _spriteRenderer = null;
         private BoxCollider2D _collider = null;
+        private float _count = 5.0f;
 
         private void Awake()
         {
@@ -32,10 +32,10 @@ namespace Items
         
          private void Update()
          {
-        if (boxCollider2D.enabled == true)
+        if (_collider.enabled == true)
         {
-            count -= Time.deltaTime;
-            if (count <= 0.0f)
+            _count -= Time.deltaTime;
+            if (_count <= 0.0f)
             {
                 Destroy(gameObject);
             }
@@ -43,7 +43,7 @@ namespace Items
         }
         else
         {
-            count = 5.0f;
+            _count = 5.0f;
         }
     }
 

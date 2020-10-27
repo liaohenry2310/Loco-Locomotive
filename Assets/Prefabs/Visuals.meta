@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Scripts/Gameplay/Enemy/Behaviors.meta
-guid: 26e2b71f615f3dd48815fffe7b2a0789
-=======
 guid: a2fb02d5e39da3d4cbedc388229c8341
->>>>>>> develop:Assets/Prefabs/Visuals.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

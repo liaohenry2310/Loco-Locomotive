@@ -70,13 +70,12 @@ public class BasicEnemyProjectile : MonoBehaviour
             damageable.TakeDamage(damage);
         }
 
-
-        //if (collision.gameObject.GetComponentInParent<TrainHealth>())
-        //{
-        //    collision.gameObject.GetComponentInParent<TrainHealth>().TakeDamage(damage);
-        //    //Debug.Log("basic doing damage to train");
-        //    gameObject.SetActive(false);
-        //}
+        if (collision.gameObject.GetComponentInParent<Train>())
+        {
+            collision.gameObject.GetComponentInParent<Train>().TakeDamage(damage);
+            //Debug.Log("basic doing damage to train");
+            gameObject.SetActive(false);
+        }
 
         if (collision.gameObject.GetComponent<TurretHealth>())
         {
