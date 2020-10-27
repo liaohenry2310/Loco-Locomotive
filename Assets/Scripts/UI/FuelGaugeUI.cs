@@ -16,14 +16,12 @@ public class FuelGaugeUI : MonoBehaviour
     private float _updateSpeedSeconds = 0.5f;
 
     private Slider _sliderFuel;
-   // private FuelController _fuelController;
+    //private FuelController _fuelController;
 
     private void Awake()
     {
         _sliderFuel = GetComponentInChildren<Slider>();
-
-       // _fuelController = FindObjectOfType<FuelController>();
-
+       //_fuelController = FindObjectOfType<FuelController>();
         //if (_fuelController)
         //{
         //    _fuelController.OnUpdateFuelUI += UpdateFuelUI;
