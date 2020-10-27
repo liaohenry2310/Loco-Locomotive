@@ -1,35 +1,26 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
-public class TurretRepair : MonoBehaviour
+public class TurretRepair : MonoBehaviour, IInteractable
 {
-    private TurretHealth turretHealth;
+    private TurretHealth _turretHealth;
 
     private void Start()
     {
-        _ = TryGetComponent(out turretHealth);
-    }
-
-    public void Repair()
-    {
-        turretHealth.RepairTurret();
-        Debug.Log("[TurretRepair] Repair complete!");
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        if (!TryGetComponent(out _turretHealth))
         {
-            Player player = collision.GetComponent<Player>();
-            player.turretRepair = this;
+            Debug.LogWarning("Fail to load Turret Repair component!.");
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void Interact(PlayerV1 player)
     {
-        if (collision.CompareTag("Player"))
+        if (player.GetItem.ItemType == DispenserData.Type.RepairKit)
         {
-            Player player = collision.GetComponent<Player>();
-            player.turretRepair = null;
+            _turretHealth.RepairTurret();
+            player.GetItem.DestroyAfterUse();
+            Debug.Log("Repair complete!");
         }
     }
+
 }

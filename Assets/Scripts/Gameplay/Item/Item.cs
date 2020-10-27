@@ -2,23 +2,36 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour, IInteractable
+namespace Items
 {
-    public DispenserData.Type Type { get; set; } = DispenserData.Type.None;
 
-    public BoxCollider2D boxCollider2D = null;
-    private SpriteRenderer _spriteRenderer = null;
-
-    public Vector3 itemOffset;
-
-    public ItemIndicator itemIndicator;
-    public float count = 5.0f;
-    private void Awake()
+    public class Item : MonoBehaviour, IInteractable
     {
-        _ = TryGetComponent(out _spriteRenderer);
-    }
-    private void Update()
-    {
+        [SerializeField] private Vector3 _itemOffset = Vector3.zero;
+        public DispenserData.Type ItemType { get; set; } = DispenserData.Type.None;
+
+        public ItemIndicator itemIndicator;
+
+        public bool dropitem = false;
+
+        private SpriteRenderer _spriteRenderer = null;
+        private BoxCollider2D _collider = null;
+
+        private void Awake()
+        {
+            if (!TryGetComponent(out _spriteRenderer))
+            {
+                Debug.LogWarning("Fail to load SpriteRenderer component!.");
+            }
+
+            if (!TryGetComponent(out _collider))
+            {
+                Debug.LogWarning("Fail to load BoxCollider2D component!.");
+            }
+        }
+        
+         private void Update()
+         {
         if (boxCollider2D.enabled == true)
         {
             count -= Time.deltaTime;
@@ -33,27 +46,37 @@ public class Item : MonoBehaviour, IInteractable
             count = 5.0f;
         }
     }
-    public void Setup(ref DispenserItem dispenserItem)
-    {
-        _spriteRenderer.sprite = dispenserItem.ItemSprite;
-        Type = dispenserItem.Type;
+
+        public void Setup(ref DispenserItem dispenserItem)
+        {
+            _spriteRenderer.sprite = dispenserItem.ItemSprite;
+            ItemType = dispenserItem.Type;
+        }
+
+        public void Pickup(ref PlayerV1 player)
+        {
+            dropitem = false;
+            transform.SetParent(player.transform);
+            transform.position += _itemOffset;
+            _collider.enabled = false;
+        }
+
+        public void DropItem()
+        {
+            dropitem = true;
+            _collider.enabled = true;
+            transform.SetParent(null);
+        }
+
+        public void Interact(PlayerV1 player)
+        {
+            Pickup(ref player);
+        }
+
+        public void DestroyAfterUse()
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void Pickup(ref PlayerV1 player)
-    {
-        transform.SetParent(player.transform);
-        transform.position += itemOffset;
-        boxCollider2D.enabled = false;
-    }
-
-    public void DropItem()
-    {
-        boxCollider2D.enabled = true;
-        transform.SetParent(null);
-    }
-
-    public void Interact(PlayerV1 player)
-    {
-        Pickup(ref player);
-    }
 }
