@@ -1,45 +1,40 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using Items;
+using UnityEngine;
 
-public class Dispenser : MonoBehaviour
+namespace Dispenser
 {
-    [Header("Attributes")]
-    [SerializeField] private DispenserItem _dispenserItem = default;
 
-    private void Start()
+    public class Dispenser : MonoBehaviour, IInteractable
     {
-        SpriteRenderer go = GetComponentInChildren<SpriteRenderer>();
-        go.sprite = _dispenserItem.sprite;
-        go.color = _dispenserItem.DispenserColor;
-    }
+        [SerializeField] private DispenserItem _dispenserItem;
+        [SerializeField] private Vector3 itemOffset = Vector3.zero;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        private SpriteRenderer _spriteRenderer;
+
+        private void Awake()
         {
-            Player player = collision.GetComponent<Player>();
-            if (!player)
+            if (!TryGetComponent(out _spriteRenderer))
             {
-                Debug.LogError($"Dispenser {gameObject.name} failed to find player");
-                return;
+                Debug.LogWarning("Fail to load SpriteRenderer component!.");
             }
 
-            player.SetCurrentDispenser(_dispenserItem);
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        private void Start()
         {
-            Player player = collision.GetComponent<Player>();
-            if (!player)
-            {
-                Debug.LogError($"Dispenser {gameObject.name} failed to find player");
-                return;
-            }
+            _spriteRenderer.sprite = _dispenserItem.DispenserSprite;
+        }
 
-            player.SetCurrentDispenser(null);
+        public void Interact(PlayerV1 player)
+        {
+            if (!player.GetItem)
+            {
+                GameObject itemGo = Instantiate(_dispenserItem.ItemPerfab, player.transform.position - itemOffset, Quaternion.identity);
+                Item item = itemGo.GetComponent<Item>();
+                item.Setup(ref _dispenserItem);
+                item.Pickup(ref player);
+            }
         }
     }
-
 }
