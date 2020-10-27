@@ -55,7 +55,7 @@ public class BasicEnemy : MonoBehaviour
         //_acceleration += WanderBehavior.Calculate(gameobject, weight);
         _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 1.0f),enemyData.WanderBehaviorWeight);
         //_acceleration += WallAvoidance.Calculate(gameobject, weight);
-        _acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(this.transform, _botLeftBound.localPosition.x, _topRightBound.localPosition.x, _topRightBound.localPosition.y,_botLeftBound.localPosition.y),enemyData.WallAvoidWeight));
+        _acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
         _velocity += _acceleration * Time.deltaTime;
 
         if (  _velocity.magnitude > enemyData.MaxSpeed)

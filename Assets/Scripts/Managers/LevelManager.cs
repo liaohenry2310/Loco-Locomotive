@@ -61,7 +61,7 @@ public class LevelManager : MonoBehaviour
     {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60f);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60f);
-        textCountDown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        //textCountDown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void PauseTimer()

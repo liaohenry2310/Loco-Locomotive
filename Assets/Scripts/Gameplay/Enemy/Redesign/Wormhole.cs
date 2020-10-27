@@ -85,7 +85,7 @@ public class Wormhole : MonoBehaviour
                     _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);// (null);
                     _enemyType.transform.position = new Vector3(transform.position.x,transform.position.y,transform.localPosition.z);
                     _enemyType.SetActive(true);
-                        break;
+                    break;
                 }
             case EnemyWaveData.EnemyType.Swarm:
                 //_enemyType = _objectPoolManager.GetObjectFromPool("SwarmEnemy");
