@@ -1,8 +1,10 @@
 ﻿using Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Items
 {
+
     public class Item : MonoBehaviour, IInteractable
     {
         [SerializeField] private Vector3 _itemOffset = Vector3.zero;
@@ -27,6 +29,23 @@ namespace Items
                 Debug.LogWarning("Fail to load BoxCollider2D component!.");
             }
         }
+        
+         private void Update()
+         {
+        if (boxCollider2D.enabled == true)
+        {
+            count -= Time.deltaTime;
+            if (count <= 0.0f)
+            {
+                Destroy(gameObject);
+            }
+
+        }
+        else
+        {
+            count = 5.0f;
+        }
+    }
 
         public void Setup(ref DispenserItem dispenserItem)
         {
