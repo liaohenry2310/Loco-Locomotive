@@ -14,8 +14,11 @@ public class LevelManager : MonoBehaviour
 
     #region Timer
     [Header("Timer")]
-    [SerializeField] private float timeRemaining = 300.0f;
-    [SerializeField] private bool timerIsRunning = false;
+
+    public float time = 300.0f;
+    private bool timerIsRunning = false;
+    public float timeRemaining = 0.0f;
+
     public Text textCountDown;
     #endregion
 
@@ -33,6 +36,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
+        timeRemaining = time;
         timerIsRunning = true;
     }
 
