@@ -19,6 +19,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
 
     private PlayerV1 _player;
     private Vector2 _rotation;
+    private bool _holdFire = false;
 
     #region Weapons set
 
@@ -34,10 +35,6 @@ public class TurretCannon : MonoBehaviour, IInteractable
         _ = TryGetComponent(out _weaponNormalGun);
         _ = TryGetComponent(out _weaponMissile);
         _ = TryGetComponent(out _weaponLaserBeam);
-        //{
-        //    // Pensar em um jeito de fazer com Action delegates
-        //    //_weaponLaserBeam.OnTurretIsAlive += _turretHealth.IsAlive;
-        //}
 
         _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
@@ -58,6 +55,11 @@ public class TurretCannon : MonoBehaviour, IInteractable
         //if (!_turretHealth.IsAlive) return;
         //HandlerCannon();
         _cannonHandler.Rotate(0f, 0f, -_rotation.x);
+
+        if (_holdFire)
+        {
+            HandlerCannon(true);
+        }
     }
 
     //TODO: Refactoring
@@ -86,7 +88,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
         float time = Time.fixedDeltaTime;
         //TODO: Refactoring
         //bool setFire = _inputReciever.GetSecondaryHoldInput();
-        
+
         switch (ammoType)
         {
             case DispenserData.Type.Normal:
@@ -248,7 +250,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        HandlerCannon(context.started);
+        _holdFire = context.ReadValue<float>() >= 0.9f;
     }
 
 }
