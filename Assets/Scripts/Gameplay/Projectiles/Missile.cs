@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    [SerializeField] private MissileData _missileData = default;
+    //[SerializeField] private MissileData _missileData = default;
+    //[SerializeField] private LayerMask _layerEnemyMask = default;
+    [SerializeField] private TurretData _turretData = default;
     [SerializeField] private ParticleSystem _explosionParticle = default;
-    [SerializeField] private LayerMask _layerEnemyMask = default;
 
     private Vector3 _screenBounds;
     private float _currentSpeed = 0.0f;
@@ -23,12 +24,10 @@ public class Missile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _currentSpeed += Mathf.Lerp(_missileData.MinSpeed, _missileData.MaxSpeed, _missileData.Acceleration * Time.fixedDeltaTime);
-        _currentSpeed = Mathf.Clamp(_currentSpeed, _missileData.MinSpeed, _missileData.MaxSpeed);
+        _currentSpeed += Mathf.Lerp(_turretData.missileGun.minSpeed , _turretData.missileGun.maxSpeed, _turretData.missileGun.acceleration * Time.fixedDeltaTime);
+        _currentSpeed = Mathf.Clamp(_currentSpeed, _turretData.missileGun.minSpeed, _turretData.missileGun.maxSpeed);
         transform.Translate(transform.up * Time.fixedDeltaTime * _currentSpeed, Space.World);
-        // bck
-        //transform.position += transform.up * (_missileData.MoveSpeed * Time.deltaTime);
-
+        
         // set activated false prefabs when touch the camera bounds
         if ((transform.position.x >= _screenBounds.x) ||
             (transform.position.x <= -_screenBounds.x) ||
@@ -42,13 +41,7 @@ public class Missile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // TODO: Somente teste
-        // IDamageable<float> damageable = collision.GetComponentInParent<EnemyHealth>();
-        //if (damageable == null) return;
-        //damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
-
-
-        //TODO: arrumar isso poista ta uma bosta
+        //TODO: arrumar isso pois ta uma bosta
         // Usando o pool
         //explosion = _objectPoolManager.GetObjectFromPool("MissileExplosion");
         //if (!explosion)
@@ -61,17 +54,17 @@ public class Missile : MonoBehaviour
         //ParticleSystem p =  explosion.GetComponent<ParticleSystem>();
         //p.Play();
 
-        //TODO: testar isso tb
+        //TODO: Test here
         MissileExplostion(collision);
     }
 
     private void MissileExplostion(Collider2D collision)
     {
         bool _triggerExplosionOnce = false;
-        var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, _missileData.RadiusEffect, _layerEnemyMask);
+        var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, _turretData.missileGun.radiusEffect, _turretData.missileGun.enemyLayerMask);
         foreach (Collider2D enemy in colliders)
         {
-            Debug.Log($"[Collider2D] -- {enemy.gameObject.name}");
+            Debug.Log($"[Collider2D] -- MissileExplostion -- {enemy.gameObject.name}");
             IDamageableType<float> damageable = enemy.GetComponent<EnemyHealth>();
             if (damageable == null) return;
             if (!_triggerExplosionOnce)
@@ -82,7 +75,7 @@ public class Missile : MonoBehaviour
                 _triggerExplosionOnce = true;
             }
 
-            damageable.TakeDamage(_missileData.Damage, _missileData.Type);
+            damageable.TakeDamage(_turretData.missileGun.damage, DispenserData.Type.Missile);
         }
         if (colliders.Length == 0) return;
         RecycleBullet();
@@ -92,10 +85,10 @@ public class Missile : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(gameObject.transform.position, _missileData.RadiusEffect);
+        Gizmos.DrawSphere(gameObject.transform.position, _turretData.missileGun.radiusEffect);
 
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(gameObject.transform.position, _missileData.RadiusEffect);
+        Gizmos.DrawWireSphere(gameObject.transform.position, _turretData.missileGun.radiusEffect);
     }
 
 

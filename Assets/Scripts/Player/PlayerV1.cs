@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Turret;
+using Interfaces;
 using Items;
 using Manager;
 using System.Collections;
@@ -15,7 +16,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private PlayerInput _playerInput;
     private Rigidbody2D _rigidBody;
     private Vector2 _axis = Vector2.zero;
-    private float _playerHeight;
+    //private float _playerHeight;
 
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
@@ -57,7 +58,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             _rigidBody.gravityScale = _playerData.Gravity;
         }
     }
-   
+
     /// <summary>
     /// Initialize all the components and necessary set up 
     /// </summary>
@@ -78,7 +79,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         _healthBar.SetUp(_healthSystem);
         _healthBar.SetBarVisible(false); // Player start with HealthBar invisible
 
-        _playerHeight = GetComponent<CapsuleCollider2D>().size.y;
+       // _playerHeight = GetComponent<CapsuleCollider2D>().size.y;
     }
 
     #region Player InputAction 
@@ -110,9 +111,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void OnRotate(InputAction.CallbackContext context)
     {
-        // For now I will use TurretCannon, 
-        // I will change for Turret
-        TurretCannon turret = (TurretCannon)Interactable;
+        TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
         {
             turret.OnRotate(context);
@@ -121,7 +120,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void OnDetach(InputAction.CallbackContext context)
     {
-        TurretCannon turret = (TurretCannon)Interactable;
+        TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
         {
             turret.OnDetach(context);
@@ -130,7 +129,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        TurretCannon turret = (TurretCannon)Interactable;
+        TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
         {
             turret.OnFire(context);
@@ -155,7 +154,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         if (colliders.Length == 0)
         {
             Item item = GetItem;
-            if(item)
+            if (item)
             {
                 item.DropItem();
             }

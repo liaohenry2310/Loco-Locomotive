@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MissileDataObject
   m_EditorClassIdentifier: 
   _damage: 100
-  _minSpeed: 0.5
+  _minSpeed: 0.3
   _maxSpeed: 6
   _acceleration: 0.05
   _radiusEffect: 1

@@ -1,15 +1,19 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
 public class TurretLoader : MonoBehaviour
 {
 
-    public event Action<DispenserData.Type> OnReloadTurret;
+    //public event Action<DispenserData.Type> OnReloadTurret;
 
-    public void Reloadammo(DispenserData.Type type)
-    {
-        OnReloadTurret?.Invoke(type);
-    }
+    //public void Reloadammo(DispenserData.Type type)
+    //{
+    //    OnReloadTurret?.Invoke(type);
+    //}
 
     //TODO: Refactor
     //private void OnTriggerEnter2D(Collider2D collision)

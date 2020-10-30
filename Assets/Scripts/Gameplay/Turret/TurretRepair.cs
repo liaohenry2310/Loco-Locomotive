@@ -1,7 +1,12 @@
 ﻿using Interfaces;
 using UnityEngine;
 
-public class TurretRepair : MonoBehaviour, IInteractable
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
+public class TurretRepair : MonoBehaviour
 {
     private TurretHealth _turretHealth;
 

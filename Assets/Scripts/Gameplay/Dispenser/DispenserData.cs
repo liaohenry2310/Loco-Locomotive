@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public static class DispenserData
+﻿public static class DispenserData
 {
     public enum Type
     {
@@ -8,7 +6,6 @@ public static class DispenserData
         Normal,
         LaserBeam,
         Missile,
-        Railgun,
         RepairKit,
         Fuel,
     }
