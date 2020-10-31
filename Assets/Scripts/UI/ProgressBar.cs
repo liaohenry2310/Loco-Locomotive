@@ -3,21 +3,17 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     public GameObject miniTrain;
-    public Slider slider;
+    public GameObject Progressbar;
+    public float scaleX = 0;
     private LevelManager levelManager;
-    private float endPos;
-    private Vector3 startPos;
+
     void Start()
     {
         levelManager = LevelManager.Instance;
-        startPos = miniTrain.transform.position;
-        endPos = slider.GetComponent<RectTransform>().sizeDelta.x;
-
     }
 
     void Update()
     {
-        slider.value = 1-levelManager.timeRemaining / levelManager.time;
-        miniTrain.transform.position = startPos + new Vector3(slider.value * 12.8f, 0.0f);
+        miniTrain.transform.position += new Vector3((scaleX / levelManager.time)*Time.deltaTime, 0,0);
     }
 }
