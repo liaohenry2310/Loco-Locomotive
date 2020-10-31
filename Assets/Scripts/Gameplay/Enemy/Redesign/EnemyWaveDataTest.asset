@@ -10,11 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2c99089c966da048ad7229a1c175075, type: 3}
-  m_Name: EnemyWaveData
+  m_Name: EnemyWaveDataTest
   m_EditorClassIdentifier: 
   enemyPrefabs: []
   waveData:
   - EnemyType: 0
-    NumToSpawn: 5
-    TimeDelay: 0
+    NumToSpawn: 1
+    NextWaveTimeDelay: 0
+    WormholeSize: 2
+  - EnemyType: 0
+    NumToSpawn: 1
+    NextWaveTimeDelay: 2
+    WormholeSize: 2
+  - EnemyType: 0
+    NumToSpawn: 2
+    NextWaveTimeDelay: 2
+    WormholeSize: 2
+  - EnemyType: 0
+    NumToSpawn: 1
+    NextWaveTimeDelay: 3
     WormholeSize: 2

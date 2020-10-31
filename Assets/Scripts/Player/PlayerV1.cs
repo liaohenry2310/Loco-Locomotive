@@ -21,6 +21,8 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
     private HealthSystem _healthSystem;
+    public bool takeDamge;
+    public bool death;
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
@@ -177,11 +179,13 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void TakeDamage(float damage)
     {
+        takeDamge = true;
         _healthSystem.Damage(damage);
         _healthBar.SetBarVisible(true);
         // --- When Player is dead
         if (_healthSystem.Health < 0.1f)
         {
+            death = true;
             StartCoroutine(Respawn());
         }
         else
@@ -192,6 +196,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private IEnumerator StartRegeneration()
     {
+        takeDamge = false;
         yield return new WaitForSeconds(3.0f);
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
         yield return new WaitForSeconds(1.0f);
@@ -200,6 +205,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private IEnumerator Respawn()
     {
+        death =false;
         SpriteRenderer localSprite = GetComponent<SpriteRenderer>();
         localSprite.enabled = false;
         _healthBar.SetBarVisible(false);

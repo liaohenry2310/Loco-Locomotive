@@ -30,9 +30,9 @@ public class EnemyWaveData : ScriptableObject
     {
         public EnemyType EnemyType=0;
         public int NumToSpawn=0;
-        public float TimeDelay=0.0f;
+        public float NextWaveTimeDelay=0.0f;
         public float WormholeSize=0.0f;
     }
 
-    public List<EnemyWave> waveData = new List<EnemyWave>();
+    public List<EnemyWave> waveData  = new List<EnemyWave>();
 }
