@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
 public class TurretCannon : MonoBehaviour, IInteractable
 {
     [Header("Turret Publics Attr")]
@@ -39,10 +44,10 @@ public class TurretCannon : MonoBehaviour, IInteractable
         _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
         _laserSight.gameObject.SetActive(false);  // Disable by default for now
-        if (TryGetComponent<TurretLoader>(out var turretLoader))
-        {
-            turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
-        }
+        //if (TryGetComponent<TurretLoader>(out var turretLoader))
+        //{
+        //    turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
+        //}
     }
 
     void Start()
@@ -115,13 +120,6 @@ public class TurretCannon : MonoBehaviour, IInteractable
                     _weaponMissile.SetFire(setFire);
                     // Update the UI Text Canvas
                     AmmoText.text = $"{_weaponMissile.CurrentAmmo}";
-                }
-                break;
-            case DispenserData.Type.Railgun:
-                {
-                    //TODO: Testing area
-                    // goes to back log
-                    //Railgun(setFire);
                 }
                 break;
             case DispenserData.Type.RepairKit:
@@ -213,7 +211,6 @@ public class TurretCannon : MonoBehaviour, IInteractable
                     _weaponMissile.Reload();
                 }
                 break;
-            case DispenserData.Type.Railgun: break;
             default: break;
         }
         Debug.Log($"Ammo: {ammoType} reloaded!");

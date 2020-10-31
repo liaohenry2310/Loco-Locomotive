@@ -19,6 +19,8 @@ namespace Manager
 
         public float HealthPercentage => Health / MaxHealth;
 
+        public bool IsAlive => Health >= 0.0f;
+
         public void Damage(float damage)
         {
             Health -= damage;
@@ -30,6 +32,12 @@ namespace Manager
         {
             Health += restoreAmount;
             Health = Mathf.Clamp(Health, 0.0f, MaxHealth);
+            OnUpdateHealthUI?.Invoke();
+        }
+
+        public void RestoreFullHealth()
+        {
+            Health = MaxHealth;
             OnUpdateHealthUI?.Invoke();
         }
 

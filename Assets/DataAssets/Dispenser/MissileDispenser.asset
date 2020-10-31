@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 202b481ce62e3bf4285a7706de1f1e11, type: 3}
-  m_Name: FuelDispenser
+  m_Name: MissileDispenser
   m_EditorClassIdentifier: 
-  _type: 6
+  _type: 3
   _itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
     type: 3}
-  _dispenserSprite: {fileID: 21300000, guid: b87f0d8d8fcc37a4b8bac26890e02213, type: 3}
-  _itemSprite: {fileID: 21300000, guid: 942c93fdd822a1549ac0e4e4676242e8, type: 3}
+  _dispenserSprite: {fileID: 21300000, guid: fedc155f3da356c46b22fe49e0eb759a, type: 3}
+  _itemSprite: {fileID: 21300000, guid: d48625867a455b149b37e9420276e6fa, type: 3}

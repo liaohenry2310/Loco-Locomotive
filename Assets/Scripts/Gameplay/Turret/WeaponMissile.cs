@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
 public class WeaponMissile : MonoBehaviour
 {
     [SerializeField] private Transform _cannonFirePoint = default;

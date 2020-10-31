@@ -1,4 +1,4 @@
-﻿using GamePlay;
+﻿using Turret;
 using Interfaces;
 using System;
 using UnityEngine;
@@ -17,14 +17,14 @@ public class Train : MonoBehaviour, IDamageable<float>
 
     public uint PlayerCount { get; set; } = 1;
 
-    private Turret[] _listTurrets;
+    private TurretBase[] _listTurrets;
     private bool _outOfFuel = false;
 
     #endregion
 
     public void Initialized()
     {
-        _listTurrets = GetComponentsInChildren<Turret>();
+        _listTurrets = GetComponentsInChildren<TurretBase>();
     }
 
     private void Start()
@@ -72,7 +72,7 @@ public class Train : MonoBehaviour, IDamageable<float>
         }
     }
 
-    public Turret[] GetTurrets() => _listTurrets;
+    public TurretBase[] GetTurrets() => _listTurrets;
 
     public void TakeDamage(float damage)
     {

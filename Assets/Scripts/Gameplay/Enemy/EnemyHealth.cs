@@ -74,7 +74,7 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
     }
     void ArmorLogic(float takingDamage, DispenserData.Type damageType)
     {
-        if (!GetComponentInChildren<EnemyArmorHealth>().ArmorIsActive() || damageType == DispenserData.Type.Railgun)
+        if (!GetComponentInChildren<EnemyArmorHealth>().ArmorIsActive())
         {
             HpLogic(takingDamage, damageType);
         }

@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     {
         level = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("Level", level);
-        Debug.Log(level);
     }
 
     public void Restart()//Restart the game 

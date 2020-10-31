@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private AmmoData _ammoData = default;
+    [SerializeField] private TurretData _turretData = null;
 
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
@@ -15,18 +15,15 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_ammoData.MoveSpeed != 0f)
-        {
-            transform.position += transform.up * (_ammoData.MoveSpeed * Time.fixedDeltaTime);
+        transform.position += transform.up * (_turretData.machineGun.moveSpeed * Time.fixedDeltaTime);
 
-            // set activated false prefabs when touch the camera bounds
-            if ((transform.position.x >= _screenBounds.x) ||
-                (transform.position.x <= -_screenBounds.x) ||
-                (transform.position.y >= _screenBounds.y) ||
-                (transform.position.y <= -_screenBounds.y))
-            {
-                RecycleBullet();
-            }
+        // set activated false prefabs when touch the camera bounds
+        if ((transform.position.x >= _screenBounds.x) ||
+            (transform.position.x <= -_screenBounds.x) ||
+            (transform.position.y >= _screenBounds.y) ||
+            (transform.position.y <= -_screenBounds.y))
+        {
+            RecycleBullet();
         }
     }
 
@@ -35,7 +32,7 @@ public class Bullet : MonoBehaviour
         IDamageableType<float> damageable = collision.GetComponent<EnemyHealth>();
         if (damageable != null)
         {
-            damageable.TakeDamage(_ammoData.Damage, _ammoData.Type);
+            damageable.TakeDamage(_turretData.machineGun.damage, DispenserData.Type.Normal);
         }
         RecycleBullet();
     }
