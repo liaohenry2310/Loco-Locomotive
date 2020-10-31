@@ -223,7 +223,7 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 {
                     ""name"": ""LeftStick"",
                     ""id"": ""fe5b3647-e9db-48c1-87ff-bd854758d8a2"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -299,9 +299,9 @@ public class @InputAsset_Player : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Fire"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""88f7cad3-21d1-40ee-9b1c-34899c0d0fe4"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 }
