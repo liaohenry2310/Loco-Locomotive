@@ -246,6 +246,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 5100564358170567625, guid: b54694906f3d545448d1a7b78da1f686,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5100564358170567626, guid: b54694906f3d545448d1a7b78da1f686,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -395,7 +400,7 @@ PrefabInstance:
     - target: {fileID: 4023630566684917226, guid: f8906122d17a42e4f8422618c7973008,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -451
+      value: -296
       objectReference: {fileID: 0}
     - target: {fileID: 4023630566684917226, guid: f8906122d17a42e4f8422618c7973008,
         type: 3}
@@ -722,6 +727,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611681462046201257, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611681462046201257, guid: b6613131770427b4788c7b479b96f323,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2742741167315219512, guid: b6613131770427b4788c7b479b96f323,
         type: 3}
@@ -1236,6 +1251,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e2c0e5ee69122240bd2874cba6ce9be, type: 3}
+--- !u!1 &2089046580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8422186562061083480, guid: b6613131770427b4788c7b479b96f323,
+    type: 3}
+  m_PrefabInstance: {fileID: 569645841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2089046585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089046580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d580217122acf344aa6fed092b0906ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
+  Audio: {fileID: 0}
+  steam: {fileID: 0}
+  rhythm: 0.3
 --- !u!1001 &2146501740
 PrefabInstance:
   m_ObjectHideFlags: 0
