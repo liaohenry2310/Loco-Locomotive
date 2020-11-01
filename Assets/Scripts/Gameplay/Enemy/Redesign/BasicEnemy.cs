@@ -7,7 +7,7 @@ public class BasicEnemy : MonoBehaviour
     //call target dir from list.
 
     public BasicEnemyData enemyData;
-
+    Train train;
 
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
@@ -27,10 +27,8 @@ public class BasicEnemy : MonoBehaviour
     public void SetNewData(Transform topRight, Transform bottomLeft)
     {
         //Reset all relevant gameplay data so it can be used again when recieved by the object pooler.
-
         _topRightBound = topRight;
         _botLeftBound = bottomLeft;
-        //_targetPositions = targetPositions;
         _currentHealth = enemyData.MaxHealth;
 
 
@@ -66,23 +64,27 @@ public class BasicEnemy : MonoBehaviour
 
         transform.position += _velocity * Time.deltaTime;
 
+
         //Shooting
-        //if (_nextAttackTime < Time.time)
-        //{
-        //    _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
-        //
-        //    int targetIndex = Random.Range(0, _targetPositions.Count - 1);
-        //    Vector3 targetPos = _targetPositions[targetIndex];
-        //    Vector3 bulletDir = targetPos - transform.position;
-        //    bulletDir.Normalize();
-        //
-        //    bulletDir = Quaternion.Euler(0.0f, 0.0f, Random.Range(-15.0f, 15.0f)) * bulletDir; //Randomize the direction of the bullet a small bit.
-        //
-        //    //Get the bullet from the object pool.
-        //    // Set the bullet's direction to bulletDir;
-        //    // Set the bullet's position to transform.position;
-        //    // Enable the bullet.
-        //}
+        if (_nextAttackTime < Time.time)
+        {
+            var targetlist = train.GetTurrets();
+            int targetSize = targetlist.Length;
+            int randomtarget = Random.Range(0, targetSize-1);
+            _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
+
+            
+            Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
+            Vector3 bulletDir = targetPos - transform.position;
+            bulletDir.Normalize();
+        
+            bulletDir = Quaternion.Euler(0.0f, 0.0f, Random.Range(-15.0f, 15.0f)) * bulletDir; //Randomize the direction of the bullet a small bit.
+        
+            //Get the bullet from the object pool.
+            // Set the bullet's direction to bulletDir;
+            // Set the bullet's position to transform.position;
+            // Enable the bullet.
+        }
     }
     private void RecycleBasicEnemy()
     {

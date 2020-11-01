@@ -16,7 +16,7 @@ MonoBehaviour:
   waveData:
   - EnemyType: 0
     NumToSpawn: 1
-    NextWaveTimeDelay: 0
+    NextWaveTimeDelay: 2
     WormholeSize: 2
   - EnemyType: 0
     NumToSpawn: 1
