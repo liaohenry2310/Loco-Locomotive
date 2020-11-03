@@ -15,8 +15,8 @@ MonoBehaviour:
   MaxHealth: 10
   MaxSpeed: 5
   AttackDelay: 1
-  WallAvoidWeight: 5
-  WanderBehaviorWeight: 5
+  WallAvoidWeight: 10
+  WanderBehaviorWeight: 3
   WanderRadius: 2
-  WanderDistance: 3
-  WanderJitter: 5
+  WanderDistance: 1.5
+  WanderJitter: 2

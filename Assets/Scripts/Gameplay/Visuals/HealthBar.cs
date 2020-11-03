@@ -20,6 +20,11 @@ namespace Visuals
             _healthSystem.OnUpdateHealthUI -= UpdateHealthUI;
         }
 
+        /// <summary>
+        /// Prepare the Visual HealthBar.
+        /// Using HealthSystem as callback after register
+        /// </summary>
+        /// <param name="healthSystem">HealthSystem to register events</param>
         public void SetUp(HealthSystem healthSystem)
         {
             _healthSystem = healthSystem;

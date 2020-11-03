@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Turret;
+using Interfaces;
 using Items;
 using Manager;
 using System.Collections;
@@ -15,11 +16,13 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private PlayerInput _playerInput;
     private Rigidbody2D _rigidBody;
     private Vector2 _axis = Vector2.zero;
-    private float _playerHeight;
+    //private float _playerHeight;
 
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
     private HealthSystem _healthSystem;
+    public bool takeDamge;
+    public bool death;
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
@@ -57,7 +60,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             _rigidBody.gravityScale = _playerData.Gravity;
         }
     }
-   
+
     /// <summary>
     /// Initialize all the components and necessary set up 
     /// </summary>
@@ -78,7 +81,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         _healthBar.SetUp(_healthSystem);
         _healthBar.SetBarVisible(false); // Player start with HealthBar invisible
 
-        _playerHeight = GetComponent<CapsuleCollider2D>().size.y;
+       // _playerHeight = GetComponent<CapsuleCollider2D>().size.y;
     }
 
     #region Player InputAction 
@@ -110,9 +113,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void OnRotate(InputAction.CallbackContext context)
     {
-        // For now I will use TurretCannon, 
-        // I will change for Turret
-        TurretCannon turret = (TurretCannon)Interactable;
+        TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
         {
             turret.OnRotate(context);
@@ -121,7 +122,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void OnDetach(InputAction.CallbackContext context)
     {
-        TurretCannon turret = (TurretCannon)Interactable;
+        TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
         {
             turret.OnDetach(context);
@@ -130,7 +131,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        TurretCannon turret = (TurretCannon)Interactable;
+        TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
         {
             turret.OnFire(context);
@@ -155,7 +156,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         if (colliders.Length == 0)
         {
             Item item = GetItem;
-            if(item)
+            if (item)
             {
                 item.DropItem();
             }
@@ -178,11 +179,13 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void TakeDamage(float damage)
     {
+        takeDamge = true;
         _healthSystem.Damage(damage);
         _healthBar.SetBarVisible(true);
         // --- When Player is dead
         if (_healthSystem.Health < 0.1f)
         {
+            death = true;
             StartCoroutine(Respawn());
         }
         else
@@ -193,6 +196,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private IEnumerator StartRegeneration()
     {
+        takeDamge = false;
         yield return new WaitForSeconds(3.0f);
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
         yield return new WaitForSeconds(1.0f);
@@ -201,6 +205,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private IEnumerator Respawn()
     {
+        death =false;
         SpriteRenderer localSprite = GetComponent<SpriteRenderer>();
         localSprite.enabled = false;
         _healthBar.SetBarVisible(false);

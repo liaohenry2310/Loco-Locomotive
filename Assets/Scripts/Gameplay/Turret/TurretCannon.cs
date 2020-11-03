@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
 public class TurretCannon : MonoBehaviour, IInteractable
 {
     [Header("Turret Publics Attr")]
@@ -19,6 +24,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
 
     private PlayerV1 _player;
     private Vector2 _rotation;
+    private bool _holdFire = false;
 
     #region Weapons set
 
@@ -34,18 +40,14 @@ public class TurretCannon : MonoBehaviour, IInteractable
         _ = TryGetComponent(out _weaponNormalGun);
         _ = TryGetComponent(out _weaponMissile);
         _ = TryGetComponent(out _weaponLaserBeam);
-        //{
-        //    // Pensar em um jeito de fazer com Action delegates
-        //    //_weaponLaserBeam.OnTurretIsAlive += _turretHealth.IsAlive;
-        //}
 
         _turretHealth = GetComponentInParent<TurretHealth>();
         _laserSight = transform.parent.GetComponentInChildren<LineRenderer>();
         _laserSight.gameObject.SetActive(false);  // Disable by default for now
-        if (TryGetComponent<TurretLoader>(out var turretLoader))
-        {
-            turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
-        }
+        //if (TryGetComponent<TurretLoader>(out var turretLoader))
+        //{
+        //    turretLoader.OnReloadTurret += (_ammoType) => Reload(_ammoType);
+        //}
     }
 
     void Start()
@@ -58,6 +60,11 @@ public class TurretCannon : MonoBehaviour, IInteractable
         //if (!_turretHealth.IsAlive) return;
         //HandlerCannon();
         _cannonHandler.Rotate(0f, 0f, -_rotation.x);
+
+        if (_holdFire)
+        {
+            HandlerCannon(true);
+        }
     }
 
     //TODO: Refactoring
@@ -86,7 +93,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
         float time = Time.fixedDeltaTime;
         //TODO: Refactoring
         //bool setFire = _inputReciever.GetSecondaryHoldInput();
-        
+
         switch (ammoType)
         {
             case DispenserData.Type.Normal:
@@ -113,13 +120,6 @@ public class TurretCannon : MonoBehaviour, IInteractable
                     _weaponMissile.SetFire(setFire);
                     // Update the UI Text Canvas
                     AmmoText.text = $"{_weaponMissile.CurrentAmmo}";
-                }
-                break;
-            case DispenserData.Type.Railgun:
-                {
-                    //TODO: Testing area
-                    // goes to back log
-                    //Railgun(setFire);
                 }
                 break;
             case DispenserData.Type.RepairKit:
@@ -211,7 +211,6 @@ public class TurretCannon : MonoBehaviour, IInteractable
                     _weaponMissile.Reload();
                 }
                 break;
-            case DispenserData.Type.Railgun: break;
             default: break;
         }
         Debug.Log($"Ammo: {ammoType} reloaded!");
@@ -248,7 +247,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        HandlerCannon(context.started);
+        _holdFire = context.ReadValue<float>() >= 0.9f;
     }
 
 }

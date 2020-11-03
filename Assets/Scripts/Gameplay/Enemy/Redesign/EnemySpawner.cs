@@ -13,30 +13,34 @@ public class EnemySpawner : MonoBehaviour
     //private variables
     private int _curretWaveIndex = 0;
     private float _nextWaveTime = 0.0f;
+    private bool _spawnWormhole=false;
 
     private ObjectPoolManager _objectPoolManager = null;
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
-    void Start()
-    {
-        
-
-
-    }
 
     void Update()
     {
-        if ((Time.time > _nextWaveTime) && _curretWaveIndex < enemyWaves.waveData.Count )
+        if ((Time.time > _nextWaveTime) && (_curretWaveIndex < enemyWaves.waveData.Count))
           //  && _curretWaveIndex<=enemyWaves.waveData.Count())
         {
-            var wave = enemyWaves.waveData[_curretWaveIndex++];
-            SpawnWave(wave);
-            _nextWaveTime = Time.time + wave.TimeDelay;
+            UpdateWormholeDelay();
+        }
+        if (_spawnWormhole)
+        {
+            SpawnWave(enemyWaves.waveData[_curretWaveIndex-1]);
+            _spawnWormhole = false;
         }
     }
-
+    private void UpdateWormholeDelay()
+    {
+        
+            var wave = enemyWaves.waveData[_curretWaveIndex++];
+            _spawnWormhole = true;
+            _nextWaveTime = Time.time + wave.NextWaveTimeDelay;
+    }
     private void SpawnWave(EnemyWaveData.EnemyWave wave)
     {
         // (Optional) split the number of enemies into multiple wormholes for each wave.

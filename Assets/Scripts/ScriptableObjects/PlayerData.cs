@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerDataObject", menuName = "Player/Player")]
 public class PlayerData : ScriptableObject

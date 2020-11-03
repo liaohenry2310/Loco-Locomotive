@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 406327bae20104f478c8d65df9c2c838, type: 3}
+  m_Name: TurretData
+  m_EditorClassIdentifier: 
+  _maxHealth: 250
+  _aimSpeed: 50
+  machineGun:
+    damage: 10
+    moveSpeed: 20
+    fireRate: 15
+    maxAmmo: 500
+    spreadBullet: 10
+  laserGun:
+    damage: 100
+    range: 50
+    ammoConsumeRate: 1
+    aimSpeedMultiplier: 0.5
+    maxAmmo: 30
+    enemyLayerMask:
+      serializedVersion: 2
+      m_Bits: 512
+  missileGun:
+    damage: 100
+    minSpeed: 0.3
+    maxSpeed: 5
+    acceleration: 0.05
+    fireRate: 1
+    radiusEffect: 0.5
+    maxAmmo: 30
+    enemyLayerMask:
+      serializedVersion: 2
+      m_Bits: 512

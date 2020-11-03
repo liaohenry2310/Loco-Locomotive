@@ -1,6 +1,11 @@
 ﻿using Interfaces;
 using UnityEngine;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
 public class WeaponLaserBeam : MonoBehaviour
 {
     [SerializeField] private Transform _cannonFirePoint = null;

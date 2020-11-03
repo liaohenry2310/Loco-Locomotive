@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ammoData: {fileID: 11400000, guid: 0ea60b0481f4e0f4ca62a3892f91175d, type: 2}
+  _turretData: {fileID: 11400000, guid: fdbe043dcd067cf489e453f4710e4dd2, type: 2}
 --- !u!212 &3943111462777681231
 SpriteRenderer:
   m_ObjectHideFlags: 0
