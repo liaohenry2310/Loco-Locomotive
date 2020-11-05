@@ -53,11 +53,11 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
 
         health -= takingDamage;
         Debug.Log(tag + "Lost " + takingDamage + "hp. Current health: " + health);
-        if (health <= 0.0f)
-        {
-            Destroy(gameObject);
-            Debug.Log("I will be back!");
-        }
+        //if (health <= 0.0f)
+        //{
+        //    Destroy(gameObject);
+        //    Debug.Log("I will be back!");
+        //}
     }
 
     void ShieldLogic(float takingDamage, DispenserData.Type damageType)

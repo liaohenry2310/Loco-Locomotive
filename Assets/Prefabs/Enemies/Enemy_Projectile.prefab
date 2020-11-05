@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 578651487066272696}
   - component: {fileID: 578651487066272699}
-  - component: {fileID: 6157653765621864766}
   - component: {fileID: 690517005933181022}
   m_Layer: 0
   m_Name: Enemy_Projectile
@@ -136,21 +135,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6157653765621864766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 578651487066272678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fed910cb0a79b44da612ac8d7f332e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  targetPos: {x: 0, y: 0}
-  damage: 1
 --- !u!61 &690517005933181022
 BoxCollider2D:
   m_ObjectHideFlags: 0

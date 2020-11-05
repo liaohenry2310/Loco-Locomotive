@@ -8,6 +8,9 @@ public class BasicEnemyData : ScriptableObject
     public float MaxHealth;
     public float MaxSpeed;
     public float AttackDelay;
+    public GameObject projectile;
+    public float Basic_AttackDamage;
+    public float Basic_AttackSpeed;
 
     //Any shared movement data can be put here as well, for example...
     public float WallAvoidWeight;

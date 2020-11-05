@@ -277,7 +277,7 @@ MonoBehaviour:
   - name: BasicEnemy
     prefab: {fileID: 3276408233857933763, guid: b0afbde396109ed4594095424b1f5b79,
       type: 3}
-    poolSize: 100
+    poolSize: 10
   - name: Wormhole
     prefab: {fileID: 2504264668946031664, guid: 8ae6f2ec814cefc40b8069931b22cf61,
       type: 3}

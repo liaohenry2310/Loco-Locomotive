@@ -22,10 +22,10 @@ public class Wormhole : MonoBehaviour
     //{
     //    _screenBounds = GameManager.GetScreenBounds;
     //}
-    //private void Awake()
-    //{
-    //    _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-    //}
+    private void Awake()
+    {
+        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+    }
 
     public void SetInitData(EnemyWaveData.EnemyWave wave, Transform topRight, Transform bottomLeft )
     {

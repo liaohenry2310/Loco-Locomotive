@@ -7,6 +7,7 @@ public class BasicEnemy : MonoBehaviour
     //call target dir from list.
 
     public BasicEnemyData enemyData;
+
     Train train;
 
     private Vector3 _velocity;
@@ -17,6 +18,9 @@ public class BasicEnemy : MonoBehaviour
     private List<Vector2> _targetPositions;
     private float _currentHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
+    private GameObject _projectile;
+
+    private bool isAlive=false;
 
 
 
@@ -30,6 +34,9 @@ public class BasicEnemy : MonoBehaviour
         _topRightBound = topRight;
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
+        _projectile = enemyData.projectile;
+        _nextAttackTime = enemyData.AttackDelay;
+        isAlive = true;
 
 
     }
@@ -38,7 +45,7 @@ public class BasicEnemy : MonoBehaviour
     {
 
         FlyAndShootUpdate();
-  
+        CheckStillAlive();
 
         //if (_currentHealth < 0.0f)
         //{
@@ -73,17 +80,13 @@ public class BasicEnemy : MonoBehaviour
             int randomtarget = Random.Range(0, targetSize-1);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
 
+            GameObject projectile = _objectPoolManager.GetObjectFromPool("BasicEnemy_Projectile");
+            projectile.transform.position = transform.position;
+            projectile.SetActive(true);
             
             Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
-            Vector3 bulletDir = targetPos - transform.position;
-            bulletDir.Normalize();
-        
-            bulletDir = Quaternion.Euler(0.0f, 0.0f, Random.Range(-15.0f, 15.0f)) * bulletDir; //Randomize the direction of the bullet a small bit.
-        
-            //Get the bullet from the object pool.
-            // Set the bullet's direction to bulletDir;
-            // Set the bullet's position to transform.position;
-            // Enable the bullet.
+            projectile.GetComponent<EnemyProjectile>().SetFire(targetPos);
+
         }
     }
     private void RecycleBasicEnemy()
@@ -93,5 +96,15 @@ public class BasicEnemy : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _objectPoolManager.RecycleObject(gameObject);
+    }
+
+    private void CheckStillAlive()
+    {
+        if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
+        {
+            isAlive = false;
+            RecycleBasicEnemy();
+        }
+
     }
 }
