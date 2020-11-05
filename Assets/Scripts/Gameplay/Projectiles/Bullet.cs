@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
 
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
-    public bool explostion;
     void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
@@ -33,7 +32,6 @@ public class Bullet : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(_turretData.machineGun.damage, DispenserData.Type.Normal);
-            explostion = true;
         }
         RecycleBullet();
     }

@@ -11,7 +11,6 @@ public class Missile : MonoBehaviour
     private Vector3 _screenBounds;
     private float _currentSpeed = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
-    public bool explostion;
     public AudioSource Audio;
     private void Awake()
     {
@@ -74,7 +73,6 @@ public class Missile : MonoBehaviour
             if (damageable == null) return;
             if (!_triggerExplosionOnce)
             {
-                explostion = true;
                 ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
                 particle.Play();
                 Audio.Play();
@@ -108,12 +106,4 @@ public class Missile : MonoBehaviour
         _objectPoolManager.RecycleObject(gameObject);
     }
 
-    //private void PlayAudio()
-    //{
-    //    if(explostion)
-    //    {
-    //        Audio.Play();
-    //        explostion = false;
-    //    }
-    //}
 }
