@@ -16,15 +16,13 @@ public class Train : MonoBehaviour, IDamageable<float>
     [SerializeField] private FireBox _fireBox = null;
 
     public uint PlayerCount { get; set; } = 1;
-
-    private TurretBase[] _listTurrets;
     private bool _outOfFuel = false;
 
     #endregion
 
     public void Initialized()
     {
-        _listTurrets = GetComponentsInChildren<TurretBase>();
+        _trainData.TurretList = GetComponentsInChildren<TurretBase>();
     }
 
     private void Start()
@@ -71,8 +69,6 @@ public class Train : MonoBehaviour, IDamageable<float>
             return;
         }
     }
-
-    public TurretBase[] GetTurrets() => _listTurrets;
 
     public void TakeDamage(float damage)
     {

@@ -10,8 +10,6 @@ public class LevelManager : MonoBehaviour
     private GameManager gameManager;
     public bool IsGameOver { get; private set; } = false;
 
-    public Train Train { get; private set; }
-
     #region Timer
     [Header("Timer")]
 
@@ -31,7 +29,6 @@ public class LevelManager : MonoBehaviour
         }
 
         Instance = this;
-        Train = FindObjectOfType<Train>();
     }
 
     private void Start()

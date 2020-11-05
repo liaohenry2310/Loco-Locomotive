@@ -107,14 +107,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578651487066272678}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.3682303, y: 4.1125107, z: 2.3682303}
   m_Children:
   - {fileID: 578651486905402538}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!50 &578651487066272699
 Rigidbody2D:
   serializedVersion: 4
@@ -174,3 +174,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecf88d0ac991184c9b5c6178f91f545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _basicEnemyData: {fileID: 11400000, guid: 2348c4b0ffa86594dbd97c8df78aca41, type: 2}

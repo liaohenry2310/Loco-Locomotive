@@ -1,4 +1,5 @@
 ﻿using System;
+using Turret;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TrainDataObject", menuName = "Train/Train")]
@@ -10,6 +11,7 @@ public class TrainData : ScriptableObject, ISerializationCallbackReceiver
 
     [NonSerialized] public float CurrentHealth;
     [NonSerialized] public float CurrentFuel;
+    [NonSerialized] public TurretBase[] TurretList;
 
     public void OnAfterDeserialize()
     {

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
     //call target dir from list.
+    [SerializeField] private TrainData _trainData = null;   
 
     public BasicEnemyData enemyData;
 
@@ -22,6 +24,11 @@ public class BasicEnemy : MonoBehaviour
 
 
     private void Awake()
+    {
+        //_objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+    }
+
+    private void OnEnable()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
@@ -71,7 +78,8 @@ public class BasicEnemy : MonoBehaviour
         //Shooting
         if (_nextAttackTime < Time.time)
         {
-            var targetlist = LevelManager.Instance.Train.GetTurrets();
+            //var targetlist = LevelManager.Instance.Train.GetTurrets();
+            var targetlist = _trainData.TurretList;
             int targetSize = targetlist.Length;
             int randomtarget = Random.Range(0, targetSize-1);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
@@ -90,6 +98,7 @@ public class BasicEnemy : MonoBehaviour
         if (_objectPoolManager == null)
         {
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+            
         }
         _objectPoolManager.RecycleObject(gameObject);
     }

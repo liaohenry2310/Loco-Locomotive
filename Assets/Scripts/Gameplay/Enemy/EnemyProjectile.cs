@@ -1,21 +1,24 @@
 ﻿using Interfaces;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
+    [SerializeField] private BasicEnemyData _basicEnemyData = null;
     private ObjectPoolManager _objectPoolManager = null;
-    private BasicEnemyData _basicEnemyData = null;
     private Vector3 _screenBounds;
+
+    private Vector3 _bulletDirection = Vector3.zero;
 
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         _screenBounds = GameManager.GetScreenBounds;
     }
+
     private void FixedUpdate()
     {
-        //transform.position += transform.up * (_basicEnemyData.Basic_AttackSpeed * Time.fixedDeltaTime);
+        transform.position += transform.up * (_basicEnemyData.Basic_AttackSpeed * Time.fixedDeltaTime);
+        transform.position += _bulletDirection + transform.up;
 
         // set activated false prefabs when touch the camera bounds
         if ((transform.position.x >= _screenBounds.x) ||
@@ -33,29 +36,27 @@ public class EnemyProjectile : MonoBehaviour
 
     private void Explostion(Collider2D collision)
     {
-        var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position,0.2f);
+        var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, 0.2f);
         foreach (Collider2D target in colliders)
         {
-            Debug.Log($"[Collider2D] -- MissileExplostion -- {target.gameObject.name}");
-
-            if (target.GetComponent<EnemyHealth>())
-            {
-                continue;
-            }
+            //TODO: Kairus you can delete this block here.
+            //if (target.GetComponent<EnemyHealth>())
+            //{
+            //    continue;
+            //}
             IDamageable<float> damageable = target.GetComponent<IDamageable<float>>();
-            if (target != null)
+            if (damageable != null)
             {
                 damageable.TakeDamage(_basicEnemyData.Basic_AttackDamage);
+                Debug.Log($"[Collider2D] -- MissileExplostion -- {target.gameObject.name}");
             }
             RecycleBullet();
         }
     }
     public void SetFire(Vector3 tartgetpos)
     {
-        Vector3 bulletDir = tartgetpos - transform.position;
-        bulletDir.Normalize();
-
-        bulletDir = Quaternion.Euler(0.0f, 0.0f, Random.Range(-15.0f, 15.0f)) * bulletDir; //Randomize the direction of the bullet a small bit.
+        _bulletDirection = (tartgetpos - transform.position).normalized;
+        _bulletDirection = Quaternion.Euler(0.0f, 0.0f, Random.Range(-15.0f, 15.0f)) * _bulletDirection; //Randomize the direction of the bullet a small bit.
     }
 
     private void RecycleBullet()
