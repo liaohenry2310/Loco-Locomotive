@@ -17,6 +17,8 @@ MonoBehaviour:
   AttackDelay: 1
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
+  Basic_AttackDamage: 10
+  Basic_AttackSpeed: 10
   WallAvoidWeight: 10
   WanderBehaviorWeight: 3
   WanderRadius: 2
