@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     private ObjectPoolManager _objectPoolManager = null;
-    [SerializeField] private BasicEnemyData _basicEnemyData = null;
+    private BasicEnemyData _basicEnemyData = null;
     private Vector3 _screenBounds;
 
     private void Awake()
