@@ -11,15 +11,20 @@ public class Missile : MonoBehaviour
     private Vector3 _screenBounds;
     private float _currentSpeed = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
-
+    public bool explostion;
+    public AudioSource Audio;
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        Audio = gameObject.AddComponent<AudioSource>();
+        Audio.playOnAwake = false;
+        Audio.volume = 1f;
     }
 
     private void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
+        Audio.clip = _turretData.missileGun.missilegunBeam;
     }
 
     private void FixedUpdate()
@@ -69,8 +74,10 @@ public class Missile : MonoBehaviour
             if (damageable == null) return;
             if (!_triggerExplosionOnce)
             {
+                explostion = true;
                 ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
                 particle.Play();
+                Audio.Play();
                 Destroy(particle, particle.main.duration);
                 _triggerExplosionOnce = true;
             }
@@ -101,4 +108,12 @@ public class Missile : MonoBehaviour
         _objectPoolManager.RecycleObject(gameObject);
     }
 
+    //private void PlayAudio()
+    //{
+    //    if(explostion)
+    //    {
+    //        Audio.Play();
+    //        explostion = false;
+    //    }
+    //}
 }

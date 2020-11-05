@@ -71,6 +71,11 @@ namespace Turret
             SetUp(spawnPoint);
             _LaserBeam = laserBeam;
         }
+
+        public override float CurretAmmo()
+        {
+            return _currentAmmo;
+        }
     }
 
 }
