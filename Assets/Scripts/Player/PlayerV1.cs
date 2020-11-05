@@ -26,7 +26,9 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
-
+    //Animator
+    public Animator animator;
+    public SpriteRenderer sp;
     private void Start()
     {
         Initialized();
@@ -35,7 +37,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private void FixedUpdate()
     {
         // make movement
-        _rigidBody.MovePosition(new Vector2(transform.position.x + (_axis.x * _playerData.Speed * Time.fixedDeltaTime), _rigidBody.position.y));
+        _rigidBody.MovePosition(new Vector2(transform.position.x + (_axis.x * _playerData.Speed * Time.fixedDeltaTime), _rigidBody.position.y));    
         if (LadderController)
         {
             _rigidBody.gravityScale = 0.0f;
@@ -60,7 +62,38 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             _rigidBody.gravityScale = _playerData.Gravity;
         }
     }
+    #region Animator
+    private void Update()
+    {
+        if (_axis.x < 0)
+        {
+            sp.flipX = false;
+        }
+        else
+        {
+            sp.flipX = true;
+        }
+        if (_axis.x != 0)
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsIdle", true);
+        }
+        if(_axis.y != 0.0f)
+        {
+            animator.SetBool("IsClimb", true);
+            animator.SetBool("IsIdle", false);
+        }
+        else
+        {
+            animator.SetBool("IsClimb", false);
+        }
 
+    }
+    #endregion
     /// <summary>
     /// Initialize all the components and necessary set up 
     /// </summary>
@@ -149,6 +182,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             if (iter != null)
             {
                 iter.Interact(this);
+                animator.SetBool("IsHoldItem", true);
                 break;
             }
         }
@@ -159,6 +193,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             if (item)
             {
                 item.DropItem();
+                animator.SetBool("IsHoldItem", false);
             }
         }
     }
@@ -186,6 +221,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         if (_healthSystem.Health < 0.1f)
         {
             death = true;
+            animator.SetBool("IsDeath", true);
             StartCoroutine(Respawn());
         }
         else
