@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
@@ -7,8 +6,6 @@ public class BasicEnemy : MonoBehaviour
     //call target dir from list.
 
     public BasicEnemyData enemyData;
-
-    Train train;
 
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
@@ -28,6 +25,7 @@ public class BasicEnemy : MonoBehaviour
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
+
     public void SetNewData(Transform topRight, Transform bottomLeft)
     {
         //Reset all relevant gameplay data so it can be used again when recieved by the object pooler.
@@ -37,8 +35,6 @@ public class BasicEnemy : MonoBehaviour
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
         isAlive = true;
-
-
     }
 
     void Update()
@@ -75,7 +71,7 @@ public class BasicEnemy : MonoBehaviour
         //Shooting
         if (_nextAttackTime < Time.time)
         {
-            var targetlist = train.GetTurrets();
+            var targetlist = LevelManager.Instance.Train.GetTurrets();
             int targetSize = targetlist.Length;
             int randomtarget = Random.Range(0, targetSize-1);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);

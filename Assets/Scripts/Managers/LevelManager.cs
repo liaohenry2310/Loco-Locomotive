@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
@@ -11,6 +9,8 @@ public class LevelManager : MonoBehaviour
     public GameObject GameWinPanel;
     private GameManager gameManager;
     public bool IsGameOver { get; private set; } = false;
+
+    public Train Train { get; private set; }
 
     #region Timer
     [Header("Timer")]
@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
         }
 
         Instance = this;
+        Train = FindObjectOfType<Train>();
     }
 
     private void Start()
