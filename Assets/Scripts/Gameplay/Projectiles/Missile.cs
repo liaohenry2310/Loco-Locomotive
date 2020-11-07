@@ -41,8 +41,7 @@ public class Missile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //TODO: arrumar isso pois ta uma bosta
-        // Usando o pool
+        //TODO: 
         //explosion = _objectPoolManager.GetObjectFromPool("MissileExplosion");
         //if (!explosion)
         //{

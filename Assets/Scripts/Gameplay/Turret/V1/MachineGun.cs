@@ -40,7 +40,7 @@ namespace Turret
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
 
-        public override void SetUp(Transform spawmPoint, LineRenderer laserBeam)
+        public override void SetUp(Transform spawmPoint, LaserProperties laserBeam)
         { }
     }
 

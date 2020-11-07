@@ -16,17 +16,24 @@ namespace Turret
 
         [Header("Laser")]
         [SerializeField] private LineRenderer _LaserBeam = null;
+        [SerializeField] private GameObject _StartVFX = null;
+        [SerializeField] private GameObject _EndVFX = null;
 
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
+        private Weapons.LaserProperties _laserProperties;
 
         private void Awake()
         {
             // Initialize with Machine Gun as default
             _weapons = new MachineGun(_turretData);
             _weapons.SetUp(_spawnPointFire);
+            // Setting up laser properties
+            _laserProperties.laserBeamRenderer = _LaserBeam;
+            _laserProperties.startVFX = _StartVFX;
+            _laserProperties.endVFX = _EndVFX;
         }
 
         private void FixedUpdate()
@@ -46,6 +53,7 @@ namespace Turret
             {
                 // disable Line Renderer when using LaserBeam
                 _LaserBeam.enabled = false;
+                (_weapons as LaserBeam)?.DisableLaser();
             }
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
@@ -97,7 +105,7 @@ namespace Turret
                     break;
                 case DispenserData.Type.LaserBeam:
                     _weapons = new LaserBeam(_turretData);
-                    _weapons.SetUp(_spawnPointFire, _LaserBeam);
+                    _weapons.SetUp(_spawnPointFire, _laserProperties);
                     break;
                 case DispenserData.Type.Missile:
                     _weapons = new MissileGun(_turretData);
