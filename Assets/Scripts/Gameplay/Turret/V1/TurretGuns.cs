@@ -120,7 +120,8 @@ namespace Turret
             Item item = _player.GetItem;
             if (item)
             {
-                Reload(item.ItemType);
+                _player.animator.SetBool("IsHoldItem", false);
+                Reload(item.ItemType);                
                 item.DestroyAfterUse();
             }
         }
