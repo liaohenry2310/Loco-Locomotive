@@ -7,23 +7,19 @@ public class Missile : MonoBehaviour
     //[SerializeField] private LayerMask _layerEnemyMask = default;
     [SerializeField] private TurretData _turretData = default;
     [SerializeField] private ParticleSystem _explosionParticle = default;
+    [SerializeField] private GameObject _missileSound = null;
 
     private Vector3 _screenBounds;
     private float _currentSpeed = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
-    public AudioSource Audio;
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        Audio = gameObject.AddComponent<AudioSource>();
-        Audio.playOnAwake = false;
-        Audio.volume = 1f;
     }
 
     private void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
-        Audio.clip = _turretData.missileGun.missilegunBeam;
     }
 
     private void FixedUpdate()
@@ -74,8 +70,8 @@ public class Missile : MonoBehaviour
             if (!_triggerExplosionOnce)
             {
                 ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
+                Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
                 particle.Play();
-                Audio.Play();
                 Destroy(particle, particle.main.duration);
                 _triggerExplosionOnce = true;
             }

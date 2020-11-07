@@ -103,13 +103,9 @@ namespace Turret
             #region AudioSource
             if (!_holdFire && _weapons as LaserBeam != null)
             {
-                Audio.mute = true;
+                Audio.clip = null;
                 playLasergunFire = false;
                 timer = 0;
-            }
-            else
-            {
-                Audio.mute = false;
             }
             #endregion
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
