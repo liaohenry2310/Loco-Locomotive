@@ -23,7 +23,7 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: UsingTurret
     m_EventTreshold: 0
-  - m_ConditionMode: 1
+  - m_ConditionMode: 2
     m_ConditionEvent: IsDeath
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
