@@ -13,7 +13,7 @@ public class Audio_Train : MonoBehaviour
     {
         _train = gameObject.GetComponent<Train>();
         Audio = gameObject.AddComponent<AudioSource>();
-        steam = Resources.Load<AudioClip>("Audio/sfx_steampuff01");
+        steam = Resources.Load<AudioClip>("Audio/complete/sfx_steampuff01");
         Audio.playOnAwake = false;
         Audio.volume = 0.1f;
     }
@@ -24,7 +24,6 @@ public class Audio_Train : MonoBehaviour
             time += Time.deltaTime;
             if (time >= rhythm * 1.3f)
             {
-
                 Audio.clip = steam;
                 Audio.Play();
                 time = 0;
@@ -35,7 +34,6 @@ public class Audio_Train : MonoBehaviour
             time += Time.deltaTime;
             if (time >= rhythm * Random.Range(0.5f,1.5f))
             {
-
                 Audio.clip = steam;
                 Audio.Play();
                 time = 0;
@@ -46,7 +44,6 @@ public class Audio_Train : MonoBehaviour
             time += Time.deltaTime;
             if (time >= rhythm)
             {
-
                 Audio.clip = steam;
                 Audio.Play();
                 time = 0;

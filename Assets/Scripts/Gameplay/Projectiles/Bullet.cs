@@ -4,10 +4,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private TurretData _turretData = null;
-
+    [SerializeField] private GameObject _bulletSound = null;
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
-
     void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
@@ -34,6 +33,7 @@ public class Bullet : MonoBehaviour
         {
             damageable.TakeDamage(_turretData.machineGun.damage, DispenserData.Type.Normal);
         }
+        Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
         RecycleBullet();
     }
 
