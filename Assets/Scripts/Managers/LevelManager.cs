@@ -7,10 +7,10 @@ public class LevelManager : MonoBehaviour
 {
     static public LevelManager Instance { get; private set; }
 
+    public Train train;
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
     private GameManager gameManager;
-    public bool IsGameOver { get; private set; } = false;
 
     #region Timer
     [Header("Timer")]
@@ -24,13 +24,8 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
+        train.OnGameOver += GameOver;
     }
 
     private void Start()
@@ -83,20 +78,19 @@ public class LevelManager : MonoBehaviour
 
     public void GameOver()
     {
-        IsGameOver = true;
         Debug.Log("Game Over");
         Time.timeScale = 0.0f;
         GameOverPanel.SetActive(true);
-        //GameOverPanel.GetComponentInChildren<Button>().Select();
+        GameOverPanel.GetComponentInChildren<Button>().Select();
     }
 
     public void GameWin()
     {
-        IsGameOver = !IsGameOver;
         Debug.Log("You Win");
         Time.timeScale = 0.0f;
         GameWinPanel.SetActive(true);
-        //GameWinPanel.GetComponentInChildren<Button>().Select();
+        GameWinPanel.GetComponentInChildren<Button>().Select();
+        gameManager.SaveLevelCompleted();
     }
 
     public void LoadNextLevel()
@@ -104,12 +98,18 @@ public class LevelManager : MonoBehaviour
         gameManager.LoadNextLevel();
     }
 
+    public void RestartLevel()
+    {
+        gameManager.Restart();
+    }
+
     public void ReturnToMainMenu()
     {
         gameManager.ReturnToMainMenu();
     }
-    public void LoadScene(int sceneIndex)
+
+    public void QuitGame()
     {
-        gameManager.LoadScene(sceneIndex);
+        gameManager.QuitGame();
     }
 }
