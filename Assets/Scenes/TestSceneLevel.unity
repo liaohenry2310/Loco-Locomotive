@@ -707,7 +707,7 @@ MonoBehaviour:
     type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!114 &422714098
 MonoBehaviour:
@@ -959,6 +959,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -212
       objectReference: {fileID: 0}
+    - target: {fileID: 6153337900557754985, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153337900557754985, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 76612049}
     - target: {fileID: 6161361658220101764, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1585,6 +1595,11 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6153337900557754985, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 76612049}
     - target: {fileID: 6161361658220101764, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1907,7 +1922,7 @@ PrefabInstance:
     - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
       propertyPath: time
-      value: 10
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
@@ -2216,6 +2231,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -206.4
       objectReference: {fileID: 0}
+    - target: {fileID: 6153337900557754985, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153337900557754985, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 76612049}
     - target: {fileID: 6161361658220101764, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2830,6 +2855,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -205.9
       objectReference: {fileID: 0}
+    - target: {fileID: 6153337900557754985, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153337900557754985, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 76612049}
     - target: {fileID: 6161361658220101764, guid: 0087a0c1d37c0fd469d4f4baf1e54a12,
         type: 3}
       propertyPath: m_AnchorMax.x
