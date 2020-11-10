@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 711}
+  m_AnchoredPosition: {x: 0, y: 1082}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5433958675792512375
@@ -108,7 +108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -506}
+  m_AnchoredPosition: {x: 0, y: -653}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6897665212916662931
@@ -205,8 +205,8 @@ GameObject:
   - component: {fileID: 6689546684416980071}
   - component: {fileID: 3711144731043654355}
   - component: {fileID: 543740116430401435}
-  - component: {fileID: 9174773345074157428}
   - component: {fileID: 1624211248499176635}
+  - component: {fileID: 9174773345074157428}
   m_Layer: 5
   m_Name: SceneTransition
   m_TagString: Untagged
@@ -244,7 +244,7 @@ Canvas:
   m_GameObject: {fileID: 7932960040970868638}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 10
   m_PixelPerfect: 0
@@ -295,26 +295,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9174773345074157428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7932960040970868638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ead82256d369243bbe478c7c848627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentState: 0
-  transitionDuration: 0.3
-  middlePosition: 0
-  topPosition: 750
-  bottomPosition: -500
-  topImageTransform: {fileID: 8412442772755786593}
-  bottomImageTransform: {fileID: 3815686024541913630}
-  transitionSfx: {fileID: 1624211248499176635}
 --- !u!82 &1624211248499176635
 AudioSource:
   m_ObjectHideFlags: 0
@@ -411,3 +391,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9174773345074157428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7932960040970868638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ead82256d369243bbe478c7c848627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentState: 0
+  transitionDuration: 0.3
+  middlePosition: 0
+  topPosition: 850
+  bottomPosition: -650
+  topImageTransform: {fileID: 8412442772755786593}
+  bottomImageTransform: {fileID: 3815686024541913630}
+  transitionSfx: {fileID: 1624211248499176635}
