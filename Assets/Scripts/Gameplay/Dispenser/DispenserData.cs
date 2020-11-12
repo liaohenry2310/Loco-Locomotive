@@ -6,6 +6,8 @@
         Normal,
         LaserBeam,
         Missile,
+        EMP,
+        Shield,
         RepairKit,
         Fuel,
     }

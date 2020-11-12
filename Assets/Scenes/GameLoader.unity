@@ -282,6 +282,7 @@ MonoBehaviour:
     prefab: {fileID: 2504264668946031664, guid: 8ae6f2ec814cefc40b8069931b22cf61,
       type: 3}
     poolSize: 10
-  - name: bulletVFX
-    prefab: {fileID: 1337198075554910, guid: 112380b782174234cad99c6f34c0375a, type: 3}
-    poolSize: 10
+  - name: EMPShockWave
+    prefab: {fileID: 6739913794458184535, guid: 6ee4023d0bde2df44949f78dc36a7bd3,
+      type: 3}
+    poolSize: 50

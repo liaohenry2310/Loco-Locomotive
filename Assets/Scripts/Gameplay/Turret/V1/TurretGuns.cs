@@ -17,6 +17,9 @@ namespace Turret
         [Header("MachineGun")]
         [SerializeField] private GameObject _MachineGunStartVFX = null;
 
+        [Header("EMP")]
+        [SerializeField] private GameObject _EMPGunPulseVFX = null;
+
         [Header("Laser")]
         [SerializeField] private LineRenderer _LaserBeam = null;
         [SerializeField] private GameObject _LaserBeamStartVFX = null;
@@ -26,28 +29,38 @@ namespace Turret
         private Weapons _weapons = null;
         private LaserBeam.LaserVFXProperties _laserVFX;
         private MachineGun.MachineGunVFXProperties _machineGunVFX;
+        private EmpGun.EMPGunVFXProperties _empGunPulse;
 
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
 
         private void Awake()
         {
-            // Initialize with Machine Gun as default
-            // Setting up Machine Gun properties
-            _weapons = new MachineGun(_turretData);
-            _machineGunVFX.muzzleFlashVFX = _MachineGunStartVFX;
-            if (_weapons is MachineGun machineGun)
-            {
-                machineGun.MachineGunVFX = _machineGunVFX;
-            }
-            _weapons.SetUp(_spawnPointFire);
-
             // Setting up laser properties
             _laserVFX.laserBeamRenderer = _LaserBeam;
             _laserVFX.startVFX = _LaserBeamStartVFX;
             _laserVFX.endVFX = _LaserBeamEndVFX;
 
-           
+            _machineGunVFX.muzzleFlashVFX = _MachineGunStartVFX;
+            _empGunPulse.muzzleFlashVFX = _EMPGunPulseVFX;
+
+            // Initialize with Machine Gun as default
+            // Setting up Machine Gun properties
+            //_weapons = new MachineGun(_turretData);
+            //if (_weapons is MachineGun machineGun)
+            //{
+            //    machineGun.MachineGunVFX = _machineGunVFX;
+            //}
+            //_weapons.SetUp(_spawnPointFire);
+
+            _weapons = new EmpGun(_turretData);
+
+            if (_weapons is EmpGun empGun)
+            {
+                empGun.EmpGunVFX = _empGunPulse;
+            }
+            _weapons.SetUp(_spawnPointFire);
+
         }
 
         private void FixedUpdate()
@@ -55,10 +68,19 @@ namespace Turret
             //if (!_turretHealth.IsAlive) return;
             float rotationSpeed = -_rotation.x * _turretData.AimSpeed * Time.fixedDeltaTime;
             _weapons.SetFire(_holdFire);
-            if (_weapons as LaserBeam != null)
+            if (_holdFire)
             {
-                rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
+                if (_weapons as LaserBeam != null)
+                {
+                    rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
+                }
+
+                if (_weapons as EmpGun != null)
+                {
+                    rotationSpeed *= _turretData.empShockWave.aimSpeedMultiplier;
+                }
             }
+
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
 
@@ -125,6 +147,18 @@ namespace Turret
                     _weapons = new MissileGun(_turretData);
                     _weapons.SetUp(_spawnPointFire);
                     _weapons.Reload();
+                    break;
+                case DispenserData.Type.EMP:
+                    _weapons = new EmpGun(_turretData);
+                    if (_weapons is EmpGun empGun)
+                    {
+                        empGun.EmpGunVFX = _empGunPulse;
+                    }
+                    _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
+                    break;
+                case DispenserData.Type.Shield:
+                    Debug.Log("[TurretGun] -- Shield is not implement yet.");
                     break;
                 default:
                     break;
