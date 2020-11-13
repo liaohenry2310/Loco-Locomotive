@@ -9,6 +9,7 @@ namespace Turret
         protected ObjectPoolManager _objectPoolManager = null;
         protected float _currentAmmo = 0.0f;
         protected AudioClip _audioClip = null;
+        protected SpriteRenderer _sprite = null;
 
         public Weapons(TurretData setupData)
         {

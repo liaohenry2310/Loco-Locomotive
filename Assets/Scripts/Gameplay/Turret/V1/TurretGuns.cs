@@ -17,10 +17,19 @@ namespace Turret
         [Header("Laser")]
         [SerializeField] private LineRenderer _LaserBeam = null;
 
+        [Header("Sprite")]
+        [SerializeField] private SpriteRenderer _upperSprite = null;
+        [SerializeField] private SpriteRenderer _cannonSprite = null;
+        [SerializeField] private SpriteRenderer _bottomSprite = null;
+        [SerializeField] private TurretBase _turretBase = null;
+
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
+
+
+        private float curretHealth;
 
         #region AudioSource
         public AudioSource Audio;
@@ -32,8 +41,8 @@ namespace Turret
         {
             // Initialize with Machine Gun as default
             _weapons = new MachineGun(_turretData);
-            _weapons.SetUp(_spawnPointFire);
-
+            _weapons.SetUp(_spawnPointFire);     
+            
             #region AudioSource
             Audio = gameObject.AddComponent<AudioSource>();
             Audio.playOnAwake = false;
@@ -41,13 +50,92 @@ namespace Turret
             Audio.pitch = Random.Range(0.9f, 1.1f);
             #endregion
         }
+        private void Update()
+        {
+            //curretHealth = _turretBase.GetComponent<TurretBase>()._healthSystem.HealthPercentage;
+            if (_weapons as LaserBeam != null)
+            {
+                if (curretHealth >= 0.75f)
+                {
+                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
+                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
+                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[0];
+                }
+                else if (curretHealth >= 0.5f && curretHealth < 0.75f)
+                {
+                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[1];
+                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[1];
+                }
+                else if (curretHealth >= 0.25f && curretHealth < 0.5f)
+                {
+                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[2];
+                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[2];
+                }
+                else if (curretHealth < 0.25f)
+                {
+                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[3];
+                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[3];
+                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[1];
+                }
+            }
+            else if (_weapons as MachineGun != null)
+            {
+                if (curretHealth >= 0.75f)
+                {
+                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[0];
+                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
+                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[0];
+                }
+                else if (curretHealth >= 0.5f && curretHealth < 0.75f)
+                {
+                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[1];
+                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[1];
+                }
+                else if (curretHealth >= 0.25f && curretHealth < 0.5f)
+                {
+                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[2];
+                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[2];
+                }
+                else if (curretHealth < 0.25f)
+                {
+                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[3];
+                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[3];
+                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[1];
+                }
 
+            }
+            else if (_weapons as MissileGun != null)
+            {
+                if (curretHealth >= 0.75f)
+                {
+                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[0];
+                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
+                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[0];
+                }
+                else if (curretHealth >= 0.5f && curretHealth < 0.75f)
+                {
+                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[1];
+                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[1];
+                }
+                else if (curretHealth >= 0.25f && curretHealth < 0.5f)
+                {
+                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[2];
+                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[2];
+                }
+                else if (curretHealth <= 0)
+                {
+                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[3];
+                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[3];
+                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[1];
+                }
+
+            }
+        }
         private void FixedUpdate()
         {
             //if (!_turretHealth.IsAlive) return;
-
+            
             float rotationSpeed = -_rotation.x * _turretData.AimSpeed * Time.fixedDeltaTime;
-
             if (_holdFire)
             {
                 _weapons.SetFire();
@@ -55,7 +143,7 @@ namespace Turret
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
-                    
+
                     #region AudioSource
 
                     timer += Time.deltaTime;
@@ -169,6 +257,10 @@ namespace Turret
                     break;
             }
             _weapons.Reload();
+        }
+        private void LaserSprite()
+        {
+
         }
 
     }
