@@ -1,6 +1,5 @@
-﻿using Interfaces;
-using System.Collections;
-using System.Collections.Generic;
+﻿using GamePlay;
+using Interfaces;
 using UnityEngine;
 
 public class BasicEnemyProjectile : MonoBehaviour
