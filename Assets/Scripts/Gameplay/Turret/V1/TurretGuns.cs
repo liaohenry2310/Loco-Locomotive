@@ -17,9 +17,6 @@ namespace Turret
         [Header("MachineGun")]
         [SerializeField] private GameObject _MachineGunStartVFX = null;
 
-        [Header("EMP")]
-        [SerializeField] private GameObject _EMPGunPulseVFX = null;
-
         [Header("Laser")]
         [SerializeField] private LineRenderer _LaserBeam = null;
         [SerializeField] private GameObject _LaserBeamStartVFX = null;
@@ -29,7 +26,6 @@ namespace Turret
         private Weapons _weapons = null;
         private LaserBeam.LaserVFXProperties _laserVFX;
         private MachineGun.MachineGunVFXProperties _machineGunVFX;
-        private EmpGun.EMPGunVFXProperties _empGunPulse;
 
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
@@ -42,7 +38,6 @@ namespace Turret
             _laserVFX.endVFX = _LaserBeamEndVFX;
 
             _machineGunVFX.muzzleFlashVFX = _MachineGunStartVFX;
-            _empGunPulse.muzzleFlashVFX = _EMPGunPulseVFX;
 
             // Initialize with Machine Gun as default
             // Setting up Machine Gun properties
@@ -54,13 +49,8 @@ namespace Turret
             //_weapons.SetUp(_spawnPointFire);
 
             _weapons = new EmpGun(_turretData);
-
-            if (_weapons is EmpGun empGun)
-            {
-                empGun.EmpGunVFX = _empGunPulse;
-            }
             _weapons.SetUp(_spawnPointFire);
-
+           
         }
 
         private void FixedUpdate()
@@ -150,10 +140,6 @@ namespace Turret
                     break;
                 case DispenserData.Type.EMP:
                     _weapons = new EmpGun(_turretData);
-                    if (_weapons is EmpGun empGun)
-                    {
-                        empGun.EmpGunVFX = _empGunPulse;
-                    }
                     _weapons.SetUp(_spawnPointFire);
                     _weapons.Reload();
                     break;
