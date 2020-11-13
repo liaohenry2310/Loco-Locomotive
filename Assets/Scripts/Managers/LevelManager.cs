@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
     private GameManager gameManager;
+
     public bool IsGameOver { get; private set; } = false;
 
     #region Timer
