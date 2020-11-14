@@ -71,7 +71,7 @@ namespace Turret
         }
         private void Update()
         {
-            //curretHealth = _turretBase.GetComponent<TurretBase>()._healthSystem.HealthPercentage;
+            curretHealth = _turretData.HealthPercentage;
             if (_weapons as LaserBeam != null)
             {
                 if (curretHealth >= 0.75f)
