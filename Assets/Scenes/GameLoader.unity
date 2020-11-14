@@ -285,3 +285,11 @@ MonoBehaviour:
   - name: BasicEnemy_Projectile
     prefab: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7, type: 3}
     poolSize: 10
+  - name: SwarmEnemy
+    prefab: {fileID: 3276408233857933763, guid: f9f97d0cb51555540b06973e511b1a08,
+      type: 3}
+    poolSize: 100
+  - name: BomberEnemy
+    prefab: {fileID: 3276408233857933763, guid: 688a325c5e91fd4489b48f3a5680e368,
+      type: 3}
+    poolSize: 100

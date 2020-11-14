@@ -4,7 +4,14 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IDamageableType<float>
 {
     // regular type 
-    public float health;
+
+    private float m_health = 0.0f;
+
+    public float health
+    {
+        get { return m_health; }
+        set { m_health = value; }
+    }
 
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {

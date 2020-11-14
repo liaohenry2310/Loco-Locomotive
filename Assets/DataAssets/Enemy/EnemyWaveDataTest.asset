@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs: []
   waveData:
-  - EnemyType: 0
+  - EnemyType: 1
     NumToSpawn: 10
-    NextWaveTimeDelay: 20
+    NextWaveTimeDelay: 15
+    WormholeSize: 2
+  - EnemyType: 2
+    NumToSpawn: 10
+    NextWaveTimeDelay: 0
     WormholeSize: 2

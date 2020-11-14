@@ -19,6 +19,9 @@ public class BasicEnemy : MonoBehaviour
     private ObjectPoolManager _objectPoolManager = null;
     private GameObject _projectile;
 
+
+
+
     private bool isAlive=false;
 
 
@@ -35,10 +38,11 @@ public class BasicEnemy : MonoBehaviour
 
     public void SetNewData(Transform topRight, Transform bottomLeft)
     {
-        //Reset all relevant gameplay data so it can be used again when recieved by the object pooler.
+        //Reset all relevant game play data so it can be used again when received by the object pool.
         _topRightBound = topRight;
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
+        gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
         isAlive = true;
@@ -49,7 +53,6 @@ public class BasicEnemy : MonoBehaviour
 
         FlyAndShootUpdate();
         CheckStillAlive();
-
         //if (_currentHealth < 0.0f)
         //{
         //    //disable this enemy and give it back to the object pool.
@@ -63,7 +66,7 @@ public class BasicEnemy : MonoBehaviour
         //_acceleration += WanderBehavior.Calculate(gameobject, weight);
         _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 1.0f),enemyData.WanderBehaviorWeight);
         //_acceleration += WallAvoidance.Calculate(gameobject, weight);
-        _acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
+        //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
         _velocity += _acceleration * Time.deltaTime;
 
         if (  _velocity.magnitude > enemyData.MaxSpeed)
@@ -71,6 +74,24 @@ public class BasicEnemy : MonoBehaviour
             _velocity.Normalize();
             _velocity *= enemyData.MaxSpeed;
         }
+
+        if (Mathf.Abs(transform.position.x - _botLeftBound.position.x) < 1.0f)
+        {
+            _velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+        }
+        if (Mathf.Abs(transform.position.x - _topRightBound.position.x) < 1.0f)
+        {
+            _velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+        }
+        if (Mathf.Abs(transform.position.y - _topRightBound.position.y) < 1.0f)
+        {
+            _velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+        }
+        if (Mathf.Abs(transform.position.y - _botLeftBound.position.y) < 1.0f)
+        {
+            _velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+        }
+
 
         transform.position += _velocity * Time.deltaTime;
 
@@ -86,10 +107,10 @@ public class BasicEnemy : MonoBehaviour
 
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BasicEnemy_Projectile");
             projectile.transform.position = transform.position;
-            projectile.SetActive(true);
-            
             Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
-            projectile.GetComponent<EnemyProjectile>().SetFire(targetPos);
+            projectile.SetActive(true);
+            projectile.GetComponent<EnemyProjectile>().SetTarget(targetPos);
+            
 
         }
     }
@@ -112,4 +133,5 @@ public class BasicEnemy : MonoBehaviour
         }
 
     }
+
 }
