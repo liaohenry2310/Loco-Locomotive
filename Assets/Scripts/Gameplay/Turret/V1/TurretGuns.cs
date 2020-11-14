@@ -14,8 +14,13 @@ namespace Turret
         [SerializeField] private Transform _cannonHandler = null;
         [SerializeField] private Transform _spawnPointFire = null;
 
+        [Header("MachineGun")]
+        [SerializeField] private GameObject _MachineGunStartVFX = null;
+
         [Header("Laser")]
         [SerializeField] private LineRenderer _LaserBeam = null;
+        [SerializeField] private GameObject _LaserBeamStartVFX = null;
+        [SerializeField] private GameObject _LaserBeamEndVFX = null;
 
         [Header("Sprite")]
         [SerializeField] private SpriteRenderer _upperSprite = null;
@@ -25,6 +30,9 @@ namespace Turret
 
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
+        private LaserBeam.LaserVFXProperties _laserVFX;
+        private MachineGun.MachineGunVFXProperties _machineGunVFX;
+
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
 
@@ -39,6 +47,13 @@ namespace Turret
 
         private void Awake()
         {
+            // Setting up laser properties
+            _laserVFX.laserBeamRenderer = _LaserBeam;
+            _laserVFX.startVFX = _LaserBeamStartVFX;
+            _laserVFX.endVFX = _LaserBeamEndVFX;
+
+            _machineGunVFX.muzzleFlashVFX = _MachineGunStartVFX;
+
             // Initialize with Machine Gun as default
             _weapons = new MachineGun(_turretData);
             _weapons.SetUp(_spawnPointFire);     
@@ -134,12 +149,10 @@ namespace Turret
         private void FixedUpdate()
         {
             //if (!_turretHealth.IsAlive) return;
-            
             float rotationSpeed = -_rotation.x * _turretData.AimSpeed * Time.fixedDeltaTime;
+            _weapons.SetFire(_holdFire);
             if (_holdFire)
             {
-                _weapons.SetFire();
-
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
@@ -172,6 +185,7 @@ namespace Turret
                         Audio.clip = null;
                     }
                 }
+
                 else if(_weapons as MissileGun !=null)
                 {
                     Audio.clip = _turretData.missileGun.missilegunFire;
@@ -196,6 +210,15 @@ namespace Turret
                 timer = 0;
             }
             #endregion
+
+
+                if (_weapons as EmpGun != null)
+                {
+                    rotationSpeed *= _turretData.empShockWave.aimSpeedMultiplier;
+                }
+            }
+
+
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
 
@@ -243,20 +266,38 @@ namespace Turret
             {
                 case DispenserData.Type.Normal:
                     _weapons = new MachineGun(_turretData);
+                    if (_weapons is MachineGun machineGun)
+                    {
+                        machineGun.MachineGunVFX = _machineGunVFX;
+                    }
                     _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
                     break;
                 case DispenserData.Type.LaserBeam:
                     _weapons = new LaserBeam(_turretData);
-                    _weapons.SetUp(_spawnPointFire, _LaserBeam);
+                    if (_weapons is LaserBeam laserbeam)
+                    {
+                        laserbeam.LaserVFX = _laserVFX;
+                    }
+                    _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
                     break;
                 case DispenserData.Type.Missile:
                     _weapons = new MissileGun(_turretData);
                     _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
+                    break;
+                case DispenserData.Type.EMP:
+                    _weapons = new EmpGun(_turretData);
+                    _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
+                    break;
+                case DispenserData.Type.Shield:
+                    Debug.Log("[TurretGun] -- Shield is not implement yet.");
                     break;
                 default:
                     break;
             }
-            _weapons.Reload();
         }
         private void LaserSprite()
         {

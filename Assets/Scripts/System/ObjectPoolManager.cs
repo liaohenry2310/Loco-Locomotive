@@ -106,4 +106,23 @@ public class ObjectPoolManager : MonoBehaviour, IGameModule
         // Dynamic resizing?
         return null;
     }
+
+
+    //TODO: Still working on clean up
+    //public void RecicleEntirePool()
+    //{
+    //    for (int i = 0; i < _objectPoolByName.Count; ++i)
+    //    {
+
+    //        if (_objectPoolByName.ContainsKey(objectsToPool[i].name))
+    //        {
+    //            for (int z = 0; z < _objectPoolByName.Values.Count; ++z)
+    //            {
+    //                //_objectPoolByName.Values[z].prefab.SetActive(false);
+    //            }
+
+    //        }
+
+    //    }
+    //}
 }

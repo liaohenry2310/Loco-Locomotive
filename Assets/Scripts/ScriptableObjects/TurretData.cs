@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TurretData", menuName = "Turrets/Turret")]
-public class TurretData : ScriptableObject
+public class TurretData : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField] private float _maxHealth = 100.0f;
     [Range(50.0f, 360.0f)]
@@ -58,10 +58,35 @@ public class TurretData : ScriptableObject
         public LayerMask enemyLayerMask;
     }
 
+    [Serializable]
+    public struct ShockWave
+    {
+        public float moveSpeed;
+        public float maxSize;
+        public float growthDuration;
+        public float maxAmmo;
+        public float fireRate;
+        public float aimSpeedMultiplier;
+    }
+
     public MachineGun machineGun;
     public LaserGun laserGun;
     public MissileGun missileGun;
+    public ShockWave empShockWave;
 
     public float MaxHealth => _maxHealth;
     public float AimSpeed => _aimSpeed;
+
+    [NonSerialized] public float CurrentHealth = 0.0f;
+
+    public float HealthPercentage => CurrentHealth / _maxHealth;
+
+    public void OnBeforeSerialize()
+    {
+        CurrentHealth = _maxHealth;
+    }
+
+    public void OnAfterDeserialize()
+    {}
+
 }

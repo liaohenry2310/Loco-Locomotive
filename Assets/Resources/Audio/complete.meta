@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Resources/Audio/complete.meta
 guid: ebfc34243fde7f641bfe07768e53d01b
+=======
+guid: 80be4b1d0d5b0484495d980e1dd7d4e8
+>>>>>>> BUG_Train_Fuel:Assets/Pipeline.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

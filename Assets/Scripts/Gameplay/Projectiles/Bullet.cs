@@ -1,15 +1,22 @@
 ﻿using Interfaces;
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private TurretData _turretData = null;
-    [SerializeField] private GameObject _bulletSound = null;
+    [SerializeField] private ParticleSystem _hitVFX = null;
+
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
+
     void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
+        if (_objectPoolManager == null)
+        {
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        }
     }
 
     private void FixedUpdate()
@@ -32,17 +39,36 @@ public class Bullet : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(_turretData.machineGun.damage, DispenserData.Type.Normal);
+            //StartCoroutine(HitExplosion());
+            //For now will work like so
+            ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+            particle.Play();
+            Destroy(particle, particle.main.duration);
         }
-        Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
         RecycleBullet();
     }
 
+    //TODO: this functions still in test
+    // Need to improve this function to avoid GC
+    private IEnumerator HitExplosion()
+    {
+        GameObject particle = _objectPoolManager.GetObjectFromPool("bulletVFX");
+        particle.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+        var particles = particle.GetComponent<ParticleSystem>();
+        particles.Play();
+        yield return new WaitForSeconds(particles.main.duration);
+        _objectPoolManager.RecycleObject(particle);
+        RecycleBullet();
+    }
+
+
     private void RecycleBullet()
     {
-        if (_objectPoolManager == null)
-        {
-            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        }
+        //if (_objectPoolManager == null)
+        //{
+        //    _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        //}
         _objectPoolManager.RecycleObject(gameObject);
+
     }
 }

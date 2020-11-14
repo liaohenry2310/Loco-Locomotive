@@ -217,6 +217,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             IInteractable iter = collider.GetComponent<IInteractable>();
             if (iter != null)
             {
+                LevelManager.Instance.LoadNextLevel();
                 iter.Interact(this);
                 animator.SetBool("IsHoldItem", true);               
                 break;

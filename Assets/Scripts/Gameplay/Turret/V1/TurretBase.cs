@@ -8,18 +8,18 @@ namespace Turret
     public class TurretBase : MonoBehaviour, IDamageable<float>, IInteractable
     {
         [SerializeField] private TurretData _turretData = null;
-        public HealthSystem _healthSystem;
+        public HealthSystem HealthSystem { get; private set; }
 
         private void Awake()
         {
-            _healthSystem = new HealthSystem(_turretData.MaxHealth);
+            HealthSystem = new HealthSystem(_turretData.MaxHealth);
         }
-        
-        public bool IsAlive => _healthSystem.IsAlive;
+
+        public bool IsAlive => HealthSystem.IsAlive;
 
         public void TakeDamage(float damage)
         {
-            _healthSystem.Damage(damage);
+            HealthSystem.Damage(damage);
         }
 
         public void Interact(PlayerV1 player)
@@ -27,9 +27,8 @@ namespace Turret
             Item item = player.GetItem;
             if (item != null && item.ItemType == DispenserData.Type.RepairKit)
             {
-                _healthSystem.RestoreFullHealth();
+                HealthSystem.RestoreFullHealth();
                 player.GetItem.DestroyAfterUse();
-                Debug.Log($"[TurretBase] -- Repair complete.");
             }
         }
     }
