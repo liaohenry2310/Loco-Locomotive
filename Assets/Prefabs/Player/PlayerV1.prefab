@@ -260,6 +260,8 @@ MonoBehaviour:
   _playerData: {fileID: 11400000, guid: b9ecd91107106884e91f13cc1635e9a8, type: 2}
   takeDamge: 0
   death: 0
+  animator: {fileID: 0}
+  sp: {fileID: 8137850484133096686}
 --- !u!114 &6707677889344065179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +290,7 @@ PrefabInstance:
     - target: {fileID: 189665775721415648, guid: c2a0ef713cf9d4b4bae182250ea00715,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3194709304349947915, guid: c2a0ef713cf9d4b4bae182250ea00715,
         type: 3}
