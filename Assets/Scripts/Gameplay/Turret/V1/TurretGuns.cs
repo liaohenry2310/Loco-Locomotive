@@ -26,6 +26,7 @@ namespace Turret
         [SerializeField] private SpriteRenderer _upperSprite = null;
         [SerializeField] private SpriteRenderer _cannonSprite = null;
         [SerializeField] private SpriteRenderer _bottomSprite = null;
+        [SerializeField] private TurretBase _turretBase = null;
 
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
@@ -36,6 +37,7 @@ namespace Turret
         private bool _holdFire = false;
 
         private float curretHealth;
+
         #region AudioSource
         public AudioSource Audio;
         private bool playLasergunFire = false;
@@ -65,9 +67,13 @@ namespace Turret
             Audio.pitch = Random.Range(0.9f, 1.1f);
             #endregion
         }
+        private void OnEnable()
+        {
+            _turretBase = FindObjectOfType<TurretBase>();
+        }
         private void Update()
         {
-            curretHealth = _turretData.HealthPercentage;
+            curretHealth = _turretBase.HealthSystem.HealthPercentage;
             if (_weapons as LaserBeam != null)
             {
                 if (curretHealth >= 0.75f)
@@ -76,17 +82,19 @@ namespace Turret
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
                     _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[0];
                 }
-                else if (curretHealth >= 0.5f && curretHealth < 0.75f)
+                else if (curretHealth >= 0.25f && curretHealth < 0.75f)
                 {
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[1];
+                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[0];
                 }
-                else if (curretHealth >= 0.25f && curretHealth < 0.5f)
+                else if (curretHealth >0f && curretHealth < 0.25f)
                 {
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[2];
+                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[0];
                 }
-                else if (curretHealth < 0.25f)
+                else if (curretHealth <= 0)
                 {
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[3];
@@ -101,17 +109,21 @@ namespace Turret
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
                     _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[0];
                 }
-                else if (curretHealth >= 0.5f && curretHealth < 0.75f)
+                else if (curretHealth >= 0.25f && curretHealth < 0.75f)
                 {
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[1];
+                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[0];
+
                 }
-                else if (curretHealth >= 0.25f && curretHealth < 0.5f)
+                else if (curretHealth > 0f && curretHealth < 0.25f)
                 {
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[2];
+                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[0];
+
                 }
-                else if (curretHealth < 0.25f)
+                else if (curretHealth <= 0)
                 {
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[3];
@@ -127,15 +139,17 @@ namespace Turret
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
                     _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[0];
                 }
-                else if (curretHealth >= 0.5f && curretHealth < 0.75f)
+                else if (curretHealth >= 0.25f && curretHealth < 0.75f)
                 {
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[1];
+                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[0];
                 }
-                else if (curretHealth >= 0.25f && curretHealth < 0.5f)
+                else if (curretHealth > 0f && curretHealth < 0.25f)
                 {
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[2];
+                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[0];
                 }
                 else if (curretHealth <= 0)
                 {

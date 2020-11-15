@@ -30,22 +30,21 @@ namespace Items
             }
         }
         
-         private void Update()
-         {
-        if (_collider.enabled == true)
+        private void Update()
         {
-            _count -= Time.deltaTime;
-            if (_count <= 0.0f)
+            if (_collider.enabled == true)
             {
-                Destroy(gameObject);
+                _count -= Time.deltaTime;
+                if (_count <= 0.0f)
+                {
+                    Destroy(gameObject);
+                }
             }
-
+            else
+            {
+                _count = 5.0f;
+            }
         }
-        else
-        {
-            _count = 5.0f;
-        }
-    }
 
         public void Setup(ref DispenserItem dispenserItem)
         {
