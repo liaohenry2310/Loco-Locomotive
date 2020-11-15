@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
             sceneTransition.StartTransition();
             yield return new WaitForSecondsRealtime(sceneTransition.Duration);
             SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
+            //Place code to recycle all pooled objects here!
             yield return new WaitForSecondsRealtime(0.5f);
             sceneTransition.StartTransition();
             _loadingScene = false;

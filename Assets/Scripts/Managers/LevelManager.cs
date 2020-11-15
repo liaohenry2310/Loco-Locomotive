@@ -78,19 +78,25 @@ public class LevelManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
-        Time.timeScale = 0.0f;
-        GameOverPanel.SetActive(true);
-        GameOverPanel.GetComponentInChildren<Button>().Select();
+        if (!GameWinPanel.activeInHierarchy)
+        {
+            Debug.Log("Game Over");
+            Time.timeScale = 0.0f;
+            GameOverPanel.SetActive(true);
+            GameOverPanel.GetComponentInChildren<Button>().Select();
+        }
     }
 
     public void GameWin()
     {
-        Debug.Log("You Win");
-        Time.timeScale = 0.0f;
-        GameWinPanel.SetActive(true);
-        GameWinPanel.GetComponentInChildren<Button>().Select();
-        gameManager.SaveLevelCompleted();
+        if (!GameOverPanel.activeInHierarchy)
+        {
+            Debug.Log("You Win");
+            Time.timeScale = 0.0f;
+            GameWinPanel.SetActive(true);
+            GameWinPanel.GetComponentInChildren<Button>().Select();
+            gameManager.SaveLevelCompleted();
+        }
     }
 
     public void LoadNextLevel()
