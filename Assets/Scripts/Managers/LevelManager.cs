@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -104,10 +103,19 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        //still working on that - Cyro
-        //_objectPoolManager.RecicleEntirePool(); 
+        // still working on that - Cyro
+        // use this function inside an coroutine
+        // callback to next level
+        StartCoroutine(CleanUpForNextLevel());
+    }
+
+    private IEnumerator CleanUpForNextLevel()
+    {
+        _objectPoolManager.RecycleEntirePool();
+        yield return null;
         gameManager.LoadNextLevel();
     }
+
 
     public void ReturnToMainMenu()
     {

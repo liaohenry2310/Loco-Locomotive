@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2504264668946031665}
   - component: {fileID: 6540300251250640421}
   m_Layer: 0
-  m_Name: Wormhole
+  m_Name: WormHole
   m_TagString: Wormhole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2504264668946031665
 Transform:
   m_ObjectHideFlags: 0

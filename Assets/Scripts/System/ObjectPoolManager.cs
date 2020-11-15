@@ -107,22 +107,19 @@ public class ObjectPoolManager : MonoBehaviour, IGameModule
         return null;
     }
 
+    public void RecycleEntirePool()
+    {
+        for (int i = 0; i < _objectPoolByName.Count; ++i)
+        {
+            if (_objectPoolByName.ContainsKey(objectsToPool[i].name))
+            {
+                var listPooled = _objectPoolByName[objectsToPool[i].name];
+                for (int j = 0; j < listPooled.Count; ++j)
+                {
+                    listPooled[j].SetActive(false);
+                }
+            }
+        }
+    }
 
-    //TODO: Still working on clean up
-    //public void RecicleEntirePool()
-    //{
-    //    for (int i = 0; i < _objectPoolByName.Count; ++i)
-    //    {
-
-    //        if (_objectPoolByName.ContainsKey(objectsToPool[i].name))
-    //        {
-    //            for (int z = 0; z < _objectPoolByName.Values.Count; ++z)
-    //            {
-    //                //_objectPoolByName.Values[z].prefab.SetActive(false);
-    //            }
-
-    //        }
-
-    //    }
-    //}
 }
