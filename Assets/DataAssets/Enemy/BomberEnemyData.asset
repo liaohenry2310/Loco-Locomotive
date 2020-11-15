@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BomberEnemyData
   m_EditorClassIdentifier: 
   MaxHealth: 10
-  MaxSpeed: 5
+  MaxSpeed: 10
   AttackDelay: 5
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}

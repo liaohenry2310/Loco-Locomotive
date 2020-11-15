@@ -293,3 +293,6 @@ MonoBehaviour:
     prefab: {fileID: 3276408233857933763, guid: 688a325c5e91fd4489b48f3a5680e368,
       type: 3}
     poolSize: 100
+  - name: BomberEnemyProjectile
+    prefab: {fileID: 578651487066272678, guid: bfa620ea621c6284c916f9afa7c3ccdb, type: 3}
+    poolSize: 100

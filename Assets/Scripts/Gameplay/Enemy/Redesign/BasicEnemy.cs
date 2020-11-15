@@ -77,19 +77,23 @@ public class BasicEnemy : MonoBehaviour
 
         if (Mathf.Abs(transform.position.x - _botLeftBound.position.x) < 1.0f)
         {
-            _velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+            //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+            _velocity.x *= -1;
         }
         if (Mathf.Abs(transform.position.x - _topRightBound.position.x) < 1.0f)
         {
-            _velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+            //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+            _velocity.x *= -1;
         }
         if (Mathf.Abs(transform.position.y - _topRightBound.position.y) < 1.0f)
         {
-            _velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+            //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+            _velocity.y *= -1;
         }
         if (Mathf.Abs(transform.position.y - _botLeftBound.position.y) < 1.0f)
         {
-            _velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+            //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+            _velocity.y *= -1;
         }
 
 

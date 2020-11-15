@@ -51,7 +51,7 @@ public class SwarmEnemy : MonoBehaviour
             direction = targetPos - currentPos;
             //Quaternion lookat = Quaternion.LookRotation(direction,Vector3.up);
             //_sprite.transform.rotation = Quaternion.Lerp(transform.rotation, lookat, Time.deltaTime* _basicEnemyData.Basic_AttackSpeed*5.0f);
-            //Quaternion lookat = Quaternion.
+            //Quaternion look at = Quaternion.
             direction.Normalize();
             //Vector3 dir = new Vector3(0.0f, 0.0f, direction.z);
             _sprite.transform.eulerAngles = direction;

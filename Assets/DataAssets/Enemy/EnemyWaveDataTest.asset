@@ -15,10 +15,6 @@ MonoBehaviour:
   enemyPrefabs: []
   waveData:
   - EnemyType: 1
-    NumToSpawn: 10
-    NextWaveTimeDelay: 15
-    WormholeSize: 2
-  - EnemyType: 2
-    NumToSpawn: 10
-    NextWaveTimeDelay: 0
+    NumToSpawn: 3
+    NextWaveTimeDelay: 3
     WormholeSize: 2

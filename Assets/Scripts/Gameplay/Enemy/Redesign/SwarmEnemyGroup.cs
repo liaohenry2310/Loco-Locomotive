@@ -63,14 +63,18 @@ public class SwarmEnemyGroup : MonoBehaviour
 
     void Update()
     {
-        CheckAlive();
-        AttackMode();
-        GroupBehaviours();
+        if (swarmNeighbors.Count != 0&&swarmNeighborsTrans.Count!=0)
+        {
+           CheckAlive();
+           AttackMode();
+           GroupBehaviours();
+        }
     }
     public void CheckAlive()
     {
-        foreach (var agent in swarmNeighbors)
+        for (int i = swarmNeighbors.Count-1; i>=0; --i)
         {
+            var agent = swarmNeighbors[i];
             if (!agent.Alive)
             {
                 swarmNeighborsTrans.Remove(agent.transform);
@@ -99,31 +103,42 @@ public class SwarmEnemyGroup : MonoBehaviour
                      agent.Velocity *= enemyData.MaxSpeed;
                  }
 
-                 // _bottomLeft.position.x, _topright.position.x, _topright.position.y, _bottomLeft.position.y
-                 if (Mathf.Abs(agent.transform.position.x - _bottomLeft.position.x) < 1.0f)
-                 {
-                     agent.Velocity =new Vector3( -agent.Velocity.x, agent.Velocity.y, agent.Velocity.z);
-                 }
-                 if (Mathf.Abs(agent.transform.position.x - _topright.position.x) < 1.0f)
-                 {
-                     agent.Velocity = new Vector3(-agent.Velocity.x, agent.Velocity.y, agent.Velocity.z);
-                 }
-                 if (Mathf.Abs(agent.transform.position.y - _topright.position.y) < 1.0f)
-                 {
-                     agent.Velocity = new Vector3(agent.Velocity.x, -agent.Velocity.y, agent.Velocity.z);
-                 }
-                 if (Mathf.Abs(agent.transform.position.y - _bottomLeft.position.y) < 1.0f)
-                 {
-                     agent.Velocity = new Vector3(agent.Velocity.x, -agent.Velocity.y, agent.Velocity.z);
-                 }
-                 //agent.transform.position += agent.Velocity * Time.deltaTime;
+
+                // _bottomLeft.position.x, _topright.position.x, _topright.position.y, _bottomLeft.position.y
+                if (Mathf.Abs(transform.position.x - _bottomLeft.position.x) < 1.0f)
+                {
+                    //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+                    _velocity.x *= -1;
+                }
+                if (Mathf.Abs(transform.position.x - _topright.position.x) < 1.0f)
+                {
+                    //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+                    _velocity.x *= -1;
+                }
+                if (Mathf.Abs(transform.position.y - _topright.position.y) < 1.0f)
+                {
+                    //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+                    _velocity.y *= -1;
+                }
+                if (Mathf.Abs(transform.position.y - _bottomLeft.position.y) < 1.0f)
+                {
+                    //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+                    _velocity.y *= -1;
+                }
+                //agent.transform.position += agent.Velocity * Time.deltaTime;
             }
             else
             {
                 _acceleration = BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(agent.transform, agent.Target, enemyData.Swarm_AttackSpeed), enemyData.SeekBehaviorWeight);
                 agent.Velocity += _acceleration * Time.deltaTime;
             }
-                agent.transform.position += agent.Velocity * Time.deltaTime;
+            Vector3 deltaPos= agent.Velocity * Time.deltaTime;
+            if (deltaPos.x ==0 && deltaPos.y ==0)
+            {
+                Debug.Log("Enemy is stuck!");
+            }
+
+            agent.transform.position += agent.Velocity * Time.deltaTime;
             //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(agent.transform, _bottomLeft.position.x, _topright.position.x, _topright.position.y, _bottomLeft.position.y), enemyData.WallAvoidWeight));
         }
             //transform.position += _velocity * Time.deltaTime;
@@ -141,19 +156,21 @@ public class SwarmEnemyGroup : MonoBehaviour
     public void AttackMode()
     {
 
-        if (_nextAttackTime < Time.time)
+        if (_nextAttackTime < Time.time && swarmNeighbors.Count > 0)
         {
-            int num = Random.Range(0, swarmNeighborsTrans.Count - 1);
-            var agent = swarmNeighbors[num];
-            var agentTrans = swarmNeighborsTrans[num];
-            agent.Attacking = true;
-            Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
-            var targetlist = _trainData.TurretList;
-            int targetSize = targetlist.Length;
-            int randomtarget = Random.Range(0, targetSize - 1);
-            _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
-            targetPos = targetlist[randomtarget].gameObject.transform.position;
-            agent.Target = targetPos;
+
+                int num = Random.Range(0, swarmNeighborsTrans.Count);
+                var agent = swarmNeighbors[num];
+                var agentTrans = swarmNeighborsTrans[num];
+                agent.Attacking = true;
+                Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
+                var targetlist = _trainData.TurretList;
+                int targetSize = targetlist.Length;
+                int randomtarget = Random.Range(0, targetSize - 1);
+                _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
+                targetPos = targetlist[randomtarget].gameObject.transform.position;
+                agent.Target = targetPos;
+           
         }
     }
     public void SpawnGroup(int numToSpawn)
@@ -166,7 +183,9 @@ public class SwarmEnemyGroup : MonoBehaviour
             _enemyType = _objectPoolManager.GetObjectFromPool("SwarmEnemy");
             _enemyType.transform.position = new Vector3(_swarmSpawnPos.position.x+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.position.y+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.localPosition.z);
             _enemyType.SetActive(true);
-            _enemyType.gameObject.GetComponent<SwarmEnemy>().SetNewData(enemyData);
+            var swarmEnemy = _enemyType.gameObject.GetComponent<SwarmEnemy>();
+            swarmEnemy.Alive = true;
+            swarmEnemy.SetNewData(enemyData);
             swarmNeighbors.Add(_enemyType.GetComponent<SwarmEnemy>());
             swarmNeighborsTrans.Add(_enemyType.transform);
             //enemy.transform.parent = gameObject.transform;
