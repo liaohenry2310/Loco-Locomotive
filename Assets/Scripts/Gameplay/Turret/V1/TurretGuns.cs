@@ -26,7 +26,6 @@ namespace Turret
         [SerializeField] private SpriteRenderer _upperSprite = null;
         [SerializeField] private SpriteRenderer _cannonSprite = null;
         [SerializeField] private SpriteRenderer _bottomSprite = null;
-        [SerializeField] private TurretBase _turretBase = null;
 
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
@@ -36,9 +35,7 @@ namespace Turret
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
 
-
         private float curretHealth;
-
         #region AudioSource
         public AudioSource Audio;
         private bool playLasergunFire = false;
@@ -61,7 +58,6 @@ namespace Turret
                 machineGun.MachineGunVFX = _machineGunVFX;
             }
             _weapons.SetUp(_spawnPointFire);
-
             #region AudioSource
             Audio = gameObject.AddComponent<AudioSource>();
             Audio.playOnAwake = false;
@@ -302,11 +298,6 @@ namespace Turret
                     break;
             }
         }
-        private void LaserSprite()
-        {
-
-        }
-
     }
 
 }
