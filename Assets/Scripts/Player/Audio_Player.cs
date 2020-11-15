@@ -12,8 +12,8 @@ public class Audio_Player : MonoBehaviour
         Audio = gameObject.AddComponent<AudioSource>();
         player = gameObject.GetComponent<PlayerV1>();
         Audio.playOnAwake = false;
-        hit = Resources.Load<AudioClip>("Audio/sfx_playerhit");
-        death = Resources.Load<AudioClip>("Audio/sfx_playerdeath");
+        hit = Resources.Load<AudioClip>("Audio/complete/sfx_playerhit");
+        death = Resources.Load<AudioClip>("Audio/complete/sfx_playerdeath");
         Audio.volume = 0.1f;
     }
     private void Update()

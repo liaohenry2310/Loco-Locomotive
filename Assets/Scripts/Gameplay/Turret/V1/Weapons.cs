@@ -8,6 +8,7 @@ namespace Turret
         protected Transform _spawnPoint = null;
         protected ObjectPoolManager _objectPoolManager = null;
         protected float _currentAmmo = 0.0f;
+        protected AudioClip _audioClip = null;
 
         public Weapons(TurretData setupData)
         {
@@ -21,6 +22,10 @@ namespace Turret
         public abstract void SetFire();
 
         public abstract void Reload();
+
+        public abstract float CurretAmmo();
+
+
     }
 
 }

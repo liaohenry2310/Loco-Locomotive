@@ -125,6 +125,8 @@ MonoBehaviour:
   _turretData: {fileID: 11400000, guid: fdbe043dcd067cf489e453f4710e4dd2, type: 2}
   _explosionParticle: {fileID: 7625510486142718955, guid: ca501149ee8ba98429ebf19ff206dbfa,
     type: 3}
+  _missileSound: {fileID: 6425000051854844661, guid: 7079729710e5370449b227940259016c,
+    type: 3}
 --- !u!1 &6485864766472145201
 GameObject:
   m_ObjectHideFlags: 0
