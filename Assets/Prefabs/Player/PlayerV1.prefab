@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8137850484133096675}
   - component: {fileID: 6707677889344065179}
   - component: {fileID: 1732405955468831116}
-  - component: {fileID: 468436092}
   - component: {fileID: 468436100}
   m_Layer: 0
   m_Name: PlayerV1
@@ -314,7 +313,7 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 4d32acddb0e994248af46744b4f96588, type: 2}
   - {fileID: 9100000, guid: eefdeeba12f82f043860182a1c843816, type: 2}
   - {fileID: 9100000, guid: 6eafeb76249d49c4496a99e81fa8f5c9, type: 2}
-  animator: {fileID: 468436092}
+  animator: {fileID: 0}
 --- !u!1001 &5770892783949053550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -345,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 6758768840376095859, guid: c2a0ef713cf9d4b4bae182250ea00715,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.66
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6758768840376095859, guid: c2a0ef713cf9d4b4bae182250ea00715,
         type: 3}
@@ -395,12 +394,12 @@ PrefabInstance:
     - target: {fileID: 6758768840376095859, guid: c2a0ef713cf9d4b4bae182250ea00715,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.95
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6758768840376095859, guid: c2a0ef713cf9d4b4bae182250ea00715,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.625
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2a0ef713cf9d4b4bae182250ea00715, type: 3}

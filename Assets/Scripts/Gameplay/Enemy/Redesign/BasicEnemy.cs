@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
@@ -103,8 +102,7 @@ public class BasicEnemy : MonoBehaviour
         //Shooting
         if (_nextAttackTime < Time.time)
         {
-            //var targetlist = LevelManager.Instance.Train.GetTurrets();
-            var targetlist = _trainData.TurretList;
+            var targetlist = _trainData.ListTurret;
             int targetSize = targetlist.Length;
             int randomtarget = Random.Range(0, targetSize-1);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);

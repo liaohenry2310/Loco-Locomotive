@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7690342441944320860
 Transform:
   m_ObjectHideFlags: 0
@@ -59,13 +59,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.76, y: 2.61}
   m_EdgeRadius: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8034d2ee5f5872b42831bbff30f48b63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _turretData: {fileID: 11400000, guid: fdbe043dcd067cf489e453f4710e4dd2, type: 2}
-  _bulletSound: {fileID: 2616996482491872489, guid: 37fa4037cfe0b6c4e80c47e1def5ea9a,
-    type: 3}
 --- !u!212 &3943111462777681231
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -130,3 +123,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turretData: {fileID: 11400000, guid: fdbe043dcd067cf489e453f4710e4dd2, type: 2}
   _hitVFX: {fileID: 198175801688348628, guid: 112380b782174234cad99c6f34c0375a, type: 3}
+  _bulletSound: {fileID: 2616996482491872489, guid: 37fa4037cfe0b6c4e80c47e1def5ea9a,
+    type: 3}

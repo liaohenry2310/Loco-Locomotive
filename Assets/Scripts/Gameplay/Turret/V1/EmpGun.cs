@@ -5,7 +5,6 @@ namespace Turret
     public class EmpGun : Weapons
     {
         private readonly TurretData _turretData;
-        private ParticleSystem _muzzleFlash = null;
         private ObjectPoolManager _objectPoolManager = null;
         private float _timeToFire = 0.0f;
 

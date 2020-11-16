@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -328,3 +328,7 @@ MonoBehaviour:
   - name: BomberEnemyProjectile
     prefab: {fileID: 578651487066272678, guid: bfa620ea621c6284c916f9afa7c3ccdb, type: 3}
     poolSize: 100
+  - name: EMPShockWave
+    prefab: {fileID: 6739913794458184535, guid: 6ee4023d0bde2df44949f78dc36a7bd3,
+      type: 3}
+    poolSize: 50

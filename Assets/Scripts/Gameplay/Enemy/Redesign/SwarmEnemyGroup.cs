@@ -164,7 +164,7 @@ public class SwarmEnemyGroup : MonoBehaviour
                 var agentTrans = swarmNeighborsTrans[num];
                 agent.Attacking = true;
                 Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
-                var targetlist = _trainData.TurretList;
+                var targetlist = _trainData.ListTurret;
                 int targetSize = targetlist.Length;
                 int randomtarget = Random.Range(0, targetSize - 1);
                 _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);

@@ -129,11 +129,6 @@ namespace Turret
             }
         }
 
-        public override float CurretAmmo()
-        {
-            return _currentAmmo;
-        }
-
     }
 
 }

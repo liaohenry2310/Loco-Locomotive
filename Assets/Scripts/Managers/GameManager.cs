@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     //Editor Fields
     [SerializeField] private SceneTransition sceneTransition = null;
+    private ObjectPoolManager _objectPoolManager = null;
 
     //Public Members
     static public GameManager Instance { get; private set; }
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        
         if (Instance)
         {
             Destroy(gameObject);
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            // DontDestroyOnLoad(gameObject); // nao precisa disso
+            // DontDestroyOnLoad(gameObject);
         }
 
         if (PlayerPrefs.GetInt("Level") < 2)
@@ -92,6 +94,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(sceneTransition.Duration);
             SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
             //Place code to recycle all pooled objects here!
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+            _objectPoolManager.RecycleEntirePool();
             yield return new WaitForSecondsRealtime(0.5f);
             sceneTransition.StartTransition();
             _loadingScene = false;
