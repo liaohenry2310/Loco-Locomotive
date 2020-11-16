@@ -41,6 +41,14 @@ namespace Turret
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
 
+        public override void SetUp(Transform spawnPoint, LineRenderer laserBeam)
+        { }
+
+        public override float CurretAmmo()
+        {
+            return _currentAmmo;
+        }
+
     }
 
 }

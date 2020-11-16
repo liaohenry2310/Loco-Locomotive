@@ -16,6 +16,8 @@ public class TurretData : ScriptableObject
         public float fireRate;
         public float maxAmmo;
         public float spreadBullet;
+        public AudioClip machinegunFire;
+        public AudioClip machinegunBeam;
     }
 
     [Serializable]
@@ -28,6 +30,8 @@ public class TurretData : ScriptableObject
         public float fireRate;
         public float radiusEffect;
         public float maxAmmo;
+        public AudioClip missilegunFire;
+        public AudioClip missilegunBeam;
         public LayerMask enemyLayerMask;
     }
 
@@ -39,6 +43,8 @@ public class TurretData : ScriptableObject
         public float ammoConsumeRate;
         public float aimSpeedMultiplier;
         public float maxAmmo;
+        public AudioClip lasergunBeam;
+        public AudioClip lasergunFire;
         public LayerMask enemyLayerMask;
     }
 

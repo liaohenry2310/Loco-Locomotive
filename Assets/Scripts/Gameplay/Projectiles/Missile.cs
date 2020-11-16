@@ -5,11 +5,11 @@ public class Missile : MonoBehaviour
 {
     [SerializeField] private TurretData _turretData = null;
     [SerializeField] private ParticleSystem _explosionParticle = null;
+    [SerializeField] private GameObject _missileSound = null;
 
     private Vector3 _screenBounds;
     private float _currentSpeed = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
-
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
@@ -69,6 +69,9 @@ public class Missile : MonoBehaviour
                 ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
                 ParticleSystem.MainModule main = particle.main;
                 main.startSize = _turretData.missileGun.radiusEffect;
+
+                Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
+
                 particle.Play();
                 Destroy(particle, particle.main.duration);
                 _triggerExplosionOnce = true;

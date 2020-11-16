@@ -109,6 +109,7 @@ namespace Turret
             }
         }
 
+
         private void EnableLaser()
         {
             LaserVFX.laserBeamRenderer.enabled = true;
@@ -126,6 +127,11 @@ namespace Turret
             {
                 _particles[i].Stop();
             }
+        }
+
+        public override float CurretAmmo()
+        {
+            return _currentAmmo;
         }
 
     }
