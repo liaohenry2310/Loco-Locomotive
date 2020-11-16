@@ -5,10 +5,10 @@
  */
 public class Audio_Player : MonoBehaviour
 {
-    public AudioSource Audio;
-    private AudioClip hit;
-    private AudioClip death;
-    private PlayerV1 player;
+    //public AudioSource Audio;
+    //private AudioClip hit;
+    //private AudioClip death;
+    //private PlayerV1 player;
 
     private void Awake()
     {

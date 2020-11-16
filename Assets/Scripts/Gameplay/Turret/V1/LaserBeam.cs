@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Interfaces;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Turret
@@ -46,22 +47,20 @@ namespace Turret
                     Collider2D collider = hit.collider;
                     if (collider)
                     {
-                        LaserVFX.laserBeamRenderer.SetPosition(1, hit.point);
-                        //TODO: all comments here is correct, just comment for test for the dummy box
-                        //var shieldEnemy = collider.gameObject.GetComponentInChildren<EnemyShieldHealth>();
-                        //if (shieldEnemy && shieldEnemy.ShieldIsActive)
-                        //{
-                        //    _LaserBeam.SetPosition(1, hit.point);
-                        //}
-                        //else
-                        //{
-                        //    _LaserBeam.SetPosition(1, _spawnPoint.up * _turretData.laserGun.range);
-                        //    IDamageableType<float> damageable = collider.GetComponent<EnemyHealth>();
-                        //    if (damageable != null)
-                        //    {
-                        //        damageable.TakeDamage(_turretData.laserGun.damage * Time.deltaTime, DispenserData.Type.LaserBeam);
-                        //    }
-                        //}
+                        var shieldEnemy = collider.gameObject.GetComponentInChildren<EnemyShieldHealth>();
+                        if (shieldEnemy && shieldEnemy.ShieldIsActive)
+                        {
+                            LaserVFX.laserBeamRenderer.SetPosition(1, hit.point);
+                        }
+                        else
+                        {
+                            LaserVFX.laserBeamRenderer.SetPosition(1, _spawnPoint.up * _turretData.laserGun.range);
+                            IDamageableType<float> damageable = collider.GetComponent<EnemyHealth>();
+                            if (damageable != null)
+                            {
+                                damageable.TakeDamage(_turretData.laserGun.damage * Time.deltaTime, DispenserData.Type.LaserBeam);
+                            }
+                        }
                     }
                 }
                 else
