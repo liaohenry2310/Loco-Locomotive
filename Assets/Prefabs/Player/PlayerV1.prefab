@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8137850484133096672}
   - component: {fileID: 8137850484133096675}
   - component: {fileID: 6707677889344065179}
+  - component: {fileID: 1732405955468831116}
   - component: {fileID: 468436092}
   - component: {fileID: 468436100}
   m_Layer: 0
@@ -262,7 +263,7 @@ MonoBehaviour:
   _playerData: {fileID: 11400000, guid: b9ecd91107106884e91f13cc1635e9a8, type: 2}
   takeDamge: 0
   death: 0
-  animator: {fileID: 468436092}
+  animator: {fileID: 1732405955468831116}
   sp: {fileID: 8137850484133096686}
 --- !u!114 &6707677889344065179
 MonoBehaviour:
@@ -277,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Audio: {fileID: 0}
---- !u!95 &468436092
+--- !u!95 &1732405955468831116
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -287,7 +288,7 @@ Animator:
   m_GameObject: {fileID: 8137850484133096674}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4d32acddb0e994248af46744b4f96588, type: 2}
+  m_Controller: {fileID: 9100000, guid: da98e7191096d174db7fa571b573e6a1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

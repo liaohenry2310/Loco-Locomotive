@@ -4,19 +4,24 @@ namespace Turret
 {
     public class MissileGun : Weapons
     {
+        private readonly TurretData _turretData;
+        private ObjectPoolManager _objectPoolManager = null;
         private float _timeToFire = 0.0f;
 
-        public MissileGun(TurretData data) : base(data)
-        { }
+        public MissileGun(TurretData data)
+        {
+            _turretData = data;
+        }
 
         public override void Reload()
         {
             _currentAmmo = _turretData.missileGun.maxAmmo;
         }
 
-        public override void SetFire()
+        public override void SetFire(bool fire)
         {
-            if (!((_currentAmmo > 0) && (Time.time >= _timeToFire))) return;
+            if (!(fire && (_currentAmmo > 0) && (Time.time >= _timeToFire))) return;
+
             _timeToFire = Time.time + (1f / _turretData.missileGun.fireRate);
             GameObject missile = _objectPoolManager.GetObjectFromPool("Missile");
             if (!missile)
@@ -43,6 +48,7 @@ namespace Turret
         {
             return _currentAmmo;
         }
+
     }
 
 }

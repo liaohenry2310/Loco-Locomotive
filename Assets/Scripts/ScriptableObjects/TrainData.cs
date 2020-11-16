@@ -9,9 +9,11 @@ public class TrainData : ScriptableObject, ISerializationCallbackReceiver
     public float MaxFuel = 2500.0f;
     public float FuelRate = 10.0f;
 
+    [NonSerialized] public uint PlayerCount = 1;
     [NonSerialized] public float CurrentHealth;
     [NonSerialized] public float CurrentFuel;
-    [NonSerialized] public TurretBase[] TurretList;
+    [NonSerialized] public TurretBase[] ListTurret;
+    [NonSerialized] public Transform TrainTransform;
 
     public void OnAfterDeserialize()
     {
@@ -21,4 +23,14 @@ public class TrainData : ScriptableObject, ISerializationCallbackReceiver
 
     public void OnBeforeSerialize()
     { }
+
+    public void Initialize(MonoBehaviour monoBehaviour)
+    {
+        CurrentHealth = MaxHealth;
+        CurrentFuel = MaxFuel;
+        TrainTransform = monoBehaviour.transform;
+    }
+
+    public float FuelPercentage => CurrentFuel / MaxFuel;
+    public float HealthPercentage => CurrentHealth / MaxHealth;
 }

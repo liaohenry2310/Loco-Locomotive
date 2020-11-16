@@ -101,3 +101,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerSpawnPod: {fileID: 5197663987849638619, guid: e89113ba3c3e62546b1dc84b0f7a093b,
     type: 3}
+  _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}

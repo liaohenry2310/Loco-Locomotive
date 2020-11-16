@@ -15,5 +15,5 @@ MonoBehaviour:
   _type: 1
   _itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
     type: 3}
-  _dispenserSprite: {fileID: 21300000, guid: 95858fee3bedf974e96d77419ec615c2, type: 3}
-  _itemSprite: {fileID: 21300000, guid: 285bf3eda9692ba45ad7780ccb1886d7, type: 3}
+  _dispenserSprite: {fileID: 21300000, guid: fef2df2f69326484a9dfc514c8fe9cae, type: 3}
+  _itemSprite: {fileID: 21300000, guid: b9a4c98285a81fd499ad2c7ce3086e61, type: 3}

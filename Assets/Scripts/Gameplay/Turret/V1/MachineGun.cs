@@ -5,26 +5,42 @@ namespace Turret
     public class MachineGun : Weapons
     {
 
+        private readonly TurretData _turretData;
+        private ParticleSystem _muzzleFlash;
+        private ObjectPoolManager _objectPoolManager = null;
         private float _timeToFire = 0.0f;
 
-        public MachineGun(TurretData data) : base(data)
-        { }
+        public struct MachineGunVFXProperties
+        {
+            public GameObject muzzleFlashVFX;
+        }
+
+        public MachineGunVFXProperties MachineGunVFX;
+
+        public MachineGun(TurretData data) 
+        {
+            _turretData = data;
+        }
 
         public override void Reload()
         {
             _currentAmmo = _turretData.machineGun.maxAmmo;
         }
 
-        public override void SetFire()
+        public override void SetFire(bool fire)
         {
-            if (!((_currentAmmo > 0.0f) && (Time.time >= _timeToFire))) return;
+            if (!(fire && (_currentAmmo > 0.0f) && (Time.time >= _timeToFire)))
+            {
+                if (_muzzleFlash.isPlaying) _muzzleFlash.Stop();
+                return;
+            }
 
+            if (!_muzzleFlash.isPlaying) _muzzleFlash.Play();
             _timeToFire = Time.time + (1f / _turretData.machineGun.fireRate);
-
             GameObject bullet = _objectPoolManager.GetObjectFromPool("Bullet");
             if (!bullet)
             {
-                Debug.LogWarning("Bullet Object Pool is Empty");
+                Debug.LogWarning("Missile Object Pool is Empty");
                 return;
             }
             Quaternion rotation = Quaternion.RotateTowards(_spawnPoint.rotation, Random.rotation, _turretData.machineGun.spreadBullet);
@@ -33,12 +49,15 @@ namespace Turret
             _currentAmmo--;
         }
 
-        public override void SetUp(Transform spawmPoint)
+        public override void SetUp(Transform spawnPoint)
         {
-            _spawnPoint = spawmPoint;
+            _spawnPoint = spawnPoint;
             _currentAmmo = _turretData.machineGun.maxAmmo;
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+            _muzzleFlash = MachineGunVFX.muzzleFlashVFX.GetComponentInChildren<ParticleSystem>();
+            _muzzleFlash.Stop();
         }
+
 
 
         public override void SetUp(Transform spawmPoint, LineRenderer laserBeam)
@@ -48,6 +67,7 @@ namespace Turret
         {
             return _currentAmmo;
         }
+
     }
 
 }
