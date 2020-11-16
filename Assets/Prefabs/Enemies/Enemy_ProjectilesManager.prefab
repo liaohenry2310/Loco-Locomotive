@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecf88d0ac991184c9b5c6178f91f545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCount: 100
-  ProjectilePrefab: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
-    type: 3}
+  _basicEnemyData: {fileID: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
