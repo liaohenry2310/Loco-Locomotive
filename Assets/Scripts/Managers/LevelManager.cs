@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +10,11 @@ public class LevelManager : MonoBehaviour
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
     private GameManager gameManager;
+
+    private ObjectPoolManager _objectPoolManager = null;
+
+    public bool IsGameOver { get; private set; } = false;
+
 
     #region Timer
     [Header("Timer")]
@@ -25,6 +29,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         train.OnGameOver += GameOver;
     }
 
@@ -101,6 +106,16 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        // still working on that - Cyro
+        // use this function inside an coroutine
+        // callback to next level
+        StartCoroutine(CleanUpForNextLevel());
+    }
+
+    private IEnumerator CleanUpForNextLevel()
+    {
+        _objectPoolManager.RecycleEntirePool();
+        yield return null;
         gameManager.LoadNextLevel();
         Time.timeScale = 1.0f;
     }
@@ -110,6 +125,7 @@ public class LevelManager : MonoBehaviour
         gameManager.Restart();
         Time.timeScale = 1.0f;
     }
+
 
     public void ReturnToMainMenu()
     {

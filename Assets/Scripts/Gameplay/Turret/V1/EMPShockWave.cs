@@ -7,10 +7,9 @@ namespace Turret
     public class EMPShockWave : MonoBehaviour
     {
         [SerializeField] private TurretData _turretData = null;
-        private Vector3 _screenBounds;
         private ObjectPoolManager _objectPoolManager = null;
-
         private WaitForSeconds _waitSeconds;
+        private Vector3 _screenBounds;
 
         void Start()
         {
@@ -19,7 +18,7 @@ namespace Turret
             {
                 _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
             }
-            transform.localScale = new Vector3(0.0f, 0.5f,0.0f);
+            transform.localScale = new Vector3(0.0f, 0.0f,0.0f);
             _waitSeconds = new WaitForSeconds(0.05f);
         }
 
@@ -51,7 +50,7 @@ namespace Turret
         {
             while (transform.localScale.x <= _turretData.empShockWave.maxSize)
             {
-                transform.localScale += new Vector3((_turretData.empShockWave.maxSize / _turretData.empShockWave.growthDuration) * Time.fixedDeltaTime, 0.0f, 0.0f);
+                transform.localScale += new Vector3(_turretData.empShockWave.maxSize / _turretData.empShockWave.growthDuration * Time.fixedDeltaTime, 0.01f, 0.0f);
                 yield return _waitSeconds;
             }
         }
@@ -59,7 +58,7 @@ namespace Turret
         private void RecycleBullet()
         {
             // reset the original scale before return to pool
-            gameObject.transform.localScale = new Vector3(0.0f, 0.5f, 0.0f);
+            gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
             _objectPoolManager.RecycleObject(gameObject);
         }
     }

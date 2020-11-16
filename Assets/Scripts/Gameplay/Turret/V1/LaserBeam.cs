@@ -47,7 +47,7 @@ namespace Turret
                     if (collider)
                     {
                         LaserVFX.laserBeamRenderer.SetPosition(1, hit.point);
-                        //TODO: all comments here is correct, just for test of the dummy box
+                        //TODO: all comments here is correct, just comment for test for the dummy box
                         //var shieldEnemy = collider.gameObject.GetComponentInChildren<EnemyShieldHealth>();
                         //if (shieldEnemy && shieldEnemy.ShieldIsActive)
                         //{

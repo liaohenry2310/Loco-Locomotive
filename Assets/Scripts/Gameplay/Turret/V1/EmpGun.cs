@@ -9,12 +9,6 @@ namespace Turret
         private ObjectPoolManager _objectPoolManager = null;
         private float _timeToFire = 0.0f;
 
-        public struct EMPGunVFXProperties
-        {
-            public GameObject muzzleFlashVFX;
-        }
-
-        public EMPGunVFXProperties EmpGunVFX;
 
         public EmpGun(TurretData data)
         {
@@ -28,14 +22,9 @@ namespace Turret
 
         public override void SetFire(bool fire)
         {
-            if (!(fire && (_currentAmmo > 0.0f) && (Time.time >= _timeToFire)))
-            {
-                if (_muzzleFlash.isPlaying) _muzzleFlash.Stop();
-                return;
-            }
+            if (!(fire && (_currentAmmo > 0.0f) && (Time.time >= _timeToFire))) return;
+            
 
-            //TODO: Check why the particle are not emitting
-            if (!_muzzleFlash.isPlaying) _muzzleFlash.Play();
             _timeToFire = Time.time + (1f / _turretData.empShockWave.fireRate);
             GameObject emp = _objectPoolManager.GetObjectFromPool("EMPShockWave");
             if (!emp)
@@ -53,8 +42,6 @@ namespace Turret
             _spawnPoint = spawnPoint;
             _currentAmmo = _turretData.empShockWave.maxAmmo;
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-            _muzzleFlash = EmpGunVFX.muzzleFlashVFX.GetComponentInChildren<ParticleSystem>();
-            _muzzleFlash.Stop();
         }
     }
 }
