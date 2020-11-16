@@ -20,12 +20,16 @@ MonoBehaviour:
     fireRate: 15
     maxAmmo: 500
     spreadBullet: 10
+    machinegunFire: {fileID: 8300000, guid: 5537fa92dc267ad4ab371e4b9cb3043d, type: 3}
+    machinegunBeam: {fileID: 8300000, guid: a717f7a68644e0a418ab9c1822959fa2, type: 3}
   laserGun:
     damage: 100
     range: 50
     ammoConsumeRate: 1
     aimSpeedMultiplier: 0.5
     maxAmmo: 30
+    lasergunBeam: {fileID: 8300000, guid: c1e4f0e3f9f5c5941918bf90522d7d4f, type: 3}
+    lasergunFire: {fileID: 8300000, guid: 3cd5ea05e713fde499a6f5e2fec8f671, type: 3}
     enemyLayerMask:
       serializedVersion: 2
       m_Bits: 512
@@ -37,6 +41,8 @@ MonoBehaviour:
     fireRate: 1
     radiusEffect: 0.5
     maxAmmo: 30
+    missilegunFire: {fileID: 8300000, guid: 02a4714b594093b47b8d6c545b5306d8, type: 3}
+    missilegunBeam: {fileID: 8300000, guid: d84c1fbde6670aa40b71f543519a4d1e, type: 3}
     enemyLayerMask:
       serializedVersion: 2
       m_Bits: 512

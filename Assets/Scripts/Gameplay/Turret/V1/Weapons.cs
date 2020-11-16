@@ -6,12 +6,17 @@ namespace Turret
     {
         protected Transform _spawnPoint = null;
         protected float _currentAmmo = 0.0f;
+        protected AudioClip _audioClip = null;
 
         public abstract void SetUp(Transform spawnPoint);
 
         public abstract void SetFire(bool fire);
 
         public abstract void Reload();
+
+        public abstract float CurretAmmo();
+
+
     }
 
 }

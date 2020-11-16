@@ -6,10 +6,10 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private TurretData _turretData = null;
     [SerializeField] private ParticleSystem _hitVFX = null;
+    [SerializeField] private GameObject _bulletSound = null;
 
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
-
     void Start()
     {
         _screenBounds = GameManager.GetScreenBounds;
@@ -45,6 +45,7 @@ public class Bullet : MonoBehaviour
             particle.Play();
             Destroy(particle, particle.main.duration);
         }
+        Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
         RecycleBullet();
     }
 
@@ -64,11 +65,6 @@ public class Bullet : MonoBehaviour
 
     private void RecycleBullet()
     {
-        //if (_objectPoolManager == null)
-        //{
-        //    _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        //}
         _objectPoolManager.RecycleObject(gameObject);
-
     }
 }
