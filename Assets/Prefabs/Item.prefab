@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2848069383138826400}
   - component: {fileID: -8482083039874815010}
   - component: {fileID: 8625052767726486399}
-  - component: {fileID: 6700909191878251282}
   m_Layer: 10
   m_Name: Item
   m_TagString: DispenserObject
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8489893474380361143}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -52,7 +51,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.19, y: 0.2}
     newSize: {x: 1.85, y: 2.49}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -99,8 +98,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: eeae03047371e804996ee7999573fba3, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 942c93fdd822a1549ac0e4e4676242e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -139,16 +138,3 @@ MonoBehaviour:
   _itemOffset: {x: 0, y: 0, z: 0}
   itemIndicator: {fileID: 0}
   dropitem: 0
---- !u!114 &6700909191878251282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8489893474380361143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4de7eaced712d46459cd48ae75b9285a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _delayTime: 5

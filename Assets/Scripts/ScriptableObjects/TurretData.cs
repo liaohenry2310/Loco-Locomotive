@@ -18,6 +18,9 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float spreadBullet;
         public AudioClip machinegunFire;
         public AudioClip machinegunBeam;
+        public Sprite[] Uppersprites;
+        public Sprite[] Cannonsprites;
+        public Sprite[] Bottomsprites;
     }
 
     [Serializable]
@@ -32,6 +35,9 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float maxAmmo;
         public AudioClip missilegunFire;
         public AudioClip missilegunBeam;
+        public Sprite[] Uppersprites;
+        public Sprite[] Cannonsprites;
+        public Sprite[] Bottomsprites;
         public LayerMask enemyLayerMask;
     }
 
@@ -45,6 +51,9 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float maxAmmo;
         public AudioClip lasergunBeam;
         public AudioClip lasergunFire;
+        public Sprite[] Uppersprites;
+        public Sprite[] Cannonsprites;
+        public Sprite[] Bottomsprites;
         public LayerMask enemyLayerMask;
     }
 
