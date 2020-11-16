@@ -46,3 +46,10 @@ MonoBehaviour:
     enemyLayerMask:
       serializedVersion: 2
       m_Bits: 512
+  empShockWave:
+    moveSpeed: 2
+    maxSize: 3
+    growthDuration: 2
+    maxAmmo: 50
+    fireRate: 3
+    aimSpeedMultiplier: 0.5

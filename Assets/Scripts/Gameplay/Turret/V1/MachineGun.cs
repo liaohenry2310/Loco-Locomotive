@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Turret
 {
@@ -32,16 +31,16 @@ namespace Turret
         {
             if (!(fire && (_currentAmmo > 0.0f) && (Time.time >= _timeToFire)))
             {
-                _muzzleFlash.Stop();
+                if (_muzzleFlash.isPlaying) _muzzleFlash.Stop();
                 return;
             }
 
-            _muzzleFlash.Play();
+            if (!_muzzleFlash.isPlaying) _muzzleFlash.Play();
             _timeToFire = Time.time + (1f / _turretData.machineGun.fireRate);
             GameObject bullet = _objectPoolManager.GetObjectFromPool("Bullet");
             if (!bullet)
             {
-                Debug.LogWarning("Bullet Object Pool is Empty");
+                Debug.LogWarning("Missile Object Pool is Empty");
                 return;
             }
             Quaternion rotation = Quaternion.RotateTowards(_spawnPoint.rotation, Random.rotation, _turretData.machineGun.spreadBullet);
