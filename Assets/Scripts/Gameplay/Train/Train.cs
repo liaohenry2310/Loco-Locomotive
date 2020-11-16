@@ -19,7 +19,6 @@ namespace GamePlay
         [SerializeField] private FireBox _fireBox = null;
 
         private bool _outOfFuel = false;
-
         #endregion
 
         public void Initialized()

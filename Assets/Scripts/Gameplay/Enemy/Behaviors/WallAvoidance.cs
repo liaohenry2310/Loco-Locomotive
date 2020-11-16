@@ -16,11 +16,11 @@ public static class WallAvoidance
         {
             avoidMove.x = -1.0f;
         }
-        if (Mathf.Abs(agent.position.x - minY) < distance)
+        if (Mathf.Abs(agent.position.y - minY) < distance)
         {
             avoidMove.x = 1.0f;
         }
-        if (Mathf.Abs(agent.position.x - maxY) < distance)
+        if (Mathf.Abs(agent.position.y - maxY) < distance)
         {
             avoidMove.x = -1.0f;
         }

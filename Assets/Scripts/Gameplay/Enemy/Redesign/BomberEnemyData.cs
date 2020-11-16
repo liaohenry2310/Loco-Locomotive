@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BasicEnemyData", menuName = "BasicEnemy")]
-public class BasicEnemyData : ScriptableObject
+[CreateAssetMenu(fileName = "BomberEnemyData", menuName = "BomberEnemy")]
+public class BomberEnemyData : ScriptableObject
 {
     public float MaxHealth;
     public float MaxSpeed;
     public float AttackDelay;
     public GameObject projectile;
-    public float Basic_AttackDamage;
-    public float Basic_AttackSpeed;
+    public float Bomber_AttackDamage;
+    public float Bomber_AttackSpeed;
 
-    //Any shared movement data can be put here as well, for example...
+
+
     public float WallAvoidWeight;
 
     public float WanderBehaviorWeight;

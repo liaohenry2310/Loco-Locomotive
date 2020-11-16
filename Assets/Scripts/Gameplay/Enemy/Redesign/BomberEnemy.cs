@@ -2,12 +2,12 @@
 using System.Threading;
 using UnityEngine;
 
-public class BasicEnemy : MonoBehaviour
+public class BomberEnemy : MonoBehaviour
 {
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;   
 
-    public BasicEnemyData enemyData;
+    public BomberEnemyData enemyData;
 
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
@@ -109,7 +109,7 @@ public class BasicEnemy : MonoBehaviour
             int randomtarget = Random.Range(0, targetSize-1);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
 
-            GameObject projectile = _objectPoolManager.GetObjectFromPool("BasicEnemy_Projectile");
+            GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
             projectile.transform.position = transform.position;
             Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
             projectile.SetActive(true);

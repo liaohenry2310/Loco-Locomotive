@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833354a74b39d9f4ab764cd58d4aa4d4, type: 3}
-  m_Name: BasicEnemyData
+  m_Script: {fileID: 11500000, guid: e2c99089c966da048ad7229a1c175075, type: 3}
+  m_Name: EnemyWaveDataTest
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  MaxSpeed: 5
-  AttackDelay: 1
-  WallAvoidWeight: 10
-  WanderBehaviorWeight: 3
-  WanderRadius: 2
-  WanderDistance: 1.5
-  WanderJitter: 2
+  enemyPrefabs: []
+  waveData:
+  - EnemyType: 1
+    NumToSpawn: 3
+    NextWaveTimeDelay: 3
+    WormholeSize: 2
