@@ -58,6 +58,16 @@ namespace Turret
             _muzzleFlash.Stop();
         }
 
+
+
+        public override void SetUp(Transform spawmPoint, LineRenderer laserBeam)
+        { }
+
+        public override float CurretAmmo()
+        {
+            return _currentAmmo;
+        }
+
     }
 
 }

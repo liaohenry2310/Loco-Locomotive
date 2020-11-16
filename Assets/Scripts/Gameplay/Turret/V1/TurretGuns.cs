@@ -60,6 +60,10 @@ namespace Turret
                 machineGun.MachineGunVFX = _machineGunVFX;
             }
             _weapons.SetUp(_spawnPointFire);
+            // Setting up laser properties
+            _laserVFX.laserBeamRenderer = _LaserBeam;
+            _laserVFX.startVFX = _LaserBeamStartVFX;
+            _laserVFX.endVFX = _LaserBeamEndVFX;
             #region AudioSource
             Audio = gameObject.AddComponent<AudioSource>();
             Audio.playOnAwake = false;
@@ -67,6 +71,7 @@ namespace Turret
             Audio.pitch = Random.Range(0.9f, 1.1f);
             #endregion
         }
+        
         private void OnEnable()
         {
             _turretBase = FindObjectOfType<TurretBase>();
@@ -167,16 +172,17 @@ namespace Turret
             float rotationSpeed = -_rotation.x * _turretData.AimSpeed * Time.fixedDeltaTime;
             _weapons.SetFire(_holdFire);
             if (_holdFire)
+
             {
+                _weapons.SetFire();
+
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
 
-                    #region AudioSource
-
                     timer += Time.fixedDeltaTime;
-                    if (playLasergunFire == false)
-                    {
+                    if(playLasergunFire ==false)
+                    {                       
                         Audio.clip = _turretData.laserGun.lasergunFire;
                         Audio.Play();
                         playLasergunFire = true;
@@ -185,7 +191,25 @@ namespace Turret
                     {
                         Audio.clip = _turretData.laserGun.lasergunBeam;
                         Audio.Play();
+                    }                                         
+                    if (_weapons.CurretAmmo == 0.0f)
+                    {
+                        Audio.clip = null;
                     }
+                }
+                else if(_weapons as MachineGun !=null)
+                {
+                    Audio.clip = _turretData.machineGun.machinegunFire;
+                    Audio.Play();
+                    if (_weapons.CurretAmmo == 0.0f)
+                    {
+                        Audio.clip = null;
+                    }
+                }
+                else if(_weapons as MissileGun !=null)
+                {
+                    Audio.clip = _turretData.missileGun.missilegunFire;
+                    Audio.Play();
                     if (_weapons.CurretAmmo == 0.0f)
                     {
                         Audio.clip = null;
@@ -209,6 +233,18 @@ namespace Turret
                         Audio.clip = null;
                     }
                 }
+            }
+            else
+            {
+                // disable Line Renderer when using LaserBeam
+                _LaserBeam.enabled = false;
+            }
+            #region AudioSource
+            if (!_holdFire && _weapons as LaserBeam != null)
+            {
+                Audio.clip = null;
+                playLasergunFire = false;
+                timer = 0;
             }
             #endregion
 

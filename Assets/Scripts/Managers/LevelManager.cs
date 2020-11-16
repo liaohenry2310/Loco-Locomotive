@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +6,15 @@ public class LevelManager : MonoBehaviour
 {
     static public LevelManager Instance { get; private set; }
 
+    public Train train;
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
     private GameManager gameManager;
+
     private ObjectPoolManager _objectPoolManager = null;
 
     public bool IsGameOver { get; private set; } = false;
+
 
     #region Timer
     [Header("Timer")]
@@ -26,14 +28,9 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        train.OnGameOver += GameOver;
     }
 
     private void Start()
@@ -86,35 +83,58 @@ public class LevelManager : MonoBehaviour
 
     public void GameOver()
     {
-        IsGameOver = true;
-        Debug.Log("Game Over");
-        Time.timeScale = 0.0f;
-        GameOverPanel.SetActive(true);
-        //GameOverPanel.GetComponentInChildren<Button>().Select();
+        if (!GameWinPanel.activeInHierarchy)
+        {
+            Debug.Log("Game Over");
+            Time.timeScale = 0.0f;
+            GameOverPanel.SetActive(true);
+            GameOverPanel.GetComponentInChildren<Button>().Select();
+        }
     }
 
     public void GameWin()
     {
-        IsGameOver = !IsGameOver;
-        Debug.Log("You Win");
-        Time.timeScale = 0.0f;
-        GameWinPanel.SetActive(true);
-        //GameWinPanel.GetComponentInChildren<Button>().Select();
+        if (!GameOverPanel.activeInHierarchy)
+        {
+            Debug.Log("You Win");
+            Time.timeScale = 0.0f;
+            GameWinPanel.SetActive(true);
+            GameWinPanel.GetComponentInChildren<Button>().Select();
+            gameManager.SaveLevelCompleted();
+        }
     }
 
     public void LoadNextLevel()
     {
-        //still working on that - Cyro
-        //_objectPoolManager.RecicleEntirePool(); 
-        gameManager.LoadNextLevel();
+        // still working on that - Cyro
+        // use this function inside an coroutine
+        // callback to next level
+        StartCoroutine(CleanUpForNextLevel());
     }
+
+    private IEnumerator CleanUpForNextLevel()
+    {
+        _objectPoolManager.RecycleEntirePool();
+        yield return null;
+        gameManager.LoadNextLevel();
+        Time.timeScale = 1.0f;
+    }
+
+    public void RestartLevel()
+    {
+        gameManager.Restart();
+        Time.timeScale = 1.0f;
+    }
+
 
     public void ReturnToMainMenu()
     {
         gameManager.ReturnToMainMenu();
+        Time.timeScale = 1.0f;
     }
-    public void LoadScene(int sceneIndex)
+
+    public void QuitGame()
     {
-        gameManager.LoadScene(sceneIndex);
+        gameManager.QuitGame();
     }
 }

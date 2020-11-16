@@ -8,6 +8,7 @@ namespace Turret
         protected AudioClip _audioClip = null;
         protected SpriteRenderer _sprite = null;
         protected float _currentAmmo = 0.0f;
+        protected AudioClip _audioClip = null;
 
         public abstract void SetUp(Transform spawnPoint);
 

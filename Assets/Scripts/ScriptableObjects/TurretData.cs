@@ -21,7 +21,6 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public Sprite[] Uppersprites;
         public Sprite[] Cannonsprites;
         public Sprite[] Bottomsprites;
-
     }
 
     [Serializable]
