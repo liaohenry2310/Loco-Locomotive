@@ -14,11 +14,19 @@ namespace Turret
         [SerializeField] private Transform _cannonHandler = null;
         [SerializeField] private Transform _spawnPointFire = null;
 
+        [Header("MachineGun")]
+        [SerializeField] private GameObject _MachineGunStartVFX = null;
+
         [Header("Laser")]
         [SerializeField] private LineRenderer _LaserBeam = null;
+        [SerializeField] private GameObject _LaserBeamStartVFX = null;
+        [SerializeField] private GameObject _LaserBeamEndVFX = null;
 
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
+        private LaserBeam.LaserVFXProperties _laserVFX;
+        private MachineGun.MachineGunVFXProperties _machineGunVFX;
+
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
 
@@ -31,23 +39,36 @@ namespace Turret
         private void Awake()
         {
             // Initialize with Machine Gun as default
+            // Setting up Machine Gun properties
             _weapons = new MachineGun(_turretData);
+            _machineGunVFX.muzzleFlashVFX = _MachineGunStartVFX;
+            if (_weapons is MachineGun machineGun)
+            {
+                machineGun.MachineGunVFX = _machineGunVFX;
+            }
             _weapons.SetUp(_spawnPointFire);
 
+
+            // Setting up laser properties
+            _laserVFX.laserBeamRenderer = _LaserBeam;
+            _laserVFX.startVFX = _LaserBeamStartVFX;
+            _laserVFX.endVFX = _LaserBeamEndVFX;
+
+           
             #region AudioSource
             Audio = gameObject.AddComponent<AudioSource>();
             Audio.playOnAwake = false;
             Audio.volume = 0.1f;
             Audio.pitch = Random.Range(0.9f, 1.1f);
             #endregion
+
         }
 
         private void FixedUpdate()
         {
             //if (!_turretHealth.IsAlive) return;
-
             float rotationSpeed = -_rotation.x * _turretData.AimSpeed * Time.fixedDeltaTime;
-
+            _weapons.SetFire(_holdFire);
             if (_holdFire)
             {
                 _weapons.SetFire();
@@ -55,9 +76,6 @@ namespace Turret
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
-                    
-                    #region AudioSource
-
                     timer += Time.deltaTime;
                     if(playLasergunFire ==false)
                     {                       
@@ -94,7 +112,6 @@ namespace Turret
                     }
                 }                              
             }
-            #endregion
             else
             {
                 // disable Line Renderer when using LaserBeam
@@ -155,20 +172,30 @@ namespace Turret
             {
                 case DispenserData.Type.Normal:
                     _weapons = new MachineGun(_turretData);
+                    if (_weapons is MachineGun machineGun)
+                    {
+                        machineGun.MachineGunVFX = _machineGunVFX;
+                    }
                     _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
                     break;
                 case DispenserData.Type.LaserBeam:
                     _weapons = new LaserBeam(_turretData);
-                    _weapons.SetUp(_spawnPointFire, _LaserBeam);
+                    if (_weapons is LaserBeam laserbeam)
+                    {
+                        laserbeam.LaserVFX = _laserVFX;
+                    }
+                    _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
                     break;
                 case DispenserData.Type.Missile:
                     _weapons = new MissileGun(_turretData);
                     _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
                     break;
                 default:
                     break;
             }
-            _weapons.Reload();
         }
 
     }

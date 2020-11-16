@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    //[SerializeField] private MissileData _missileData = default;
-    //[SerializeField] private LayerMask _layerEnemyMask = default;
-    [SerializeField] private TurretData _turretData = default;
-    [SerializeField] private ParticleSystem _explosionParticle = default;
+    [SerializeField] private TurretData _turretData = null;
+    [SerializeField] private ParticleSystem _explosionParticle = null;
     [SerializeField] private GameObject _missileSound = null;
 
     private Vector3 _screenBounds;
@@ -41,8 +39,7 @@ public class Missile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //TODO: arrumar isso pois ta uma bosta
-        // Usando o pool
+        //TODO: 
         //explosion = _objectPoolManager.GetObjectFromPool("MissileExplosion");
         //if (!explosion)
         //{
@@ -70,7 +67,11 @@ public class Missile : MonoBehaviour
             if (!_triggerExplosionOnce)
             {
                 ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
+                ParticleSystem.MainModule main = particle.main;
+                main.startSize = _turretData.missileGun.radiusEffect;
+
                 Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
+
                 particle.Play();
                 Destroy(particle, particle.main.duration);
                 _triggerExplosionOnce = true;
