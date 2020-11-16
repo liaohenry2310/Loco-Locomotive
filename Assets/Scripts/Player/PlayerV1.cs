@@ -26,7 +26,9 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
-
+    //Animator
+    public Animator animator;
+    public SpriteRenderer sp;
     private void Start()
     {
         Initialized();
@@ -35,7 +37,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private void FixedUpdate()
     {
         // make movement
-        _rigidBody.MovePosition(new Vector2(transform.position.x + (_axis.x * _playerData.Speed * Time.fixedDeltaTime), _rigidBody.position.y));
+        _rigidBody.MovePosition(new Vector2(transform.position.x + (_axis.x * _playerData.Speed * Time.fixedDeltaTime), _rigidBody.position.y));    
         if (LadderController)
         {
             _rigidBody.gravityScale = 0.0f;
@@ -60,7 +62,74 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             _rigidBody.gravityScale = _playerData.Gravity;
         }
     }
+    #region Animator
+    private void Update()
+    {
+        //flip sprites
+        if (_axis.x > 0)
+        {
+            sp.flipX = true;
+        }
+        else 
+        {
+            sp.flipX = false;
+        }
+        //moving
+        if (_axis.x != 0)
+        {
+            animator.SetBool("IsMoving", true);
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("IsClimb", false);
+            animator.SetBool("UsingTurret", false);
+            
+        }
+        //not moving
+        else
+        {
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsIdle", true);
+        }
+        //climbing
+        if (_axis.y != 0.0f)
+        {
+            animator.SetBool("IsClimb", true);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("UsingTurret", false);
+            
+        }
+        //not climbing
+        else
+        {
+            animator.SetBool("IsClimb", false);
+        }
+        //using Turret
+        TurretGuns turret = Interactable as TurretGuns;
+        if (turret != null)
+        {
+            animator.SetBool("UsingTurret", true);
+            animator.SetBool("IsClimb", false);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("IsHoldItem", false);
+        }
+        else
+        {
+            animator.SetBool("UsingTurret", false);
+        }
+        //player death
+        if (death)
+        {
+            animator.SetBool("IsDeath", true);
+        }
+        else
+        {
+            animator.SetBool("IsDeath", false);
+        }
 
+
+    }
+    #endregion
     /// <summary>
     /// Initialize all the components and necessary set up 
     /// </summary>
@@ -115,7 +184,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     {
         TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
-        {
+        {     
             turret.OnRotate(context);
         }
     }
@@ -142,7 +211,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private void ActionsPrimary()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _playerData.Radius, _playerData.InteractableMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position +new Vector3(0.0f,0.02f,0.0f), _playerData.Radius, _playerData.InteractableMask);
         foreach (var collider in colliders)
         {
             IInteractable iter = collider.GetComponent<IInteractable>();
@@ -150,15 +219,16 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             {
                 LevelManager.Instance.LoadNextLevel();
                 iter.Interact(this);
+                animator.SetBool("IsHoldItem", true);               
                 break;
             }
         }
-
         if (colliders.Length == 0)
         {
             Item item = GetItem;
             if (item)
             {
+                animator.SetBool("IsHoldItem", false);
                 item.DropItem();
             }
         }
@@ -168,7 +238,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     {
         // To check the radius using Gizmos
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _playerData.Radius);
+        Gizmos.DrawWireSphere(transform.position +new Vector3(0,0.2f,0.0f), _playerData.Radius);
     }
 
     private void ActionsSecondary()

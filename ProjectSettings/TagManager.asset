@@ -16,6 +16,7 @@ TagManager:
   - Missile
   - Wormhole
   - BasicEnemy
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -52,4 +53,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: GUI
+    uniqueID: 174687409
+    locked: 0
+  - name: Scene Transition
+    uniqueID: 2089053031
     locked: 0
