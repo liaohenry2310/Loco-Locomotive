@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 [CreateAssetMenu(fileName = "PlayerDataObject", menuName = "Player/Player")]
 public class PlayerData : ScriptableObject
@@ -11,4 +10,7 @@ public class PlayerData : ScriptableObject
     public float Speed = 3.0f;
     public float Gravity = 5.0f;
     public float MaxHealth = 100.0f;
+
+    public AudioClip[] AudiosClips;
+
 }

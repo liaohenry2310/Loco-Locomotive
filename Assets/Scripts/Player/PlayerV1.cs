@@ -16,13 +16,13 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private PlayerInput _playerInput;
     private Rigidbody2D _rigidBody;
     private Vector2 _axis = Vector2.zero;
-    //private float _playerHeight;
+    private AudioSource _audioSource = null;
+
 
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
     private HealthSystem _healthSystem;
-    public bool takeDamge;
-    public bool death;
+    private bool _isRespawn = false;
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
@@ -37,7 +37,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private void FixedUpdate()
     {
         // make movement
-        _rigidBody.MovePosition(new Vector2(transform.position.x + (_axis.x * _playerData.Speed * Time.fixedDeltaTime), _rigidBody.position.y));    
+        _rigidBody.MovePosition(new Vector2(transform.position.x + (_axis.x * _playerData.Speed * Time.fixedDeltaTime), _rigidBody.position.y));
         if (LadderController)
         {
             _rigidBody.gravityScale = 0.0f;
@@ -70,7 +70,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         {
             sp.flipX = true;
         }
-        else 
+        else
         {
             sp.flipX = false;
         }
@@ -81,7 +81,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsIdle", false);
             animator.SetBool("IsClimb", false);
             animator.SetBool("UsingTurret", false);
-            
+
         }
         //not moving
         else
@@ -96,7 +96,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", false);
             animator.SetBool("UsingTurret", false);
-            
+
         }
         //not climbing
         else
@@ -118,7 +118,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("UsingTurret", false);
         }
         //player death
-        if (death)
+        if (!_healthSystem.IsAlive)
         {
             animator.SetBool("IsDeath", true);
         }
@@ -145,12 +145,17 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             Debug.LogWarning("Fail to load RigidBody component!.");
         }
 
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogWarning("Fail to load Audio Source component!.");
+        }
+
         _healthBar = GetComponentInChildren<Visuals.HealthBar>();
         _healthSystem = new HealthSystem(_playerData.MaxHealth);
         _healthBar.SetUp(_healthSystem);
         _healthBar.SetBarVisible(false); // Player start with HealthBar invisible
 
-       // _playerHeight = GetComponent<CapsuleCollider2D>().size.y;
+        // _playerHeight = GetComponent<CapsuleCollider2D>().size.y;
     }
 
     #region Player InputAction 
@@ -184,7 +189,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     {
         TurretGuns turret = Interactable as TurretGuns;
         if (turret != null)
-        {     
+        {
             turret.OnRotate(context);
         }
     }
@@ -211,14 +216,14 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private void ActionsPrimary()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position +new Vector3(0.0f,0.02f,0.0f), _playerData.Radius, _playerData.InteractableMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + new Vector3(0.0f, 0.02f, 0.0f), _playerData.Radius, _playerData.InteractableMask);
         foreach (var collider in colliders)
         {
             IInteractable iter = collider.GetComponent<IInteractable>();
             if (iter != null)
             {
                 iter.Interact(this);
-                animator.SetBool("IsHoldItem", true);               
+                animator.SetBool("IsHoldItem", true);
                 break;
             }
         }
@@ -237,7 +242,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     {
         // To check the radius using Gizmos
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position +new Vector3(0,0.2f,0.0f), _playerData.Radius);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0, 0.2f, 0.0f), _playerData.Radius);
     }
 
     private void ActionsSecondary()
@@ -249,13 +254,17 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void TakeDamage(float damage)
     {
-        takeDamge = true;
+        if (_isRespawn) return;
+
         _healthSystem.Damage(damage);
         _healthBar.SetBarVisible(true);
+        _audioSource.clip = _playerData.AudiosClips[0];
+        _audioSource.Play();
         // --- When Player is dead
         if (_healthSystem.Health < 0.1f)
         {
-            death = true;
+            _audioSource.clip = _playerData.AudiosClips[1];
+            _audioSource.Play();
             StartCoroutine(Respawn());
         }
         else
@@ -266,7 +275,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private IEnumerator StartRegeneration()
     {
-        takeDamge = false;
         yield return new WaitForSeconds(3.0f);
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
         yield return new WaitForSeconds(1.0f);
@@ -275,7 +283,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private IEnumerator Respawn()
     {
-        death =false;
+        _isRespawn = true;
         SpriteRenderer localSprite = GetComponent<SpriteRenderer>();
         localSprite.enabled = false;
         _healthBar.SetBarVisible(false);
@@ -284,6 +292,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         _healthBar.SetBarVisible(true);
         transform.position = RespawnPoint;
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
+        _isRespawn = false;
     }
 
     public Item GetItem => GetComponentInChildren<Item>();
