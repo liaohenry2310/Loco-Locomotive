@@ -5078,8 +5078,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3193508245829201167}
   - component: {fileID: 5484456570076948174}
-  - component: {fileID: 2590992231010250800}
   - component: {fileID: 3044983384924723635}
+  - component: {fileID: 2590992231010250800}
   m_Layer: 10
   m_Name: BottonTurret
   m_TagString: Untagged
@@ -5128,30 +5128,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.387658, y: 0.6404507}
   m_EdgeRadius: 0
---- !u!114 &2590992231010250800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193508245829201166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df5099851d367b143b88b47d970682bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _turretData: {fileID: 11400000, guid: fdbe043dcd067cf489e453f4710e4dd2, type: 2}
-  _cannonHandler: {fileID: 3193508246254816230}
-  _spawnPointFire: {fileID: 3193508245827852810}
-  _MachineGunStartVFX: {fileID: 5592093826993642816}
-  _LaserBeam: {fileID: 3525540743412895445}
-  _LaserBeamStartVFX: {fileID: 5682182891197727565}
-  _LaserBeamEndVFX: {fileID: 5632943405690320311}
-  _upperSprite: {fileID: 1976525530892292841}
-  _cannonSprite: {fileID: 5538747832329296229}
-  _bottomSprite: {fileID: 4344615192931754405}
-  _turretBase: {fileID: 3678406150818836080}
-  Audio: {fileID: 0}
 --- !u!82 &3044983384924723635
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5163,8 +5139,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5248,6 +5224,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2590992231010250800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193508245829201166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5099851d367b143b88b47d970682bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _turretData: {fileID: 11400000, guid: fdbe043dcd067cf489e453f4710e4dd2, type: 2}
+  _cannonHandler: {fileID: 3193508246254816230}
+  _spawnPointFire: {fileID: 3193508245827852810}
+  _MachineGunStartVFX: {fileID: 5592093826993642816}
+  _LaserBeam: {fileID: 3525540743412895445}
+  _LaserBeamStartVFX: {fileID: 5682182891197727565}
+  _LaserBeamEndVFX: {fileID: 5632943405690320311}
+  _upperSprite: {fileID: 1976525530892292841}
+  _cannonSprite: {fileID: 5538747832329296229}
+  _bottomSprite: {fileID: 4344615192931754405}
+  _turretBase: {fileID: 3678406150818836080}
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0
