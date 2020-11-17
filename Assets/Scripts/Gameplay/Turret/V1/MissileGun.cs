@@ -7,6 +7,14 @@ namespace Turret
         private readonly TurretData _turretData;
         private ObjectPoolManager _objectPoolManager = null;
         private float _timeToFire = 0.0f;
+        private AudioSource clip;
+
+        public struct MissileGunSFXprops
+        {
+            public AudioSource audioCLips;
+        }
+
+        public MissileGunSFXprops MissileGunProps;
 
         public MissileGun(TurretData data)
         {
@@ -21,6 +29,9 @@ namespace Turret
         public override void SetFire(bool fire)
         {
             if (!(fire && (_currentAmmo > 0) && (Time.time >= _timeToFire))) return;
+
+            MissileGunProps.audioCLips.clip = _turretData.missileGun.missilegunFire;
+            MissileGunProps.audioCLips.Play();
 
             _timeToFire = Time.time + (1f / _turretData.missileGun.fireRate);
             GameObject missile = _objectPoolManager.GetObjectFromPool("Missile");
