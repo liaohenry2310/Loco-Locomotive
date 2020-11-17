@@ -14,6 +14,6 @@ public class ProgressBar : MonoBehaviour
 
     void Update()
     {
-        miniTrain.transform.position += new Vector3((scaleX / levelManager.time)*Time.deltaTime, 0,0);
+        miniTrain.transform.position += new Vector3((scaleX / levelManager.TimeLimit)*Time.deltaTime, 0,0);
     }
 }
