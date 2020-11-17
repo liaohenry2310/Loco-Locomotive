@@ -32,6 +32,7 @@ namespace Turret
         private Weapons _weapons = null;
         private LaserBeam.LaserVFXProperties _laserVFX;
         private MachineGun.MachineGunVFXProperties _machineGunVFX;
+        private MissileGun.MissileGunSFXprops _missileGunSFXprops;
 
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
@@ -52,7 +53,7 @@ namespace Turret
             _laserVFX.endVFX = _LaserBeamEndVFX;
 
             _machineGunVFX.muzzleFlashVFX = _MachineGunStartVFX;
-
+           
             // Initialize with Machine Gun as default
             _weapons = new MachineGun(_turretData);
             if (_weapons is MachineGun machineGun)
@@ -67,8 +68,11 @@ namespace Turret
             Audio.volume = 0.1f;
             Audio.pitch = Random.Range(0.9f, 1.1f);
             #endregion
+
+            _missileGunSFXprops.audioCLips = Audio;
+
         }
-        
+
         private void OnEnable()
         {
             _turretBase = FindObjectOfType<TurretBase>();
@@ -202,16 +206,7 @@ namespace Turret
                         Audio.clip = null;
                     }
                 }
-
-                else if (_weapons as MissileGun != null)
-                {
-                    Audio.clip = _turretData.missileGun.missilegunFire;
-                    Audio.Play();
-                    if (_weapons.CurretAmmo == 0.0f)
-                    {
-                        Audio.clip = null;
-                    }
-                }
+               
             }
            
             #region AudioSource
@@ -294,6 +289,10 @@ namespace Turret
                     break;
                 case DispenserData.Type.Missile:
                     _weapons = new MissileGun(_turretData);
+                    if (_weapons is MissileGun missile)
+                    {
+                        missile.MissileGunProps = _missileGunSFXprops;
+                    }
                     _weapons.SetUp(_spawnPointFire);
                     _weapons.Reload();
                     break;

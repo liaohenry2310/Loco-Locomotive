@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerV1 : MonoBehaviour, IDamageable<float>
 {
     [SerializeField] private PlayerData _playerData = null;
-
+    [SerializeField] private SpriteRenderer _playerSpriteRenderer = null;
     public IInteractable Interactable { get; set; } = null;
     public LadderController LadderController { get; set; } = null;
 
@@ -17,7 +17,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private Rigidbody2D _rigidBody;
     private Vector2 _axis = Vector2.zero;
     private AudioSource _audioSource = null;
-
 
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
@@ -28,7 +27,12 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
     //Animator
     public Animator animator;
-    public SpriteRenderer sp;
+    
+
+    private Vector3 _spriteBoundsCenter = Vector3.zero;
+
+    public Vector3 PlayerItemPlaceHolder => transform.position + (_playerSpriteRenderer.bounds.center - transform.position);
+
     private void Start()
     {
         Initialized();
@@ -66,14 +70,8 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private void Update()
     {
         //flip sprites
-        if (_axis.x > 0)
-        {
-            sp.flipX = true;
-        }
-        else
-        {
-            sp.flipX = false;
-        }
+        _playerSpriteRenderer.flipX = _axis.x > 0f;
+
         //moving
         if (_axis.x != 0)
         {
@@ -118,17 +116,9 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("UsingTurret", false);
         }
         //player death
-        if (!_healthSystem.IsAlive)
-        {
-            animator.SetBool("IsDeath", true);
-        }
-        else
-        {
-            animator.SetBool("IsDeath", false);
-        }
-
-
+        animator.SetBool("IsDeath", !_healthSystem.IsAlive);
     }
+
     #endregion
     /// <summary>
     /// Initialize all the components and necessary set up 
@@ -216,7 +206,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     private void ActionsPrimary()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + new Vector3(0.0f, 0.02f, 0.0f), _playerData.Radius, _playerData.InteractableMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(PlayerItemPlaceHolder, _playerData.Radius, _playerData.InteractableMask);
         foreach (var collider in colliders)
         {
             IInteractable iter = collider.GetComponent<IInteractable>();
@@ -242,7 +232,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     {
         // To check the radius using Gizmos
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0, 0.2f, 0.0f), _playerData.Radius);
+        Gizmos.DrawWireSphere(PlayerItemPlaceHolder, _playerData.Radius);
     }
 
     private void ActionsSecondary()
