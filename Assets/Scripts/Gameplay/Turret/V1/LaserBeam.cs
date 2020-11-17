@@ -9,14 +9,15 @@ namespace Turret
         private readonly TurretData _turretData;
         private readonly List<ParticleSystem> _particles;
 
-        public struct LaserVFXProperties
+        public struct LaserGunProperties
         {
             public LineRenderer laserBeamRenderer;
             public GameObject startVFX;
             public GameObject endVFX;
+            public AudioSource audioSourceClips;
         }
 
-        public LaserVFXProperties LaserVFX;
+        public LaserGunProperties LaserGunProps;
 
         public LaserBeam(TurretData data)
         {
@@ -33,14 +34,14 @@ namespace Turret
         {
             if (fire && _currentAmmo > 0.0f)
             {
-                if (!LaserVFX.laserBeamRenderer.enabled)
+                if (!LaserGunProps.laserBeamRenderer.enabled)
                 {
                     EnableLaser();
                 }
 
-                LaserVFX.laserBeamRenderer.SetPosition(0, (Vector2)_spawnPoint.position);
-                LaserVFX.startVFX.transform.position = (Vector2)_spawnPoint.position;
-               
+                LaserGunProps.laserBeamRenderer.SetPosition(0, (Vector2)_spawnPoint.position);
+                LaserGunProps.startVFX.transform.position = (Vector2)_spawnPoint.position;
+
                 RaycastHit2D hit = Physics2D.Raycast(_spawnPoint.position, _spawnPoint.up, _turretData.laserGun.range, _turretData.laserGun.enemyLayerMask);
                 if (hit)
                 {
@@ -50,11 +51,11 @@ namespace Turret
                         var shieldEnemy = collider.gameObject.GetComponentInChildren<EnemyShieldHealth>();
                         if (shieldEnemy && shieldEnemy.ShieldIsActive)
                         {
-                            LaserVFX.laserBeamRenderer.SetPosition(1, hit.point);
+                            LaserGunProps.laserBeamRenderer.SetPosition(1, hit.point);
                         }
                         else
                         {
-                            LaserVFX.laserBeamRenderer.SetPosition(1, _spawnPoint.up * _turretData.laserGun.range);
+                            LaserGunProps.laserBeamRenderer.SetPosition(1, _spawnPoint.up * _turretData.laserGun.range);
                             IDamageableType<float> damageable = collider.GetComponent<EnemyHealth>();
                             if (damageable != null)
                             {
@@ -65,10 +66,10 @@ namespace Turret
                 }
                 else
                 {
-                    LaserVFX.laserBeamRenderer.SetPosition(1, _spawnPoint.up * _turretData.laserGun.range);
+                    LaserGunProps.laserBeamRenderer.SetPosition(1, _spawnPoint.up * _turretData.laserGun.range);
                 }
 
-                LaserVFX.endVFX.transform.position = LaserVFX.laserBeamRenderer.GetPosition(1);
+                LaserGunProps.endVFX.transform.position = LaserGunProps.laserBeamRenderer.GetPosition(1);
 
                 _currentAmmo -= _turretData.laserGun.ammoConsumeRate / Time.time;
                 _currentAmmo = Mathf.Clamp(_currentAmmo, 0f, _turretData.laserGun.maxAmmo);
@@ -85,22 +86,23 @@ namespace Turret
             _currentAmmo = _turretData.laserGun.maxAmmo;
             InitParticlesList();
             DisableLaser();
+            LaserGunProps.audioSourceClips.clip = _turretData.laserGun.lasergunFire;
         }
 
         private void InitParticlesList()
         {
-            for (int i = 0; i < LaserVFX.startVFX.transform.childCount; ++i)
+            for (int i = 0; i < LaserGunProps.startVFX.transform.childCount; ++i)
             {
-                var ps = LaserVFX.startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+                var ps = LaserGunProps.startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
                 if (ps)
                 {
                     _particles.Add(ps);
                 }
             }
 
-            for (int i = 0; i < LaserVFX.endVFX.transform.childCount; ++i)
+            for (int i = 0; i < LaserGunProps.endVFX.transform.childCount; ++i)
             {
-                var ps = LaserVFX.endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+                var ps = LaserGunProps.endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
                 if (ps)
                 {
                     _particles.Add(ps);
@@ -108,24 +110,27 @@ namespace Turret
             }
         }
 
-
         private void EnableLaser()
         {
-            LaserVFX.laserBeamRenderer.enabled = true;
+            LaserGunProps.laserBeamRenderer.enabled = true;
             for (int i = 0; i < _particles.Count; ++i)
             {
                 _particles[i].Play();
             }
+
+            LaserGunProps.audioSourceClips.PlayOneShot(_turretData.laserGun.lasergunFire);
+            LaserGunProps.audioSourceClips.clip = _turretData.laserGun.lasergunBeam;
+            LaserGunProps.audioSourceClips.Play();
         }
 
-
-        public void DisableLaser()
+        private void DisableLaser()
         {
-            LaserVFX.laserBeamRenderer.enabled = false;
+            LaserGunProps.laserBeamRenderer.enabled = false;
             for (int i = 0; i < _particles.Count; ++i)
             {
                 _particles[i].Stop();
             }
+            LaserGunProps.audioSourceClips.Stop();
         }
 
     }

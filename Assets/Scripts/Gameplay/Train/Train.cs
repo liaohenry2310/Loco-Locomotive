@@ -34,12 +34,26 @@ namespace GamePlay
 
         private void OnEnable()
         {
-            _fireBox.OnReloadFuel += ReloadFuel;
+            if (_fireBox)
+            {
+                _fireBox.OnReloadFuel += ReloadFuel;
+            }
+            else
+            {
+                Debug.LogWarning("FireBox are not assigned into the Train Script.");
+            }
         }
 
         private void OnDisable()
         {
-            _fireBox.OnReloadFuel -= ReloadFuel;
+            if (_fireBox)
+            {
+                _fireBox.OnReloadFuel -= ReloadFuel;
+            }
+            else
+            {
+                Debug.LogWarning("FireBox are not assigned into the Train Script.");
+            }
         }
 
         private void Update()

@@ -12,7 +12,8 @@ namespace Items
 
         private SpriteRenderer _spriteRenderer = null;
         private BoxCollider2D _collider = null;
-        private float _count = 5.0f;
+        private readonly float _count = 5.0f;
+        private Coroutine _coroutine = null;
 
         private void Awake()
         {
@@ -38,13 +39,21 @@ namespace Items
             transform.SetParent(player.transform);
             transform.position = player.PlayerItemPlaceHolder;
             _collider.enabled = false;
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;  
+            }
         }
 
         public void DropItem()
         {
             _collider.enabled = true;
             transform.SetParent(null);
-            StartCoroutine(DropCountDown());
+            if (_coroutine == null)
+            {
+                _coroutine = StartCoroutine(DropCountDown());
+            }
         }
 
         private IEnumerator DropCountDown()
