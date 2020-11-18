@@ -27,9 +27,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
     //Animator
     public Animator animator;
-    
-
-    private Vector3 _spriteBoundsCenter = Vector3.zero;
 
     public Vector3 PlayerItemPlaceHolder => transform.position + (_playerSpriteRenderer.bounds.center - transform.position);
 
@@ -255,6 +252,8 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         {
             _audioSource.clip = _playerData.AudiosClips[1];
             _audioSource.Play();
+            Item item = GetItem;
+            item.DestroyAfterUse();
             StartCoroutine(Respawn());
         }
         else

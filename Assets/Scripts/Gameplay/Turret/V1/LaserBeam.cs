@@ -23,11 +23,7 @@ namespace Turret
         {
             _turretData = data;
             _particles = new List<ParticleSystem>();
-        }
-
-        public override void Reload()
-        {
-            _currentAmmo = _turretData.laserGun.maxAmmo;
+            _MaxAmmo = _turretData.laserGun.maxAmmo;
         }
 
         public override void SetFire(bool fire)
