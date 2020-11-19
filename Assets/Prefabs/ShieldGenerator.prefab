@@ -107,7 +107,7 @@ SpriteRenderer:
   m_Size: {x: 13.41, y: 15.42}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4875780662953308363
@@ -350,7 +350,7 @@ SpriteRenderer:
   m_Size: {x: 7.62, y: 5.02}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!60 &6319813441246781547
@@ -370,8 +370,8 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.62, y: 5.02}
-    newSize: {x: 7.62, y: 5.02}
+    oldSize: {x: 7.1, y: 7.1}
+    newSize: {x: 7.1, y: 7.1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -513,7 +513,7 @@ SpriteRenderer:
   m_Size: {x: 18.23, y: 10.13}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5337830689401742185

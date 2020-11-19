@@ -68,7 +68,7 @@ namespace Turret
                 LaserGunProps.endVFX.transform.position = LaserGunProps.laserBeamRenderer.GetPosition(1);
 
                 _currentAmmo -= _turretData.laserGun.ammoConsumeRate / Time.time;
-                _currentAmmo = Mathf.Clamp(_currentAmmo, 0f, _turretData.laserGun.maxAmmo);
+                _currentAmmo = Mathf.Clamp(_currentAmmo, 0f, _MaxAmmo);
             }
             else
             {

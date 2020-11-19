@@ -92,3 +92,6 @@ MonoBehaviour:
     maxAmmo: 50
     fireRate: 3
     aimSpeedMultiplier: 0.5
+  shieldGun:
+    maxAmmo: 30
+    ammoConsumeRate: 1
