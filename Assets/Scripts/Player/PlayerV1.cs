@@ -21,14 +21,13 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
     private HealthSystem _healthSystem;
-    private bool _isRespawn = false;
+    public bool _isRespawn = false;
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
     //Animator
     public Animator animator;
     
-
     private Vector3 _spriteBoundsCenter = Vector3.zero;
 
     public Vector3 PlayerItemPlaceHolder => transform.position + (_playerSpriteRenderer.bounds.center - transform.position);
