@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1507812769436370305}
   - component: {fileID: 9099130471685632854}
   - component: {fileID: 2000254423566252984}
+  - component: {fileID: 3080744830784933075}
   m_Layer: 10
   m_Name: ShieldDispenser
   m_TagString: Untagged
@@ -123,3 +124,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dispenserItem: {fileID: 0}
   itemOffset: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
+--- !u!95 &3080744830784933075
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993935836624449434}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: de38ad6eb5be3764dbecb0d441658958, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

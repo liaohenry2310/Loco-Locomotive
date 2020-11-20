@@ -356,6 +356,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MGunAmmoDispenser (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 733304827156063045, guid: 51df8a7e2d1244046a56377055dd85d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1180615016847992232, guid: 51df8a7e2d1244046a56377055dd85d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -563,6 +568,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MissileAmmoDispenser
       objectReference: {fileID: 0}
+    - target: {fileID: 2466391728148516933, guid: c6e6effe40c3685428081a5b996704cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8318347000559555099, guid: c6e6effe40c3685428081a5b996704cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -692,6 +702,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7729541819639232919, guid: aa175490ac6323544888ef11e86b4675,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa175490ac6323544888ef11e86b4675, type: 3}
 --- !u!1001 &965699054
@@ -1121,7 +1136,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: RespawnPod
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5197663987849638619, guid: e89113ba3c3e62546b1dc84b0f7a093b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1347710148856849350, guid: e89113ba3c3e62546b1dc84b0f7a093b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e89113ba3c3e62546b1dc84b0f7a093b, type: 3}
 --- !u!1 &1169705786 stripped
 GameObject:
@@ -2289,6 +2310,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FuelDispenser
       objectReference: {fileID: 0}
+    - target: {fileID: 3417234033535753218, guid: 73fe9101463540e4ea3474cd27f3db06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73fe9101463540e4ea3474cd27f3db06, type: 3}
 --- !u!1001 &2134046548844017233
@@ -2302,6 +2328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RepairKitDispenser
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546385584799457053, guid: 188dfc15484a1c44eaa0fb93e34fef7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5190611404860762579, guid: 188dfc15484a1c44eaa0fb93e34fef7e,
         type: 3}
@@ -2371,6 +2402,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MGunAmmoDispenser
+      objectReference: {fileID: 0}
+    - target: {fileID: 733304827156063045, guid: 51df8a7e2d1244046a56377055dd85d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1180615016847992232, guid: 51df8a7e2d1244046a56377055dd85d2,
         type: 3}
