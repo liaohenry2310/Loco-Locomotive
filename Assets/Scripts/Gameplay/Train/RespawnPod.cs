@@ -2,23 +2,14 @@
 
 public class RespawnPod : MonoBehaviour
 {
-    public Animator animator;
-    [SerializeField]private PlayerV1 player =null;
-
-    private void OnEnable()
+    private Animator animator;
+    private void Awake()
     {
-        player = FindObjectOfType<PlayerV1>();
+        animator = GetComponent<Animator>();
     }
-    private void Update()
+    public void AnimationRespawnPod(bool isAnimated)
     {
-        if (player._isRespawn) 
-        {
-            animator.SetBool("Respawn", true);
-        }
-        else
-        {
-            animator.SetBool("Respawn", false);
-        }
+        animator.SetBool("Spawn", isAnimated);
     }
 
 }

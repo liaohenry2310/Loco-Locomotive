@@ -1076,6 +1076,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Graphics
       objectReference: {fileID: 0}
+    - target: {fileID: 3909897861667245583, guid: e89113ba3c3e62546b1dc84b0f7a093b,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: be248334b13249648bfd611db1f986fd, type: 2}
     - target: {fileID: 5197663987849638616, guid: e89113ba3c3e62546b1dc84b0f7a093b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1141,8 +1146,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1347710148856849350, guid: e89113ba3c3e62546b1dc84b0f7a093b, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89113ba3c3e62546b1dc84b0f7a093b, type: 3}
 --- !u!1 &1169705786 stripped
 GameObject:
