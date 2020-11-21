@@ -2,6 +2,7 @@
 using Items;
 using Manager;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Turret
@@ -10,12 +11,16 @@ namespace Turret
     {
         public event Action<float> OnTakeDamageUpdate;
         [SerializeField] private TurretData _turretData = null;
+        [SerializeField] private SpriteRenderer _spriteDamageIndicator = null;
+        private Color _defaultColor;
+        private readonly WaitForSeconds _waitForSecondsDamage = new WaitForSeconds(0.05f);
 
         public HealthSystem HealthSystem { get; private set; }
 
         private void Awake()
         {
             HealthSystem = new HealthSystem(_turretData.MaxHealth);
+            _defaultColor = _spriteDamageIndicator.color;
         }
 
         public bool IsAlive => HealthSystem.IsAlive;
@@ -23,6 +28,7 @@ namespace Turret
         public void TakeDamage(float damage)
         {
             HealthSystem.Damage(damage);
+            StartCoroutine(DamageIndicator());
             OnTakeDamageUpdate?.Invoke(HealthSystem.HealthPercentage);
         }
 
@@ -34,6 +40,13 @@ namespace Turret
                 HealthSystem.RestoreFullHealth();
                 player.GetItem.DestroyAfterUse();
             }
+        }
+
+        private IEnumerator DamageIndicator()
+        {
+            _spriteDamageIndicator.color = Color.red; 
+            yield return _waitForSecondsDamage;
+            _spriteDamageIndicator.color = _defaultColor;
         }
 
     }
