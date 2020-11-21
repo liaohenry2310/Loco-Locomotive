@@ -707,8 +707,21 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4754525552961161126, guid: aa175490ac6323544888ef11e86b4675, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa175490ac6323544888ef11e86b4675, type: 3}
+--- !u!114 &805373145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1932772365525470768, guid: aa175490ac6323544888ef11e86b4675,
+    type: 3}
+  m_PrefabInstance: {fileID: 805373144}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0a5c8a83ce2d04c8bb1f05661640a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &965699054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2116,6 +2129,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Train
       objectReference: {fileID: 0}
+    - target: {fileID: 22994337270071066, guid: 6c9ff797aa67b7b4ea0dddf75754a23d,
+        type: 3}
+      propertyPath: _fireBox
+      value: 
+      objectReference: {fileID: 805373145}
     - target: {fileID: 22994337270071068, guid: 6c9ff797aa67b7b4ea0dddf75754a23d,
         type: 3}
       propertyPath: m_LocalPosition.x

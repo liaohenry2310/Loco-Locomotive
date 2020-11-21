@@ -1,23 +1,37 @@
 ﻿using Interfaces;
 using Items;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class FireBox : MonoBehaviour, IInteractable
 {
     public event Action OnReloadFuel;
-    public Animator animator;
+    private Animator _animator = null;
+
+    private void Awake()
+    {
+        if (!TryGetComponent(out _animator))
+        {
+            Debug.LogWarning("Failed to load Animator component.");
+        }
+    }
 
     public void Interact(PlayerV1 player)
     {
         Item item = player.GetItem;
-        animator.SetBool("Addfuel", false);
         if (item != null && item.ItemType == DispenserData.Type.Fuel)
         {
-            animator.SetBool("Addfuel",true);
+            StartCoroutine(FireBoxAnimationCo());
             OnReloadFuel?.Invoke();
             item.DestroyAfterUse();
         }
     }
-
+    private IEnumerator FireBoxAnimationCo()
+    {
+        _animator.SetBool("AddFuel", true);
+        AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
+        yield return new WaitForSeconds(clips[1].length);
+        _animator.SetBool("AddFuel", false);
+    }
 }

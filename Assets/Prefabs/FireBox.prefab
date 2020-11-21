@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1932772365525470770}
   - component: {fileID: 7729541819639232919}
   - component: {fileID: 1932772365525470771}
-  - component: {fileID: 4754525552961161126}
   - component: {fileID: 1932772365525470768}
+  - component: {fileID: 2647752450933137008}
   m_Layer: 10
   m_Name: FireBox
   m_TagString: Untagged
@@ -110,21 +110,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.7}
   m_EdgeRadius: 0
---- !u!111 &4754525552961161126
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932772365525470769}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 3b980184ce783a0439a89a43280182fa, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &1932772365525470768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,4 +122,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0a5c8a83ce2d04c8bb1f05661640a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animation: {fileID: 4754525552961161126}
+  animator: {fileID: 2647752450933137008}
+--- !u!95 &2647752450933137008
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932772365525470769}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fb0c9072aca07c84ea384b97cde23f1e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

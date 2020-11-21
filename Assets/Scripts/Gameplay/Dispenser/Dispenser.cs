@@ -8,13 +8,12 @@ namespace Dispenser
     public class Dispenser : MonoBehaviour, IInteractable
     {
         [SerializeField] private DispenserItem _dispenserItem;
-        [SerializeField] private Vector3 itemOffset = Vector3.zero;
-
-        private SpriteRenderer _spriteRenderer;
         private bool _open =false;
+        private SpriteRenderer _spriteRenderer;
+
         public Animator animator;
         private void Awake()
-        {
+        {           
             animator = GetComponent<Animator>();
             if (!TryGetComponent(out _spriteRenderer))
             {
@@ -39,7 +38,7 @@ namespace Dispenser
             {
                 _open = true;
                 animator.SetBool("Open", true);
-                GameObject itemGo = Instantiate(_dispenserItem.ItemPerfab, player.transform.position - itemOffset, Quaternion.identity);
+                GameObject itemGo = Instantiate(_dispenserItem.ItemPerfab, player.transform.position, Quaternion.identity);
                 Item item = itemGo.GetComponent<Item>();
                 item.Setup(ref _dispenserItem);
                 item.Pickup(ref player);
