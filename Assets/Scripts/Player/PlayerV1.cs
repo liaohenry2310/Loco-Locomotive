@@ -281,10 +281,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         localSprite.enabled = false;
         _healthBar.SetBarVisible(false);
         yield return new WaitForSeconds(5.0f);
+        
         RespawnPod respawnPod = FindObjectOfType<RespawnPod>();
-        respawnPod.AnimationRespawnPod(true);
-        yield return new WaitForSeconds(0.6f);
-        respawnPod.AnimationRespawnPod(false);
+        respawnPod.AnimationRespawnPod();
+
         localSprite.enabled = true;
         _healthBar.SetBarVisible(true);
         transform.position = RespawnPoint;

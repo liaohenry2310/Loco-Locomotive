@@ -1,15 +1,30 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class RespawnPod : MonoBehaviour
 {
-    private Animator animator;
+    private Animator _animator = null;
+    
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        if (!TryGetComponent(out _animator))
+        {
+            Debug.LogWarning("Failed to load Animator component.");
+        }
     }
-    public void AnimationRespawnPod(bool isAnimated)
+
+    public void AnimationRespawnPod()
     {
-        animator.SetBool("Spawn", isAnimated);
+        StartCoroutine(PodAnimationCo());
+    }
+
+
+    public IEnumerator PodAnimationCo()
+    {
+        _animator.SetBool("Spawn", true);
+        AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
+        yield return new WaitForSeconds(clips[1].length);
+        _animator.SetBool("Spawn", false);
     }
 
 }
