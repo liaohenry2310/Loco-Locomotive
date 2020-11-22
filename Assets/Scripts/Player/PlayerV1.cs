@@ -21,14 +21,13 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
     private HealthSystem _healthSystem;
-    private bool _isRespawn = false;
+    public bool _isRespawn = false;
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
     //Animator
     public Animator animator;
     
-
     private Vector3 _spriteBoundsCenter = Vector3.zero;
 
     public Vector3 PlayerItemPlaceHolder => transform.position + (_playerSpriteRenderer.bounds.center - transform.position);
@@ -69,17 +68,22 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     #region Animator
     private void Update()
     {
-        //flip sprites
-        _playerSpriteRenderer.flipX = _axis.x > 0f;
-
         //moving
-        if (_axis.x != 0)
+        if (_axis.x < 0)
         {
+            _playerSpriteRenderer.flipX = false;
             animator.SetBool("IsMoving", true);
             animator.SetBool("IsIdle", false);
             animator.SetBool("IsClimb", false);
             animator.SetBool("UsingTurret", false);
-
+        }
+        else if(_axis.x > 0)
+        {
+            _playerSpriteRenderer.flipX = true;
+            animator.SetBool("IsMoving", true);
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("IsClimb", false);
+            animator.SetBool("UsingTurret", false);
         }
         //not moving
         else
@@ -94,7 +98,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", false);
             animator.SetBool("UsingTurret", false);
-
         }
         //not climbing
         else
@@ -278,11 +281,16 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         localSprite.enabled = false;
         _healthBar.SetBarVisible(false);
         yield return new WaitForSeconds(5.0f);
+        
+        RespawnPod respawnPod = FindObjectOfType<RespawnPod>();
+        respawnPod.AnimationRespawnPod();
+
         localSprite.enabled = true;
         _healthBar.SetBarVisible(true);
         transform.position = RespawnPoint;
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
         _isRespawn = false;
+
     }
 
     public Item GetItem => GetComponentInChildren<Item>();

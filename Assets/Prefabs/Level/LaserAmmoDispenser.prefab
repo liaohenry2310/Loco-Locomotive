@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3031611715931313291}
   - component: {fileID: 5720422741539740480}
   - component: {fileID: 1295440261311732792}
+  - component: {fileID: -5865029053883111099}
   m_Layer: 10
   m_Name: LaserAmmoDispenser
   m_TagString: Untagged
@@ -123,3 +124,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dispenserItem: {fileID: 11400000, guid: a2eb1a185c2402a4181a20ecfddaa91d, type: 2}
   itemOffset: {x: 0, y: 0, z: 0}
+  animator: {fileID: -5865029053883111099}
+--- !u!95 &-5865029053883111099
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8957559216274541660}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2464a3d45b366346bcea4dab22759c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
