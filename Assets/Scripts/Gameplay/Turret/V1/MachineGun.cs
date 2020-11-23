@@ -10,12 +10,13 @@ namespace Turret
         private ObjectPoolManager _objectPoolManager = null;
         private float _timeToFire = 0.0f;
 
-        public struct MachineGunVFXProperties
+        public struct MachineGunProperties
         {
             public GameObject muzzleFlashVFX;
+            public AudioSource audioSourceClips;
         }
 
-        public MachineGunVFXProperties MachineGunVFX;
+        public MachineGunProperties MachineGunProps;
 
         public MachineGun(TurretData data) 
         {
@@ -35,6 +36,7 @@ namespace Turret
                 return;
             }
 
+            MachineGunProps.audioSourceClips.Play();
             if (!_muzzleFlash.isPlaying) _muzzleFlash.Play();
             _timeToFire = Time.time + (1f / _turretData.machineGun.fireRate);
             GameObject bullet = _objectPoolManager.GetObjectFromPool("Bullet");
@@ -54,8 +56,9 @@ namespace Turret
             _spawnPoint = spawnPoint;
             _currentAmmo = _turretData.machineGun.maxAmmo;
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-            _muzzleFlash = MachineGunVFX.muzzleFlashVFX.GetComponentInChildren<ParticleSystem>();
+            _muzzleFlash = MachineGunProps.muzzleFlashVFX.GetComponentInChildren<ParticleSystem>();
             _muzzleFlash.Stop();
+            MachineGunProps.audioSourceClips.clip = _turretData.machineGun.machinegunFire;
         }
 
     }

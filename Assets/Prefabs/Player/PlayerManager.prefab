@@ -99,6 +99,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0d357b930a70a4e93b1e1d892564e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpawnPod: {fileID: 5197663987849638619, guid: e89113ba3c3e62546b1dc84b0f7a093b,
-    type: 3}
+  _playerSpawnPod: {fileID: 0}
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}

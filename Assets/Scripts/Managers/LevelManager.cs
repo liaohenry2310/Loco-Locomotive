@@ -5,79 +5,14 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    //Public members
     static public LevelManager Instance { get; private set; }
 
-    public Train train;
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
-    private GameManager gameManager;
 
-    public bool IsGameOver { get; private set; } = false;
-
-
-    #region Timer
-    [Header("Timer")]
-
-    public float time = 300.0f;
-    private bool timerIsRunning = false;
-    public float timeRemaining = 0.0f;
-
-    public Text textCountDown;
-    #endregion
-
-    private void Awake()
-    {
-        Instance = this;
-        train.OnGameOver += GameOver;
-    }
-
-    private void Start()
-    {
-        gameManager = GameManager.Instance;
-        timeRemaining = time;
-        timerIsRunning = true;
-    }
-
-    private void Update()
-    {
-        if (timerIsRunning)
-        {
-            if (timeRemaining > 0f)
-            {
-                timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
-
-            }
-            else
-            {
-                timeRemaining = 0f;
-                timerIsRunning = false;
-                GameWin();
-            }
-
-        }
-    }
-    #region Timer
-
-    private void DisplayTime(float timeToDisplay)
-    {
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60f);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60f);
-        //textCountDown.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
-    public void PauseTimer()
-    {
-        timerIsRunning = false;
-    }
-
-    public void ResumeTimer()
-    {
-        timerIsRunning = true;
-    }
-
-
-    #endregion
+    public float TimeLimit = 300.0f;
+    public float TimeRemaining = 0.0f;
 
     public void GameOver()
     {
@@ -98,29 +33,62 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 0.0f;
             GameWinPanel.SetActive(true);
             GameWinPanel.GetComponentInChildren<Button>().Select();
-            gameManager.SaveLevelCompleted();
+            _gameManager.SaveLevelCompleted();
         }
     }
 
     public void LoadNextLevel()
     {
-        gameManager.LoadNextLevel();
+        _gameManager.LoadNextLevel();
         Time.timeScale = 1.0f;
     }
     public void RestartLevel()
     {
-        gameManager.Restart();
+        _gameManager.Restart();
         Time.timeScale = 1.0f;
     }
 
     public void ReturnToMainMenu()
     {
-        gameManager.ReturnToMainMenu();
+        _gameManager.ReturnToMainMenu();
         Time.timeScale = 1.0f;
     }
 
     public void QuitGame()
     {
-        gameManager.QuitGame();
+        _gameManager.QuitGame();
+    }
+
+    //Private members
+    private GameManager _gameManager;
+    private bool timerIsRunning = false;
+
+    private void Awake()
+    {
+        Instance = this;
+        _gameManager = GameManager.Instance;
+
+        TimeRemaining = TimeLimit;
+        timerIsRunning = true;
+
+        Train train = FindObjectOfType<Train>();
+        if (train)
+            train.OnGameOver += GameOver;
+    }
+
+    private void Update()
+    {
+        if (timerIsRunning)
+        {
+            if (TimeRemaining > 0f)
+            {
+                TimeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                timerIsRunning = false;
+                GameWin();
+            }
+        }
     }
 }

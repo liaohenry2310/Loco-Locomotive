@@ -28,47 +28,47 @@ namespace Turret
         [SerializeField] private SpriteRenderer _bottomSprite = null;
         [SerializeField] private TurretBase _turretBase = null;
 
+        private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
-        private LaserBeam.LaserVFXProperties _laserVFX;
-        private MachineGun.MachineGunVFXProperties _machineGunVFX;
+        private LaserBeam.LaserGunProperties _laserGunProps;
+        private MachineGun.MachineGunProperties _machineGunProps;
+        private MissileGun.MissileGunProperties _missileGunProps;
 
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
-
         private float curretHealth;
-
-        #region AudioSource
-        public AudioSource Audio;
-        private bool playLasergunFire = false;
-        private float timer;
-        #endregion
 
         private void Awake()
         {
-            // Setting up laser properties
-            _laserVFX.laserBeamRenderer = _LaserBeam;
-            _laserVFX.startVFX = _LaserBeamStartVFX;
-            _laserVFX.endVFX = _LaserBeamEndVFX;
+            if (!TryGetComponent(out _audioSource))
+            {
+                Debug.LogWarning("Fail to load Audio Source component.");
+            }
+            _audioSource.pitch = Random.Range(0.9f, 1.1f);
 
-            _machineGunVFX.muzzleFlashVFX = _MachineGunStartVFX;
+            // Setting up laser properties
+            _laserGunProps.laserBeamRenderer = _LaserBeam;
+            _laserGunProps.startVFX = _LaserBeamStartVFX;
+            _laserGunProps.endVFX = _LaserBeamEndVFX;
+            _laserGunProps.audioSourceClips = _audioSource;
+
+            // Setting up missile properties
+            _missileGunProps.audioSourceClips = _audioSource;
+
+            // Setting up machine gun properties
+            _machineGunProps.muzzleFlashVFX = _MachineGunStartVFX;
+            _machineGunProps.audioSourceClips = _audioSource;
 
             // Initialize with Machine Gun as default
             _weapons = new MachineGun(_turretData);
             if (_weapons is MachineGun machineGun)
             {
-                machineGun.MachineGunVFX = _machineGunVFX;
+                machineGun.MachineGunProps = _machineGunProps;
             }
             _weapons.SetUp(_spawnPointFire);
-
-            #region AudioSource
-            Audio = gameObject.AddComponent<AudioSource>();
-            Audio.playOnAwake = false;
-            Audio.volume = 0.1f;
-            Audio.pitch = Random.Range(0.9f, 1.1f);
-            #endregion
         }
-        
+
         private void OnEnable()
         {
             _turretBase = FindObjectOfType<TurretBase>();
@@ -175,60 +175,14 @@ namespace Turret
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
-
-                    timer += Time.fixedDeltaTime;
-                    if(playLasergunFire ==false)
-                    {                       
-                        Audio.clip = _turretData.laserGun.lasergunFire;
-                        Audio.Play();
-                        playLasergunFire = true;
-                    }
-                    if (timer >= 0.1f)
-                    {
-                        Audio.clip = _turretData.laserGun.lasergunBeam;
-                        Audio.Play();
-                    }                                         
-                    if (_weapons.CurretAmmo == 0.0f)
-                    {
-                        Audio.clip = null;
-                    }
                 }
-                else if(_weapons as MachineGun !=null)
+
+                if (_weapons as EmpGun != null)
                 {
-                    Audio.clip = _turretData.machineGun.machinegunFire;
-                    Audio.Play();
-                    if (_weapons.CurretAmmo == 0.0f)
-                    {
-                        Audio.clip = null;
-                    }
+                    rotationSpeed *= _turretData.empShockWave.aimSpeedMultiplier;
                 }
-
-                else if (_weapons as MissileGun != null)
-                {
-                    Audio.clip = _turretData.missileGun.missilegunFire;
-                    Audio.Play();
-                    if (_weapons.CurretAmmo == 0.0f)
-                    {
-                        Audio.clip = null;
-                    }
-                }
-            }
-           
-            #region AudioSource
-            if (!_holdFire && _weapons as LaserBeam != null)
-            {
-                Audio.clip = null;
-                playLasergunFire = false;
-                timer = 0;
-            }
-            #endregion
-
-            if (_weapons as EmpGun != null)
-            {
-                rotationSpeed *= _turretData.empShockWave.aimSpeedMultiplier;
-            }
+            }           
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
-
         }
 
 
@@ -278,7 +232,7 @@ namespace Turret
                     _weapons = new MachineGun(_turretData);
                     if (_weapons is MachineGun machineGun)
                     {
-                        machineGun.MachineGunVFX = _machineGunVFX;
+                        machineGun.MachineGunProps = _machineGunProps;
                     }
                     _weapons.SetUp(_spawnPointFire);
                     _weapons.Reload();
@@ -287,13 +241,17 @@ namespace Turret
                     _weapons = new LaserBeam(_turretData);
                     if (_weapons is LaserBeam laserbeam)
                     {
-                        laserbeam.LaserVFX = _laserVFX;
+                        laserbeam.LaserGunProps = _laserGunProps;
                     }
                     _weapons.SetUp(_spawnPointFire);
                     _weapons.Reload();
                     break;
                 case DispenserData.Type.Missile:
                     _weapons = new MissileGun(_turretData);
+                    if (_weapons is MissileGun missile)
+                    {
+                        missile.MissileGunProps = _missileGunProps;
+                    }
                     _weapons.SetUp(_spawnPointFire);
                     _weapons.Reload();
                     break;
