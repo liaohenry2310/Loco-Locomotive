@@ -67,18 +67,24 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float fireRate;
         public float aimSpeedMultiplier;
     }
+    
+    [Serializable]
+    public struct ShieldGun
+    {
+        public float maxAmmo;
+        public float ammoConsumeRate;
+    }
 
     public MachineGun machineGun;
     public LaserGun laserGun;
     public MissileGun missileGun;
     public ShockWave empShockWave;
+    public ShieldGun shieldGun;
 
     public float MaxHealth => _maxHealth;
     public float AimSpeed => _aimSpeed;
 
     [NonSerialized] public float CurrentHealth = 0.0f;
-
-    public float HealthPercentage => CurrentHealth / _maxHealth;
 
     public void OnBeforeSerialize()
     {

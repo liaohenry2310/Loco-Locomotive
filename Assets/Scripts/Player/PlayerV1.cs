@@ -45,7 +45,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
             if (_axis.y != 0.0f)
             {
-                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
+                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));                
                 //_rigidBody.MovePosition(new Vector2(LadderController.transform.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
                 //_rigidBody.velocity = new Vector2(0.0f, _axis.y * _playerData.Speed);
                 //transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
@@ -140,7 +140,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         {
             Debug.LogWarning("Fail to load Audio Source component!.");
         }
-
         _healthBar = GetComponentInChildren<Visuals.HealthBar>();
         _healthSystem = new HealthSystem(_playerData.MaxHealth);
         _healthBar.SetUp(_healthSystem);

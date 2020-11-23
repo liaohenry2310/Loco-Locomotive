@@ -23,6 +23,9 @@ namespace Turret
         [SerializeField] private GameObject _LaserBeamStartVFX = null;
         [SerializeField] private GameObject _LaserBeamEndVFX = null;
 
+        [Header("Shield")]
+        [SerializeField] private ShieldGunController _shieldGunController = null;
+
         [Header("Sprite")]
         [SerializeField] private SpriteRenderer _upperSprite = null;
         [SerializeField] private SpriteRenderer _cannonSprite = null;
@@ -35,6 +38,7 @@ namespace Turret
         private LaserBeam.LaserGunProperties _laserGunProps;
         private MachineGun.MachineGunProperties _machineGunProps;
         private MissileGun.MissileGunProperties _missileGunProps;
+        private ShieldGun.ShieldGunProperties _shieldGunProps;
 
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
@@ -60,6 +64,9 @@ namespace Turret
             _machineGunProps.muzzleFlashVFX = _MachineGunStartVFX;
             _machineGunProps.audioSourceClips = _audioSource;
 
+            // Setting up shield gun properties
+            _shieldGunProps.shieldGunController = _shieldGunController;
+
             // Initialize with Machine Gun as default
             _weapons = new MachineGun(_turretData);
             if (_weapons is MachineGun machineGun)
@@ -67,6 +74,14 @@ namespace Turret
                 machineGun.MachineGunProps = _machineGunProps;
             }
             _weapons.SetUp(_spawnPointFire);
+
+            // TODO: Just for Testing
+            //_weapons = new ShieldGun(_turretData);
+            //if (_weapons is ShieldGun shield)
+            //{
+            //    shield.ShieldGunPros = _shieldGunProps;
+            //}
+            //_weapons.SetUp(_spawnPointFire);
         }
 
         private void Start()
@@ -178,6 +193,11 @@ namespace Turret
             float rotationSpeed = -_rotation.x * _turretData.AimSpeed * Time.fixedDeltaTime;
             _weapons.SetFire(_holdFire);
             _turretAmmoIndicator.UpadteIndicator(ref _weapons);
+            if (_weapons as ShieldGun != null)
+            {
+                rotationSpeed = 0.0f;
+            }
+
             if (_holdFire)
             {
                 if (_weapons as LaserBeam != null)
@@ -192,7 +212,6 @@ namespace Turret
             }
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
-
 
         public void Interact(PlayerV1 player)
         {
@@ -269,7 +288,13 @@ namespace Turret
                     _weapons.Reload();
                     break;
                 case DispenserData.Type.Shield:
-                    Debug.Log("[TurretGun] -- Shield is not implement yet.");
+                    _weapons = new ShieldGun(_turretData);
+                    if (_weapons is ShieldGun shield)
+                    {
+                        shield.ShieldGunPros = _shieldGunProps;
+                    }
+                    _weapons.SetUp(_spawnPointFire);
+                    _weapons.Reload();
                     break;
                 default:
                     break;
