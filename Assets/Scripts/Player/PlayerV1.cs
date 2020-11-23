@@ -252,7 +252,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             _audioSource.clip = _playerData.AudiosClips[1];
             _audioSource.Play();
             Item item = GetItem;
-            item.DestroyAfterUse();
+            if (item)
+            {
+                item.DestroyAfterUse();
+            }
             StartCoroutine(Respawn());
         }
         else
