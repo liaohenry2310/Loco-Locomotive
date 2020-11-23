@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6661086306327264146}
   - component: {fileID: 4107734020181177433}
   - component: {fileID: 7464936777960977185}
+  - component: {fileID: 3505955095255398443}
   m_Layer: 10
   m_Name: MGunAmmoDispenser
   m_TagString: Untagged
@@ -123,3 +124,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dispenserItem: {fileID: 11400000, guid: 751b76bef96100c439cc0a67b12d43ba, type: 2}
   itemOffset: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
+--- !u!95 &3505955095255398443
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733304827156063045}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fae9db0af8485e549b38a4ddf08c32a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

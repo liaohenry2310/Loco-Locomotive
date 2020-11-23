@@ -104,26 +104,21 @@ public class SwarmEnemyGroup : MonoBehaviour
                  }
 
 
-                // _bottomLeft.position.x, _topright.position.x, _topright.position.y, _bottomLeft.position.y
-                if (Mathf.Abs(transform.position.x - _bottomLeft.position.x) < 1.0f)
+                if (agent.transform.position.x < _bottomLeft.position.x)
                 {
-                    //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
-                    _velocity.x *= -1;
+                    agent.Velocity *= -1;
                 }
-                if (Mathf.Abs(transform.position.x - _topright.position.x) < 1.0f)
+                if (agent.transform.position.x > _topright.position.x)
                 {
-                    //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
-                    _velocity.x *= -1;
+                    agent.Velocity *= -1;
                 }
-                if (Mathf.Abs(transform.position.y - _topright.position.y) < 1.0f)
+                if (agent.transform.position.y < _topright.position.y)
                 {
-                    //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
-                    _velocity.y *= -1;
+                    agent.Velocity *= -1;
                 }
-                if (Mathf.Abs(transform.position.y - _bottomLeft.position.y) < 1.0f)
+                if (agent.transform.position.y > _bottomLeft.position.y)
                 {
-                    //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
-                    _velocity.y *= -1;
+                    agent.Velocity *= -1;
                 }
                 //agent.transform.position += agent.Velocity * Time.deltaTime;
             }
@@ -184,6 +179,7 @@ public class SwarmEnemyGroup : MonoBehaviour
             _enemyType.transform.position = new Vector3(_swarmSpawnPos.position.x+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.position.y+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.localPosition.z);
             _enemyType.SetActive(true);
             var swarmEnemy = _enemyType.gameObject.GetComponent<SwarmEnemy>();
+            swarmEnemy.Attacking = false;
             swarmEnemy.Alive = true;
             swarmEnemy.SetNewData(enemyData);
             swarmNeighbors.Add(_enemyType.GetComponent<SwarmEnemy>());

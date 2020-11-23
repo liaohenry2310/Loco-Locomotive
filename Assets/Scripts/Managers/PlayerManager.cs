@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject _playerSpawnPod = null;
-    [SerializeField] private TrainData _trainData = null; 
+    [SerializeField] private TrainData _trainData = null;
 
+    private RespawnPod _respawnPod = null;
     private uint _playerCount = 0;
 
     public void PlayerRespawnPod(PlayerInput input)
@@ -18,6 +19,13 @@ public class PlayerManager : MonoBehaviour
         player.transform.SetParent(_trainData.TrainTransform);
         player.transform.position = _playerSpawnPod.transform.position;
         player.RespawnPoint = _playerSpawnPod.transform.position;
+
+        if (!_respawnPod)
+        {
+            _respawnPod = _playerSpawnPod.GetComponent<RespawnPod>();
+        }
+
+        _respawnPod.AnimationRespawnPod();
     }
 
 }

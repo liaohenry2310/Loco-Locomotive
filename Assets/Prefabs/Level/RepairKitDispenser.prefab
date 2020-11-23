@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5961139133095949384}
   - component: {fileID: 5356865799658692152}
   - component: {fileID: 1865251787258244254}
+  - component: {fileID: 8335638997199125916}
   m_Layer: 10
   m_Name: RepairKitDispenser
   m_TagString: Untagged
@@ -123,3 +124,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dispenserItem: {fileID: 11400000, guid: 0ba31af5f8483344ab6747525e086610, type: 2}
   itemOffset: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
+--- !u!95 &8335638997199125916
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546385584799457053}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8cef85a2db8f0f547a88c190145f5a6f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
