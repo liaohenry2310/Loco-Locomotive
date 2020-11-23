@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202b481ce62e3bf4285a7706de1f1e11, type: 3}
   m_Name: RepairKitDispenser
   m_EditorClassIdentifier: 
-  _type: 4
+  _type: 6
   _itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
     type: 3}
   _dispenserSprite: {fileID: 21300000, guid: 8173c1a0adb7ea942b6fc207a21a2536, type: 3}

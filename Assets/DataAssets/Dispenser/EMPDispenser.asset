@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202b481ce62e3bf4285a7706de1f1e11, type: 3}
   m_Name: EMPDispenser
   m_EditorClassIdentifier: 
-  _type: 0
-  _itemPrefab: {fileID: 0}
-  _dispenserSprite: {fileID: 0}
-  _itemSprite: {fileID: 0}
+  _type: 4
+  _itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
+    type: 3}
+  _dispenserSprite: {fileID: 21300000, guid: e0c545b8b3782bd4aadf7c6b66d5ac1a, type: 3}
+  _itemSprite: {fileID: 21300000, guid: c6925942f75329043b1bd90a07cd88ef, type: 3}

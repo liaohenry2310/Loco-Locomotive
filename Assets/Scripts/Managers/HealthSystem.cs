@@ -19,7 +19,7 @@ namespace Manager
 
         public float HealthPercentage => Health / MaxHealth;
 
-        public bool IsAlive => Health >= 0.0f;
+        public bool IsAlive => Health >= 0.01f;
 
         public void Damage(float damage)
         {

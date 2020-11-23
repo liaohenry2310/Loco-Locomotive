@@ -1,13 +1,16 @@
 ﻿using Interfaces;
 using Items;
 using Manager;
+using System;
 using UnityEngine;
 
 namespace Turret
 {
     public class TurretBase : MonoBehaviour, IDamageable<float>, IInteractable
     {
+        public event Action<float> OnTakeDamageUpdate;
         [SerializeField] private TurretData _turretData = null;
+
         public HealthSystem HealthSystem { get; private set; }
 
         private void Awake()
@@ -20,6 +23,7 @@ namespace Turret
         public void TakeDamage(float damage)
         {
             HealthSystem.Damage(damage);
+            OnTakeDamageUpdate?.Invoke(HealthSystem.HealthPercentage);
         }
 
         public void Interact(PlayerV1 player)
@@ -31,6 +35,7 @@ namespace Turret
                 player.GetItem.DestroyAfterUse();
             }
         }
+
     }
 
 }
