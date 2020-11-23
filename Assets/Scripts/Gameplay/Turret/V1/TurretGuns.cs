@@ -256,49 +256,80 @@ namespace Turret
             switch (itemType)
             {
                 case DispenserData.Type.Normal:
-                    _weapons = new MachineGun(_turretData);
-                    if (_weapons is MachineGun machineGun)
-                    {
-                        machineGun.MachineGunProps = _machineGunProps;
-                    }
-                    _weapons.SetUp(_spawnPointFire);
-                    _weapons.Reload();
+                    SetMachineGun();
                     break;
                 case DispenserData.Type.LaserBeam:
-                    _weapons = new LaserBeam(_turretData);
-                    if (_weapons is LaserBeam laserbeam)
-                    {
-                        laserbeam.LaserGunProps = _laserGunProps;
-                    }
-                    _weapons.SetUp(_spawnPointFire);
-                    _weapons.Reload();
+                    SetLaserBeam();
                     break;
                 case DispenserData.Type.Missile:
-                    _weapons = new MissileGun(_turretData);
-                    if (_weapons is MissileGun missile)
-                    {
-                        missile.MissileGunProps = _missileGunProps;
-                    }
-                    _weapons.SetUp(_spawnPointFire);
-                    _weapons.Reload();
+                    SetMissileGun();
                     break;
                 case DispenserData.Type.EMP:
-                    _weapons = new EmpGun(_turretData);
-                    _weapons.SetUp(_spawnPointFire);
-                    _weapons.Reload();
+                    SetEMPGun();
                     break;
                 case DispenserData.Type.Shield:
-                    _weapons = new ShieldGun(_turretData);
-                    if (_weapons is ShieldGun shield)
-                    {
-                        shield.ShieldGunPros = _shieldGunProps;
-                    }
-                    _weapons.SetUp(_spawnPointFire);
-                    _weapons.Reload();
+                    SetShieldGun();
                     break;
                 default:
                     break;
             }
+        }
+
+        private void SetMachineGun()
+        {
+            _weapons = new MachineGun(_turretData);
+            if (_weapons is MachineGun machineGun)
+            {
+                machineGun.MachineGunProps = _machineGunProps;
+            }
+            _weapons.SetUp(_spawnPointFire);
+            _weapons.Reload();
+            _upperSprite.sprite = _turretData.machineGun.Uppersprites[0];
+            _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
+        }
+
+        private void SetLaserBeam()
+        {
+            _weapons = new LaserBeam(_turretData);
+            if (_weapons is LaserBeam laserbeam)
+            {
+                laserbeam.LaserGunProps = _laserGunProps;
+            }
+            _weapons.SetUp(_spawnPointFire);
+            _weapons.Reload();
+            _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
+            _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
+        }
+
+        private void SetMissileGun()
+        {
+            _weapons = new MissileGun(_turretData);
+            if (_weapons is MissileGun missile)
+            {
+                missile.MissileGunProps = _missileGunProps;
+            }
+            _weapons.SetUp(_spawnPointFire);
+            _weapons.Reload();
+            _upperSprite.sprite = _turretData.missileGun.Uppersprites[0];
+            _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
+        }
+
+        private void SetEMPGun()
+        {
+            _weapons = new EmpGun(_turretData);
+            _weapons.SetUp(_spawnPointFire);
+            _weapons.Reload();
+        }
+
+        private void SetShieldGun()
+        {
+            _weapons = new ShieldGun(_turretData);
+            if (_weapons is ShieldGun shield)
+            {
+                shield.ShieldGunPros = _shieldGunProps;
+            }
+            _weapons.SetUp(_spawnPointFire);
+            _weapons.Reload();
         }
     }
 
