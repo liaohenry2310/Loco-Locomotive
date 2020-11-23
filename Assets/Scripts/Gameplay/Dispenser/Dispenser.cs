@@ -23,7 +23,10 @@ namespace Dispenser
 
         private void Start()
         {
-            _spriteRenderer.sprite = _dispenserItem.DispenserSprite;
+            if (_dispenserItem)
+            {
+                _spriteRenderer.sprite = _dispenserItem.DispenserSprite;
+            }
         }
         private void Update()
         {
