@@ -1440,10 +1440,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2058710497}
     m_Modifications:
+    - target: {fileID: 1351848489309283593, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 1.9474506
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351848489309283593, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.879755
+      objectReference: {fileID: 0}
     - target: {fileID: 2944551079068758666, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.259
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526161266226023940, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -5.695134
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526161266226023940, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.77692366
+      objectReference: {fileID: 0}
+    - target: {fileID: 3579886295958188585, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.33803147
+      objectReference: {fileID: 0}
+    - target: {fileID: 3579886295958188585, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.6722914
       objectReference: {fileID: 0}
     - target: {fileID: 6204418715150842162, guid: 07d5c50a9eee28a4e8ea4a0c97ef1c19,
         type: 3}
@@ -1588,6 +1618,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2058710497}
     m_Modifications:
+    - target: {fileID: 87009864, guid: ae363ecf6389cac47b8244de7abd925d, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.9800036
+      objectReference: {fileID: 0}
+    - target: {fileID: 87009864, guid: ae363ecf6389cac47b8244de7abd925d, type: 3}
+      propertyPath: m_Size.x
+      value: 6.049993
+      objectReference: {fileID: 0}
     - target: {fileID: 5345385232605540084, guid: ae363ecf6389cac47b8244de7abd925d,
         type: 3}
       propertyPath: m_Offset.y
