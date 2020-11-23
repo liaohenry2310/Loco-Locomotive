@@ -6,6 +6,8 @@ using UnityEngine;
 public class SwarmEnemyData : ScriptableObject
 {
     public float MaxHealth;
+    public float ArmorHealth;
+    public float ShieldHealth;
     public float MaxSpeed;
     public float AttackDelay;
 

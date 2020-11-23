@@ -13,15 +13,14 @@ MonoBehaviour:
   m_Name: BomberEnemyData
   m_EditorClassIdentifier: 
   MaxHealth: 10
-  MaxSpeed: 10
+  MaxSpeed: 15
   AttackDelay: 5
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
   Bomber_AttackDamage: 10
   Bomber_AttackSpeed: 2
-  SeekWeight: 10
   WallAvoidWeight: 10
-  WanderBehaviorWeight: 3
-  WanderRadius: 2
-  WanderDistance: 1.5
-  WanderJitter: 2
+  WanderBehaviorWeight: 20
+  WanderRadius: 5
+  WanderDistance: 5
+  WanderJitter: 5

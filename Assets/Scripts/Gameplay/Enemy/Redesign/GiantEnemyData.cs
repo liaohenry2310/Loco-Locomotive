@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BasicEnemyData", menuName = "BasicEnemy")]
-public class BasicEnemyData : ScriptableObject
+[CreateAssetMenu(fileName = "GiantEnemyData", menuName = "GiantEnemy")]
+public class GiantEnemyData : ScriptableObject
 {
     public float MaxHealth;
-    public float ArmorHealth;
-    public float ShieldHealth;
     public float MaxSpeed;
-    public float AttackDelay;
     public GameObject projectile;
-    public float Basic_AttackDamage;
-    public float Basic_AttackSpeed;
+    public float AttackDelay;
+    public float ChargeTime;
+    public float BeamDamage;
+    public float BeamDuration;//  beam that will last for [BeamDuration] seconds
+    public float AttackSpeed;
 
     //Any shared movement data can be put here as well, for example...
     public float WallAvoidWeight;
+
+    public float SeekWeight;
 
     public float WanderBehaviorWeight;
     public float WanderRadius;
