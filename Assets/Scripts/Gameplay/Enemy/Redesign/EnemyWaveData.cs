@@ -9,8 +9,20 @@ public class EnemyWaveData : ScriptableObject
     public enum EnemyType
     {
         Basic,
+        Basic_Armor,
+        Basic_Shield,
+        Basic_ShieldArmor,
+
         Bomber,
+        Bomber_Armor,
+        Bomber_Shield,
+        Bomber_ShieldArmor,
+
         Swarm,
+        Swarm_Armor,
+        Swarm_Shield,
+        Swarm_ShieldArmor,
+
         Giant
     }
 

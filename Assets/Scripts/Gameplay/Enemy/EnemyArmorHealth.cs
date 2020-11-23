@@ -3,12 +3,15 @@
 public class EnemyArmorHealth : MonoBehaviour
 {
     // Armor type
-    public float ArmorHealth;
-
+    private float _armorHealth=0.0f;
+    public float ArmorHealth {
+        get {return _armorHealth; }
+        set{ _armorHealth = value; }
+    }
     public void TakeDamage(float takingDamage)
     {
-        ArmorHealth -= takingDamage;
-        Debug.Log("[ArmorHealth] Lost " + takingDamage + "hp. Current health: " + ArmorHealth);
+        _armorHealth -= takingDamage;
+        Debug.Log("[ArmorHealth] Lost " + takingDamage + "hp. Current health: " + _armorHealth);
         if (!ArmorIsActive())
         {
             GetComponent<SpriteRenderer>().enabled = false;
@@ -16,6 +19,6 @@ public class EnemyArmorHealth : MonoBehaviour
         }
     }
     public bool ArmorIsActive()
-    { return ArmorHealth > 0.0; }
+    { return _armorHealth > 0.0; }
 
 }

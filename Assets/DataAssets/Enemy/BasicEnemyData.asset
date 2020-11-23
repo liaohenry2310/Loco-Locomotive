@@ -19,8 +19,8 @@ MonoBehaviour:
     type: 3}
   Basic_AttackDamage: 10
   Basic_AttackSpeed: 2
-  WallAvoidWeight: 10
-  WanderBehaviorWeight: 20
-  WanderRadius: 2
-  WanderDistance: 1.5
-  WanderJitter: 2
+  WallAvoidWeight: 20
+  WanderBehaviorWeight: 5
+  WanderRadius: 5
+  WanderDistance: 5
+  WanderJitter: 10

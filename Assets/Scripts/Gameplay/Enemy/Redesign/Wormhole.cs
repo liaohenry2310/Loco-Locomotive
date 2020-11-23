@@ -104,7 +104,6 @@ public class Wormhole : MonoBehaviour
                         _enemyType.transform.position = new Vector3(transform.position.x,transform.position.y,transform.localPosition.z);
                         _enemyType.SetActive(true);
                         _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);
-                        //enemySpawner.swarmNeighbors.Add(_enemyType);
                     break;
                     }
                 case EnemyWaveData.EnemyType.Bomber:
@@ -113,7 +112,14 @@ public class Wormhole : MonoBehaviour
                     _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
                     _enemyType.SetActive(true);
                     _enemyType.gameObject.GetComponent<BomberEnemy>().SetNewData(_topright, _bottomLeft);
-
+                    break;
+                }
+                case EnemyWaveData.EnemyType.Giant:
+                {
+                    _enemyType = _objectPoolManager.GetObjectFromPool("GiantEnemy");
+                    _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
+                    _enemyType.SetActive(true);
+                    _enemyType.gameObject.GetComponent<GiantEnemy>().SetNewData(_topright, _bottomLeft);
                     break;
                 }
                 default:
