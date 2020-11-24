@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833354a74b39d9f4ab764cd58d4aa4d4, type: 3}
   m_Name: BasicEnemyData
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 50
+  ArmorHealth: 0
+  ShieldHealth: 0
   MaxSpeed: 10
-  AttackDelay: 5
+  AttackDelay: 8
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
   Basic_AttackDamage: 10
@@ -22,5 +24,5 @@ MonoBehaviour:
   WallAvoidWeight: 20
   WanderBehaviorWeight: 5
   WanderRadius: 5
-  WanderDistance: 5
-  WanderJitter: 10
+  WanderDistance: 1
+  WanderJitter: 5

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406327bae20104f478c8d65df9c2c838, type: 3}
   m_Name: TurretData
   m_EditorClassIdentifier: 
-  _maxHealth: 250
-  _aimSpeed: 50
+  _maxHealth: 500
+  _aimSpeed: 180
   machineGun:
     damage: 10
-    moveSpeed: 20
-    fireRate: 15
-    maxAmmo: 500
-    spreadBullet: 10
+    moveSpeed: 10
+    fireRate: 10
+    maxAmmo: 300
+    spreadBullet: 5
     machinegunFire: {fileID: 8300000, guid: 5537fa92dc267ad4ab371e4b9cb3043d, type: 3}
     machinegunBeam: {fileID: 8300000, guid: a717f7a68644e0a418ab9c1822959fa2, type: 3}
     Uppersprites:
@@ -93,5 +93,5 @@ MonoBehaviour:
     fireRate: 3
     aimSpeedMultiplier: 0.5
   shieldGun:
-    maxAmmo: 30
+    maxAmmo: 15
     ammoConsumeRate: 1
