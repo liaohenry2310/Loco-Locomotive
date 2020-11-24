@@ -642,6 +642,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: TimeLimit
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 2598423446803136824, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
       propertyPath: m_AnchoredPosition.y
