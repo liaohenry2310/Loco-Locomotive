@@ -119,7 +119,7 @@ namespace Turret
             LaserGunProps.audioSourceClips.Play();
         }
 
-        private void DisableLaser()
+        public void DisableLaser()
         {
             LaserGunProps.laserBeamRenderer.enabled = false;
             for (int i = 0; i < _particles.Count; ++i)
