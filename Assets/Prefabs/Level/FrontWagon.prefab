@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 3349336469984750901}
   m_Layer: 0
   m_Name: Top_collider (1)
-  m_TagString: PassableFloor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,7 +315,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.964032, y: 0.0165}
+  m_Size: {x: 1.964, y: 0.016}
   m_EdgeRadius: 0
 --- !u!1 &5450932838015351719
 GameObject:
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 1738081304406222695}
   m_Layer: 0
   m_Name: Bottom_collider
-  m_TagString: PassableFloor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -488,7 +488,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.12, y: 0.015}
+  m_Size: {x: 1.3956215, y: 0.015}
   m_EdgeRadius: 0
 --- !u!1 &8607168505058922325
 GameObject:
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 5141916953576431776}
   m_Layer: 0
   m_Name: Middle_collider
-  m_TagString: PassableFloor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
