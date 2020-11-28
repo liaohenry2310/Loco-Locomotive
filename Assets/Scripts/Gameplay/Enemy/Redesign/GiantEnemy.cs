@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,14 @@ public class GiantEnemy : MonoBehaviour
     private List<Vector2> _targetPositions;
     private float _currentHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
-    private GameObject _projectile;
 
+    Vector3 targetPos= Vector3.zero;
 
+    public LineRenderer lineRenderer;
+    private Transform firePoint;
+    public GameObject VFX;
+    private List<ParticleSystem> particles = new List<ParticleSystem>();
+    public LayerMask trainLayer;
 
 
     private bool isAlive=false;
@@ -36,7 +42,7 @@ public class GiantEnemy : MonoBehaviour
 
     private void Awake()
     {
-        //_objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+
     }
 
     private void OnEnable()
@@ -51,9 +57,10 @@ public class GiantEnemy : MonoBehaviour
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
-        _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay+ Time.time;
         isAlive = true;
+        FillLists();
+        DisableLaser();
     }
 
     void Update()
@@ -72,6 +79,7 @@ public class GiantEnemy : MonoBehaviour
                 break;
             case State.Attack:
                 Attack();
+                //EnableLaser();
                 break;
             default:
                 break;
@@ -127,11 +135,11 @@ public class GiantEnemy : MonoBehaviour
         var targetlist = _trainData.ListTurret;
         int targetSize = targetlist.Length;
         int randomtarget = Random.Range(0, targetSize - 1);
-        Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
+        targetPos = targetlist[randomtarget].gameObject.transform.position;
 
         Vector2 destination = new Vector2(targetPos.x, transform.position.y);
         _acceleration = BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, destination, enemyData.MaxSpeed), enemyData.SeekWeight);
-        float dis = float.MaxValue;
+        float dis = float.MinValue;
         
         if (Mathf.Abs(transform.position.y - destination.y)>dis)
         {
@@ -143,11 +151,41 @@ public class GiantEnemy : MonoBehaviour
     }
     public IEnumerator Charging(float chargingTime)
     {
+
+        for (int i = 0; i < particles.Count; ++i)
+        {
+            particles[i].Play();
+        }
         yield return new WaitForSeconds(5.0f);
         mCurrentState = State.Attack;
     }
     void Attack()
-    { }
+    {
+        lineRenderer.enabled = true;
+       
+        lineRenderer.SetPosition(0, transform.position);
+        VFX.transform.position = (Vector2)transform.position;
+        var pos = (Vector2)targetPos;
+
+        lineRenderer.SetPosition(1, pos);
+        var targetlist = _trainData.ListTurret;
+
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, pos.normalized, pos.magnitude,trainLayer);
+        if (hit)
+        {
+            lineRenderer.SetPosition(1, hit.point);
+            Collider2D collider = hit.collider;
+            if (collider)
+            {
+                IDamageable<float> damageable = collider.GetComponent<IDamageable<float>>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(enemyData.BeamDamage);
+                }
+            }
+        }
+
+    }
 
     private void RecycleGiantEnemy()
     {
@@ -168,5 +206,37 @@ public class GiantEnemy : MonoBehaviour
         }
 
     }
+
+    void EnableLaser()
+    {
+        lineRenderer.enabled = true;
+        for (int i = 0; i < particles.Count; ++i)
+        {
+            particles[i].Play();
+        }
+
+    }
+
+    void DisableLaser()
+    {
+        lineRenderer.enabled = false;
+        for (int i = 0; i < particles.Count; ++i)
+        {
+            particles[i].Stop();
+        }
+    }
+
+    void FillLists()
+    {
+        for (int i = 0; i < VFX.transform.childCount; ++i)
+        {
+            var ps = VFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                particles.Add(ps);
+            }
+        }
+    }
+
 
 }
