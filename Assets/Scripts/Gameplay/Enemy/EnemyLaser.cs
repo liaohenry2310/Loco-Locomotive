@@ -34,7 +34,7 @@ public class EnemyLaser : MonoBehaviour
         //Vector3 dir = new Vector3(0.0f, 0.0f, direction.z);
         _sprite.transform.eulerAngles = direction;
 
-        transform.position += direction * _EnemyData.AttackSpeed * Time.fixedDeltaTime;
+        transform.position += direction * Time.deltaTime;
 
         // set activated false prefabs when touch the camera bounds
         if ((transform.position.x >= _screenBounds.x) ||

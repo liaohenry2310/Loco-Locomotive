@@ -336,3 +336,15 @@ MonoBehaviour:
     prefab: {fileID: 3276408233857933763, guid: 8f89873eddf54364aa4da57e21d7744c,
       type: 3}
     poolSize: 100
+  - name: Swarm_Shield
+    prefab: {fileID: 3276408233857933763, guid: 7e91b0e32ff50674d9633efeec0a3230,
+      type: 3}
+    poolSize: 100
+  - name: Bomber_Shield
+    prefab: {fileID: 3276408233857933763, guid: f05f1e5519d005242bdc51867014ec43,
+      type: 3}
+    poolSize: 100
+  - name: Basic_Shield
+    prefab: {fileID: 3276408233857933763, guid: fa4b32ec5a46270478ae36fc1c39b039,
+      type: 3}
+    poolSize: 100

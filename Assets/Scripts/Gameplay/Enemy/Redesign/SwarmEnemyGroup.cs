@@ -168,24 +168,44 @@ public class SwarmEnemyGroup : MonoBehaviour
            
         }
     }
-    public void SpawnGroup(int numToSpawn)
+    public void SpawnGroup(int numToSpawn,bool shield)
     {
         _spawnSize = numToSpawn;
-
-        for (int j = 0; j < _spawnSize; ++j)
+        if (!shield)
         {
-            GameObject _enemyType;
-            _enemyType = _objectPoolManager.GetObjectFromPool("SwarmEnemy");
-            _enemyType.transform.position = new Vector3(_swarmSpawnPos.position.x+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.position.y+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.localPosition.z);
-            _enemyType.SetActive(true);
-            var swarmEnemy = _enemyType.gameObject.GetComponent<SwarmEnemy>();
-            swarmEnemy.Attacking = false;
-            swarmEnemy.Alive = true;
-            swarmEnemy.SetNewData(enemyData);
-            swarmNeighbors.Add(_enemyType.GetComponent<SwarmEnemy>());
-            swarmNeighborsTrans.Add(_enemyType.transform);
-            //enemy.transform.parent = gameObject.transform;
-            //enemy.transform.localPosition = Vector2.zero + Random.insideUnitCircle * countGroupSize * agentDensity;
+            for (int j = 0; j < _spawnSize; ++j)
+            {
+                GameObject _enemyType;
+                _enemyType = _objectPoolManager.GetObjectFromPool("SwarmEnemy");
+                _enemyType.transform.position = new Vector3(_swarmSpawnPos.position.x+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.position.y+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.localPosition.z);
+                _enemyType.SetActive(true);
+                var swarmEnemy = _enemyType.gameObject.GetComponent<SwarmEnemy>();
+                swarmEnemy.Attacking = false;
+                swarmEnemy.Alive = true;
+                swarmEnemy.SetNewData(enemyData);
+                swarmNeighbors.Add(_enemyType.GetComponent<SwarmEnemy>());
+                swarmNeighborsTrans.Add(_enemyType.transform);
+                //enemy.transform.parent = gameObject.transform;
+                //enemy.transform.localPosition = Vector2.zero + Random.insideUnitCircle * countGroupSize * agentDensity;
+            }
+        }
+        if (shield)
+        {
+            for (int j = 0; j < _spawnSize; ++j)
+            {
+                GameObject _enemyType;
+                _enemyType = _objectPoolManager.GetObjectFromPool("Swarm_Shield");
+                _enemyType.transform.position = new Vector3(_swarmSpawnPos.position.x + Random.Range(-0.5f, 0.5f), _swarmSpawnPos.position.y + Random.Range(-0.5f, 0.5f), _swarmSpawnPos.localPosition.z);
+                _enemyType.SetActive(true);
+                var swarmEnemy = _enemyType.gameObject.GetComponent<SwarmEnemy>();
+                swarmEnemy.Attacking = false;
+                swarmEnemy.Alive = true;
+                swarmEnemy.SetNewData(enemyData);
+                swarmNeighbors.Add(_enemyType.GetComponent<SwarmEnemy>());
+                swarmNeighborsTrans.Add(_enemyType.transform);
+                //enemy.transform.parent = gameObject.transform;
+                //enemy.transform.localPosition = Vector2.zero + Random.insideUnitCircle * countGroupSize * agentDensity;
+            }
         }
       //squareMaxSpeed = maxSpeed * maxSpeed;
     }

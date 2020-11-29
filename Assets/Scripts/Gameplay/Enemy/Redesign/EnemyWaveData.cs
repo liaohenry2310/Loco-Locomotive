@@ -9,21 +9,13 @@ public class EnemyWaveData : ScriptableObject
     public enum EnemyType
     {
         Basic,
-        Basic_Armor,
-        Basic_Shield,
-        Basic_ShieldArmor,
-
         Bomber,
-        Bomber_Armor,
-        Bomber_Shield,
-        Bomber_ShieldArmor,
-
         Swarm,
-        Swarm_Armor,
-        Swarm_Shield,
-        Swarm_ShieldArmor,
+        Giant,
 
-        Giant
+        Basic_Shield,
+        Bomber_Shield,
+        Swarm_Shield
     }
 
     //This is to match enemy type with the actual enemy prefab.
