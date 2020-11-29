@@ -268,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 7492620779980578089, guid: 9658cb5415206694ca55c338bc7c3088,
     type: 3}
-  sceneIndexToLoad: 1
+  sceneIndexToLoad: 5
   moduleComponents:
   - {fileID: 1957254521}
 --- !u!4 &1957254520
@@ -336,3 +336,7 @@ MonoBehaviour:
     prefab: {fileID: 3276408233857933763, guid: 8f89873eddf54364aa4da57e21d7744c,
       type: 3}
     poolSize: 100
+  - name: Item_Drop
+    prefab: {fileID: 6489616909841529715, guid: ba198fdf85dbc0045963d946190d74b5,
+      type: 3}
+    poolSize: 20
