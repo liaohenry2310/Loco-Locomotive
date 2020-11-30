@@ -16,9 +16,9 @@ MonoBehaviour:
   MaxSpeed: 15
   projectile: {fileID: 0}
   AttackDelay: 5
-  ChargeTime: 0
-  BeamDamage: 0
-  BeamDuration: 0
+  ChargeTime: 2
+  BeamDamage: 10
+  BeamDuration: 5
   AttackSpeed: 0
   WallAvoidWeight: 0
   SeekWeight: 5
