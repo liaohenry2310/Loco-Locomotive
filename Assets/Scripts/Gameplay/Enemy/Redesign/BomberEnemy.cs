@@ -17,7 +17,6 @@ public class BomberEnemy : MonoBehaviour
     private List<Vector2> _targetPositions;
     private float _currentHealth = 0.0f;
     private float _currentShieldHealth = 0.0f;
-    private float _currentArmorHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
     private GameObject _projectile;
 
@@ -45,22 +44,12 @@ public class BomberEnemy : MonoBehaviour
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
-        _currentArmorHealth = enemyData.ArmorHealth;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
-        }
-        if (gameObject.CompareTag("ArmorEnemy"))
-        {
-            gameObject.GetComponentInChildren<EnemyArmorHealth>().ArmorHealth = _currentShieldHealth;
-        }
-        if (gameObject.CompareTag("ShieldArmorEnemy"))
-        {
-            gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
-            gameObject.GetComponentInChildren<EnemyArmorHealth>().ArmorHealth = _currentShieldHealth;
         }
         isAlive = true;
     }

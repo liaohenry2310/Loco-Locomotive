@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578651486905402538}
   - component: {fileID: 578651486905402541}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ProjectileSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 578651487066272699}
   - component: {fileID: 690517005933181022}
   - component: {fileID: -6008012888321849426}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Projectile
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -175,6 +175,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicEnemyData: {fileID: 11400000, guid: 2348c4b0ffa86594dbd97c8df78aca41, type: 2}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 0

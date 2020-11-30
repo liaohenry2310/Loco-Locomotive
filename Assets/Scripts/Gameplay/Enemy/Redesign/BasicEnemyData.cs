@@ -6,7 +6,6 @@ using UnityEngine;
 public class BasicEnemyData : ScriptableObject
 {
     public float MaxHealth;
-    public float ArmorHealth;
     public float ShieldHealth;
     public float MaxSpeed;
     public float AttackDelay;

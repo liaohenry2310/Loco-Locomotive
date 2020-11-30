@@ -19,7 +19,6 @@ public class SwarmEnemy : MonoBehaviour
 
     private float _currentHealth = 0.0f;
     private float _currentShieldHealth = 0.0f;
-    private float _currentArmorHealth = 0.0f;
 
     private bool isAilve=true;
 
@@ -72,20 +71,11 @@ public class SwarmEnemy : MonoBehaviour
         _enemyData = enemyData;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
-        _currentArmorHealth = enemyData.ArmorHealth;
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
         }
-        if (gameObject.CompareTag("ArmorEnemy"))
-        {
-            gameObject.GetComponentInChildren<EnemyArmorHealth>().ArmorHealth = _currentShieldHealth;
-        }
-        if (gameObject.CompareTag("ShieldArmorEnemy"))
-        {
-            gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
-            gameObject.GetComponentInChildren<EnemyArmorHealth>().ArmorHealth = _currentShieldHealth;
-        }
+
         Alive = true;
 
     }
