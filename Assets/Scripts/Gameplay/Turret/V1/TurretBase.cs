@@ -10,6 +10,7 @@ namespace Turret
     public class TurretBase : MonoBehaviour, IDamageable<float>, IInteractable
     {
         public event Action<float> OnTakeDamageUpdate;
+        public event Action OnRepairUpdate;
         [SerializeField] private TurretData _turretData = null;
         [SerializeField] private SpriteRenderer _spriteDamageIndicator = null;
         private Color _defaultColor;
@@ -39,6 +40,7 @@ namespace Turret
             {
                 HealthSystem.RestoreFullHealth();
                 player.GetItem.DestroyAfterUse();
+                OnRepairUpdate?.Invoke();
             }
         }
 
