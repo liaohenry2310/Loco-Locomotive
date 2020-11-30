@@ -20,7 +20,6 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public AudioClip machinegunBeam;
         public Sprite[] Uppersprites;
         public Sprite[] Cannonsprites;
-        public Sprite[] Bottomsprites;
     }
 
     [Serializable]
@@ -37,7 +36,6 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public AudioClip missilegunBeam;
         public Sprite[] Uppersprites;
         public Sprite[] Cannonsprites;
-        public Sprite[] Bottomsprites;
         public LayerMask enemyLayerMask;
     }
 
@@ -53,7 +51,6 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public AudioClip lasergunFire;
         public Sprite[] Uppersprites;
         public Sprite[] Cannonsprites;
-        public Sprite[] Bottomsprites;
         public LayerMask enemyLayerMask;
     }
 
@@ -67,18 +64,25 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float fireRate;
         public float aimSpeedMultiplier;
     }
+    
+    [Serializable]
+    public struct ShieldGun
+    {
+        public float maxAmmo;
+        public float ammoConsumeRate;
+    }
 
+    public Sprite[] Bottomsprites;
     public MachineGun machineGun;
     public LaserGun laserGun;
     public MissileGun missileGun;
     public ShockWave empShockWave;
+    public ShieldGun shieldGun;
 
     public float MaxHealth => _maxHealth;
     public float AimSpeed => _aimSpeed;
 
     [NonSerialized] public float CurrentHealth = 0.0f;
-
-    public float HealthPercentage => CurrentHealth / _maxHealth;
 
     public void OnBeforeSerialize()
     {

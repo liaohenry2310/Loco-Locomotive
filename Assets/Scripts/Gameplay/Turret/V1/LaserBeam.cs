@@ -23,11 +23,7 @@ namespace Turret
         {
             _turretData = data;
             _particles = new List<ParticleSystem>();
-        }
-
-        public override void Reload()
-        {
-            _currentAmmo = _turretData.laserGun.maxAmmo;
+            _MaxAmmo = _turretData.laserGun.maxAmmo;
         }
 
         public override void SetFire(bool fire)
@@ -72,7 +68,7 @@ namespace Turret
                 LaserGunProps.endVFX.transform.position = LaserGunProps.laserBeamRenderer.GetPosition(1);
 
                 _currentAmmo -= _turretData.laserGun.ammoConsumeRate / Time.time;
-                _currentAmmo = Mathf.Clamp(_currentAmmo, 0f, _turretData.laserGun.maxAmmo);
+                _currentAmmo = Mathf.Clamp(_currentAmmo, 0f, _MaxAmmo);
             }
             else
             {
@@ -123,7 +119,7 @@ namespace Turret
             LaserGunProps.audioSourceClips.Play();
         }
 
-        private void DisableLaser()
+        public void DisableLaser()
         {
             LaserGunProps.laserBeamRenderer.enabled = false;
             for (int i = 0; i < _particles.Count; ++i)

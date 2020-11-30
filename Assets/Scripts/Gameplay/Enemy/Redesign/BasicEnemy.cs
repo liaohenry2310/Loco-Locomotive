@@ -15,6 +15,7 @@ public class BasicEnemy : MonoBehaviour
     private Transform _botLeftBound;
     private List<Vector2> _targetPositions;
     private float _currentHealth = 0.0f;
+    private float _currentShieldHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
     private GameObject _projectile;
 
@@ -41,9 +42,14 @@ public class BasicEnemy : MonoBehaviour
         _topRightBound = topRight;
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
+        _currentShieldHealth = enemyData.ShieldHealth;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
+        if (gameObject.CompareTag("ShieldEnemy"))
+        {
+            gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
+        }
         isAlive = true;
     }
 
@@ -63,7 +69,7 @@ public class BasicEnemy : MonoBehaviour
         //Movement
         Vector3 _acceleration = new Vector3( 0.0f, 0.0f, 0.0f);
         //_acceleration += WanderBehavior.Calculate(gameobject, weight);
-        _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 1.0f),enemyData.WanderBehaviorWeight);
+        _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f),enemyData.WanderBehaviorWeight);
         //_acceleration += WallAvoidance.Calculate(gameobject, weight);
         //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
         _velocity += _acceleration * Time.deltaTime;
@@ -74,26 +80,30 @@ public class BasicEnemy : MonoBehaviour
             _velocity *= enemyData.MaxSpeed;
         }
 
-        if (Mathf.Abs(transform.position.x - _botLeftBound.position.x) < 1.0f)
-        {
-            //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
-            _velocity.x *= -1;
-        }
-        if (Mathf.Abs(transform.position.x - _topRightBound.position.x) < 1.0f)
-        {
-            //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
-            _velocity.x *= -1;
-        }
-        if (Mathf.Abs(transform.position.y - _topRightBound.position.y) < 1.0f)
-        {
-            //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
-            _velocity.y *= -1;
-        }
-        if (Mathf.Abs(transform.position.y - _botLeftBound.position.y) < 1.0f)
-        {
-            //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
-            _velocity.y *= -1;
-        }
+         //if (Mathf.Abs(transform.position.x - _botLeftBound.position.x) > 1.0f)
+         if (transform.position.x < _botLeftBound.position.x)
+         {
+             //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+             _velocity.x *= -1;
+         }
+         //if (Mathf.Abs(transform.position.x - _topRightBound.position.x) > 1.0f)
+         if (transform.position.x > _topRightBound.position.x)
+         {
+             //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
+             _velocity.x *= -1;
+         }
+         //if (Mathf.Abs(transform.position.y - _topRightBound.position.y) > 1.0f)
+         if (transform.position.y < _topRightBound.position.y)
+         {
+             //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+             _velocity.y *= -1;
+         }
+         //if (Mathf.Abs(transform.position.y - _botLeftBound.position.y) > 1.0f)
+         if (transform.position.y > _botLeftBound.position.y)
+         {
+             //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
+             _velocity.y *= -1;
+         }
 
 
         transform.position += _velocity * Time.deltaTime;

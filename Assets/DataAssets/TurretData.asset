@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: TurretData
   m_EditorClassIdentifier: 
   _maxHealth: 250
-  _aimSpeed: 50
+  _aimSpeed: 180
+  Bottomsprites:
+  - {fileID: 21300000, guid: 0de09d1cfa6a030478970752a21fcbb1, type: 3}
+  - {fileID: 21300000, guid: d5f4dedc703615c41b781e63dc985326, type: 3}
   machineGun:
     damage: 10
-    moveSpeed: 20
-    fireRate: 15
-    maxAmmo: 500
-    spreadBullet: 10
+    moveSpeed: 10
+    fireRate: 10
+    maxAmmo: 300
+    spreadBullet: 5
     machinegunFire: {fileID: 8300000, guid: 5537fa92dc267ad4ab371e4b9cb3043d, type: 3}
     machinegunBeam: {fileID: 8300000, guid: a717f7a68644e0a418ab9c1822959fa2, type: 3}
     Uppersprites:
@@ -32,9 +35,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 975177c6dda26584a9b42af9555b53a3, type: 3}
     - {fileID: 21300000, guid: 61c8f2236bfac9e4e987088ed980e191, type: 3}
     - {fileID: 21300000, guid: 8933242295e072941907633716daf7b1, type: 3}
-    Bottomsprites:
-    - {fileID: 21300000, guid: 2c75644c314db9744b94df39227955be, type: 3}
-    - {fileID: 21300000, guid: d5f4dedc703615c41b781e63dc985326, type: 3}
   laserGun:
     damage: 100
     range: 50
@@ -53,9 +53,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 508d07bcc80ce7649a037f26825d85f5, type: 3}
     - {fileID: 21300000, guid: be6a0a14ffd904545bb041804340eced, type: 3}
     - {fileID: 21300000, guid: cb31a6520ab564d4b815f5aad47946fb, type: 3}
-    Bottomsprites:
-    - {fileID: 21300000, guid: 2c75644c314db9744b94df39227955be, type: 3}
-    - {fileID: 21300000, guid: d5f4dedc703615c41b781e63dc985326, type: 3}
     enemyLayerMask:
       serializedVersion: 2
       m_Bits: 512
@@ -79,9 +76,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: a66d6243deee6ba479659b0f66b6855b, type: 3}
     - {fileID: 21300000, guid: e1de3c5b44cd4ca46ab9e691457750e7, type: 3}
     - {fileID: 21300000, guid: 6e1466347b4c260419a3cf875a89560f, type: 3}
-    Bottomsprites:
-    - {fileID: 21300000, guid: 2c75644c314db9744b94df39227955be, type: 3}
-    - {fileID: 21300000, guid: d5f4dedc703615c41b781e63dc985326, type: 3}
     enemyLayerMask:
       serializedVersion: 2
       m_Bits: 512
@@ -92,3 +86,6 @@ MonoBehaviour:
     maxAmmo: 50
     fireRate: 3
     aimSpeedMultiplier: 0.5
+  shieldGun:
+    maxAmmo: 15
+    ammoConsumeRate: 1

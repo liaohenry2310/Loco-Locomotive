@@ -21,11 +21,7 @@ namespace Turret
         public MachineGun(TurretData data) 
         {
             _turretData = data;
-        }
-
-        public override void Reload()
-        {
-            _currentAmmo = _turretData.machineGun.maxAmmo;
+            _MaxAmmo = _turretData.machineGun.maxAmmo;
         }
 
         public override void SetFire(bool fire)

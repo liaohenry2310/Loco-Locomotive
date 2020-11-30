@@ -54,15 +54,15 @@ public class GameManager : MonoBehaviour
 
     public void SaveLevelCompleted()
     {
-        if (level < SceneManager.GetActiveScene().buildIndex)
+        if (level < SceneManager.GetActiveScene().buildIndex + 1)
         {
-            level = SceneManager.GetActiveScene().buildIndex;
+            level = SceneManager.GetActiveScene().buildIndex + 1;
             PlayerPrefs.SetInt("Level", level);
         }
     }
 
     //Private Members
-    private int level;
+    private int level = 0;
     private bool _loadingScene = false;
     private TitleScreen titleScreen = null;
 

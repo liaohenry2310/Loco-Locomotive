@@ -16,6 +16,10 @@ public class SwarmEnemy : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private SpriteRenderer _sprite;
     private Vector3 _screenBounds;
+
+    private float _currentHealth = 0.0f;
+    private float _currentShieldHealth = 0.0f;
+
     private bool isAilve=true;
 
     private bool isAttacking = false;
@@ -65,6 +69,15 @@ public class SwarmEnemy : MonoBehaviour
     public void SetNewData(SwarmEnemyData enemyData)
     {
         _enemyData = enemyData;
+        _currentHealth = enemyData.MaxHealth;
+        _currentShieldHealth = enemyData.ShieldHealth;
+        if (gameObject.CompareTag("ShieldEnemy"))
+        {
+            gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
+        }
+
+        Alive = true;
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

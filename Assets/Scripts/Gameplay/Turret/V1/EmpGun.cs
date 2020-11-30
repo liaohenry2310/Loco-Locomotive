@@ -12,11 +12,7 @@ namespace Turret
         public EmpGun(TurretData data)
         {
             _turretData = data;
-        }
-
-        public override void Reload()
-        {
-            _currentAmmo = _turretData.empShockWave.maxAmmo;
+            _MaxAmmo = _turretData.empShockWave.maxAmmo;
         }
 
         public override void SetFire(bool fire)

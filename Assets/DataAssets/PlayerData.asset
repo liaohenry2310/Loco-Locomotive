@@ -18,7 +18,7 @@ MonoBehaviour:
   Radius: 0.16
   Speed: 2.5
   Gravity: 5
-  MaxHealth: 20
+  MaxHealth: 100
   AudiosClips:
   - {fileID: 8300000, guid: be3bf249e6ac5934f97e8a273591cf18, type: 3}
   - {fileID: 8300000, guid: f3a68dee0276281419eedf3a97193364, type: 3}

@@ -16,12 +16,12 @@ MonoBehaviour:
   MaxSpeed: 5
   AttackDelay: 5
   Swarm_AttackDamage: 10
-  Swarm_AttackSpeed: 5
+  Swarm_AttackSpeed: 10
   WallAvoidWeight: 10
-  WanderBehaviorWeight: 5
+  WanderBehaviorWeight: 10
   WanderRadius: 3
   WanderDistance: 3
-  WanderJitter: 3
+  WanderJitter: 5
   SeekBehaviorWeight: 5
   CohesionBehaviorWeight: 3
   SeparationBehaviorWeight: 5

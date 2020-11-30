@@ -87,7 +87,16 @@ public class Wormhole : MonoBehaviour
             _swarmEnemyGroup.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
             _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetNewData(_topright, _bottomLeft);
             _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetSwarmSpawnPos(transform);
-            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SpawnGroup(_waveData.NumToSpawn);
+            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SpawnGroup(_waveData.NumToSpawn,false);
+
+            return;
+        }
+        if (_waveData.EnemyType == EnemyWaveData.EnemyType.Swarm_Shield)
+        {
+            _swarmEnemyGroup.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
+            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetNewData(_topright, _bottomLeft);
+            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetSwarmSpawnPos(transform);
+            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SpawnGroup(_waveData.NumToSpawn,true);
 
             return;
         }
@@ -104,7 +113,6 @@ public class Wormhole : MonoBehaviour
                         _enemyType.transform.position = new Vector3(transform.position.x,transform.position.y,transform.localPosition.z);
                         _enemyType.SetActive(true);
                         _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);
-                        //enemySpawner.swarmNeighbors.Add(_enemyType);
                     break;
                     }
                 case EnemyWaveData.EnemyType.Bomber:
@@ -113,7 +121,30 @@ public class Wormhole : MonoBehaviour
                     _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
                     _enemyType.SetActive(true);
                     _enemyType.gameObject.GetComponent<BomberEnemy>().SetNewData(_topright, _bottomLeft);
-
+                    break;
+                }
+                case EnemyWaveData.EnemyType.Giant:
+                {
+                    _enemyType = _objectPoolManager.GetObjectFromPool("GiantEnemy");
+                    _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
+                    _enemyType.SetActive(true);
+                    _enemyType.gameObject.GetComponent<GiantEnemy>().SetNewData(_topright, _bottomLeft);
+                    break;
+                }
+                case EnemyWaveData.EnemyType.Basic_Shield:
+                {
+                    _enemyType = _objectPoolManager.GetObjectFromPool("Basic_Shield");
+                    _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
+                    _enemyType.SetActive(true);
+                    _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);
+                    break;
+                }
+                case EnemyWaveData.EnemyType.Bomber_Shield :
+                {
+                    _enemyType = _objectPoolManager.GetObjectFromPool("Bomber_Shield");
+                    _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
+                    _enemyType.SetActive(true);
+                    _enemyType.gameObject.GetComponent<BomberEnemy>().SetNewData(_topright, _bottomLeft);
                     break;
                 }
                 default:

@@ -1,9 +1,19 @@
 ﻿using Interfaces;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageableType<float>
 {
     // regular type 
+    private SpriteRenderer _spriteDamageIndicator = null;
+    private readonly WaitForSeconds _waitForSecondsDamage = new WaitForSeconds(0.05f);
+    private Color _defaultColor; 
+
+    private void Awake()
+    {
+        _spriteDamageIndicator = GetComponentInChildren<SpriteRenderer>();
+        _defaultColor = _spriteDamageIndicator.color;
+    }
 
     private float m_health = 0.0f;
 
@@ -60,6 +70,7 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
 
         health -= takingDamage;
         Debug.Log(tag + "Lost " + takingDamage + "hp. Current health: " + health);
+        StartCoroutine(DamageIndicator());
         //if (health <= 0.0f)
         //{
         //    Destroy(gameObject);
@@ -90,5 +101,12 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
             GetComponentInChildren<EnemyArmorHealth>().TakeDamage(takingDamage);
         }
 
+    }
+
+    private IEnumerator DamageIndicator()
+    {
+        _spriteDamageIndicator.color = Color.red;
+        yield return _waitForSecondsDamage;
+        _spriteDamageIndicator.color = _defaultColor;
     }
 }

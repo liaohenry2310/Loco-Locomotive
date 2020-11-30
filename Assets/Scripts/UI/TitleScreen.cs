@@ -57,7 +57,8 @@ public class TitleScreen : MonoBehaviour
             else
             {
                 Button button = Instantiate(buttonCopy, levelSelectMenu.transform).GetComponent<Button>();
-                button.onClick.AddListener(() => { GameManager.Instance.LoadLevel(i); });
+                int temp = i;
+                button.onClick.AddListener(() => { GameManager.Instance.LoadLevel(temp); });
                 button.GetComponentInChildren<Text>().text = "Level " + (i - 1);
                 _buttons.Add(button.gameObject);
             }
