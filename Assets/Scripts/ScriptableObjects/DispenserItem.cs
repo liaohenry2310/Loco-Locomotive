@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "DispenserDataObject", menuName = "Dispenser/Dispenser")]
 public class DispenserItem : ScriptableObject
@@ -12,4 +13,5 @@ public class DispenserItem : ScriptableObject
     public GameObject ItemPerfab => _itemPrefab;
     public Sprite DispenserSprite => _dispenserSprite;
     public Sprite ItemSprite => _itemSprite;
+
 }
