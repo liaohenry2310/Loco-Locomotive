@@ -10,6 +10,8 @@ public class PlayerData : ScriptableObject
     public float Speed = 3.0f;
     public float Gravity = 5.0f;
     public float MaxHealth = 100.0f;
+    public float HealthRegen = 50.0f;
+    public float DelayTimeRegen = 3.0f;
 
     public AudioClip[] AudiosClips;
 

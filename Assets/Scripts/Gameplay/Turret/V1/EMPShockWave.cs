@@ -46,6 +46,15 @@ namespace Turret
             }
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            EnemyShieldHealth enemyShield = collision.GetComponentInChildren<EnemyShieldHealth>();
+            if (enemyShield)
+            {
+                enemyShield.TakeDamage(500);
+            }
+        }
+
         private IEnumerator IncreaseWave()
         {
             while (transform.localScale.x <= _turretData.empShockWave.maxSize)

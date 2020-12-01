@@ -8,7 +8,6 @@ namespace Turret
         private ObjectPoolManager _objectPoolManager = null;
         private float _timeToFire = 0.0f;
 
-
         public EmpGun(TurretData data)
         {
             _turretData = data;
@@ -18,7 +17,6 @@ namespace Turret
         public override void SetFire(bool fire)
         {
             if (!(fire && (_currentAmmo > 0.0f) && (Time.time >= _timeToFire))) return;
-            
 
             _timeToFire = Time.time + (1f / _turretData.empShockWave.fireRate);
             GameObject emp = _objectPoolManager.GetObjectFromPool("EMPShockWave");

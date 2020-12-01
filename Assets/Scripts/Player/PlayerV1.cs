@@ -45,7 +45,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
             if (_axis.y != 0.0f)
             {
-                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));                
+                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
                 //_rigidBody.MovePosition(new Vector2(LadderController.transform.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
                 //_rigidBody.velocity = new Vector2(0.0f, _axis.y * _playerData.Speed);
                 //transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
@@ -75,7 +75,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsClimb", false);
             animator.SetBool("UsingTurret", false);
         }
-        else if(_axis.x > 0)
+        else if (_axis.x > 0)
         {
             _playerSpriteRenderer.flipX = true;
             animator.SetBool("IsMoving", true);
@@ -242,6 +242,9 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void SwapActionControlToPlayer(bool isPlayer) => _playerInput.SwitchCurrentActionMap(isPlayer ? "Input" : "Turret");
 
+
+    private Coroutine _coroutineRegen = null;
+
     public void TakeDamage(float damage)
     {
         if (_isRespawn) return;
@@ -264,16 +267,24 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         }
         else
         {
-            StartCoroutine(StartRegeneration());
+            if (_coroutineRegen == null)
+            {
+                _coroutineRegen = StartCoroutine(StartRegeneration());
+            }
         }
     }
 
     private IEnumerator StartRegeneration()
     {
-        yield return new WaitForSeconds(3.0f);
-        _healthSystem.RestoreHealth(_playerData.MaxHealth);
+        while (_healthSystem.Health != _playerData.MaxHealth)
+        {
+            yield return new WaitForSeconds(_playerData.DelayTimeRegen);
+            _healthSystem.RestoreHealth(_playerData.HealthRegen);
+        }
         yield return new WaitForSeconds(1.0f);
         _healthBar.SetBarVisible(false);
+        StopCoroutine(_coroutineRegen);
+        _coroutineRegen = null;
     }
 
     private IEnumerator Respawn()
@@ -283,7 +294,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         localSprite.enabled = false;
         _healthBar.SetBarVisible(false);
         yield return new WaitForSeconds(5.0f);
-        
+
         RespawnPod respawnPod = FindObjectOfType<RespawnPod>();
         respawnPod.AnimationRespawnPod();
 
