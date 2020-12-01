@@ -10,55 +10,55 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2c99089c966da048ad7229a1c175075, type: 3}
-  m_Name: EnemyWaveData_Level3
+  m_Name: EnemyWaveData_Level6
   m_EditorClassIdentifier: 
   enemyPrefabs: []
   waveData:
-  - EnemyType: 0
-    NumToSpawn: 5
+  - EnemyType: 4
+    NumToSpawn: 10
     NextWaveTimeDelay: 10
     WormholeSize: 1
-  - EnemyType: 0
-    NumToSpawn: 5
+  - EnemyType: 2
+    NumToSpawn: 10
     NextWaveTimeDelay: 10
     WormholeSize: 1
   - EnemyType: 4
-    NumToSpawn: 5
+    NumToSpawn: 10
     NextWaveTimeDelay: 10
     WormholeSize: 1
-  - EnemyType: 0
-    NumToSpawn: 5
-    NextWaveTimeDelay: 10
-    WormholeSize: 1
-  - EnemyType: 0
-    NumToSpawn: 5
-    NextWaveTimeDelay: 10
-    WormholeSize: 1
-  - EnemyType: 4
-    NumToSpawn: 5
-    NextWaveTimeDelay: 10
-    WormholeSize: 1
-  - EnemyType: 0
-    NumToSpawn: 5
-    NextWaveTimeDelay: 10
-    WormholeSize: 1
-  - EnemyType: 0
-    NumToSpawn: 5
-    NextWaveTimeDelay: 10
-    WormholeSize: 1
-  - EnemyType: 4
-    NumToSpawn: 5
+  - EnemyType: 2
+    NumToSpawn: 10
     NextWaveTimeDelay: 10
     WormholeSize: 1
   - EnemyType: 0
     NumToSpawn: 10
-    NextWaveTimeDelay: 8
+    NextWaveTimeDelay: 10
     WormholeSize: 1
-  - EnemyType: 0
+  - EnemyType: 2
     NumToSpawn: 10
+    NextWaveTimeDelay: 10
+    WormholeSize: 1
+  - EnemyType: 4
+    NumToSpawn: 10
+    NextWaveTimeDelay: 10
+    WormholeSize: 1
+  - EnemyType: 6
+    NumToSpawn: 10
+    NextWaveTimeDelay: 10
+    WormholeSize: 1
+  - EnemyType: 4
+    NumToSpawn: 10
+    NextWaveTimeDelay: 10
+    WormholeSize: 1
+  - EnemyType: 6
+    NumToSpawn: 15
     NextWaveTimeDelay: 8
     WormholeSize: 1
   - EnemyType: 4
-    NumToSpawn: 10
+    NumToSpawn: 15
+    NextWaveTimeDelay: 8
+    WormholeSize: 1
+  - EnemyType: 6
+    NumToSpawn: 15
     NextWaveTimeDelay: 8
     WormholeSize: 1
