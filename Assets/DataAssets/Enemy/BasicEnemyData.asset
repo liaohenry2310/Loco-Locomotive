@@ -13,15 +13,13 @@ MonoBehaviour:
   m_Name: BasicEnemyData
   m_EditorClassIdentifier: 
   MaxHealth: 50
-  ArmorHealth: 0
-  ShieldHealth: 0
+  ShieldHealth: 10
   MaxSpeed: 10
   AttackDelay: 8
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
   Basic_AttackDamage: 10
   Basic_AttackSpeed: 2
-  WallAvoidWeight: 20
   WanderBehaviorWeight: 5
   WanderRadius: 5
   WanderDistance: 1

@@ -15,8 +15,6 @@ public class BomberEnemyData : ScriptableObject
 
 
 
-    public float WallAvoidWeight;
-
     public float WanderBehaviorWeight;
     public float WanderRadius;
     public float WanderDistance;

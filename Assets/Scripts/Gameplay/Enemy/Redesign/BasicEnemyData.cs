@@ -14,7 +14,6 @@ public class BasicEnemyData : ScriptableObject
     public float Basic_AttackSpeed;
 
     //Any shared movement data can be put here as well, for example...
-    public float WallAvoidWeight;
 
     public float WanderBehaviorWeight;
     public float WanderRadius;

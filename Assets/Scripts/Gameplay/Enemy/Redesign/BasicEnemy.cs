@@ -19,6 +19,7 @@ public class BasicEnemy : MonoBehaviour
     private ObjectPoolManager _objectPoolManager = null;
     private GameObject _projectile;
 
+    private EnemyHealth _healthdata;
 
 
 
@@ -46,6 +47,7 @@ public class BasicEnemy : MonoBehaviour
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
+        _healthdata.SpriteColor.color = Color.white;
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
