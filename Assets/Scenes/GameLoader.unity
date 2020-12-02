@@ -309,14 +309,14 @@ MonoBehaviour:
   - name: BasicEnemy
     prefab: {fileID: 3276408233857933763, guid: b0afbde396109ed4594095424b1f5b79,
       type: 3}
-    poolSize: 10
+    poolSize: 100
   - name: Wormhole
     prefab: {fileID: 2504264668946031664, guid: 8ae6f2ec814cefc40b8069931b22cf61,
       type: 3}
     poolSize: 10
   - name: BasicEnemy_Projectile
     prefab: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7, type: 3}
-    poolSize: 10
+    poolSize: 100
   - name: SwarmEnemy
     prefab: {fileID: 3276408233857933763, guid: f9f97d0cb51555540b06973e511b1a08,
       type: 3}
@@ -324,7 +324,7 @@ MonoBehaviour:
   - name: BomberEnemy
     prefab: {fileID: 3276408233857933763, guid: 688a325c5e91fd4489b48f3a5680e368,
       type: 3}
-    poolSize: 100
+    poolSize: 1000
   - name: BomberEnemyProjectile
     prefab: {fileID: 578651487066272678, guid: bfa620ea621c6284c916f9afa7c3ccdb, type: 3}
     poolSize: 100
@@ -334,5 +334,17 @@ MonoBehaviour:
     poolSize: 50
   - name: GiantEnemy
     prefab: {fileID: 3276408233857933763, guid: 8f89873eddf54364aa4da57e21d7744c,
+      type: 3}
+    poolSize: 100
+  - name: Swarm_Shield
+    prefab: {fileID: 3276408233857933763, guid: 7e91b0e32ff50674d9633efeec0a3230,
+      type: 3}
+    poolSize: 100
+  - name: Bomber_Shield
+    prefab: {fileID: 3276408233857933763, guid: f05f1e5519d005242bdc51867014ec43,
+      type: 3}
+    poolSize: 100
+  - name: Basic_Shield
+    prefab: {fileID: 3276408233857933763, guid: fa4b32ec5a46270478ae36fc1c39b039,
       type: 3}
     poolSize: 100

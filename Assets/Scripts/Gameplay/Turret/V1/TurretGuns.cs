@@ -14,6 +14,8 @@ namespace Turret
         [SerializeField] private Transform _cannonHandler = null;
         [SerializeField] private Transform _spawnPointFire = null;
         [SerializeField] private TurretAmmoIndicator _turretAmmoIndicator = null;
+        [SerializeField] private ParticleSystem _smokeParticle = null;
+        [SerializeField] [Range(0.0f, 10.0f)] private float _smokeMaxEmission = 10.0f;
 
         [Header("MachineGun")]
         [SerializeField] private GameObject _MachineGunStartVFX = null;
@@ -42,6 +44,7 @@ namespace Turret
 
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
+        private ParticleSystem.EmissionModule _emission;
 
         private void Awake()
         {
@@ -49,6 +52,8 @@ namespace Turret
             {
                 Debug.LogWarning("Fail to load Audio Source component.");
             }
+            _emission = _smokeParticle.emission;
+
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
 
             // Setting up laser properties
@@ -87,41 +92,75 @@ namespace Turret
         private void Start()
         {
             _turretBase.OnTakeDamageUpdate += UpdateBottonTurret;
+            _turretBase.OnRepairUpdate += UpdateTurretSprite;
         }
 
         private void OnDisable()
         {
             _turretBase.OnTakeDamageUpdate -= UpdateBottonTurret;
+            _turretBase.OnRepairUpdate -= UpdateTurretSprite;
+        }
+
+        private void UpdateTurretSprite()
+        {
+            if (_weapons as LaserBeam != null)
+            {
+                _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
+                _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
+            }
+            else if (_weapons as MachineGun != null)
+            {
+                _upperSprite.sprite = _turretData.machineGun.Uppersprites[0];
+                _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
+            }
+            else if (_weapons as MissileGun != null)
+            {
+                _upperSprite.sprite = _turretData.missileGun.Uppersprites[0];
+                _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
+            }
+            _bottomSprite.sprite = _turretData.Bottomsprites[0];
+            _turretAmmoIndicator.EnableIndicator(true);
+            _smokeParticle.Stop();
         }
 
         private void UpdateBottonTurret(float healthPerc)
         {
             _turretAmmoIndicator.EnableIndicator(healthPerc >= 0.1f);
+
             if (_weapons as LaserBeam != null)
             {
+
                 if (healthPerc >= 0.75f)
                 {
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
-                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[0];
                 }
-                else if (healthPerc >= 0.25f && healthPerc < 0.75f)
+                else if(healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
+                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
+
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[1];
-                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[0];
                 }
                 else if (healthPerc > 0f && healthPerc < 0.25f)
                 {
+                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
+
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[2];
-                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[0];
                 }
-                else if (healthPerc <= 0.0f)
+                else
                 {
+                    _emission.rateOverTime = _smokeMaxEmission;
+
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[3];
-                    _bottomSprite.sprite = _turretData.laserGun.Bottomsprites[1];
+                    _bottomSprite.sprite = _turretData.Bottomsprites[1];
+                }
+
+                if (!(healthPerc >= 0.75f) && _smokeParticle.isStopped)
+                {
+                    _smokeParticle.Play();
                 }
             }
 
@@ -131,27 +170,33 @@ namespace Turret
                 {
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[0];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
-                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[0];
                 }
                 else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
+                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
+
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[1];
-                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[0];
-
                 }
                 else if (healthPerc > 0f && healthPerc < 0.25f)
                 {
+                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
+
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[2];
-                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[0];
-
                 }
-                else if (healthPerc <= 0.0f)
+                else
                 {
+                    _emission.rateOverTime = _smokeMaxEmission;
+
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[3];
-                    _bottomSprite.sprite = _turretData.machineGun.Bottomsprites[1];
+                    _bottomSprite.sprite = _turretData.Bottomsprites[1];
+                }
+
+                if (!(healthPerc >= 0.75f) && _smokeParticle.isStopped)
+                {
+                    _smokeParticle.Play();
                 }
 
             }
@@ -162,25 +207,33 @@ namespace Turret
                 {
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[0];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
-                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[0];
                 }
                 else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
+                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
+
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[1];
-                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[0];
                 }
                 else if (healthPerc > 0f && healthPerc < 0.25f)
                 {
+                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
+
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[2];
-                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[0];
                 }
-                else if (healthPerc <= 0.0f)
+                else
                 {
+                    _emission.rateOverTime = _smokeMaxEmission;
+
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[3];
-                    _bottomSprite.sprite = _turretData.missileGun.Bottomsprites[1];
+                    _bottomSprite.sprite = _turretData.Bottomsprites[1];
+                }
+
+                if (!(healthPerc >= 0.75f) && _smokeParticle.isStopped)
+                {
+                    _smokeParticle.Play();
                 }
 
             }
@@ -188,7 +241,14 @@ namespace Turret
 
         private void FixedUpdate()
         {
-            if (!_turretBase.HealthSystem.IsAlive) return;
+            if (!_turretBase.HealthSystem.IsAlive)
+            {
+                if (_weapons is LaserBeam laser)
+                {
+                    laser.DisableLaser();
+                }
+                return;
+            }
 
             float rotationSpeed = -_rotation.x * _turretData.AimSpeed * Time.fixedDeltaTime;
             _weapons.SetFire(_holdFire);

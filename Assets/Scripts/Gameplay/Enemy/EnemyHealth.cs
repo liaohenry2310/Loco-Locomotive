@@ -7,8 +7,9 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
     // regular type 
     private SpriteRenderer _spriteDamageIndicator = null;
     private readonly WaitForSeconds _waitForSecondsDamage = new WaitForSeconds(0.05f);
-    private Color _defaultColor; 
+    private Color _defaultColor;
 
+    public SpriteRenderer SpriteColor { get { return _spriteDamageIndicator; } set { _spriteDamageIndicator=value; } }
     private void Awake()
     {
         _spriteDamageIndicator = GetComponentInChildren<SpriteRenderer>();

@@ -6,7 +6,6 @@ using UnityEngine;
 public class BomberEnemyData : ScriptableObject
 {
     public float MaxHealth;
-    public float ArmorHealth;
     public float ShieldHealth;
     public float MaxSpeed;
     public float AttackDelay;
@@ -15,8 +14,6 @@ public class BomberEnemyData : ScriptableObject
     public float Bomber_AttackSpeed;
 
 
-
-    public float WallAvoidWeight;
 
     public float WanderBehaviorWeight;
     public float WanderRadius;

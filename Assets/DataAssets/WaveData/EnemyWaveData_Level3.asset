@@ -22,7 +22,7 @@ MonoBehaviour:
     NumToSpawn: 5
     NextWaveTimeDelay: 10
     WormholeSize: 1
-  - EnemyType: 2
+  - EnemyType: 4
     NumToSpawn: 5
     NextWaveTimeDelay: 10
     WormholeSize: 1
@@ -34,7 +34,7 @@ MonoBehaviour:
     NumToSpawn: 5
     NextWaveTimeDelay: 10
     WormholeSize: 1
-  - EnemyType: 2
+  - EnemyType: 4
     NumToSpawn: 5
     NextWaveTimeDelay: 10
     WormholeSize: 1
@@ -46,19 +46,19 @@ MonoBehaviour:
     NumToSpawn: 5
     NextWaveTimeDelay: 10
     WormholeSize: 1
-  - EnemyType: 2
+  - EnemyType: 4
     NumToSpawn: 5
     NextWaveTimeDelay: 10
-    WormholeSize: 1
-  - EnemyType: 0
-    NumToSpawn: 10
-    NextWaveTimeDelay: 8
     WormholeSize: 1
   - EnemyType: 0
     NumToSpawn: 10
     NextWaveTimeDelay: 8
     WormholeSize: 1
-  - EnemyType: 2
+  - EnemyType: 0
+    NumToSpawn: 10
+    NextWaveTimeDelay: 8
+    WormholeSize: 1
+  - EnemyType: 4
     NumToSpawn: 10
     NextWaveTimeDelay: 8
     WormholeSize: 1

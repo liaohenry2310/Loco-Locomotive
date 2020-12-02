@@ -2,7 +2,7 @@
 
 public class ParallaxScrollingBG : MonoBehaviour
 {
-    [Range(1f, 40)]
+    [Range(0f, 40)]
     public float scrollSpeed = 1f;
     public float scrollOffset;
     Vector3 startPos;
