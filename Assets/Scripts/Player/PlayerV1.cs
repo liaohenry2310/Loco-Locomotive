@@ -5,6 +5,7 @@ using Manager;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerV1 : MonoBehaviour, IDamageable<float>
 {
@@ -21,7 +22,11 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     // ---- Health ------
     private Visuals.HealthBar _healthBar;
     private HealthSystem _healthSystem;
-    public bool _isRespawn = false;
+
+    // ---- Health Regeneration ------
+    private Coroutine _coroutineRegen = null;
+    private float _delayTimeToRegen = 0.0f;
+    private bool _isRespawn = false;
 
     // ---- PlayerRespawnPoint
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
@@ -118,6 +123,37 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         }
         //player death
         animator.SetBool("IsDeath", !_healthSystem.IsAlive);
+
+        _delayTimeToRegen += Time.deltaTime;
+        if (_delayTimeToRegen >= _playerData.DelayTimeRegen)
+        {
+            _delayTimeToRegen = 0.0f;
+            HealthReneration();
+        }
+    }
+
+    private void HealthReneration()
+    {
+        if (_healthSystem.Health < _playerData.MaxHealth)
+        {
+            if (_coroutineRegen == null)
+            {
+                _coroutineRegen = StartCoroutine(HealthRenerationCo());
+            }
+        }
+    }
+
+    private IEnumerator HealthRenerationCo()
+    {
+        while (_healthSystem.Health != _playerData.MaxHealth)
+        {
+            _healthSystem.RestoreHealth(_playerData.HealthRateRegen);
+            yield return new WaitForSeconds(1.0f);
+        }
+        yield return new WaitForSeconds(1.0f);
+        _healthBar.SetBarVisible(false);
+        StopCoroutine(_coroutineRegen);
+        _coroutineRegen = null;
     }
 
     #endregion
@@ -242,13 +278,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
     public void SwapActionControlToPlayer(bool isPlayer) => _playerInput.SwitchCurrentActionMap(isPlayer ? "Input" : "Turret");
 
-
-    private Coroutine _coroutineRegen = null;
-
     public void TakeDamage(float damage)
     {
         if (_isRespawn) return;
-
+       
         _healthSystem.Damage(damage);
         _healthBar.SetBarVisible(true);
         _audioSource.clip = _playerData.AudiosClips[0];
@@ -265,26 +298,13 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             }
             StartCoroutine(Respawn());
         }
-        else
+        // Stop health Regeneration when receive any damage
+        if (_coroutineRegen != null)
         {
-            if (_coroutineRegen == null)
-            {
-                _coroutineRegen = StartCoroutine(StartRegeneration());
-            }
+            _delayTimeToRegen = 0.0f;
+            StopCoroutine(_coroutineRegen);
+            _coroutineRegen = null;
         }
-    }
-
-    private IEnumerator StartRegeneration()
-    {
-        while (_healthSystem.Health != _playerData.MaxHealth)
-        {
-            yield return new WaitForSeconds(_playerData.DelayTimeRegen);
-            _healthSystem.RestoreHealth(_playerData.HealthRegen);
-        }
-        yield return new WaitForSeconds(1.0f);
-        _healthBar.SetBarVisible(false);
-        StopCoroutine(_coroutineRegen);
-        _coroutineRegen = null;
     }
 
     private IEnumerator Respawn()
@@ -303,7 +323,8 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         transform.position = RespawnPoint;
         _healthSystem.RestoreHealth(_playerData.MaxHealth);
         _isRespawn = false;
-
+        StopCoroutine(_coroutineRegen);
+        _coroutineRegen = null;
     }
 
     public Item GetItem => GetComponentInChildren<Item>();
