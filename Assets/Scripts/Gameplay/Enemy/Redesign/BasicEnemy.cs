@@ -45,6 +45,7 @@ public class BasicEnemy : MonoBehaviour
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
+        gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
         if (gameObject.CompareTag("ShieldEnemy"))

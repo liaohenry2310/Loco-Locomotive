@@ -14,13 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   MaxSpeed: 15
-  projectile: {fileID: 0}
   AttackDelay: 5
   ChargeTime: 2
   BeamDamage: 10
   BeamDuration: 5
-  AttackSpeed: 0
-  WallAvoidWeight: 0
   SeekWeight: 5
   WanderBehaviorWeight: 10
   WanderRadius: 5

@@ -3,7 +3,7 @@
 public class EnemyShieldHealth : MonoBehaviour
 {
     // Shield type
-    public float _shieldHealth;
+    private float _shieldHealth;
     public float ShieldHealth
     {
         get{return _shieldHealth; }

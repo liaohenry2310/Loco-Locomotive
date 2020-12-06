@@ -10,6 +10,9 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
     private Color _defaultColor;
 
     public SpriteRenderer SpriteColor { get { return _spriteDamageIndicator; } set { _spriteDamageIndicator=value; } }
+
+    private bool reHealth=false;
+    public bool ReSetHealth { get { return reHealth; } set {reHealth=value; } }
     private void Awake()
     {
         _spriteDamageIndicator = GetComponentInChildren<SpriteRenderer>();
@@ -23,7 +26,14 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
         get { return m_health; }
         set { m_health = value; }
     }
-
+    private void Update()
+    {
+        if (reHealth)
+        {
+            _spriteDamageIndicator.color = _defaultColor;
+            reHealth = false;
+        }
+    }
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {
         if (CompareTag("ShieldEnemy"))
@@ -86,10 +96,7 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
         {
             GetComponentInChildren<EnemyShieldHealth>().TakeDamage(takingDamage);
         }
-        else
-        {
-            Debug.Log("ZaZaZa, I do not know what are you doing!!!");
-        }
+
     }
     void ArmorLogic(float takingDamage, DispenserData.Type damageType)
     {
