@@ -9,7 +9,7 @@ public class GiantEnemy : MonoBehaviour
     [SerializeField] private TrainData _trainData = null;
 
     public GiantEnemyData enemyData;
-
+    public SpriteRenderer sr;
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
     public float _chargeTime;
@@ -78,6 +78,8 @@ public class GiantEnemy : MonoBehaviour
 
     void Update()
     {
+        sr.transform.Rotate(Vector3.back, 45 * 1.0f * Time.deltaTime, Space.Self);
+
         Debug.Log($"Current State:{mCurrentState}");
         switch (mCurrentState)
         {
@@ -172,6 +174,8 @@ public class GiantEnemy : MonoBehaviour
     }
     private void Charging()
     {
+        sr.transform.Rotate(Vector3.back, 45 * 5.0f * Time.deltaTime, Space.Self);
+
         chargeingCount += Time.deltaTime;
         VFX.transform.position = (Vector2)transform.position;
 

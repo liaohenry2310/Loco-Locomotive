@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3276408232143424649}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3276408233857933790}
   m_RootOrder: 0
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
   enemyData: {fileID: 11400000, guid: 9e44c2d661ac3a242bb84041efc3a1c2, type: 2}
+  sr: {fileID: 3276408232143424651}
   _chargeTime: 0
   _beamDamage: 0
   _beamDuration: 0

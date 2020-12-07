@@ -19,8 +19,8 @@ public class SwarmEnemy : MonoBehaviour
 
     private float _currentHealth = 0.0f;
     private float _currentShieldHealth = 0.0f;
-
     private bool isAilve=true;
+    private float _oldPos;
 
     private bool isAttacking = false;
     public bool Alive { get { return isAilve; } set { isAilve = value; } }
@@ -31,8 +31,12 @@ public class SwarmEnemy : MonoBehaviour
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        _sprite = GetComponentInChildren<SpriteRenderer>();
+        _sprite = GetComponent<SpriteRenderer>();
         _screenBounds = GameManager.GetScreenBounds;
+    }
+    private void Start()
+    {
+        _oldPos = transform.position.x;
     }
     private void FixedUpdate()
     {
@@ -49,6 +53,10 @@ public class SwarmEnemy : MonoBehaviour
 
     private void Update()
     {
+        if (_oldPos < transform.position.x)
+            _sprite.flipX = true;
+        else if (_oldPos > transform.position.x)
+            _sprite.flipX = false;
         if (fire)
         {
             currentPos = gameObject.transform.position;

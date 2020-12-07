@@ -8,7 +8,8 @@ public class BomberEnemy : MonoBehaviour
     [SerializeField] private TrainData _trainData = null;   
 
     public BomberEnemyData enemyData;
-
+    public Animator animator;
+    public GameObject boom;
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
 
@@ -21,14 +22,13 @@ public class BomberEnemy : MonoBehaviour
     private GameObject _projectile;
 
 
-
-
     private bool isAlive=false;
 
 
 
     private void Awake()
     {
+        boom.SetActive(true);
         //_objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
 
@@ -53,7 +53,10 @@ public class BomberEnemy : MonoBehaviour
         }
         isAlive = true;
     }
-
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
 
@@ -99,25 +102,19 @@ public class BomberEnemy : MonoBehaviour
         }
 
         transform.position += _velocity * Time.deltaTime;
-
-
         //Shooting
         if (_nextAttackTime < Time.time)
         {
+            animator.SetBool("Shoot", true);
+            Invoke("unplayAnimation", 0.5f);
             //var targetlist = LevelManager.Instance.Train.GetTurrets();
-            var targetlist = _trainData.ListTurret;
-            int targetSize = targetlist.Length;
-            int randomtarget = Random.Range(0, targetSize-1);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
-
-            GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
-            projectile.transform.position = transform.position;
-            Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
-            projectile.SetActive(true);
-            projectile.GetComponent<EnemyProjectile>().SetTarget(targetPos);
-            
-
+            Invoke("delayshoot", 0.75f);
         }
+        if (_nextAttackTime < (Time.time + enemyData.AttackDelay - enemyData.AttackDelay * 0.1f))
+            boom.SetActive(false);
+        else
+            boom.SetActive(true);
     }
     private void RecycleBasicEnemy()
     {
@@ -136,7 +133,21 @@ public class BomberEnemy : MonoBehaviour
             isAlive = false;
             RecycleBasicEnemy();
         }
-
+    }
+    private void unplayAnimation()
+    {
+        animator.SetBool("Shoot", false);
+    }
+    private void delayshoot()
+    {
+        var targetlist = _trainData.ListTurret;
+        int targetSize = targetlist.Length;
+        int randomtarget = Random.Range(0, targetSize - 1);
+        GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
+        projectile.transform.position = transform.position;
+        Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
+        projectile.SetActive(true);
+        projectile.GetComponent<EnemyProjectile>().SetTarget(targetPos);
     }
 
 }
