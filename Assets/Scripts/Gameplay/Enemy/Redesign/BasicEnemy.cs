@@ -116,7 +116,7 @@ public class BasicEnemy : MonoBehaviour
         {
             var targetlist = _trainData.ListTurret;
             int targetSize = targetlist.Length;
-            int randomtarget = Random.Range(0, targetSize-1);
+            int randomtarget = Random.Range(0, targetSize);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
 
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BasicEnemy_Projectile");
