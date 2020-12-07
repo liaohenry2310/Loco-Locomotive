@@ -123,7 +123,7 @@ public class BasicEnemy : MonoBehaviour
             projectile.transform.position = transform.position;
             Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
             projectile.SetActive(true);
-            projectile.GetComponent<EnemyProjectile>().SetTarget(targetPos);
+            projectile.GetComponent<EnemyProjectile>().SetData(targetPos,EnemyTypeCheck.Type.Basic);
             
 
         }

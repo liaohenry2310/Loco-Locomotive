@@ -48,22 +48,6 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
             }
         }
 
-        if (CompareTag("ArmorEnemy"))
-        {
-            ArmorLogic(takingDamage, damageType);
-        }
-
-        if (CompareTag("ShieldArmorEnemy"))
-        {
-            if (GetComponentInChildren<EnemyShieldHealth>().ShieldIsActive)
-            {
-                ShieldLogic(takingDamage, damageType);
-            }
-            else
-            {
-                ArmorLogic(takingDamage, damageType);
-            }
-        }
 
         if (CompareTag("Enemy"))
         {
@@ -98,18 +82,7 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
         }
 
     }
-    void ArmorLogic(float takingDamage, DispenserData.Type damageType)
-    {
-        if (!GetComponentInChildren<EnemyArmorHealth>().ArmorIsActive())
-        {
-            HpLogic(takingDamage, damageType);
-        }
-        else
-        {
-            GetComponentInChildren<EnemyArmorHealth>().TakeDamage(takingDamage);
-        }
 
-    }
 
     private IEnumerator DamageIndicator()
     {

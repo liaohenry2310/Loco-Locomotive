@@ -13,16 +13,25 @@ public class EnemyProjectile : MonoBehaviour
     private Vector3 targetPos = Vector3.zero;
     private Vector3 direction = Vector3.zero;
     private SpriteRenderer _sprite;
+    private EnemyTypeCheck.Type _currenyEnemyType=EnemyTypeCheck.Type.None;
+    public EnemyTypeCheck.Type CurrenyEnemeyType { get { return _currenyEnemyType; } set { _currenyEnemyType = value; } }
 
-    
-
+    private bool destroyBullet = false;
+    public bool DestroyBullet { get { return destroyBullet; } set { destroyBullet = value; } }
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         _screenBounds = GameManager.GetScreenBounds;
         _sprite = GetComponentInChildren<SpriteRenderer>();
     }
-   
+    private void Update()
+    {
+        if (DestroyBullet)
+        {
+            RecycleBullet();
+            DestroyBullet = false;
+        }
+    }
     private void FixedUpdate()
     {
         currentPos = gameObject.transform.position;
@@ -48,6 +57,7 @@ public class EnemyProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Explostion(collision);
+
     }
 
     private void Explostion(Collider2D collision)
@@ -66,10 +76,10 @@ public class EnemyProjectile : MonoBehaviour
         }
     }
 
-    public void SetTarget(Vector3 tartgetpos)
+    public void SetData(Vector3 tartgetpos,EnemyTypeCheck.Type currenyEnemyType)
     {
         targetPos = tartgetpos;
-
+        _currenyEnemyType = currenyEnemyType;
 
     }
 

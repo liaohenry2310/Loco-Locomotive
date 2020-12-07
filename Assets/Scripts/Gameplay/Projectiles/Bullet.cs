@@ -32,9 +32,29 @@ public class Bullet : MonoBehaviour
             RecycleBullet();
         }
     }
+    private void ExplostionWithEnemyProjectile(Collider2D collision, EnemyProjectile enemyProjectile)
+    {
 
+
+
+
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        EnemyProjectile enemyProjectile = collision.GetComponent<EnemyProjectile>();
+        
+        
+        if (enemyProjectile!=null&& enemyProjectile.CurrenyEnemeyType == EnemyTypeCheck.Type.Bomber)
+        {
+            ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+            particle.Play();
+            Destroy(particle, particle.main.duration);
+            Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
+            enemyProjectile.DestroyBullet = true;
+            RecycleBullet();
+        }
+
+
         IDamageableType<float> damageable = collision.GetComponent<EnemyHealth>();
         if (damageable != null)
         {
@@ -44,9 +64,11 @@ public class Bullet : MonoBehaviour
             ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
             particle.Play();
             Destroy(particle, particle.main.duration);
+            Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
+            RecycleBullet();
         }
-        Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
-        RecycleBullet();
+
+
     }
 
     //TODO: this functions still in test
