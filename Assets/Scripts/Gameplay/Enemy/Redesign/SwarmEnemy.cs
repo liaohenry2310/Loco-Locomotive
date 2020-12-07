@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SwarmEnemy : MonoBehaviour
 {
-    [SerializeField] private SwarmEnemyData _enemyData = null;
+    private SwarmEnemyData _enemyData = null;
     private ObjectPoolManager _objectPoolManager = null;
 
     private Vector3 _bulletDirection = Vector3.zero;
@@ -20,12 +20,12 @@ public class SwarmEnemy : MonoBehaviour
     private float _currentHealth = 0.0f;
     private float _currentShieldHealth = 0.0f;
 
-    private bool isAilve=true;
+    private bool isAilve=false;
 
     private bool isAttacking = false;
     public bool Alive { get { return isAilve; } set { isAilve = value; } }
     public bool Attacking { get { return isAttacking; } set { isAttacking = value; } }
-    public bool fire = false;
+    private bool fire = false;
     public Vector3 Target { get { return targetPos; } set { targetPos = value; } }
     public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
     private void Awake()
@@ -61,7 +61,7 @@ public class SwarmEnemy : MonoBehaviour
             _sprite.transform.eulerAngles = direction;
             transform.position += direction * _enemyData.Swarm_AttackSpeed * Time.deltaTime;
         }
-
+        CheckStillAlive();
     }
 
 
@@ -71,6 +71,8 @@ public class SwarmEnemy : MonoBehaviour
         _enemyData = enemyData;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
+        gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
+        gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
@@ -94,6 +96,7 @@ public class SwarmEnemy : MonoBehaviour
             if (damageable != null)
             {
                 damageable.TakeDamage(_enemyData.Swarm_AttackDamage);
+                Alive = false;
                 RecycleSwarm();
                 Debug.Log($"[Collider2D] -- Swarm Enemy -- {target.gameObject.name}");
             }
@@ -108,6 +111,15 @@ public class SwarmEnemy : MonoBehaviour
         targetPos = tartgetpos;
     }
 
+    private void CheckStillAlive()
+    {
+        if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
+        {
+            Alive = false;
+            RecycleSwarm();
+        }
+
+    }
     private void RecycleSwarm()
     {
         if (_objectPoolManager == null)

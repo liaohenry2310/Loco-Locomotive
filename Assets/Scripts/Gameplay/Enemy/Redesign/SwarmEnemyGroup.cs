@@ -203,8 +203,6 @@ public class SwarmEnemyGroup : MonoBehaviour
                 swarmEnemy.SetNewData(enemyData);
                 swarmNeighbors.Add(_enemyType.GetComponent<SwarmEnemy>());
                 swarmNeighborsTrans.Add(_enemyType.transform);
-                //enemy.transform.parent = gameObject.transform;
-                //enemy.transform.localPosition = Vector2.zero + Random.insideUnitCircle * countGroupSize * agentDensity;
             }
         }
       //squareMaxSpeed = maxSpeed * maxSpeed;

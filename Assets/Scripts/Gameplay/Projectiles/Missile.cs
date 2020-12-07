@@ -22,10 +22,10 @@ public class Missile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _currentSpeed += Mathf.Lerp(_turretData.missileGun.minSpeed , _turretData.missileGun.maxSpeed, _turretData.missileGun.acceleration * Time.fixedDeltaTime);
+        _currentSpeed += Mathf.Lerp(_turretData.missileGun.minSpeed, _turretData.missileGun.maxSpeed, _turretData.missileGun.acceleration * Time.fixedDeltaTime);
         _currentSpeed = Mathf.Clamp(_currentSpeed, _turretData.missileGun.minSpeed, _turretData.missileGun.maxSpeed);
         transform.Translate(transform.up * Time.fixedDeltaTime * _currentSpeed, Space.World);
-        
+
         // set activated false prefabs when touch the camera bounds
         if ((transform.position.x >= _screenBounds.x) ||
             (transform.position.x <= -_screenBounds.x) ||
@@ -52,9 +52,35 @@ public class Missile : MonoBehaviour
         //p.Play();
 
         //TODO: Test here
+        var enemyProjectile = collision.gameObject.GetComponent<EnemyProjectile>();
+        if (enemyProjectile != null && enemyProjectile.CurrenyEnemeyType == EnemyTypeCheck.Type.Bomber)
+        {
+            MissileExplostionWithEnemyProjectile(collision);
+            enemyProjectile.DestroyBullet = true;
+        }
+
         MissileExplostion(collision);
     }
+    private void MissileExplostionWithEnemyProjectile(Collider2D collision)
+    {
+        bool _triggerExplosionOnce = false;
 
+        if (!_triggerExplosionOnce)
+        {
+            ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
+            ParticleSystem.MainModule main = particle.main;
+            main.startSize = _turretData.missileGun.radiusEffect;
+
+            Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
+
+            particle.Play();
+            Destroy(particle, particle.main.duration);
+            _triggerExplosionOnce = true;
+        }
+
+        RecycleBullet();
+        _currentSpeed = 0f;
+    }
     private void MissileExplostion(Collider2D collision)
     {
         bool _triggerExplosionOnce = false;

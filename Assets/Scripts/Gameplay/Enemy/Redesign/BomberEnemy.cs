@@ -45,6 +45,7 @@ public class BomberEnemy : MonoBehaviour
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
+        gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
         if (gameObject.CompareTag("ShieldEnemy"))
@@ -107,14 +108,14 @@ public class BomberEnemy : MonoBehaviour
             //var targetlist = LevelManager.Instance.Train.GetTurrets();
             var targetlist = _trainData.ListTurret;
             int targetSize = targetlist.Length;
-            int randomtarget = Random.Range(0, targetSize-1);
+            int randomtarget = Random.Range(0, targetSize);
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
 
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
             projectile.transform.position = transform.position;
             Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
             projectile.SetActive(true);
-            projectile.GetComponent<EnemyProjectile>().SetTarget(targetPos);
+            projectile.GetComponent<EnemyProjectile>().SetData(targetPos, EnemyTypeCheck.Type.Bomber);
             
 
         }
