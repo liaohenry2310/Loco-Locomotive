@@ -12,9 +12,9 @@ public class GiantEnemy : MonoBehaviour
     public SpriteRenderer sr;
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
-    public float _chargeTime;
-    public float _beamDamage;
-    public float _beamDuration;
+    private float _chargeTime;
+    private float _beamDamage;
+    private float _beamDuration;
 
     private Transform _topRightBound;
     private Transform _botLeftBound;
@@ -35,7 +35,6 @@ public class GiantEnemy : MonoBehaviour
     float attackDelay = 0.0f;
 
     float chargeingCount = 0.0f;
-    float chargeingDelay = 0.0f;
 
     private bool isAlive = false;
 
@@ -79,8 +78,6 @@ public class GiantEnemy : MonoBehaviour
     void Update()
     {
         sr.transform.Rotate(Vector3.back, 45 * 1.0f * Time.deltaTime, Space.Self);
-
-        Debug.Log($"Current State:{mCurrentState}");
         switch (mCurrentState)
         {
             case State.WanderIdle:
@@ -103,6 +100,7 @@ public class GiantEnemy : MonoBehaviour
             default:
                 break;
         }
+        CheckStillAlive();
     }
 
     void WanderIdle()
@@ -118,19 +116,19 @@ public class GiantEnemy : MonoBehaviour
             _velocity *= enemyData.MaxSpeed;
         }
 
-        if (transform.position.x > _botLeftBound.position.x)
+        if (transform.position.x > _botLeftBound.position.x+1.0f)
         {
             _velocity.x *= -1;
         }
-        if (transform.position.x < _topRightBound.position.x)
+        if (transform.position.x < _topRightBound.position.x- 1.0f)
         {
             _velocity.x *= -1;
         }
-        if (transform.position.y < _topRightBound.position.y)
+        if (transform.position.y < _topRightBound.position.y- 2.0f)
         {
             _velocity.y *= -1;
         }
-        if (transform.position.y > _botLeftBound.position.y)
+        if (transform.position.y > _botLeftBound.position.y+2.0f)
         {
             _velocity.y *= -1;
         }
@@ -163,7 +161,6 @@ public class GiantEnemy : MonoBehaviour
 
         if (Mathf.Abs(transform.position.x - destination.x) < 0.1f)
         {
-            Debug.Log("stop");
             mCurrentState = State.Charging;
             _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
         }
@@ -182,7 +179,7 @@ public class GiantEnemy : MonoBehaviour
         PlayParticles();
         if (chargeingCount >= _chargeTime)
         {
-            StopParticles();
+
             chargeingCount = 0.0f;
             mCurrentState = State.Attack;   
         }
@@ -197,7 +194,7 @@ public class GiantEnemy : MonoBehaviour
 
             lineRenderer.enabled = true;
 
-            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(0, new Vector3( transform.position.x,transform.position.y,-1.0f));
 
             var pos = (Vector2)targetPos;
 
@@ -236,15 +233,14 @@ public class GiantEnemy : MonoBehaviour
                 }
             }
             attackDelay = Time.time + 1.0f;
-           Debug.Log($"Laser Attack ...");
 
         }
         if (attackCount >=_beamDuration )
         {
-            Debug.Log($"Exit Attack");
             isAttacking = false;
             attackCount = 0.0f;
             _nextAttackTime = enemyData.AttackDelay + Time.time;
+            StopParticles();
             DisableLaser();
             mCurrentState = State.WanderIdle;
         }
@@ -259,6 +255,7 @@ public class GiantEnemy : MonoBehaviour
         }
         _objectPoolManager.RecycleObject(gameObject);
     }
+
 
     private void CheckStillAlive()
     {

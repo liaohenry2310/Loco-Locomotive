@@ -45,6 +45,7 @@ public class BomberEnemy : MonoBehaviour
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
+        gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
         _nextAttackTime = enemyData.AttackDelay;
         if (gameObject.CompareTag("ShieldEnemy"))
@@ -147,7 +148,7 @@ public class BomberEnemy : MonoBehaviour
         projectile.transform.position = transform.position;
         Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
         projectile.SetActive(true);
-        projectile.GetComponent<EnemyProjectile>().SetTarget(targetPos);
+          projectile.GetComponent<EnemyProjectile>().SetData(targetPos, EnemyTypeCheck.Type.Bomber);
     }
 
 }

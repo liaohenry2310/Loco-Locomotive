@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 2341941226152041371}
   - component: {fileID: 8309609507601353863}
   - component: {fileID: -446811192420780073}
+  - component: {fileID: -3836149973888783414}
   m_Layer: 9
   m_Name: Enemy_Giant
   m_TagString: Enemy
@@ -141,7 +142,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.99095386, y: 0.7433432}
+  m_Size: {x: 1.92, y: 1.73}
   m_EdgeRadius: 0
 --- !u!114 &8309609507601353863
 MonoBehaviour:
@@ -178,6 +179,27 @@ MonoBehaviour:
   trainLayer:
     serializedVersion: 2
     m_Bits: 1335
+--- !u!50 &-3836149973888783414
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276408233857933763}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0.1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &4669317713749100996
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,8 +225,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4669317713749100996}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 3276408233857933790}
   m_RootOrder: 1
@@ -249,11 +271,11 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: -90, z: 0}
+  - {x: 0, y: 0, z: -1}
+  - {x: 0, y: -90, z: -1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.43396032
+    widthMultiplier: 0.6
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -303,7 +325,7 @@ LineRenderer:
     alignment: 0
     textureMode: 0
     shadowBias: 3.59
-    generateLightingData: 0
+    generateLightingData: 1
   m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!1 &7297999029211430493
@@ -363,7 +385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7831227216319658103}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.043, y: 0, z: -1}
+  m_LocalPosition: {x: -0.043, y: 0, z: -1.2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 7114169759656766068}
@@ -377,7 +399,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7831227216319658103}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 100
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -1327,13 +1349,13 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9852905
-          value: 0
-          inSlope: -3.3930256
-          outSlope: -3.3930256
+          time: 1
+          value: 1
+          inSlope: 0.0000009561574
+          outSlope: 0.0000009561574
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.13231254
+          inWeight: 0.12748782
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -5071,7 +5093,7 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0.05
-  m_MaxParticleSize: 0.1
+  m_MaxParticleSize: 0.05
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
