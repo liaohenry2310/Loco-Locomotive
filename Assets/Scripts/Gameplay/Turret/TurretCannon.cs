@@ -15,7 +15,7 @@ public class TurretCannon : MonoBehaviour, IInteractable
     [SerializeField] private Transform _cannonHandler = null;
     [SerializeField] private Text AmmoText = null;
     [SerializeField] private DispenserData.Type ammoType = DispenserData.Type.Normal;
-    [SerializeField] private float CannonHandlerSpeed = 55.0f;
+    //[SerializeField] private float CannonHandlerSpeed = 55.0f;
 
     //TODO: Refactor
     //private InputReciever _inputReciever;

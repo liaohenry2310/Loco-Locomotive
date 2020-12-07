@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -688,6 +688,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: EMPDispenser
       objectReference: {fileID: 0}
+    - target: {fileID: 5998265704847312521, guid: 29c4b63ad5375e843b03b912a5dca5a4,
+        type: 3}
+      propertyPath: _dispenserItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e2efee4f5b62cf4189b5a54078979c5,
+        type: 2}
     - target: {fileID: 7263067988270996454, guid: 29c4b63ad5375e843b03b912a5dca5a4,
         type: 3}
       propertyPath: m_LocalPosition.x

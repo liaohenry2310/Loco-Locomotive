@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// ---- LEGACY CODE -----
+/// Should be deleted in the FUTURE.
+/// Cyro.
+/// </summary>
+
 public class EMPShockWave : MonoBehaviour
 {
     [SerializeField] private LayerMask _layerEnemyMask = 0;

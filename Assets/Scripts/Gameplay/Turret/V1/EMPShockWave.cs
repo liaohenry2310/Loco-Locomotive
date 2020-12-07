@@ -6,6 +6,7 @@ namespace Turret
 
     public class EMPShockWave : MonoBehaviour
     {
+        private const float DamageToRemoveShield = 500.0f;
         [SerializeField] private TurretData _turretData = null;
         private ObjectPoolManager _objectPoolManager = null;
         private WaitForSeconds _waitSeconds;
@@ -43,6 +44,15 @@ namespace Turret
                 (transform.position.y <= -_screenBounds.y))
             {
                 RecycleBullet();
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            EnemyShieldHealth enemyShield = collision.GetComponentInChildren<EnemyShieldHealth>();
+            if (enemyShield)
+            {
+                enemyShield.TakeDamage(DamageToRemoveShield);
             }
         }
 
