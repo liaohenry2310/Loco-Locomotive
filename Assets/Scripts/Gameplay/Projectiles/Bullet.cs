@@ -32,13 +32,7 @@ public class Bullet : MonoBehaviour
             RecycleBullet();
         }
     }
-    private void ExplostionWithEnemyProjectile(Collider2D collision, EnemyProjectile enemyProjectile)
-    {
 
-
-
-
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         EnemyProjectile enemyProjectile = collision.GetComponent<EnemyProjectile>();

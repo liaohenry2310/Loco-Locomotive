@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private BasicEnemyData _basicEnemyData = null;
+    [SerializeField] private ParticleSystem _hitVFX = null;
 
     private ObjectPoolManager _objectPoolManager = null;
     private Vector3 _screenBounds;
@@ -13,17 +14,20 @@ public class EnemyProjectile : MonoBehaviour
     private Vector3 targetPos = Vector3.zero;
     private Vector3 direction = Vector3.zero;
     private SpriteRenderer _sprite;
-    private EnemyTypeCheck.Type _currenyEnemyType=EnemyTypeCheck.Type.None;
+    private EnemyTypeCheck.Type _currenyEnemyType = EnemyTypeCheck.Type.None;
     public EnemyTypeCheck.Type CurrenyEnemeyType { get { return _currenyEnemyType; } set { _currenyEnemyType = value; } }
 
     private bool destroyBullet = false;
+
     public bool DestroyBullet { get { return destroyBullet; } set { destroyBullet = value; } }
+
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         _screenBounds = GameManager.GetScreenBounds;
         _sprite = GetComponentInChildren<SpriteRenderer>();
     }
+
     private void Update()
     {
         if (DestroyBullet)
@@ -32,6 +36,7 @@ public class EnemyProjectile : MonoBehaviour
             DestroyBullet = false;
         }
     }
+
     private void FixedUpdate()
     {
         currentPos = gameObject.transform.position;
@@ -60,9 +65,9 @@ public class EnemyProjectile : MonoBehaviour
 
     }
 
-    private void Explostion(Collider2D collision)
+    private void Explostion(Collider2D collider)
     {
-        var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, 0.2f);
+        var colliders = Physics2D.OverlapCircleAll(collider.gameObject.transform.position, 0.2f);
         foreach (Collider2D target in colliders)
         {
 
@@ -70,17 +75,18 @@ public class EnemyProjectile : MonoBehaviour
             if (damageable != null)
             {
                 damageable.TakeDamage(_basicEnemyData.Basic_AttackDamage);
-                Debug.Log($"[Collider2D] -- Enemy_Projectile -- {target.gameObject.name}");
+                ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+                particle.Play();
+                Destroy(particle, particle.main.duration);
                 RecycleBullet();
             }
         }
     }
 
-    public void SetData(Vector3 tartgetpos,EnemyTypeCheck.Type currenyEnemyType)
+    public void SetData(Vector3 tartgetpos, EnemyTypeCheck.Type currenyEnemyType)
     {
         targetPos = tartgetpos;
         _currenyEnemyType = currenyEnemyType;
-
     }
 
     private void RecycleBullet()
@@ -90,7 +96,6 @@ public class EnemyProjectile : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _objectPoolManager.RecycleObject(gameObject);
-        Debug.Log("RecycleProjectile!");
     }
 
 
@@ -102,4 +107,5 @@ public class EnemyProjectile : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(gameObject.transform.position, 0.2f);
     }
+
 }

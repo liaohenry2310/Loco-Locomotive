@@ -144,3 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicEnemyData: {fileID: 11400000, guid: 2348c4b0ffa86594dbd97c8df78aca41, type: 2}
+  _hitVFX: {fileID: 198917022394846920, guid: 19727d177b985404abb0bdc834e04b79, type: 3}

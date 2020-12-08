@@ -1,11 +1,11 @@
 ﻿using Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class SwarmEnemy : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _hitVFX = null;
+
     private SwarmEnemyData _enemyData = null;
     private ObjectPoolManager _objectPoolManager = null;
 
@@ -20,7 +20,7 @@ public class SwarmEnemy : MonoBehaviour
     private float _currentHealth = 0.0f;
     private float _currentShieldHealth = 0.0f;
     private float _oldPos;
-    private bool isAilve=false;
+    private bool isAilve = false;
 
     private bool isAttacking = false;
     public bool Alive { get { return isAilve; } set { isAilve = value; } }
@@ -40,7 +40,7 @@ public class SwarmEnemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        
+
         // set activated false prefabs when touch the camera bounds
         if ((transform.position.x >= _screenBounds.x) ||
             (transform.position.x <= -_screenBounds.x) ||
@@ -104,9 +104,11 @@ public class SwarmEnemy : MonoBehaviour
             if (damageable != null)
             {
                 damageable.TakeDamage(_enemyData.Swarm_AttackDamage);
+                ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+                particle.Play();
+                Destroy(particle, particle.main.duration);
                 Alive = false;
                 RecycleSwarm();
-                Debug.Log($"[Collider2D] -- Swarm Enemy -- {target.gameObject.name}");
             }
         }
     }
@@ -136,7 +138,6 @@ public class SwarmEnemy : MonoBehaviour
         }
         Alive = false;
         _objectPoolManager.RecycleObject(gameObject);
-        Debug.Log("RecycleProjectile!");
     }
+
 }
- 

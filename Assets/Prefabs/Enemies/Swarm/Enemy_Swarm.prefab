@@ -176,5 +176,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d09347dfbd5c6f409f7255f16abeaf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: ed172eb40ca078544aa7b5e90968b872, type: 2}
-  fire: 0
+  _hitVFX: {fileID: 198917022394846920, guid: f8dbc42a892a7df46927fb060c8c1306, type: 3}
