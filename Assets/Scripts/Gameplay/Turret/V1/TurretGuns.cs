@@ -346,6 +346,7 @@ namespace Turret
             }
             _weapons.SetUp(_spawnPointFire);
             _weapons.Reload();
+            _cannonSprite.enabled = true;
             _upperSprite.sprite = _turretData.machineGun.Uppersprites[0];
             _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
         }
@@ -359,6 +360,7 @@ namespace Turret
             }
             _weapons.SetUp(_spawnPointFire);
             _weapons.Reload();
+            _cannonSprite.enabled = true;
             _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
             _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
         }
@@ -372,6 +374,7 @@ namespace Turret
             }
             _weapons.SetUp(_spawnPointFire);
             _weapons.Reload();
+            _cannonSprite.enabled = true;
             _upperSprite.sprite = _turretData.missileGun.Uppersprites[0];
             _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
         }
@@ -380,6 +383,7 @@ namespace Turret
         {
             _weapons = new EmpGun(_turretData);
             _weapons.SetUp(_spawnPointFire);
+            _cannonSprite.enabled = true;
             _weapons.Reload();
         }
 
@@ -392,6 +396,9 @@ namespace Turret
             }
             _weapons.SetUp(_spawnPointFire);
             _weapons.Reload();
+            _cannonSprite.enabled = false;
+            _cannonHandler.rotation = Quaternion.identity;
+
         }
     }
 
