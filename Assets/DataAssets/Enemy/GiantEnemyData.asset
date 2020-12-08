@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b550ab1121944e640979bc9c61eaec0e, type: 3}
   m_Name: GiantEnemyData
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  MaxSpeed: 15
+  MaxHealth: 300
+  MaxSpeed: 6
   AttackDelay: 5
   ChargeTime: 2
   BeamDamage: 10
