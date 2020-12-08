@@ -581,7 +581,7 @@ PrefabInstance:
     - target: {fileID: 493372494663612196, guid: 999ad8238afbd3a4ea80859bc6552b23,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 541508801726420678, guid: 999ad8238afbd3a4ea80859bc6552b23,
         type: 3}
@@ -643,10 +643,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wagon
       objectReference: {fileID: 0}
-    - target: {fileID: 4802261073964211683, guid: 999ad8238afbd3a4ea80859bc6552b23,
+    - target: {fileID: 3466845026994663321, guid: 999ad8238afbd3a4ea80859bc6552b23,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4737220220019606831, guid: 999ad8238afbd3a4ea80859bc6552b23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802261073964211683, guid: 999ad8238afbd3a4ea80859bc6552b23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999ad8238afbd3a4ea80859bc6552b23, type: 3}
@@ -1418,7 +1428,7 @@ PrefabInstance:
     - target: {fileID: 493372494663612196, guid: 999ad8238afbd3a4ea80859bc6552b23,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 541508801726420678, guid: 999ad8238afbd3a4ea80859bc6552b23,
         type: 3}
@@ -1479,6 +1489,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wagon (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466845026994663321, guid: 999ad8238afbd3a4ea80859bc6552b23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4802261073964211683, guid: 999ad8238afbd3a4ea80859bc6552b23,
         type: 3}
@@ -2140,12 +2155,17 @@ PrefabInstance:
     - target: {fileID: 2252913611190946547, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2607941181982892767, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
         type: 3}
       propertyPath: m_Name
       value: FrontWagon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3282127542797735133, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8247945251548400351, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
         type: 3}
