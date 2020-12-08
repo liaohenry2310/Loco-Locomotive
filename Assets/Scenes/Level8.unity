@@ -974,12 +974,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EMPDispenser
       objectReference: {fileID: 0}
-    - target: {fileID: 5998265704847312521, guid: 29c4b63ad5375e843b03b912a5dca5a4,
-        type: 3}
-      propertyPath: _dispenserItem
-      value: 
-      objectReference: {fileID: 11400000, guid: 5e2efee4f5b62cf4189b5a54078979c5,
-        type: 2}
     - target: {fileID: 7263067988270996454, guid: 29c4b63ad5375e843b03b912a5dca5a4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1104,8 +1098,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9105936069446270259, guid: c6e6effe40c3685428081a5b996704cf,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 720701730}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6e6effe40c3685428081a5b996704cf, type: 3}
+--- !u!95 &720701730 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5920105148955909631, guid: c6e6effe40c3685428081a5b996704cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 720701729}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &855522343
 PrefabInstance:
   m_ObjectHideFlags: 0

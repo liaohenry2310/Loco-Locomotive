@@ -123,8 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dispenserItem: {fileID: 11400000, guid: 0ba31af5f8483344ab6747525e086610, type: 2}
-  itemOffset: {x: 0, y: 0, z: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 8335638997199125916}
 --- !u!95 &8335638997199125916
 Animator:
   serializedVersion: 3
