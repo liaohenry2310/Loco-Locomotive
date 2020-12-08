@@ -8,12 +8,14 @@ namespace Turret
     {
         private readonly TurretData _turretData;
         private readonly List<ParticleSystem> _particles;
+        private ParticleSystem _hitVFX = null;
 
         public struct LaserGunProperties
         {
             public LineRenderer laserBeamRenderer;
             public GameObject startVFX;
             public GameObject endVFX;
+            public GameObject hitVFX;
             public AudioSource audioSourceClips;
         }
 
@@ -56,7 +58,10 @@ namespace Turret
                             if (damageable != null)
                             {
                                 damageable.TakeDamage(_turretData.laserGun.damage * Time.deltaTime, DispenserData.Type.LaserBeam);
+                                _hitVFX.gameObject.transform.position = hit.point;
+                                _hitVFX.Play();
                             }
+                            _hitVFX.Stop();
                         }
                     }
                 }
@@ -83,6 +88,7 @@ namespace Turret
             InitParticlesList();
             DisableLaser();
             LaserGunProps.audioSourceClips.clip = _turretData.laserGun.lasergunFire;
+            _hitVFX = LaserGunProps.hitVFX.GetComponent<ParticleSystem>();
         }
 
         private void InitParticlesList()
@@ -104,6 +110,7 @@ namespace Turret
                     _particles.Add(ps);
                 }
             }
+
         }
 
         private void EnableLaser()

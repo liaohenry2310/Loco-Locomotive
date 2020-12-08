@@ -24,6 +24,7 @@ namespace Turret
         [SerializeField] private LineRenderer _LaserBeam = null;
         [SerializeField] private GameObject _LaserBeamStartVFX = null;
         [SerializeField] private GameObject _LaserBeamEndVFX = null;
+        [SerializeField] private GameObject _LaserBeamHitVFX = null;
 
         [Header("Shield")]
         [SerializeField] private ShieldGunController _shieldGunController = null;
@@ -60,6 +61,7 @@ namespace Turret
             _laserGunProps.laserBeamRenderer = _LaserBeam;
             _laserGunProps.startVFX = _LaserBeamStartVFX;
             _laserGunProps.endVFX = _LaserBeamEndVFX;
+            _laserGunProps.hitVFX = _LaserBeamHitVFX;
             _laserGunProps.audioSourceClips = _audioSource;
 
             // Setting up missile properties
