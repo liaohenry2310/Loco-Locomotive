@@ -34,6 +34,16 @@ namespace Turret
             {
                 _objectPoolManager.RecycleObject(collider.gameObject);
             }
+            
+            if (collider.CompareTag("ShieldEnemy"))
+            {
+                EnemyShieldHealth enemyShield = collider.GetComponentInChildren<EnemyShieldHealth>();
+                // only destroy the shield enemy when he doesnt have more shield
+                if (enemyShield && !enemyShield.ShieldIsActive)
+                {
+                    _objectPoolManager.RecycleObject(collider.gameObject);
+                }
+            }
         }
 
     }
