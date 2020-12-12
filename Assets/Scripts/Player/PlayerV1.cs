@@ -296,6 +296,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             {
                 item.DestroyAfterUse();
             }
+
             StartCoroutine(Respawn());
         }
         // Stop health Regeneration when receive any damage
@@ -326,6 +327,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         StopCoroutine(_coroutineRegen);
         _coroutineRegen = null;
     }
+
 
     public Item GetItem => GetComponentInChildren<Item>();
 
