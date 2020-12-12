@@ -12,7 +12,7 @@ namespace UI
         private void Awake()
         {
             _train = FindObjectOfType<Train>();
-            _bar.localScale = new Vector3(0.68f, 3.0f, 0.0f);
+            _bar.localScale = new Vector3(0.73f, 3.5f, 0.0f);
         }
 
         private void OnEnable()
@@ -27,7 +27,7 @@ namespace UI
 
         private void UpdateHealth(float currentHealth)
         {
-            _bar.localScale = new Vector3(currentHealth*0.68f, 3.0f, 0.0f);
+            _bar.localScale = new Vector3(currentHealth*0.73f, 3.5f, 0.0f);
         }
     }
 
