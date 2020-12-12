@@ -6,6 +6,7 @@ using UnityEngine;
 public class GiantEnemyData : ScriptableObject
 {
     public float MaxHealth;
+    public float ShieldHealth;
     public float MaxSpeed;
     public float AttackDelay;
     public float ChargeTime;

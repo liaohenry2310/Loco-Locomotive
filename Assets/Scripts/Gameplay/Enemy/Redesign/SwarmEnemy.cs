@@ -79,11 +79,13 @@ public class SwarmEnemy : MonoBehaviour
         _enemyData = enemyData;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
+        Velocity = Vector3.zero;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
+            gameObject.GetComponentInChildren<EnemyShieldHealth>().ReShield = true;
         }
 
         Alive = true;

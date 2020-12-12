@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GiantEnemyData
   m_EditorClassIdentifier: 
   MaxHealth: 300
+  ShieldHealth: 100
   MaxSpeed: 6
   AttackDelay: 5
   ChargeTime: 2

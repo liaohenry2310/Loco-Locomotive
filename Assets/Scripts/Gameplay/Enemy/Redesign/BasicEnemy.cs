@@ -51,6 +51,7 @@ public class BasicEnemy : MonoBehaviour
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
+            gameObject.GetComponentInChildren<EnemyShieldHealth>().ReShield = true;
         }
         isAlive = true;
     }
