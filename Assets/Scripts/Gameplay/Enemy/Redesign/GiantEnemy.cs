@@ -20,6 +20,7 @@ public class GiantEnemy : MonoBehaviour
     private Transform _botLeftBound;
     private List<Vector2> _targetPositions;
     private float _currentHealth = 0.0f;
+    private float _currentShieldHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
 
     Vector3 targetPos = Vector3.zero;
@@ -29,6 +30,7 @@ public class GiantEnemy : MonoBehaviour
     public GameObject VFX;
     private List<ParticleSystem> particles = new List<ParticleSystem>();
     public LayerMask trainLayer;
+
 
     bool isAttacking = false;
     float attackCount = 0.0f;
@@ -47,7 +49,6 @@ public class GiantEnemy : MonoBehaviour
     }
     private State mCurrentState = State.WanderIdle;
 
-
     private void Awake()
     {
 
@@ -64,11 +65,19 @@ public class GiantEnemy : MonoBehaviour
         _topRightBound = topRight;
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
+        _currentShieldHealth = enemyData.ShieldHealth;
+        mCurrentState = State.WanderIdle;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
+        gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _nextAttackTime = enemyData.AttackDelay + Time.time;
         _chargeTime = enemyData.ChargeTime;
         _beamDamage = enemyData.BeamDamage;
         _beamDuration = enemyData.BeamDuration;
+        if (gameObject.CompareTag("ShieldEnemy"))
+        {
+            gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
+            gameObject.GetComponentInChildren<EnemyShieldHealth>().ReShield = true;
+        }
         isAlive = true;
         FillLists();
         DisableLaser();
@@ -90,12 +99,7 @@ public class GiantEnemy : MonoBehaviour
                Charging();
                 break;
             case State.Attack:
-               // if (!isAttacking)
-               // {
                     Attack();
-                //}
-
-                //EnableLaser();
                 break;
             default:
                 break;

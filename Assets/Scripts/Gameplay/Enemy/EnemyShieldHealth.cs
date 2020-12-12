@@ -3,7 +3,17 @@
 public class EnemyShieldHealth : MonoBehaviour
 {
     // Shield type
+    bool reShield = false;
+    public bool ReShield { get { return reShield; } set { reShield = value; } }
     private float _shieldHealth;
+    private void Update()
+    {
+        if (reShield)
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
+            reShield = false;
+        }
+    }
     public float ShieldHealth
     {
         get{return _shieldHealth; }

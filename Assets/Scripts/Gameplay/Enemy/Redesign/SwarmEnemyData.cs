@@ -13,7 +13,6 @@ public class SwarmEnemyData : ScriptableObject
     public float Swarm_AttackDamage;
     public float Swarm_AttackSpeed;
 
-    public float WallAvoidWeight;
 
     public float WanderBehaviorWeight;
     public float WanderRadius;
