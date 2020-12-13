@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b785b9f420ed3740aa7d5911ee12de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 4
+  scrollSpeed: 15
   scrollOffset: 38.4
 --- !u!1 &2600077933560313939
 GameObject:
@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b785b9f420ed3740aa7d5911ee12de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 5
+  scrollSpeed: 30
   scrollOffset: 38.4
 --- !u!1 &9130669298811434300
 GameObject:
