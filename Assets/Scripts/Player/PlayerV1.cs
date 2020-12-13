@@ -122,7 +122,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("UsingTurret", false);
         }
         //player death
-        animator.SetBool("IsDeath", !_healthSystem.IsAlive);
+        //animator.SetBool("IsDeath", !_healthSystem.IsAlive);
 
         _delayTimeToRegen += Time.deltaTime;
         if (_delayTimeToRegen >= _playerData.DelayTimeRegen)

@@ -348,3 +348,7 @@ MonoBehaviour:
     prefab: {fileID: 3276408233857933763, guid: fa4b32ec5a46270478ae36fc1c39b039,
       type: 3}
     poolSize: 100
+  - name: Giant_Shield
+    prefab: {fileID: 3276408233857933763, guid: 81e58e55262d7314bafbc8fcbd4c2f2b,
+      type: 3}
+    poolSize: 100
