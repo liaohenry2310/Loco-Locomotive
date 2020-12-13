@@ -865,6 +865,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Train_Connection (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2898891495138984735, guid: eca79bb34472d2b48a01f99ab0cd7cd1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.025
+      objectReference: {fileID: 0}
     - target: {fileID: 4193072148396710301, guid: eca79bb34472d2b48a01f99ab0cd7cd1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -924,6 +929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770407291955650560, guid: eca79bb34472d2b48a01f99ab0cd7cd1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.187
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eca79bb34472d2b48a01f99ab0cd7cd1, type: 3}
@@ -1748,6 +1758,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898891495138984735, guid: eca79bb34472d2b48a01f99ab0cd7cd1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.038
       objectReference: {fileID: 0}
     - target: {fileID: 4193072148396710301, guid: eca79bb34472d2b48a01f99ab0cd7cd1,
         type: 3}
