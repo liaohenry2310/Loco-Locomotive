@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caee4e659664b8e4bb10187d8888c4c1, type: 3}
   m_Name: SwarmEnemyData
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 15
   ShieldHealth: 200
-  MaxSpeed: 10
+  MaxSpeed: 25
   AttackDelay: 5
   Swarm_AttackDamage: 10
   Swarm_AttackSpeed: 10
