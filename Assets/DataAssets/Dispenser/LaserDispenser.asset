@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202b481ce62e3bf4285a7706de1f1e11, type: 3}
+  m_Name: LaserDispenser
+  m_EditorClassIdentifier: 
+  _type: 2
+  _itemPrefab: {fileID: 8489893474380361143, guid: c0be21d1cf7608e43a0a937cf05dbde9,
+    type: 3}
+  _dispenserSprite: {fileID: 21300000, guid: 34ffbf8da08178e40b9ae06ac4ba818a, type: 3}
+  _itemSprite: {fileID: 21300000, guid: 200578edc921eec4db4312b6930a9127, type: 3}
