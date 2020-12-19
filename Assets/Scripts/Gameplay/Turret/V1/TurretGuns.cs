@@ -63,6 +63,7 @@ namespace Turret
             _laserGunProps.endVFX = _LaserBeamEndVFX;
             _laserGunProps.hitVFX = _LaserBeamHitVFX;
             _laserGunProps.audioSourceClips = _audioSource;
+            _laserGunProps.monoBehaviour = this;
 
             // Setting up missile properties
             _missileGunProps.audioSourceClips = _audioSource;
@@ -398,7 +399,6 @@ namespace Turret
             _weapons.Reload();
             _cannonSprite.enabled = false;
             _cannonHandler.rotation = Quaternion.identity;
-
         }
     }
 

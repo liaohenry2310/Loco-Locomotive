@@ -5247,7 +5247,7 @@ MonoBehaviour:
   _MachineGunStartVFX: {fileID: 5592093826993642816}
   _LaserBeam: {fileID: 3525540743412895445}
   _LaserBeamStartVFX: {fileID: 5682182891197727565}
-  _LaserBeamEndVFX: {fileID: 0}
+  _LaserBeamEndVFX: {fileID: 7378720229939079275}
   _LaserBeamHitVFX: {fileID: 4077922917810126856}
   _shieldGunController: {fileID: 2297615358652120512}
   _upperSprite: {fileID: 1976525530892292841}
@@ -10818,15 +10818,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0f39303c941f3f4195607406c16bca1, type: 3}
---- !u!1 &4077922917810126856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000011945391522, guid: d0f39303c941f3f4195607406c16bca1,
-    type: 3}
-  m_PrefabInstance: {fileID: 4076950395954001322}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4078582535926043718 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000014129045996, guid: d0f39303c941f3f4195607406c16bca1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4076950395954001322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4077922917810126856 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000011945391522, guid: d0f39303c941f3f4195607406c16bca1,
     type: 3}
   m_PrefabInstance: {fileID: 4076950395954001322}
   m_PrefabAsset: {fileID: 0}
@@ -10899,6 +10899,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5be8f8c0aa32eeb4da4ad2a4c644a3d3, type: 3}
+--- !u!1 &7378720229939079275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4088346475568816580, guid: 5be8f8c0aa32eeb4da4ad2a4c644a3d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6834990343717259695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3982527238621623873 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7610525837567590382, guid: 5be8f8c0aa32eeb4da4ad2a4c644a3d3,
