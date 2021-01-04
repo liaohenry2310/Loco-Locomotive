@@ -151,7 +151,7 @@ public class SwarmEnemyGroup : MonoBehaviour
     public void AttackMode()
     {
 
-        if (_nextAttackTime < Time.time && swarmNeighbors.Count > 0)
+        if (_nextAttackTime < Time.time && swarmNeighbors.Count >= 0)
         {
 
                 int num = Random.Range(0, swarmNeighborsTrans.Count);
@@ -161,7 +161,7 @@ public class SwarmEnemyGroup : MonoBehaviour
                 Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
                 var targetlist = _trainData.ListTurret;
                 int targetSize = targetlist.Length;
-                int randomtarget = Random.Range(0, targetSize - 1);
+                int randomtarget = Random.Range(0, targetSize);
                 _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
                 targetPos = targetlist[randomtarget].gameObject.transform.position;
                 agent.Target = targetPos;
@@ -180,6 +180,7 @@ public class SwarmEnemyGroup : MonoBehaviour
                 _enemyType.transform.position = new Vector3(_swarmSpawnPos.position.x+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.position.y+Random.Range(-0.5f, 0.5f), _swarmSpawnPos.localPosition.z);
                 _enemyType.SetActive(true);
                 var swarmEnemy = _enemyType.gameObject.GetComponent<SwarmEnemy>();
+                swarmEnemy.Velocity = Vector3.zero;
                 swarmEnemy.Attacking = false;
                 swarmEnemy.Alive = true;
                 swarmEnemy.SetNewData(enemyData);

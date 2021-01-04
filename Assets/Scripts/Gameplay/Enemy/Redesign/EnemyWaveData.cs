@@ -15,7 +15,8 @@ public class EnemyWaveData : ScriptableObject
 
         Basic_Shield,
         Bomber_Shield,
-        Swarm_Shield
+        Swarm_Shield,
+        Giant_Shield
     }
 
     //This is to match enemy type with the actual enemy prefab.

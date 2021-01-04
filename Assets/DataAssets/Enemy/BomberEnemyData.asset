@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 50
   ShieldHealth: 200
-  MaxSpeed: 10
-  AttackDelay: 16
+  MaxSpeed: 5
+  AttackDelay: 10
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
   Bomber_AttackDamage: 25
@@ -23,4 +23,4 @@ MonoBehaviour:
   WanderBehaviorWeight: 5
   WanderRadius: 5
   WanderDistance: 1
-  WanderJitter: 5
+  WanderJitter: 1

@@ -86,13 +86,15 @@ namespace GamePlay
 
         public void TakeDamage(float damage)
         {
-            if (_trainData.CurrentHealth >= 0.1f)
+            if (_trainData.CurrentHealth > 0.0f)
             {
                 _trainData.CurrentHealth -= damage;
                 OnUpdateHealthUI?.Invoke(_trainData.HealthPercentage);
             }
+            else if (_trainData.CurrentHealth <= 0.0f)
+            {
+                OnGameOver?.Invoke();
+            }
         }
-
     }
-
 }

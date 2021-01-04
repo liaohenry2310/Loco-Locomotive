@@ -122,7 +122,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("UsingTurret", false);
         }
         //player death
-        animator.SetBool("IsDeath", !_healthSystem.IsAlive);
+        //animator.SetBool("IsDeath", !_healthSystem.IsAlive);
 
         _delayTimeToRegen += Time.deltaTime;
         if (_delayTimeToRegen >= _playerData.DelayTimeRegen)
@@ -296,6 +296,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             {
                 item.DestroyAfterUse();
             }
+
             StartCoroutine(Respawn());
         }
         // Stop health Regeneration when receive any damage
@@ -326,6 +327,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         StopCoroutine(_coroutineRegen);
         _coroutineRegen = null;
     }
+
 
     public Item GetItem => GetComponentInChildren<Item>();
 
