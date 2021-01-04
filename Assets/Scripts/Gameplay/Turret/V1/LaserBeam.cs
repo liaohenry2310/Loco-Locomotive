@@ -54,8 +54,9 @@ namespace Turret
                             var shieldEnemy = collider.gameObject.GetComponentInChildren<EnemyShieldHealth>();
                             if (shieldEnemy && shieldEnemy.ShieldIsActive)
                             {
-                                LaserGunProps.laserBeamRenderer.SetPosition(1, enemyHit.point);
+                                LaserGunProps.laserBeamRenderer.SetPosition(1, hit[0].point);
                                 LaserGunProps.endVFX.transform.position = LaserGunProps.laserBeamRenderer.GetPosition(1);
+                                break;
                             }
                             else
                             {
