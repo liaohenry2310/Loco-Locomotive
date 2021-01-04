@@ -112,6 +112,7 @@ public class SwarmEnemy : MonoBehaviour
             }
         }
     }
+
     public void Setfire(bool gofire)
     {
         fire = gofire;
