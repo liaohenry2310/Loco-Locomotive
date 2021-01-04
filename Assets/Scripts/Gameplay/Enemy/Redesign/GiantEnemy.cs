@@ -7,6 +7,7 @@ public class GiantEnemy : MonoBehaviour
 {
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
+    [SerializeField] private GameObject _laserHitVFX = null;
 
     public GiantEnemyData enemyData;
     public SpriteRenderer sr;
@@ -29,6 +30,7 @@ public class GiantEnemy : MonoBehaviour
     private Transform firePoint;
     public GameObject VFX;
     private List<ParticleSystem> particles = new List<ParticleSystem>();
+    private List<ParticleSystem> _LaserHitVFXList = new List<ParticleSystem>();
     public LayerMask trainLayer;
 
 
@@ -96,7 +98,7 @@ public class GiantEnemy : MonoBehaviour
                 MoveToTarget();
                 break;
             case State.Charging:
-               Charging();
+                Charging();
                 break;
             case State.Attack:
                     Attack();
@@ -120,19 +122,19 @@ public class GiantEnemy : MonoBehaviour
             _velocity *= enemyData.MaxSpeed;
         }
 
-        if (transform.position.x > _botLeftBound.position.x+1.0f)
+        if (transform.position.x > _botLeftBound.position.x + 1.0f)
         {
             _velocity.x *= -1;
         }
-        if (transform.position.x < _topRightBound.position.x- 1.0f)
+        if (transform.position.x < _topRightBound.position.x - 1.0f)
         {
             _velocity.x *= -1;
         }
-        if (transform.position.y < _topRightBound.position.y- 2.0f)
+        if (transform.position.y < _topRightBound.position.y - 2.0f)
         {
             _velocity.y *= -1;
         }
-        if (transform.position.y > _botLeftBound.position.y+2.0f)
+        if (transform.position.y > _botLeftBound.position.y + 2.0f)
         {
             _velocity.y *= -1;
         }
@@ -145,7 +147,7 @@ public class GiantEnemy : MonoBehaviour
         if (_nextAttackTime < Time.time)
         {
             mCurrentState = State.MoveToTarget;
-           // _nextAttackTime = enemyData.AttackDelay + Time.time;
+            // _nextAttackTime = enemyData.AttackDelay + Time.time;
         }
     }
     void MoveToTarget()
@@ -155,7 +157,7 @@ public class GiantEnemy : MonoBehaviour
 
         var targetlist = _trainData.ListTurret;
         int targetSize = targetlist.Length;
-        int randomtarget = Random.Range(0, targetSize );
+        int randomtarget = Random.Range(0, targetSize);
         targetPos = targetlist[randomtarget].gameObject.transform.position;
 
         Vector2 destination = new Vector2(targetPos.x, transform.position.y);
@@ -185,7 +187,7 @@ public class GiantEnemy : MonoBehaviour
         {
 
             chargeingCount = 0.0f;
-            mCurrentState = State.Attack;   
+            mCurrentState = State.Attack;
         }
     }
     private void Attack()
@@ -193,22 +195,23 @@ public class GiantEnemy : MonoBehaviour
         isAttacking = true;
         attackCount += Time.deltaTime;
         //while (attackCount < _beamDuration  )
-        if (attackDelay < Time.time )
+        if (attackDelay < Time.time)
         {
 
             lineRenderer.enabled = true;
 
-            lineRenderer.SetPosition(0, new Vector3( transform.position.x,transform.position.y,-1.0f));
+            lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, -1.0f));
 
             var pos = (Vector2)targetPos;
 
             lineRenderer.SetPosition(1, pos);
+            DisableLaserHitVFX();
             var dir = pos - (Vector2)transform.position;
             RaycastHit2D[] hit = Physics2D.RaycastAll((Vector2)transform.position, dir.normalized, 100.0f, trainLayer);
             //if (hit)
             if (hit != null)
             {
-
+                EnableLaserHitVFX();
                 for (int i = 0; i < hit.Length; i++)
 
                 {
@@ -221,6 +224,7 @@ public class GiantEnemy : MonoBehaviour
                         {
                             damageable.TakeDamage(_beamDamage);
                             lineRenderer.SetPosition(1, hit[i].point);
+                            _laserHitVFX.transform.position = lineRenderer.GetPosition(1);
                         }
                     }
                     //Collider2D collider = hit.collider;
@@ -234,18 +238,21 @@ public class GiantEnemy : MonoBehaviour
                     //         lineRenderer.SetPosition(1, hit.point);
                     //    }
                     //}
+
                 }
             }
             attackDelay = Time.time + 1.0f;
 
         }
-        if (attackCount >=_beamDuration )
+
+        if (attackCount >= _beamDuration)
         {
             isAttacking = false;
             attackCount = 0.0f;
             _nextAttackTime = enemyData.AttackDelay + Time.time;
             StopParticles();
             DisableLaser();
+            DisableLaserHitVFX();
             mCurrentState = State.WanderIdle;
         }
     }
@@ -277,7 +284,7 @@ public class GiantEnemy : MonoBehaviour
         {
             if (!particles[i].isPlaying)
             {
-            particles[i].Play();
+                particles[i].Play();
             }
         }
     }
@@ -310,6 +317,31 @@ public class GiantEnemy : MonoBehaviour
             {
                 particles.Add(ps);
             }
+        }
+
+        for (int i = 0; i < _laserHitVFX.transform.childCount; ++i)
+        {
+            var ps = _laserHitVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
+            if (ps)
+            {
+                _LaserHitVFXList.Add(ps);
+            }
+        }
+    }
+
+    private void DisableLaserHitVFX()
+    {
+        for (int i = 0; i < _LaserHitVFXList.Count; ++i)
+        {
+            _LaserHitVFXList[i].Stop();
+        }
+    }
+
+    private void EnableLaserHitVFX()
+    {
+        for (int i = 0; i < _LaserHitVFXList.Count; ++i)
+        {
+            _LaserHitVFXList[i].Play();
         }
     }
 
