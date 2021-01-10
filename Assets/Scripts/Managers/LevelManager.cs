@@ -40,18 +40,15 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _gameManager.LoadNextLevel();
-        Time.timeScale = 1.0f;
     }
     public void RestartLevel()
     {
         _gameManager.Restart();
-        Time.timeScale = 1.0f;
     }
 
     public void ReturnToMainMenu()
     {
         _gameManager.ReturnToMainMenu();
-        Time.timeScale = 1.0f;
     }
 
     public void QuitGame()

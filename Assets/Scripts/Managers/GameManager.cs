@@ -6,8 +6,7 @@ public class GameManager : MonoBehaviour
 {
     //Editor Fields
     [SerializeField] private SceneTransition sceneTransition = null;
-    private ObjectPoolManager _objectPoolManager = null;
-
+    
     //Public Members
     static public GameManager Instance { get; private set; }
 
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Restart()//Restart the game 
+    public void Restart()
     {
         StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
@@ -36,12 +35,12 @@ public class GameManager : MonoBehaviour
             StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
-    public void ReturnToMainMenu()//Main menu
+    public void ReturnToMainMenu()
     {
         StartCoroutine(LoadScene(1));
     }
 
-    public void QuitGame()//Quit the game 
+    public void QuitGame()
     {
         Debug.Log("Quit the game!");
         Application.Quit();
@@ -65,6 +64,7 @@ public class GameManager : MonoBehaviour
     private int level = 0;
     private bool _loadingScene = false;
     private TitleScreen titleScreen = null;
+    private ObjectPoolManager _objectPoolManager = null;
 
     private void Awake()
     {
@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Level") < 2)
             PlayerPrefs.SetInt("Level", 2);
+        else
+            level = PlayerPrefs.GetInt("Level");
 
         SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => { if (scene.buildIndex == 1) LoadTitleScreen(); };
     }
@@ -92,10 +94,10 @@ public class GameManager : MonoBehaviour
             _loadingScene = true;
             sceneTransition.StartTransition();
             yield return new WaitForSecondsRealtime(sceneTransition.Duration);
-            SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
-            //Place code to recycle all pooled objects here!
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
             _objectPoolManager.RecycleEntirePool();
+            SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
+            Time.timeScale = 1.0f;
             yield return new WaitForSecondsRealtime(0.5f);
             sceneTransition.StartTransition();
             _loadingScene = false;
