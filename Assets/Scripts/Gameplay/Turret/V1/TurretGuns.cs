@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Items;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +36,10 @@ namespace Turret
         [SerializeField] private SpriteRenderer _bottomSprite = null;
         [SerializeField] private TurretBase _turretBase = null;
 
+        [Header("Squishes Effect")]
+        [SerializeField] private Transform _pivotTurretGun = null;
+        [SerializeField] private Animator _animator = null;
+
         private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
@@ -46,6 +51,10 @@ namespace Turret
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
         private ParticleSystem.EmissionModule _emission;
+        private Vector2 _recoildSmoothDampVelocity;
+
+        private Vector3 _cannonOriginalPosition;
+
 
         private void Awake()
         {
@@ -56,6 +65,7 @@ namespace Turret
             _emission = _smokeParticle.emission;
 
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
+            _cannonOriginalPosition = _cannonHandler.localPosition;
 
             // Setting up laser properties
             _laserGunProps.laserBeamRenderer = _LaserBeam;
@@ -63,14 +73,16 @@ namespace Turret
             _laserGunProps.endVFX = _LaserBeamEndVFX;
             _laserGunProps.hitVFX = _LaserBeamHitVFX;
             _laserGunProps.audioSourceClips = _audioSource;
-            _laserGunProps.monoBehaviour = this;
+            _laserGunProps.transformCannon = _cannonHandler;
 
             // Setting up missile properties
             _missileGunProps.audioSourceClips = _audioSource;
+            _missileGunProps.transformCannon = _cannonHandler;
 
             // Setting up machine gun properties
             _machineGunProps.muzzleFlashVFX = _MachineGunStartVFX;
             _machineGunProps.audioSourceClips = _audioSource;
+            _machineGunProps.transformCannon = _cannonHandler;
 
             // Setting up shield gun properties
             _shieldGunProps.shieldGunController = _shieldGunController;
@@ -138,7 +150,7 @@ namespace Turret
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
                 }
-                else if(healthPerc >= 0.25f && healthPerc < 0.75f)
+                else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
                     _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
 
@@ -242,6 +254,13 @@ namespace Turret
             }
         }
 
+
+        private void LateUpdate()
+        {
+            // recoil effect to back to original position
+            _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, .1f);
+        }
+
         private void FixedUpdate()
         {
             if (!_turretBase.HealthSystem.IsAlive)
@@ -314,8 +333,11 @@ namespace Turret
 
         #endregion
 
+
+        private readonly int Active = Animator.StringToHash("Active");
         private void Reload(DispenserData.Type itemType)
         {
+            _animator.SetTrigger(Active);
             switch (itemType)
             {
                 case DispenserData.Type.Normal:
@@ -336,6 +358,36 @@ namespace Turret
                 default:
                     break;
             }
+
+            //StartCoroutine(SquisheEffect());
+        }
+
+        private float easeOutElastic(float time)
+        {
+            const float c4 = (2 * Mathf.PI) / 3;
+
+            return time == 0
+              ? 0
+              : time == 1
+              ? 1
+              : Mathf.Pow(2.0f, -10.0f * time) * Mathf.Sin((time * 10.0f - 0.75f) * c4) + 1.0f;
+        }
+
+        private IEnumerator SquisheEffect()
+        {
+            Transform originalPos = _pivotTurretGun.transform;
+            float time = 0.0f;
+
+            while (time <= 1f)
+            {
+                float interpolation = easeOutElastic(time);
+                //float lerp = Mathf.Lerp(_pivotTurretGun.transform.localScale.y, -0.5f, interpolation);
+                _pivotTurretGun.transform.localScale -= new Vector3(0.0f, interpolation, 0.0f);
+
+                yield return null;
+                time += Time.deltaTime;
+            }
+            _pivotTurretGun.transform.localPosition = originalPos.localPosition;
         }
 
         private void SetMachineGun()

@@ -5,8 +5,11 @@ using UnityEngine;
 public class TurretData : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField] private float _maxHealth = 100.0f;
-    [Range(50.0f, 360.0f)]
-    [SerializeField] private float _aimSpeed = 55.0f;
+    [SerializeField, Range(50.0f, 360.0f)] private float _aimSpeed = 55.0f;
+    
+    [Header("Tweeking Turret when receive Damage")]
+    [SerializeField, Range(0.2f, 1f), Tooltip("How much time spent to shake")] private float _shakeTime = 0.2f;
+    [SerializeField, Range(0.05f, 1f), Tooltip("How much force shaking in X direction")] private float _shakeForce = 0.05f;
 
     [Serializable]
     public struct MachineGun
@@ -16,6 +19,7 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float fireRate;
         public float maxAmmo;
         public float spreadBullet;
+        public float recoilForce;
         public AudioClip machinegunFire;
         public AudioClip machinegunBeam;
         public Sprite[] Uppersprites;
@@ -32,6 +36,7 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float fireRate;
         public float radiusEffect;
         public float maxAmmo;
+        public float recoilForce;
         public AudioClip missilegunFire;
         public AudioClip missilegunBeam;
         public Sprite[] Uppersprites;
@@ -47,6 +52,7 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float ammoConsumeRate;
         public float aimSpeedMultiplier;
         public float maxAmmo;
+        public float recoildForce;
         public AudioClip lasergunBeam;
         public AudioClip lasergunFire;
         public Sprite[] Uppersprites;
@@ -81,6 +87,9 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
 
     public float MaxHealth => _maxHealth;
     public float AimSpeed => _aimSpeed;
+
+    public float ShakeTime => _shakeTime;
+    public float ShakeForce => _shakeForce;
 
     [NonSerialized] public float CurrentHealth = 0.0f;
 
