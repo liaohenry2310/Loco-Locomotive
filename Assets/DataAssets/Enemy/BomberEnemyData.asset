@@ -20,6 +20,7 @@ MonoBehaviour:
     type: 3}
   Bomber_AttackDamage: 25
   Bomber_AttackSpeed: 1
+  Bomber_tiltingAngle: 10
   WanderBehaviorWeight: 5
   WanderRadius: 5
   WanderDistance: 1

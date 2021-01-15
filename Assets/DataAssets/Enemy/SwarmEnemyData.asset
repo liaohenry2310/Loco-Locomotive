@@ -18,6 +18,7 @@ MonoBehaviour:
   AttackDelay: 5
   Swarm_AttackDamage: 10
   Swarm_AttackSpeed: 10
+  Swarm_tiltingAngle: 15
   WanderBehaviorWeight: 5
   WanderRadius: 3
   WanderDistance: 3

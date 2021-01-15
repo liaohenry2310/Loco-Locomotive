@@ -20,6 +20,7 @@ MonoBehaviour:
     type: 3}
   Basic_AttackDamage: 10
   Basic_AttackSpeed: 5
+  Basic_tiltingAngle: 10
   WanderBehaviorWeight: 5
   WanderRadius: 5
   WanderDistance: 1
