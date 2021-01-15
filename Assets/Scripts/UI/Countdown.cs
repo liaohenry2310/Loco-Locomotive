@@ -47,6 +47,9 @@ public class Countdown : MonoBehaviour
         Text elementText = element.GetComponent<Text>();
         Vector2 end = elementTransform.anchoredPosition;
         Vector2 begin = new Vector2(end.x, end.y + 100.0f);
+        Color endColor = elementText.color;
+        Color beginColor = new Color(endColor.r, endColor.g, endColor.b, 0.0f);
+
 
         float startTime = Time.unscaledTime;
         float t = 0.0f;
@@ -55,6 +58,7 @@ public class Countdown : MonoBehaviour
         {
             t = (Time.unscaledTime - startTime) / (duration * 0.25f);
             elementTransform.anchoredPosition = Vector3.Lerp(begin, end, t);
+            elementText.color = Color.Lerp(beginColor, endColor, t);
             yield return null;
         }
         audioClip1.Invoke();
