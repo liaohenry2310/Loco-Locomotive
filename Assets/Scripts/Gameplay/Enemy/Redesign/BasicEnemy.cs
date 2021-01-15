@@ -21,7 +21,13 @@ public class BasicEnemy : MonoBehaviour
 
     private EnemyHealth _healthdata;
 
-
+    enum Direction
+    {
+        Idle,
+        Left,
+        Right
+    }
+    Direction currentDir = Direction.Idle;
 
     private bool isAlive=false;
 
@@ -47,13 +53,14 @@ public class BasicEnemy : MonoBehaviour
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
-        _nextAttackTime = enemyData.AttackDelay;
+        _nextAttackTime = Time.time + 1.0f+Random.Range(-enemyData.AttackDelay * 0.8f, enemyData.AttackDelay * 0.8f);
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ReShield = true;
         }
         isAlive = true;
+        _velocity =Vector3.zero;
     }
 
     void Update()
@@ -77,10 +84,12 @@ public class BasicEnemy : MonoBehaviour
         //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
         _velocity += _acceleration * Time.deltaTime;
 
-        if (  _velocity.magnitude > enemyData.MaxSpeed)
+        if (  _velocity.sqrMagnitude > enemyData.MaxSpeed)
         {
+            var speed = _velocity.magnitude;
             _velocity.Normalize();
-            _velocity *= enemyData.MaxSpeed;
+            _velocity /= speed;
+            _velocity *=enemyData.MaxSpeed;
         }
 
          //if (Mathf.Abs(transform.position.x - _botLeftBound.position.x) > 1.0f)
@@ -110,7 +119,26 @@ public class BasicEnemy : MonoBehaviour
 
 
         transform.position += _velocity * Time.deltaTime;
-
+        var heading = _velocity.normalized;
+        Direction movingDir;
+        if (heading.x < 0.0f)
+        {
+            movingDir = Direction.Left;
+        }
+        else
+        {
+            movingDir = Direction.Right;
+        }
+        if (movingDir!=currentDir)
+        {
+            //transform.localRotation = Quaternion.Euler(0, 0, 0.1f*Time.deltaTime);
+            currentDir = movingDir;
+        }
+        else
+        {
+            //transform.Rotate(0, 0, heading.x * -3.0f*Time.deltaTime);
+            transform.rotation = Quaternion.AngleAxis(heading.x * -enemyData.Basic_tiltingAngle + (Time.deltaTime * 2.0f), Vector3.forward);
+        }
 
         //Shooting
         if (_nextAttackTime < Time.time)
@@ -118,7 +146,7 @@ public class BasicEnemy : MonoBehaviour
             var targetlist = _trainData.ListTurret;
             int targetSize = targetlist.Length;
             int randomtarget = Random.Range(0, targetSize);
-            _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
+            _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.18f, enemyData.AttackDelay * 0.18f);
 
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BasicEnemy_Projectile");
             projectile.transform.position = transform.position;

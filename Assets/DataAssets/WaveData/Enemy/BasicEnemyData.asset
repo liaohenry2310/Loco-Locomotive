@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833354a74b39d9f4ab764cd58d4aa4d4, type: 3}
+  m_Name: BasicEnemyData
+  m_EditorClassIdentifier: 
+  MaxHealth: 50
+  ShieldHealth: 200
+  MaxSpeed: 15
+  AttackDelay: 5
+  projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
+    type: 3}
+  Basic_AttackDamage: 10
+  Basic_AttackSpeed: 5
+  Basic_tiltingAngle: 10
+  WanderBehaviorWeight: 5
+  WanderRadius: 5
+  WanderDistance: 3
+  WanderJitter: 1
