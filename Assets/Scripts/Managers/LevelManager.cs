@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
 
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
+    public Countdown Countdown;
 
     public float TimeLimit = 300.0f;
     public float TimeRemaining = 0.0f;
@@ -71,6 +72,8 @@ public class LevelManager : MonoBehaviour
         Train train = FindObjectOfType<Train>();
         if (train)
             train.OnGameOver += GameOver;
+
+        Countdown.StartCountdown();
     }
 
     private void Update()
