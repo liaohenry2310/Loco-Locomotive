@@ -38,7 +38,6 @@ namespace Turret
             StartCoroutine(DamageIndicator());
             StartCoroutine(ShakeTurret());
             OnTakeDamageUpdate?.Invoke(HealthSystem.HealthPercentage);
-
         }
 
         public void Interact(PlayerV1 player)
@@ -68,7 +67,7 @@ namespace Turret
                 time += Time.deltaTime;
                 float ammountToShake = UnityEngine.Random.insideUnitSphere.x * _turretData.ShakeForce;
                 _spriteDamageIndicator.gameObject.transform.localPosition = new Vector3(_spriteOriginalPos.x + ammountToShake, 0.0f, 0.0f);
-                _spriteCannon.gameObject.transform.localPosition = new Vector3(_spriteCannonOriginalPos.x + ammountToShake, 0.0f, 0.0f); ;
+                _spriteCannon.gameObject.transform.localPosition = new Vector3(_spriteCannonOriginalPos.x + ammountToShake, _spriteCannonOriginalPos.y, 0.0f); ;
                 yield return null;
             }
             _spriteDamageIndicator.gameObject.transform.localPosition = _spriteOriginalPos;

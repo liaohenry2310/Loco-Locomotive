@@ -255,14 +255,11 @@ namespace Turret
         }
 
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             // recoil effect to back to original position
             _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, .1f);
-        }
 
-        private void FixedUpdate()
-        {
             if (!_turretBase.HealthSystem.IsAlive)
             {
                 if (_weapons is LaserBeam laser)
@@ -282,6 +279,7 @@ namespace Turret
 
             if (_holdFire)
             {
+                
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
@@ -295,12 +293,12 @@ namespace Turret
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
 
+        public bool isInUse = false;
+
         public void Interact(PlayerV1 player)
         {
+            //TODO: whicht time the player will be atached on the turret?
             _player = player;
-            _player.Interactable = this;
-            _player.SwapActionControlToPlayer(false);
-
             Item item = _player.GetItem;
             if (item)
             {
@@ -308,6 +306,13 @@ namespace Turret
                 Reload(item.ItemType);
                 item.DestroyAfterUse();
             }
+            else
+            {
+                _player.Interactable = this;
+                isInUse = true;
+                _player.SwapActionControlToPlayer(false);
+            }
+
         }
 
         #region Turret Action given to Player
@@ -323,6 +328,7 @@ namespace Turret
             {
                 _player.SwapActionControlToPlayer(true);
                 _player.Interactable = null;
+                isInUse = false;
             }
         }
 
@@ -334,10 +340,10 @@ namespace Turret
         #endregion
 
 
-        private readonly int Active = Animator.StringToHash("Active");
+        private readonly int _active = Animator.StringToHash("Active");
         private void Reload(DispenserData.Type itemType)
         {
-            _animator.SetTrigger(Active);
+            //_animator.SetTrigger(_active);
             switch (itemType)
             {
                 case DispenserData.Type.Normal:
@@ -377,17 +383,23 @@ namespace Turret
         {
             Transform originalPos = _pivotTurretGun.transform;
             float time = 0.0f;
-
-            while (time <= 1f)
+            const float threshold = 0.5f;
+            while (time <= threshold)
             {
-                float interpolation = easeOutElastic(time);
-                //float lerp = Mathf.Lerp(_pivotTurretGun.transform.localScale.y, -0.5f, interpolation);
-                _pivotTurretGun.transform.localScale -= new Vector3(0.0f, interpolation, 0.0f);
-
-                yield return null;
                 time += Time.deltaTime;
+                //float interpolation = easeOutElastic(time);
+                float lerpY = Mathf.Lerp(_pivotTurretGun.transform.localScale.y, 0.5f, time);
+                _pivotTurretGun.transform.localScale -= new Vector3(0.0f, _pivotTurretGun.transform.localScale.y - lerpY, 0.0f);
+                float lerpX = Mathf.Lerp(_pivotTurretGun.transform.localScale.x, 0.5f, time);
+                _pivotTurretGun.transform.localScale += new Vector3(lerpX, 0.0f, 0.0f);
+
+                if (lerpY == 0.5f)
+                {
+                }
+                yield return null;
+
             }
-            _pivotTurretGun.transform.localPosition = originalPos.localPosition;
+            //_pivotTurretGun.transform.localPosition = originalPos.localPosition;
         }
 
         private void SetMachineGun()

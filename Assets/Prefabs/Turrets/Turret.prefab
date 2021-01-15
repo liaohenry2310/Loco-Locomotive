@@ -5307,6 +5307,7 @@ MonoBehaviour:
   _turretBase: {fileID: 3678406150818836080}
   _pivotTurretGun: {fileID: 5227994783419877137}
   _animator: {fileID: 4509426177975780363}
+  isInUse: 0
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0
