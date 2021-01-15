@@ -43,7 +43,7 @@ MonoBehaviour:
     range: 50
     ammoConsumeRate: 1
     aimSpeedMultiplier: 0.25
-    maxAmmo: 150
+    maxAmmo: 15
     recoildForce: 0.01
     lasergunBeam: {fileID: 8300000, guid: c1e4f0e3f9f5c5941918bf90522d7d4f, type: 3}
     lasergunFire: {fileID: 8300000, guid: 3cd5ea05e713fde499a6f5e2fec8f671, type: 3}
