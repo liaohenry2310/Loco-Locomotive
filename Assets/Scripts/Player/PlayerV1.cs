@@ -248,8 +248,16 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             IInteractable iter = collider.GetComponent<IInteractable>();
             if (iter != null)
             {
+                TurretGuns turret = iter as TurretGuns;
+                if (turret != null && turret.isInUse)
+                {
+                    break;
+                }
+
                 iter.Interact(this);
                 animator.SetBool("IsHoldItem", true);
+                
+
                 break;
             }
         }

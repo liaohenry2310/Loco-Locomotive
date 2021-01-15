@@ -10,6 +10,9 @@ namespace Turret
         private readonly TurretData _turretData;
         private readonly List<ParticleSystem> _particles;
         private ParticleSystem _hitVFX = null;
+        private float _recoilTime = 0.0f;
+
+        private float _RecoilTimeRate = 0.0f;
 
         public struct LaserGunProperties
         {
@@ -18,7 +21,8 @@ namespace Turret
             public GameObject endVFX;
             public GameObject hitVFX;
             public AudioSource audioSourceClips;
-            public MonoBehaviour monoBehaviour;
+            
+            public Transform transformCannon;
         }
 
         public LaserGunProperties LaserGunProps;
@@ -69,7 +73,6 @@ namespace Turret
                                     hitParticle.Play();
                                     Object.Destroy(hitParticle.gameObject, 0.05f);
                                 }
-
                             }
                         }
                         else
@@ -89,6 +92,8 @@ namespace Turret
 
                 _currentAmmo -= _turretData.laserGun.ammoConsumeRate / Time.time;
                 _currentAmmo = Mathf.Clamp(_currentAmmo, 0f, _MaxAmmo);
+                //Recoil
+                LaserGunProps.transformCannon.localPosition -= Vector3.up * _turretData.laserGun.recoildForce;
             }
             else
             {
@@ -144,6 +149,8 @@ namespace Turret
 
         public void DisableLaser()
         {
+            _RecoilTimeRate = 0.0f;
+
             LaserGunProps.laserBeamRenderer.enabled = false;
             for (int i = 0; i < _particles.Count; ++i)
             {

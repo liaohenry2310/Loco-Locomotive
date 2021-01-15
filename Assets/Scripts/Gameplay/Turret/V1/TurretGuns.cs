@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Items;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +36,10 @@ namespace Turret
         [SerializeField] private SpriteRenderer _bottomSprite = null;
         [SerializeField] private TurretBase _turretBase = null;
 
+        [Header("Squishes Effect")]
+        [SerializeField] private Transform _pivotTurretGun = null;
+        [SerializeField] private Animator _animator = null;
+
         private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
@@ -46,6 +51,10 @@ namespace Turret
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
         private ParticleSystem.EmissionModule _emission;
+        private Vector2 _recoildSmoothDampVelocity;
+
+        private Vector3 _cannonOriginalPosition;
+
 
         private void Awake()
         {
@@ -56,6 +65,7 @@ namespace Turret
             _emission = _smokeParticle.emission;
 
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
+            _cannonOriginalPosition = _cannonHandler.localPosition;
 
             // Setting up laser properties
             _laserGunProps.laserBeamRenderer = _LaserBeam;
@@ -63,14 +73,16 @@ namespace Turret
             _laserGunProps.endVFX = _LaserBeamEndVFX;
             _laserGunProps.hitVFX = _LaserBeamHitVFX;
             _laserGunProps.audioSourceClips = _audioSource;
-            _laserGunProps.monoBehaviour = this;
+            _laserGunProps.transformCannon = _cannonHandler;
 
             // Setting up missile properties
             _missileGunProps.audioSourceClips = _audioSource;
+            _missileGunProps.transformCannon = _cannonHandler;
 
             // Setting up machine gun properties
             _machineGunProps.muzzleFlashVFX = _MachineGunStartVFX;
             _machineGunProps.audioSourceClips = _audioSource;
+            _machineGunProps.transformCannon = _cannonHandler;
 
             // Setting up shield gun properties
             _shieldGunProps.shieldGunController = _shieldGunController;
@@ -138,7 +150,7 @@ namespace Turret
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
                 }
-                else if(healthPerc >= 0.25f && healthPerc < 0.75f)
+                else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
                     _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
 
@@ -242,8 +254,12 @@ namespace Turret
             }
         }
 
+
         private void FixedUpdate()
         {
+            // recoil effect to back to original position
+            _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, .1f);
+
             if (!_turretBase.HealthSystem.IsAlive)
             {
                 if (_weapons is LaserBeam laser)
@@ -263,6 +279,7 @@ namespace Turret
 
             if (_holdFire)
             {
+                
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
@@ -276,12 +293,12 @@ namespace Turret
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
 
+        public bool isInUse = false;
+
         public void Interact(PlayerV1 player)
         {
+            //TODO: whicht time the player will be atached on the turret?
             _player = player;
-            _player.Interactable = this;
-            _player.SwapActionControlToPlayer(false);
-
             Item item = _player.GetItem;
             if (item)
             {
@@ -289,6 +306,13 @@ namespace Turret
                 Reload(item.ItemType);
                 item.DestroyAfterUse();
             }
+            else
+            {
+                _player.Interactable = this;
+                isInUse = true;
+                _player.SwapActionControlToPlayer(false);
+            }
+
         }
 
         #region Turret Action given to Player
@@ -304,6 +328,7 @@ namespace Turret
             {
                 _player.SwapActionControlToPlayer(true);
                 _player.Interactable = null;
+                isInUse = false;
             }
         }
 
@@ -314,8 +339,11 @@ namespace Turret
 
         #endregion
 
+
+        private readonly int _active = Animator.StringToHash("Active");
         private void Reload(DispenserData.Type itemType)
         {
+            //_animator.SetTrigger(_active);
             switch (itemType)
             {
                 case DispenserData.Type.Normal:
@@ -336,6 +364,42 @@ namespace Turret
                 default:
                     break;
             }
+
+            //StartCoroutine(SquisheEffect());
+        }
+
+        private float easeOutElastic(float time)
+        {
+            const float c4 = (2 * Mathf.PI) / 3;
+
+            return time == 0
+              ? 0
+              : time == 1
+              ? 1
+              : Mathf.Pow(2.0f, -10.0f * time) * Mathf.Sin((time * 10.0f - 0.75f) * c4) + 1.0f;
+        }
+
+        private IEnumerator SquisheEffect()
+        {
+            Transform originalPos = _pivotTurretGun.transform;
+            float time = 0.0f;
+            const float threshold = 0.5f;
+            while (time <= threshold)
+            {
+                time += Time.deltaTime;
+                //float interpolation = easeOutElastic(time);
+                float lerpY = Mathf.Lerp(_pivotTurretGun.transform.localScale.y, 0.5f, time);
+                _pivotTurretGun.transform.localScale -= new Vector3(0.0f, _pivotTurretGun.transform.localScale.y - lerpY, 0.0f);
+                float lerpX = Mathf.Lerp(_pivotTurretGun.transform.localScale.x, 0.5f, time);
+                _pivotTurretGun.transform.localScale += new Vector3(lerpX, 0.0f, 0.0f);
+
+                if (lerpY == 0.5f)
+                {
+                }
+                yield return null;
+
+            }
+            //_pivotTurretGun.transform.localPosition = originalPos.localPosition;
         }
 
         private void SetMachineGun()
