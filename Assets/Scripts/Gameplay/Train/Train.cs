@@ -2,7 +2,6 @@
 using Interfaces;
 using System;
 using UnityEngine;
-
 namespace GamePlay
 {
 
@@ -12,6 +11,9 @@ namespace GamePlay
         public event Action<float> OnUpdateFuelUI;    // FuelUI Action
         public event Action<float> OnFuelReloadUI;    // FireBox Action
         public event Action OnGameOver;               // GameManager action
+
+        private float _shakeAmount;
+        private Vector3 _pos;
 
         #region Members
 
@@ -30,6 +32,7 @@ namespace GamePlay
         private void Start()
         {
             Initialized();
+            _pos = this.transform.position;
         }
 
         private void OnEnable()
@@ -95,6 +98,14 @@ namespace GamePlay
             {
                 OnGameOver?.Invoke();
             }
+            //Train Shakes
+            if (damage >10)
+                _shakeAmount = 0.1f;          
+            else
+                _shakeAmount = UnityEngine.Random.Range(0.05f, 0.08f);
+            Vector3 pos = _pos + UnityEngine.Random.insideUnitSphere * _shakeAmount;
+            pos.y = transform.localPosition.y;
+            transform.localPosition = pos;
         }
     }
 }
