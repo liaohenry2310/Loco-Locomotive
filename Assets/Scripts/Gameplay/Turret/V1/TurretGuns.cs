@@ -54,7 +54,7 @@ namespace Turret
         private Vector2 _recoildSmoothDampVelocity;
 
         private Vector3 _cannonOriginalPosition;
-
+        private readonly int _active = Animator.StringToHash("Active");
 
         private void Awake()
         {
@@ -340,10 +340,10 @@ namespace Turret
         #endregion
 
 
-        private readonly int _active = Animator.StringToHash("Active");
+        
         private void Reload(DispenserData.Type itemType)
         {
-            //_animator.SetTrigger(_active);
+            _animator.SetTrigger(_active);
             switch (itemType)
             {
                 case DispenserData.Type.Normal:
