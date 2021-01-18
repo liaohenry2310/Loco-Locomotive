@@ -58,7 +58,6 @@ namespace Turret
             _spriteDamageIndicator.color = _defaultColor;
         }
 
-
         private IEnumerator ShakeTurret()
         {
             float time = 0f;

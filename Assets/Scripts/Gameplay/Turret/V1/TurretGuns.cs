@@ -40,6 +40,8 @@ namespace Turret
         [SerializeField] private Transform _pivotTurretGun = null;
         [SerializeField] private Animator _animator = null;
 
+        public bool isInUse = false;
+
         private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
@@ -140,6 +142,11 @@ namespace Turret
 
         private void UpdateBottonTurret(float healthPerc)
         {
+            if (!_turretBase.HealthSystem.IsAlive && isInUse)
+            {
+                EngageTurret(false);
+            }
+
             _turretAmmoIndicator.EnableIndicator(healthPerc >= 0.1f);
 
             if (_weapons as LaserBeam != null)
@@ -262,6 +269,7 @@ namespace Turret
 
             if (!_turretBase.HealthSystem.IsAlive)
             {
+
                 if (_weapons is LaserBeam laser)
                 {
                     laser.DisableLaser();
@@ -279,7 +287,7 @@ namespace Turret
 
             if (_holdFire)
             {
-                
+
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
@@ -293,10 +301,12 @@ namespace Turret
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
 
-        public bool isInUse = false;
 
         public void Interact(PlayerV1 player)
         {
+            // Check if the turret still alive to use it
+            if (!_turretBase.HealthSystem.IsAlive) return;
+
             //TODO: whicht time the player will be atached on the turret?
             _player = player;
             Item item = _player.GetItem;
@@ -308,9 +318,7 @@ namespace Turret
             }
             else
             {
-                _player.Interactable = this;
-                isInUse = true;
-                _player.SwapActionControlToPlayer(false);
+                EngageTurret(true);
             }
 
         }
@@ -326,9 +334,7 @@ namespace Turret
         {
             if (context.started)
             {
-                _player.SwapActionControlToPlayer(true);
-                _player.Interactable = null;
-                isInUse = false;
+                EngageTurret(false);
             }
         }
 
@@ -339,8 +345,6 @@ namespace Turret
 
         #endregion
 
-
-        
         private void Reload(DispenserData.Type itemType)
         {
             _animator.SetTrigger(_active);
@@ -379,6 +383,7 @@ namespace Turret
               : Mathf.Pow(2.0f, -10.0f * time) * Mathf.Sin((time * 10.0f - 0.75f) * c4) + 1.0f;
         }
 
+        // not using for now
         private IEnumerator SquisheEffect()
         {
             Transform originalPos = _pivotTurretGun.transform;
@@ -400,6 +405,19 @@ namespace Turret
 
             }
             //_pivotTurretGun.transform.localPosition = originalPos.localPosition;
+        }
+
+        private void EngageTurret(bool isEngaged)
+        {
+            _player.Interactable = isEngaged ? this : null;
+            _player.SwapActionControlToPlayer(!isEngaged);
+            isInUse = isEngaged;
+
+            if (!isEngaged) // when dettached, reset the rotation speed and holdfire as well
+            {
+                _rotation.x = 0.0f;
+                _holdFire = false;
+            }
         }
 
         private void SetMachineGun()

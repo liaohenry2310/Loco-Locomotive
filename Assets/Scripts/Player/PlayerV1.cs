@@ -256,8 +256,6 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
                 iter.Interact(this);
                 animator.SetBool("IsHoldItem", true);
-                
-
                 break;
             }
         }
