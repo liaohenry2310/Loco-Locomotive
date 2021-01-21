@@ -311,6 +311,7 @@ namespace Turret
                 _player.Interactable = this;
                 isInUse = true;
                 _player.SwapActionControlToPlayer(false);
+                _player.transform.position = this.transform.position;
             }
 
         }
