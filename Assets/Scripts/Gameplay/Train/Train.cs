@@ -106,7 +106,7 @@ namespace GamePlay
             Vector3 pos = _pos + shakepos;
             pos.y = transform.localPosition.y;
             transform.localPosition = pos;
-            StartCoroutine(camera_Shake.Shake(0.1f, 0.1f));
+            StartCoroutine(camera_Shake.Shake(0.03f, 0.03f));
         }
     }
 }
