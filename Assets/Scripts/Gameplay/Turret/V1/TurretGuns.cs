@@ -412,6 +412,7 @@ namespace Turret
             _player.Interactable = isEngaged ? this : null;
             _player.SwapActionControlToPlayer(!isEngaged);
             isInUse = isEngaged;
+            _player.transform.position = transform.position;
 
             if (!isEngaged) // when dettached, reset the rotation speed and holdfire as well
             {
