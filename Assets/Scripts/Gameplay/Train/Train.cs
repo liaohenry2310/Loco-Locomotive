@@ -11,10 +11,9 @@ namespace GamePlay
         public event Action<float> OnUpdateFuelUI;    // FuelUI Action
         public event Action<float> OnFuelReloadUI;    // FireBox Action
         public event Action OnGameOver;               // GameManager action
-
+        public Camera_shake camera_Shake; 
         private float _shakeAmount;
         private Vector3 _pos;
-
         #region Members
 
         [SerializeField] private TrainData _trainData = null;
@@ -103,9 +102,11 @@ namespace GamePlay
                 _shakeAmount = 0.1f;          
             else
                 _shakeAmount = UnityEngine.Random.Range(0.05f, 0.08f);
-            Vector3 pos = _pos + UnityEngine.Random.insideUnitSphere * _shakeAmount;
+            Vector3 shakepos = UnityEngine.Random.insideUnitSphere * _shakeAmount;
+            Vector3 pos = _pos + shakepos;
             pos.y = transform.localPosition.y;
             transform.localPosition = pos;
+            StartCoroutine(camera_Shake.Shake(0.1f, 0.1f));
         }
     }
 }
