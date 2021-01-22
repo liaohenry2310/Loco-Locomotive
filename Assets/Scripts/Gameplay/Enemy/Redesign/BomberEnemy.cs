@@ -21,6 +21,13 @@ public class BomberEnemy : MonoBehaviour
     private ObjectPoolManager _objectPoolManager = null;
     private GameObject _projectile;
 
+    enum Direction
+    {
+        Idle,
+        Left,
+        Right
+    }
+    Direction currentDir = Direction.Idle;
 
     private bool isAlive=false;
 
@@ -47,13 +54,14 @@ public class BomberEnemy : MonoBehaviour
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
-        _nextAttackTime = enemyData.AttackDelay;
+        _nextAttackTime = Time.time+1.0f + Random.Range(-enemyData.AttackDelay * 0.8f, enemyData.AttackDelay * 0.8f);
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ReShield = true;
         }
         isAlive = true;
+        _velocity = Vector3.zero;
     }
     private void Start()
     {
@@ -79,9 +87,11 @@ public class BomberEnemy : MonoBehaviour
         //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
         _velocity += _acceleration * Time.deltaTime;
 
-        if (  _velocity.magnitude > enemyData.MaxSpeed)
+        if (_velocity.sqrMagnitude > enemyData.MaxSpeed)
         {
+            var speed = _velocity.magnitude;
             _velocity.Normalize();
+            _velocity /= speed;
             _velocity *= enemyData.MaxSpeed;
         }
 
@@ -104,13 +114,32 @@ public class BomberEnemy : MonoBehaviour
         }
 
         transform.position += _velocity * Time.deltaTime;
+        var heading = _velocity.normalized;
+        Direction movingDir;
+        if (heading.x < 0.0f)
+        {
+            movingDir = Direction.Left;
+        }
+        else
+        {
+            movingDir = Direction.Right;
+        }
+        if (movingDir != currentDir)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0.1f * Time.deltaTime);
+            currentDir = movingDir;
+        }
+        else
+        {
+            transform.rotation = Quaternion.AngleAxis(heading.x * -enemyData.Bomber_tiltingAngle + (Time.deltaTime * 2.0f), Vector3.forward);
+        }
         //Shooting
         if (_nextAttackTime < Time.time)
         {
             animator.SetBool("Shoot", true);
             Invoke("unplayAnimation", 0.5f);
             //var targetlist = LevelManager.Instance.Train.GetTurrets();
-            _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.1f, enemyData.AttackDelay * 0.1f);
+            _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.18f, enemyData.AttackDelay * 0.18f);
             Invoke("delayshoot", 0.75f);
         }
         if (_nextAttackTime < (Time.time + enemyData.AttackDelay - enemyData.AttackDelay * 0.1f))

@@ -12,6 +12,7 @@ public class BomberEnemyData : ScriptableObject
     public GameObject projectile;
     public float Bomber_AttackDamage;
     public float Bomber_AttackSpeed;
+    public float Bomber_tiltingAngle;
 
 
 
