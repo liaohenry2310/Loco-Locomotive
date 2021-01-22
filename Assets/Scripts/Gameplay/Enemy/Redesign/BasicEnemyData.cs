@@ -12,6 +12,7 @@ public class BasicEnemyData : ScriptableObject
     public GameObject projectile;
     public float Basic_AttackDamage;
     public float Basic_AttackSpeed;
+    public float Basic_tiltingAngle;
 
     //Any shared movement data can be put here as well, for example...
 
