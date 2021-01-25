@@ -5305,9 +5305,9 @@ MonoBehaviour:
   _cannonSprite: {fileID: 5538747832329296229}
   _bottomSprite: {fileID: 4344615192931754405}
   _turretBase: {fileID: 3678406150818836080}
-  _pivotTurretGun: {fileID: 5227994783419877137}
   _animator: {fileID: 4509426177975780363}
   isInUse: 0
+  RetractitleSpeed: 5
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0
@@ -5460,7 +5460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3193508246254816229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.17, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3193508245827852810}
@@ -10983,6 +10983,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1509987215140456361, guid: 9ba136f07a54a0d45bb7c9fddc76f053,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711301449217521663, guid: 9ba136f07a54a0d45bb7c9fddc76f053,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4922654848624532853, guid: 9ba136f07a54a0d45bb7c9fddc76f053,
         type: 3}
       propertyPath: m_RootOrder
@@ -11006,7 +11016,7 @@ PrefabInstance:
     - target: {fileID: 4922654848624532853, guid: 9ba136f07a54a0d45bb7c9fddc76f053,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.09000003
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4922654848624532853, guid: 9ba136f07a54a0d45bb7c9fddc76f053,
         type: 3}

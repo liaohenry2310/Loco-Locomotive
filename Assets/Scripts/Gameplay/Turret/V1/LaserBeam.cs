@@ -10,10 +10,7 @@ namespace Turret
         private readonly TurretData _turretData;
         private readonly List<ParticleSystem> _particles;
         private ParticleSystem _hitVFX = null;
-        private float _recoilTime = 0.0f;
-
-        private float _RecoilTimeRate = 0.0f;
-
+       
         public struct LaserGunProperties
         {
             public LineRenderer laserBeamRenderer;
@@ -149,8 +146,6 @@ namespace Turret
 
         public void DisableLaser()
         {
-            _RecoilTimeRate = 0.0f;
-
             LaserGunProps.laserBeamRenderer.enabled = false;
             for (int i = 0; i < _particles.Count; ++i)
             {
