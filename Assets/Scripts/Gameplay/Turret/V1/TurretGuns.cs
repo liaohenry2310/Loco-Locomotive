@@ -69,7 +69,6 @@ namespace Turret
 
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
             _cannonOriginalPosition = new Vector3(_cannonHandler.localPosition.x, _cannonHandler.localPosition.y + 0.5f, 0.0f);
-            _turretAmmoIndicator.PlayerUsingTurret(false);
             //_cannonOriginalPosition = _cannonHandler.localPosition;
 
             // Setting up laser properties
@@ -111,6 +110,7 @@ namespace Turret
 
         private void Start()
         {
+            _turretAmmoIndicator.PlayerUsingTurret(false);
             _turretBase.OnTakeDamageUpdate += UpdateBottonTurret;
             _turretBase.OnRepairUpdate += UpdateTurretSprite;
         }
