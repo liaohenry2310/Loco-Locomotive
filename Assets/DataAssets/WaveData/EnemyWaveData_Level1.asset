@@ -20,7 +20,7 @@ MonoBehaviour:
     WormholeSize: 1
   - EnemyType: 0
     NumToSpawn: 5
-    NextWaveTimeDelay: 5
+    NextWaveTimeDelay: 50000
     WormholeSize: 1
   - EnemyType: 0
     NumToSpawn: 5
