@@ -37,10 +37,10 @@ namespace Turret
         [SerializeField] private TurretBase _turretBase = null;
 
         [Header("Squishes Effect")]
-        [SerializeField] private Transform _pivotTurretGun = null;
         [SerializeField] private Animator _animator = null;
 
-        public bool isInUse = false;
+        [HideInInspector] public bool isInUse = false;
+        public float RetractitleSpeed = 5.0f;
 
         private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
@@ -57,6 +57,7 @@ namespace Turret
 
         private Vector3 _cannonOriginalPosition;
         private readonly int _active = Animator.StringToHash("Active");
+        private bool _isReadyToShot = false;
 
         private void Awake()
         {
@@ -67,7 +68,9 @@ namespace Turret
             _emission = _smokeParticle.emission;
 
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
-            _cannonOriginalPosition = _cannonHandler.localPosition;
+            _cannonOriginalPosition = new Vector3(_cannonHandler.localPosition.x, _cannonHandler.localPosition.y + 0.5f, 0.0f);
+            _turretAmmoIndicator.PlayerUsingTurret(false);
+            //_cannonOriginalPosition = _cannonHandler.localPosition;
 
             // Setting up laser properties
             _laserGunProps.laserBeamRenderer = _LaserBeam;
@@ -261,9 +264,9 @@ namespace Turret
             }
         }
 
-
         private void FixedUpdate()
         {
+            if (!_isReadyToShot) return;
             // recoil effect to back to original position
             _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, .1f);
 
@@ -300,7 +303,6 @@ namespace Turret
             }
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
         }
-
 
         public void Interact(PlayerV1 player)
         {
@@ -372,54 +374,60 @@ namespace Turret
             //StartCoroutine(SquisheEffect());
         }
 
-        private float easeOutElastic(float time)
-        {
-            const float c4 = (2 * Mathf.PI) / 3;
-
-            return time == 0
-              ? 0
-              : time == 1
-              ? 1
-              : Mathf.Pow(2.0f, -10.0f * time) * Mathf.Sin((time * 10.0f - 0.75f) * c4) + 1.0f;
-        }
-
-        // not using for now
-        private IEnumerator SquisheEffect()
-        {
-            Transform originalPos = _pivotTurretGun.transform;
-            float time = 0.0f;
-            const float threshold = 0.5f;
-            while (time <= threshold)
-            {
-                time += Time.deltaTime;
-                //float interpolation = easeOutElastic(time);
-                float lerpY = Mathf.Lerp(_pivotTurretGun.transform.localScale.y, 0.5f, time);
-                _pivotTurretGun.transform.localScale -= new Vector3(0.0f, _pivotTurretGun.transform.localScale.y - lerpY, 0.0f);
-                float lerpX = Mathf.Lerp(_pivotTurretGun.transform.localScale.x, 0.5f, time);
-                _pivotTurretGun.transform.localScale += new Vector3(lerpX, 0.0f, 0.0f);
-
-                if (lerpY == 0.5f)
-                {
-                }
-                yield return null;
-
-            }
-            //_pivotTurretGun.transform.localPosition = originalPos.localPosition;
-        }
-
         private void EngageTurret(bool isEngaged)
         {
             _player.Interactable = isEngaged ? this : null;
             _player.SwapActionControlToPlayer(!isEngaged);
             isInUse = isEngaged;
             _player.transform.position = transform.position;
-
+            EngangedTurretEffect(isEngaged);
             if (!isEngaged) // when dettached, reset the rotation speed and holdfire as well
             {
                 _rotation.x = 0.0f;
                 _holdFire = false;
             }
         }
+
+        private void EngangedTurretEffect(bool isReady)
+        {
+            if (isReady)
+            {
+                StartCoroutine(AttachRetractileTurret());
+            }
+            else
+            {
+                StartCoroutine(DetachedRetractileTurret());
+            }
+        }
+
+        private IEnumerator AttachRetractileTurret()
+        {
+            const float maxY = 0.17f;
+            _isReadyToShot = false;
+            while (_cannonHandler.localPosition.y < maxY)
+            {
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, maxY, Time.deltaTime * RetractitleSpeed);
+                _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp + 0.01f, 0.0f);
+                yield return null;
+            }
+            _turretAmmoIndicator.PlayerUsingTurret(true);
+            _isReadyToShot = true;
+        }
+
+        private IEnumerator DetachedRetractileTurret()
+        {
+            const float minY = -0.3f;
+            _cannonHandler.rotation = Quaternion.identity;
+            _isReadyToShot = false;
+            _turretAmmoIndicator.PlayerUsingTurret(false);
+            while (_cannonHandler.localPosition.y > minY)
+            {
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, minY, Time.deltaTime * RetractitleSpeed);
+                _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp - 0.01f, 0.0f);
+                yield return null;
+            }
+        }
+
 
         private void SetMachineGun()
         {
