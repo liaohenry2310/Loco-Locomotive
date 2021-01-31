@@ -21,8 +21,7 @@ public class TrainEditor : Editor
         _trainData.MaxHealth = EditorGUILayout.FloatField("Max Health", _trainData.MaxHealth);
         _trainData.MaxFuel = EditorGUILayout.FloatField("Max Fuel", _trainData.MaxFuel);
         _trainData.FuelRate = EditorGUILayout.FloatField("Fuel Rate", _trainData.FuelRate);
-
         serializedObject.ApplyModifiedProperties();
     }
-   
+
 }
