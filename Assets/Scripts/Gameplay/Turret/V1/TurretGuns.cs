@@ -16,7 +16,6 @@ namespace Turret
         [SerializeField] private Transform _spawnPointFire = null;
         [SerializeField] private TurretAmmoIndicator _turretAmmoIndicator = null;
         [SerializeField] private ParticleSystem _smokeParticle = null;
-        [SerializeField] [Range(0.0f, 10.0f)] private float _smokeMaxEmission = 10.0f;
 
         [Header("MachineGun")]
         [SerializeField] private GameObject _MachineGunStartVFX = null;
@@ -40,7 +39,6 @@ namespace Turret
         [SerializeField] private Animator _animator = null;
 
         [HideInInspector] public bool isInUse = false;
-        public float RetractitleSpeed = 5.0f;
 
         private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
@@ -162,21 +160,21 @@ namespace Turret
                 }
                 else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
+                    _emission.rateOverTime = Mathf.RoundToInt(_turretData.SmokeMaxEmission / 4);
 
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[1];
                 }
                 else if (healthPerc > 0f && healthPerc < 0.25f)
                 {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
+                    _emission.rateOverTime = Mathf.RoundToInt(_turretData.SmokeMaxEmission / 2);
 
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[2];
                 }
                 else
                 {
-                    _emission.rateOverTime = _smokeMaxEmission;
+                    _emission.rateOverTime = _turretData.SmokeMaxEmission;
 
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[3];
@@ -198,21 +196,21 @@ namespace Turret
                 }
                 else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
+                    _emission.rateOverTime = Mathf.RoundToInt(_turretData.SmokeMaxEmission / 4);
 
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[1];
                 }
                 else if (healthPerc > 0f && healthPerc < 0.25f)
                 {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
+                    _emission.rateOverTime = Mathf.RoundToInt(_turretData.SmokeMaxEmission / 2);
 
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[2];
                 }
                 else
                 {
-                    _emission.rateOverTime = _smokeMaxEmission;
+                    _emission.rateOverTime = _turretData.SmokeMaxEmission;
 
                     _upperSprite.sprite = _turretData.machineGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[3];
@@ -235,21 +233,21 @@ namespace Turret
                 }
                 else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
+                    _emission.rateOverTime = Mathf.RoundToInt(_turretData.SmokeMaxEmission / 4);
 
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[1];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[1];
                 }
                 else if (healthPerc > 0f && healthPerc < 0.25f)
                 {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
+                    _emission.rateOverTime = Mathf.RoundToInt(_turretData.SmokeMaxEmission / 2);
 
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[2];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[2];
                 }
                 else
                 {
-                    _emission.rateOverTime = _smokeMaxEmission;
+                    _emission.rateOverTime = _turretData.SmokeMaxEmission;
 
                     _upperSprite.sprite = _turretData.missileGun.Uppersprites[3];
                     _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[3];
@@ -406,7 +404,7 @@ namespace Turret
             _isReadyToShot = false;
             while (_cannonHandler.localPosition.y < maxY)
             {
-                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, maxY, Time.deltaTime * RetractitleSpeed);
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, maxY, Time.deltaTime * _turretData.RetractitleCannonSpeed);
                 _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp + 0.01f, 0.0f);
                 yield return null;
             }
@@ -422,7 +420,7 @@ namespace Turret
             _turretAmmoIndicator.PlayerUsingTurret(false);
             while (_cannonHandler.localPosition.y > minY)
             {
-                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, minY, Time.deltaTime * RetractitleSpeed);
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, minY, Time.deltaTime * _turretData.RetractitleCannonSpeed);
                 _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp - 0.01f, 0.0f);
                 yield return null;
             }
