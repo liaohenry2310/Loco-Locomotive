@@ -19,12 +19,9 @@ MonoBehaviour:
   Swarm_AttackDamage: 10
   Swarm_AttackSpeed: 10
   Swarm_tiltingAngle: 15
-  WanderBehaviorWeight: 5
-  WanderRadius: 3
-  WanderDistance: 3
-  WanderJitter: 5
+  WanderBehaviorWeight: 7
+  WanderRadius: 5
+  WanderDistance: 2
+  WanderJitter: 3
   SeekBehaviorWeight: 5
   CohesionBehaviorWeight: 5
-  SeparationBehaviorWeight: 5
-  SeparationBehaviorRadius: 3
-  AlignmentBehaviorWeight: 0
