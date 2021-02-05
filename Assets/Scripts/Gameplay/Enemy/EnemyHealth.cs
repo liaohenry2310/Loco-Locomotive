@@ -33,6 +33,10 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
             _spriteDamageIndicator.color = _defaultColor;
             reHealth = false;
         }
+        if (!IsAlive())
+        {
+            _spriteDamageIndicator.color = Color.gray;
+        }
     }
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {

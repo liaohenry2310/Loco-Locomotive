@@ -1078,7 +1078,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1704061729093064565}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1001 &1981579738687359020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1483,9 +1482,6 @@ Transform:
   m_PrefabInstance: {fileID: 2720101293913347934}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2950382183246382244
-=======
---- !u!1001 &2628216220485055923
->>>>>>> parent of 12f3e29... Merge branch 'develop' into Train_fix
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2

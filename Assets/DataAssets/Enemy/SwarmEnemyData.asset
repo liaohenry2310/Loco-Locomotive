@@ -14,17 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 15
   ShieldHealth: 200
-  MaxSpeed: 25
+  MaxSpeed: 20
   AttackDelay: 5
   Swarm_AttackDamage: 10
   Swarm_AttackSpeed: 10
   Swarm_tiltingAngle: 15
-  WanderBehaviorWeight: 5
-  WanderRadius: 3
-  WanderDistance: 3
-  WanderJitter: 5
+  WanderBehaviorWeight: 7
+  WanderRadius: 5
+  WanderDistance: 2
+  WanderJitter: 3
   SeekBehaviorWeight: 5
-  CohesionBehaviorWeight: 3
-  SeparationBehaviorWeight: 5
-  SeparationBehaviorRadius: 3
-  AlignmentBehaviorWeight: 0
+  CohesionBehaviorWeight: 5
