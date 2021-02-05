@@ -2,16 +2,17 @@
 using Interfaces;
 using System;
 using UnityEngine;
+
 namespace GamePlay
 {
-
+    [Serializable]
     public class Train : MonoBehaviour, IDamageable<float>
     {
         public event Action<float> OnUpdateHealthUI;  // HealthUI Action
         public event Action<float> OnUpdateFuelUI;    // FuelUI Action
         public event Action<float> OnFuelReloadUI;    // FireBox Action
         public event Action OnGameOver;               // GameManager action
-        public Camera_shake camera_Shake; 
+        public Camera_shake camera_Shake;
         private float _shakeAmount;
         private Vector3 _pos;
         #region Members
@@ -98,8 +99,8 @@ namespace GamePlay
                 OnGameOver?.Invoke();
             }
             //Train Shakes
-            if (damage >10)
-                _shakeAmount = 0.1f;          
+            if (damage > 10.0f)
+                _shakeAmount = 0.1f;
             else
                 _shakeAmount = UnityEngine.Random.Range(0.05f, 0.08f);
             Vector3 shakepos = UnityEngine.Random.insideUnitSphere * _shakeAmount;
