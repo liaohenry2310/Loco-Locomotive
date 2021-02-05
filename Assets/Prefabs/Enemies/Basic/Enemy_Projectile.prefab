@@ -174,7 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecf88d0ac991184c9b5c6178f91f545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicEnemyData: {fileID: 11400000, guid: 2348c4b0ffa86594dbd97c8df78aca41, type: 2}
+  _basicEnemyData: {fileID: 11400000, guid: 92a939a78168b6945be037180c6d86db, type: 2}
   _hitVFX: {fileID: 198175801688348628, guid: 5ed40df492e04a04b841810d17bee6c3, type: 3}
-  _hitBomberVFX: {fileID: 198917022394846920, guid: 19727d177b985404abb0bdc834e04b79,
-    type: 3}
+  _explosionVFX: {fileID: 0}

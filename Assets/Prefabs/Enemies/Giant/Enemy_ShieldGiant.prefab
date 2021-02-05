@@ -170,6 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
+  _laserHitVFX: {fileID: 4088346475568816580, guid: 580a8120e50668f4aae98cc00e644146,
+    type: 3}
   enemyData: {fileID: 11400000, guid: 9e44c2d661ac3a242bb84041efc3a1c2, type: 2}
   sr: {fileID: 3276408232143424651}
   lineRenderer: {fileID: 4409199027868916524}

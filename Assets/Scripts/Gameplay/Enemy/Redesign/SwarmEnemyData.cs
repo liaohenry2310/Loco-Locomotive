@@ -23,8 +23,8 @@ public class SwarmEnemyData : ScriptableObject
 
     public float SeekBehaviorWeight;
     public float CohesionBehaviorWeight;
-    public float SeparationBehaviorWeight;
-    public float SeparationBehaviorRadius;
-    public float AlignmentBehaviorWeight;
+    //public float SeparationBehaviorWeight;
+    //public float SeparationBehaviorRadius;
+    //public float AlignmentBehaviorWeight;
 
 }

@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
-  enemyData: {fileID: 11400000, guid: 64cbb66caa3388a4c892e716f40a82d3, type: 2}
+  enemyData: {fileID: 11400000, guid: 1e056acbb410c9841a3c0b7258f08f25, type: 2}
   animator: {fileID: 750045293874219555}
   boom: {fileID: 1604665581559119685}
 --- !u!95 &750045293874219555

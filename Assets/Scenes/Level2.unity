@@ -717,6 +717,41 @@ PrefabInstance:
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 1772919586}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: OnCountdownFinished.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: OnCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: OnCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1772919586}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: OnCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: OnCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: OnCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: OnCountdownFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7777456898462615898, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
       propertyPath: m_Camera
