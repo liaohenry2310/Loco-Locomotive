@@ -110,7 +110,7 @@ namespace Turret
 
         private void Start()
         {
-            _turretAmmoIndicator.PlayerUsingTurret(false);
+            //_turretAmmoIndicator.PlayerUsingTurret(false);
             _turretBase.OnTakeDamageUpdate += UpdateBottonTurret;
             _turretBase.OnRepairUpdate += UpdateTurretSprite;
         }
@@ -419,13 +419,14 @@ namespace Turret
             const float minY = -0.3f;
             _cannonHandler.rotation = Quaternion.identity;
             _isReadyToShot = false;
-            _turretAmmoIndicator.PlayerUsingTurret(false);
+            //_turretAmmoIndicator.PlayerUsingTurret(false);
             while (_cannonHandler.localPosition.y > minY)
             {
                 float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, minY, Time.deltaTime * RetractitleSpeed);
                 _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp - 0.01f, 0.0f);
                 yield return null;
             }
+            _turretAmmoIndicator.PlayerUsingTurret(true);
         }
 
 
