@@ -370,8 +370,7 @@ namespace Turret
                 default:
                     break;
             }
-
-            //StartCoroutine(SquisheEffect());
+            _turretAmmoIndicator.UpadteIndicator(ref _weapons);
         }
 
         private void EngageTurret(bool isEngaged)
