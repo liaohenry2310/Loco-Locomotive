@@ -23,10 +23,10 @@ public class TurretEditor : Editor
 
         GUIStyle labelStyle = new GUIStyle(EditorStyles.label)
         {
-            fontStyle = FontStyle.Bold,
+            fontStyle = FontStyle.BoldAndItalic,
             fontSize = 20
         };
-        labelStyle.normal.textColor = Color.black;
+        labelStyle.normal.textColor = Color.white;
 
         GUILayout.Label("Turret properties:", labelStyle);
 

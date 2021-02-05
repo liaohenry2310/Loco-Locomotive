@@ -16,7 +16,13 @@ public class TrainEditor : Editor
         base.OnInspectorGUI();
         serializedObject.Update();
 
-        GUILayout.Label("Train properties:");
+        GUIStyle labelStyle = new GUIStyle(EditorStyles.label)
+        {
+            fontStyle = FontStyle.BoldAndItalic,
+            fontSize = 20
+        };
+        labelStyle.normal.textColor = Color.white;
+        GUILayout.Label("Train properties:", labelStyle);
 
         _trainData.MaxHealth = EditorGUILayout.FloatField("Max Health", _trainData.MaxHealth);
         _trainData.MaxFuel = EditorGUILayout.FloatField("Max Fuel", _trainData.MaxFuel);
