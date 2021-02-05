@@ -1033,7 +1033,7 @@ PrefabInstance:
     - target: {fileID: 1541751259914739329, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.33
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1541751259914739329, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
         type: 3}
@@ -1110,6 +1110,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 471676238}
+    - target: {fileID: 4631587206525495987, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c, type: 3}
 --- !u!1001 &1059341986
@@ -2136,7 +2141,7 @@ PrefabInstance:
     - target: {fileID: 22994337270071068, guid: 6c9ff797aa67b7b4ea0dddf75754a23d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.53
+      value: -4.67
       objectReference: {fileID: 0}
     - target: {fileID: 22994337270071068, guid: 6c9ff797aa67b7b4ea0dddf75754a23d,
         type: 3}
@@ -2346,6 +2351,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538949429845324227, guid: 999ad8238afbd3a4ea80859bc6552b23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999ad8238afbd3a4ea80859bc6552b23, type: 3}
@@ -2559,7 +2569,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wagon
       objectReference: {fileID: 0}
+    - target: {fileID: 4602935041797982419, guid: 999ad8238afbd3a4ea80859bc6552b23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4802261073964211683, guid: 999ad8238afbd3a4ea80859bc6552b23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538949429845324227, guid: 999ad8238afbd3a4ea80859bc6552b23,
         type: 3}
       propertyPath: m_IsActive
       value: 0
