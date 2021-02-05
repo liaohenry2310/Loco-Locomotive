@@ -11,6 +11,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 {
     [SerializeField] private PlayerData _playerData = null;
     [SerializeField] private SpriteRenderer _playerSpriteRenderer = null;
+
     public IInteractable Interactable { get; set; } = null;
     public LadderController LadderController { get; set; } = null;
 
@@ -71,6 +72,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     #region Animator
     private void Update()
     {
+        TurretGuns turret = Interactable as TurretGuns;
         //moving
         if (_axis.x < 0)
         {
@@ -89,10 +91,19 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("UsingTurret", false);
         }
         //not moving
-        else
+        else if(turret == null)
         {
-            animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", true);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("UsingTurret", false);
+        }
+        else if (turret!=null)
+        {
+            animator.SetBool("UsingTurret", true);
+            animator.SetBool("IsClimb", false);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("IsHoldItem", false);
         }
         //climbing
         if (_axis.y != 0.0f)
@@ -108,19 +119,22 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsClimb", false);
         }
         //using Turret
-        TurretGuns turret = Interactable as TurretGuns;
-        if (turret != null)
-        {
-            animator.SetBool("UsingTurret", true);
-            animator.SetBool("IsClimb", false);
-            animator.SetBool("IsMoving", false);
-            animator.SetBool("IsIdle", false);
-            animator.SetBool("IsHoldItem", false);
-        }
-        else
-        {
-            animator.SetBool("UsingTurret", false);
-        }
+        //TurretGuns turret = Interactable as TurretGuns;
+
+        //if (turret !=null)
+        //{
+        //    animator.SetBool("UsingTurret", true);
+        //    animator.SetBool("IsClimb", false);
+        //    animator.SetBool("IsMoving", false);
+        //    animator.SetBool("IsIdle", false);
+        //    animator.SetBool("IsHoldItem", false);
+
+        //}
+        //else
+        //{
+        //    animator.SetBool("IsIdle", true);
+        //    animator.SetBool("UsingTurret", false);
+        //}
         //player death
         //animator.SetBool("IsDeath", !_healthSystem.IsAlive);
 
