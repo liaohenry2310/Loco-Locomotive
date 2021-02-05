@@ -92,15 +92,15 @@ public class SwarmEnemyGroup : MonoBehaviour
             {
                  _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(agent.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 1.0f), enemyData.WanderBehaviorWeight);
                  _acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(CohesionBehavior.CalculateMove(agent.transform, swarmNeighborsTrans),enemyData.CohesionBehaviorWeight);
-                 _acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighborsTrans, enemyData.SeparationBehaviorRadius),enemyData.SeparationBehaviorWeight);
-                 _acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(AlignmentBehavior.CalculateMove(agent.transform, swarmNeighborsTrans),enemyData.AlignmentBehaviorWeight);
-                 agent.Velocity += _acceleration * Time.deltaTime;
+                 //_acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighborsTrans, enemyData.SeparationBehaviorRadius),enemyData.SeparationBehaviorWeight);
+                 //_acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(AlignmentBehavior.CalculateMove(agent.transform, swarmNeighborsTrans),enemyData.AlignmentBehaviorWeight);
+                 agent.Velocity += _acceleration * (enemyData.MaxSpeed / 10) * Time.deltaTime;
                  if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
                  {
                     var speed = agent.Velocity.magnitude;
                     agent.Velocity.Normalize();
                     agent.Velocity /= speed;
-                    agent.Velocity *= enemyData.MaxSpeed;
+                    agent.Velocity *= enemyData.MaxSpeed/5;
                  }
 
 
@@ -121,6 +121,13 @@ public class SwarmEnemyGroup : MonoBehaviour
                     agent.Velocity *= -1;
                 }
                 //agent.transform.position += agent.Velocity * Time.deltaTime;
+                if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
+                {
+                    var speed = agent.Velocity.magnitude;
+                    agent.Velocity.Normalize();
+                    agent.Velocity /= speed;
+                    agent.Velocity *= enemyData.MaxSpeed ;
+                }
             }
             else
             {
@@ -128,20 +135,29 @@ public class SwarmEnemyGroup : MonoBehaviour
                 agent.Shake();
                 //agent.SetTarget(agent.Target);
                 _acceleration = BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(agent.transform, agent.Target, enemyData.Swarm_AttackSpeed), enemyData.SeekBehaviorWeight);
+                if (agent.transform.position.x < _bottomLeft.position.x)
+                {
+                    agent.Velocity *= -1;
+                }
+                if (agent.transform.position.x > _topright.position.x)
+                {
+                    agent.Velocity *= -1;
+                }
+
                 agent.Velocity += _acceleration * Time.deltaTime;
             }
-            Vector3 deltaPos= agent.Velocity * Time.deltaTime;
 
+            //if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
+            //{
+            //    var speed = agent.Velocity.magnitude;
+            //    agent.Velocity.Normalize();
+            //    agent.Velocity /= speed;
+            //    agent.Velocity *= enemyData.MaxSpeed;
+            //}
+            agent.transform.position += agent.Velocity* Time.deltaTime;
             var heading = agent.Velocity.normalized;
             agent.transform.rotation = Quaternion.AngleAxis(heading.x * -enemyData.Swarm_tiltingAngle + (Time.deltaTime * 2.0f), Vector3.forward);
-            if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
-            {
-                var speed = agent.Velocity.magnitude;
-                agent.Velocity.Normalize();
-                agent.Velocity /= speed;
-                agent.Velocity *= enemyData.MaxSpeed;
-            }
-            agent.transform.position += agent.Velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
+
             //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(agent.transform, _bottomLeft.position.x, _topright.position.x, _topright.position.y, _bottomLeft.position.y), enemyData.WallAvoidWeight));
         }
         //transform.position += _velocity * Time.deltaTime;
