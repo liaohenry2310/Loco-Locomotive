@@ -3,13 +3,8 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    //[SerializeField] private BasicEnemyData _basicEnemyData = null;
-    //[SerializeField] private BasicEnemyData _bomberEnemyData = null;
+    [SerializeField] private BasicEnemyData _basicEnemyData = null;
     [SerializeField] private ParticleSystem _hitVFX = null;
-    [SerializeField] private ParticleSystem _explosionVFX = null;
-
-    private float _AttackSpeed=0.0f;
-    private float _AttackDamage=0.0f;
 
     private ObjectPoolManager _objectPoolManager = null;
     private Vector3 _screenBounds;
@@ -53,7 +48,7 @@ public class EnemyProjectile : MonoBehaviour
         //Vector3 dir = new Vector3(0.0f, 0.0f, direction.z);
         _sprite.transform.eulerAngles = direction;
 
-        transform.position += direction * _AttackSpeed * Time.fixedDeltaTime;
+        transform.position += direction * _basicEnemyData.Basic_AttackSpeed * Time.fixedDeltaTime;
 
         // set activated false prefabs when touch the camera bounds
         if ((transform.position.x >= _screenBounds.x) ||
@@ -79,7 +74,7 @@ public class EnemyProjectile : MonoBehaviour
             IDamageable<float> damageable = target.GetComponent<IDamageable<float>>();
             if (damageable != null)
             {
-                damageable.TakeDamage(_AttackDamage);
+                damageable.TakeDamage(_basicEnemyData.Basic_AttackDamage);
                 ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
                 particle.Play();
                 Destroy(particle, particle.main.duration);
@@ -87,19 +82,11 @@ public class EnemyProjectile : MonoBehaviour
             }
         }
     }
-    public void PlayParticle(Vector3 pos)
-    {
-        ParticleSystem particle = Instantiate(_explosionVFX, pos, Quaternion.identity);
-        particle.Play();
-        Destroy(particle, particle.main.duration);
-    }
 
-    public void SetData(Vector3 tartgetpos, float enemyAttackSpeed,float enemyAttackDamage)
+    public void SetData(Vector3 tartgetpos, EnemyTypeCheck.Type currenyEnemyType)
     {
         targetPos = tartgetpos;
-
-            _AttackSpeed = enemyAttackSpeed;
-            _AttackDamage = enemyAttackDamage;
+        _currenyEnemyType = currenyEnemyType;
     }
 
     private void RecycleBullet()

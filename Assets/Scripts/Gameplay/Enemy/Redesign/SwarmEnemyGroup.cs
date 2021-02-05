@@ -7,8 +7,10 @@ public class SwarmEnemyGroup : MonoBehaviour
     //data
     [SerializeField] private TrainData _trainData = null;
     public SwarmEnemyData enemyData;
+    private float _currentHealth=0.0f;
     private float _nextAttackTime = 0.0f;
     private int _spawnSize = 0;
+    private bool isAlive = false;
     //For behavior
     private Vector3 _velocity;
     //For position
@@ -18,15 +20,16 @@ public class SwarmEnemyGroup : MonoBehaviour
     private const float agentDensity = 0.08f;
     private List<SwarmEnemy> swarmNeighbors = new List<SwarmEnemy>();
     private List<Transform> swarmNeighborsTrans = new List<Transform>();
+    private bool spawnGroup = false;
+    private bool spawnSelected = false;
     private Transform _swarmSpawnPos;
-    private SpriteRenderer _sprite;
+
     //target
     private GameObject currentTarget;
     private Vector3 targetPos;
     private Vector3 targetDirection;
     //objectpool
     private ObjectPoolManager _objectPoolManager = null;
-
 
     private void Awake()
     {
@@ -51,7 +54,7 @@ public class SwarmEnemyGroup : MonoBehaviour
         //_currentHealth = enemyData.MaxHealth;
         //gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         _nextAttackTime = enemyData.AttackDelay;
-        //isAlive = true;
+        isAlive = true;
     }
     public void SetSwarmSpawnPos(Transform spawnPosition)
     {
@@ -66,7 +69,6 @@ public class SwarmEnemyGroup : MonoBehaviour
            AttackMode();
            GroupBehaviours();
         }
-
     }
     public void CheckAlive()
     {
@@ -92,15 +94,15 @@ public class SwarmEnemyGroup : MonoBehaviour
             {
                  _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(agent.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 1.0f), enemyData.WanderBehaviorWeight);
                  _acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(CohesionBehavior.CalculateMove(agent.transform, swarmNeighborsTrans),enemyData.CohesionBehaviorWeight);
-                 //_acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighborsTrans, enemyData.SeparationBehaviorRadius),enemyData.SeparationBehaviorWeight);
-                 //_acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(AlignmentBehavior.CalculateMove(agent.transform, swarmNeighborsTrans),enemyData.AlignmentBehaviorWeight);
-                 agent.Velocity += _acceleration * (enemyData.MaxSpeed / 10) * Time.deltaTime;
+                 _acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(SeparationBehavior.SeparationMove(agent.transform, swarmNeighborsTrans, enemyData.SeparationBehaviorRadius),enemyData.SeparationBehaviorWeight);
+                 _acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(AlignmentBehavior.CalculateMove(agent.transform, swarmNeighborsTrans),enemyData.AlignmentBehaviorWeight);
+                 agent.Velocity += _acceleration * Time.deltaTime;
                  if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
                  {
                     var speed = agent.Velocity.magnitude;
                     agent.Velocity.Normalize();
                     agent.Velocity /= speed;
-                    agent.Velocity *= enemyData.MaxSpeed/5;
+                    agent.Velocity *= enemyData.MaxSpeed;
                  }
 
 
@@ -121,40 +123,19 @@ public class SwarmEnemyGroup : MonoBehaviour
                     agent.Velocity *= -1;
                 }
                 //agent.transform.position += agent.Velocity * Time.deltaTime;
-                if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
-                {
-                    var speed = agent.Velocity.magnitude;
-                    agent.Velocity.Normalize();
-                    agent.Velocity /= speed;
-                    agent.Velocity *= enemyData.MaxSpeed ;
-                }
             }
             else
             {
-                //agent.Velocity = Vector3.zero;
-                agent.Shake();
-                //agent.SetTarget(agent.Target);
                 _acceleration = BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(agent.transform, agent.Target, enemyData.Swarm_AttackSpeed), enemyData.SeekBehaviorWeight);
-                if (agent.transform.position.x < _bottomLeft.position.x)
-                {
-                    agent.Velocity *= -1;
-                }
-                if (agent.transform.position.x > _topright.position.x)
-                {
-                    agent.Velocity *= -1;
-                }
-
                 agent.Velocity += _acceleration * Time.deltaTime;
             }
+            Vector3 deltaPos= agent.Velocity * Time.deltaTime;
+            if (deltaPos.x ==0 && deltaPos.y ==0)
+            {
+                Debug.Log("Enemy is stuck!");
+            }
 
-            //if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
-            //{
-            //    var speed = agent.Velocity.magnitude;
-            //    agent.Velocity.Normalize();
-            //    agent.Velocity /= speed;
-            //    agent.Velocity *= enemyData.MaxSpeed;
-            //}
-            agent.transform.position += agent.Velocity* Time.deltaTime;
+            agent.transform.position += agent.Velocity * Time.deltaTime;
             var heading = agent.Velocity.normalized;
             agent.transform.rotation = Quaternion.AngleAxis(heading.x * -enemyData.Swarm_tiltingAngle + (Time.deltaTime * 2.0f), Vector3.forward);
 

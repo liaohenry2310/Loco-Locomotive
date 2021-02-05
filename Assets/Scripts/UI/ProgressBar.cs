@@ -2,8 +2,6 @@
 using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
-    public Transform beginPoint;
-    public Transform endPoint;
     public GameObject miniTrain;
     public GameObject Progressbar;
     public float scaleX = 0;
@@ -16,8 +14,6 @@ public class ProgressBar : MonoBehaviour
 
     void Update()
     {
-        float t = levelManager.TimeRemaining / levelManager.TimeLimit;
-        float x = Mathf.Lerp(endPoint.position.x, beginPoint.position.x, t);
-        miniTrain.transform.position = new Vector3(x, Progressbar.transform.position.y, 0.0f);
+        miniTrain.transform.position += new Vector3((scaleX / levelManager.TimeLimit)*Time.deltaTime, 0,0);
     }
 }

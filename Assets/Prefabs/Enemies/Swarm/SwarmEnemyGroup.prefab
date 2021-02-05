@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
-  enemyData: {fileID: 11400000, guid: 4272ae411172e5249b78571623fa39fd, type: 2}
+  enemyData: {fileID: 11400000, guid: ed172eb40ca078544aa7b5e90968b872, type: 2}

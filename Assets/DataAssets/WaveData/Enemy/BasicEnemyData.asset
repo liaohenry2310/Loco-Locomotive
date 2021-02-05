@@ -23,5 +23,5 @@ MonoBehaviour:
   Basic_tiltingAngle: 10
   WanderBehaviorWeight: 5
   WanderRadius: 5
-  WanderDistance: 1
+  WanderDistance: 3
   WanderJitter: 1

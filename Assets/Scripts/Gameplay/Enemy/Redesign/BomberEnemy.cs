@@ -5,7 +5,7 @@ using UnityEngine;
 public class BomberEnemy : MonoBehaviour
 {
     //call target dir from list.
-    [SerializeField] private TrainData _trainData = null;
+    [SerializeField] private TrainData _trainData = null;   
 
     public BomberEnemyData enemyData;
     public Animator animator;
@@ -21,8 +21,6 @@ public class BomberEnemy : MonoBehaviour
     private ObjectPoolManager _objectPoolManager = null;
     private GameObject _projectile;
 
-    private Vector3 _screenBounds;
-
     enum Direction
     {
         Idle,
@@ -31,7 +29,7 @@ public class BomberEnemy : MonoBehaviour
     }
     Direction currentDir = Direction.Idle;
 
-    private bool isAlive = false;
+    private bool isAlive=false;
 
 
 
@@ -44,7 +42,6 @@ public class BomberEnemy : MonoBehaviour
     private void OnEnable()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        _screenBounds = GameManager.GetScreenBounds;
     }
 
     public void SetNewData(Transform topRight, Transform bottomLeft)
@@ -57,7 +54,7 @@ public class BomberEnemy : MonoBehaviour
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
-        _nextAttackTime = Time.time + 1.0f + Random.Range(-enemyData.AttackDelay * 0.8f, enemyData.AttackDelay * 0.8f);
+        _nextAttackTime = Time.time+1.0f + Random.Range(-enemyData.AttackDelay * 0.8f, enemyData.AttackDelay * 0.8f);
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
@@ -70,24 +67,25 @@ public class BomberEnemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-
-
     void Update()
     {
 
         FlyAndShootUpdate();
         CheckStillAlive();
-
+        //if (_currentHealth < 0.0f)
+        //{
+        //    //disable this enemy and give it back to the object pool.
+        //}
     }
 
     void FlyAndShootUpdate()
     {
         //Movement
-        Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
+        Vector3 _acceleration = new Vector3( 0.0f, 0.0f, 0.0f);
         //_acceleration += WanderBehavior.Calculate(gameobject, weight);
-        _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f), enemyData.WanderBehaviorWeight);
+        _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f),enemyData.WanderBehaviorWeight);
         //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
-        _velocity += _acceleration * Time.deltaTime ;
+        _velocity += _acceleration * Time.deltaTime;
 
         if (_velocity.sqrMagnitude > enemyData.MaxSpeed)
         {
@@ -115,7 +113,7 @@ public class BomberEnemy : MonoBehaviour
             _velocity.y *= -1;
         }
 
-        transform.position += _velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
+        transform.position += _velocity * Time.deltaTime;
         var heading = _velocity.normalized;
         Direction movingDir;
         if (heading.x < 0.0f)
@@ -136,29 +134,25 @@ public class BomberEnemy : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(heading.x * -enemyData.Bomber_tiltingAngle + (Time.deltaTime * 2.0f), Vector3.forward);
         }
         //Shooting
-        if (isAlive)
+        if (_nextAttackTime < Time.time)
         {
-
-            if (_nextAttackTime < Time.time)
-            {
-                animator.SetBool("Shoot", true);
-                Invoke("unplayAnimation", 0.5f);
-                //var targetlist = LevelManager.Instance.Train.GetTurrets();
-                _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.18f, enemyData.AttackDelay * 0.18f);
-                Invoke("delayshoot", 0.75f);
-            }
-            if (_nextAttackTime < (Time.time + enemyData.AttackDelay - enemyData.AttackDelay * 0.1f))
-                boom.SetActive(false);
-            else
-                boom.SetActive(true);
+            animator.SetBool("Shoot", true);
+            Invoke("unplayAnimation", 0.5f);
+            //var targetlist = LevelManager.Instance.Train.GetTurrets();
+            _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.18f, enemyData.AttackDelay * 0.18f);
+            Invoke("delayshoot", 0.75f);
         }
+        if (_nextAttackTime < (Time.time + enemyData.AttackDelay - enemyData.AttackDelay * 0.1f))
+            boom.SetActive(false);
+        else
+            boom.SetActive(true);
     }
-    private void RecycleBomberEnemy()
+    private void RecycleBasicEnemy()
     {
         if (_objectPoolManager == null)
         {
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-
+            
         }
         _objectPoolManager.RecycleObject(gameObject);
     }
@@ -167,28 +161,24 @@ public class BomberEnemy : MonoBehaviour
     {
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
-
             isAlive = false;
-            GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
-            projectile.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
-            RecycleBomberEnemy();
-       }
+            RecycleBasicEnemy();
+        }
     }
     private void unplayAnimation()
     {
         animator.SetBool("Shoot", false);
     }
-
     private void delayshoot()
     {
         var targetlist = _trainData.ListTurret;
         int targetSize = targetlist.Length;
-        int randomtarget = Random.Range(0, targetSize);
+        int randomtarget = Random.Range(0, targetSize - 1);
         GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
         projectile.transform.position = transform.position;
         Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
         projectile.SetActive(true);
-        projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage);
+          projectile.GetComponent<EnemyProjectile>().SetData(targetPos, EnemyTypeCheck.Type.Bomber);
     }
 
 }

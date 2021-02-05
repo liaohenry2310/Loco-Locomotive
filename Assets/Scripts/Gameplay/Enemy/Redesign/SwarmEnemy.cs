@@ -1,12 +1,11 @@
 ﻿using Interfaces;
-using System.Collections;
 using UnityEngine;
 
 
 public class SwarmEnemy : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitVFX = null;
-    private TrailRenderer trailVFX;
+
     private SwarmEnemyData _enemyData = null;
     private ObjectPoolManager _objectPoolManager = null;
 
@@ -14,7 +13,6 @@ public class SwarmEnemy : MonoBehaviour
     private Vector3 currentPos = Vector3.zero;
     private Vector3 targetPos = Vector3.zero;
     private Vector3 direction = Vector3.zero;
-    private Vector3 bouncedir;
     private Vector3 velocity = Vector3.zero;
     private SpriteRenderer _sprite;
     private Vector3 _screenBounds;
@@ -30,26 +28,15 @@ public class SwarmEnemy : MonoBehaviour
     private bool fire = false;
     public Vector3 Target { get { return targetPos; } set { targetPos = value; } }
     public Vector3 Velocity { get { return velocity; } set { velocity = value; } }
-
-    private Vector3 originPosition;
-    private Quaternion originRotation;
-    public float shake_decay = 0.02f;
-    public float shake_intensity = 0.03f;
-    private float temp_shake_intensity = 0;
-
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         _sprite = GetComponent<SpriteRenderer>();
         _screenBounds = GameManager.GetScreenBounds;
-        trailVFX = gameObject.GetComponent<TrailRenderer>();
     }
     private void Start()
     {
         _oldPos = transform.position.x;
-
-
-
     }
     private void FixedUpdate()
     {
@@ -69,55 +56,23 @@ public class SwarmEnemy : MonoBehaviour
         if (_oldPos < transform.position.x)
             _sprite.flipX = true;
         else if (_oldPos > transform.position.x)
-            _sprite.flipX = false;        
-
+            _sprite.flipX = false;
         if (fire)
         {
-
-            //if (temp_shake_intensity > 0)
-            //{
-            //    transform.position = originPosition + Random.insideUnitSphere * 0.02f;
-            //    temp_shake_intensity -= shake_decay;
-            //}
-            //if (temp_shake_intensity<0.0f)
-            //{
-            //    fire = false;
-            //}
-            //else
-           ////     if (startedShacke)
-            //{
-            //     //trailVFX.startColor = Color.red;
-            //     //gameObject.transform.position.x += Mathf.Sin(Time.time * 1.0f) * 1.0f;
-            //     currentPos = gameObject.transform.position;
-            //     direction = targetPos - currentPos;
-            //     //Quaternion lookat = Quaternion.LookRotation(direction,Vector3.up);
-            //     //_sprite.transform.rotation = Quaternion.Lerp(transform.rotation, lookat, Time.deltaTime* _basicEnemyData.Basic_AttackSpeed*5.0f);
-            //     //Quaternion look at = Quaternion.
-            //     direction.Normalize();
-            //     //Vector3 dir = new Vector3(0.0f, 0.0f, direction.z);
-            //     _sprite.transform.eulerAngles = direction;
-            //     transform.position += direction * _enemyData.Swarm_AttackSpeed * Time.deltaTime;
-            //     fire = false;
-            //    startedShacke = false;
-            //}
-
+            currentPos = gameObject.transform.position;
+            direction = targetPos - currentPos;
+            //Quaternion lookat = Quaternion.LookRotation(direction,Vector3.up);
+            //_sprite.transform.rotation = Quaternion.Lerp(transform.rotation, lookat, Time.deltaTime* _basicEnemyData.Basic_AttackSpeed*5.0f);
+            //Quaternion look at = Quaternion.
+            direction.Normalize();
+            //Vector3 dir = new Vector3(0.0f, 0.0f, direction.z);
+            _sprite.transform.eulerAngles = direction;
+            transform.position += direction * _enemyData.Swarm_AttackSpeed * Time.deltaTime;
         }
         CheckStillAlive();
-
     }
 
-    public void Shake()
-    {
-        originPosition = transform.position;
-        originRotation = transform.rotation;
-        temp_shake_intensity = shake_intensity;
-        StartCoroutine("StartShake");
-    }
-    private IEnumerator StartShake()
-    {
-        transform.position = originPosition + Random.insideUnitSphere * 0.09f;
-        yield return new WaitForSeconds(0.5f);
-    }
+
 
     public void SetNewData(SwarmEnemyData enemyData)
     {
@@ -134,21 +89,13 @@ public class SwarmEnemy : MonoBehaviour
         }
 
         Alive = true;
-        bouncedir =Vector3.zero;
-        //trailVFX.enabled = false;
-        //gameObject.GetComponent<TrailRenderer>().enabled = false;
-        //gameObject.GetComponent<TrailRenderer>().emitting = false;
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Alive)
-        {
-         Explostion(collision);
-         bouncedir = collision.transform.position;
-        }
+        Explostion(collision);
     }
-    
+
     private void Explostion(Collider2D collision)
     {
         var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, 0.2f);
@@ -182,24 +129,7 @@ public class SwarmEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             Alive = false;
-
-           var dir = Vector3.Reflect(Velocity.normalized, bouncedir);
-           if (dir.y < 0.0f)
-           {
-               dir.y *= -1;
-           }
-           if (dir.sqrMagnitude> 3.0f)
-           {
-               var speed = dir.magnitude;
-               dir.Normalize();
-               //dir /= (speed);
-               dir *= 10.0f;
-           }
-           else
-           {
-               dir *= 10.0f;
-           }
-           transform.position += dir * Time.deltaTime;
+            RecycleSwarm();
         }
 
     }

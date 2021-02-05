@@ -11,8 +11,6 @@ public class GiantEnemy : MonoBehaviour
 
     public GiantEnemyData enemyData;
     public SpriteRenderer sr;
-    private float _transparency = 0.0f;
-    private Vector3 _scale = new Vector3(1.0f,1.0f,1.0f);
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
     private float _chargeTime;
@@ -83,11 +81,8 @@ public class GiantEnemy : MonoBehaviour
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ReShield = true;
         }
         isAlive = true;
-        _transparency = 1.0f;
         FillLists();
         DisableLaser();
-        gameObject.GetComponent<BoxCollider2D>().enabled = true;
-        sr.transform.localScale = _scale;
         //StopParticles();
     }
 
@@ -97,38 +92,21 @@ public class GiantEnemy : MonoBehaviour
         switch (mCurrentState)
         {
             case State.WanderIdle:
-                if (isAlive)
-                {
-                    WanderIdle();
-                }
+                WanderIdle();
                 break;
             case State.MoveToTarget:
-                if (isAlive)
-                {
-                    MoveToTarget(); 
-                }
+                MoveToTarget();
                 break;
             case State.Charging:
-                if (isAlive)
-                {
-                    Charging();
-                }
+                Charging();
                 break;
             case State.Attack:
-                if (isAlive)
-                {
                     Attack();
-                }
                 break;
             default:
                 break;
         }
         CheckStillAlive();
-       //if (_transparency<0.0f&& !isAlive)
-       //{
-       //    Debug.Log("rec Giant");
-       //    RecycleGiantEnemy();
-       //}
     }
 
     void WanderIdle()
@@ -162,7 +140,7 @@ public class GiantEnemy : MonoBehaviour
         }
 
 
-        transform.position += _velocity * Time.deltaTime*(enemyData.MaxSpeed/10);
+        transform.position += _velocity * Time.deltaTime;
 
 
         //Shooting
@@ -184,7 +162,7 @@ public class GiantEnemy : MonoBehaviour
 
         Vector2 destination = new Vector2(targetPos.x, transform.position.y);
         _acceleration = BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, destination, enemyData.MaxSpeed), enemyData.SeekWeight);
-        _velocity += _acceleration * Time.deltaTime * (enemyData.MaxSpeed / 10);
+        _velocity += _acceleration * Time.deltaTime;
         float dis = float.MinValue;
 
         if (Mathf.Abs(transform.position.x - destination.x) < 0.1f)
@@ -194,7 +172,7 @@ public class GiantEnemy : MonoBehaviour
         }
         else
         {
-            transform.position += _velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
+            transform.position += _velocity * Time.deltaTime;
         }
     }
     private void Charging()
@@ -203,6 +181,7 @@ public class GiantEnemy : MonoBehaviour
 
         chargeingCount += Time.deltaTime;
         VFX.transform.position = (Vector2)transform.position;
+
         PlayParticles();
         if (chargeingCount >= _chargeTime)
         {
@@ -266,17 +245,16 @@ public class GiantEnemy : MonoBehaviour
 
         }
 
-            if (attackCount >= _beamDuration)
-           {
-               isAttacking = false;
-               attackCount = 0.0f;
-               _nextAttackTime = enemyData.AttackDelay + Time.time;
-               StopParticles();
-               DisableLaser();
-               DisableLaserHitVFX();
-               mCurrentState = State.WanderIdle;
-           }
-
+        if (attackCount >= _beamDuration)
+        {
+            isAttacking = false;
+            attackCount = 0.0f;
+            _nextAttackTime = enemyData.AttackDelay + Time.time;
+            StopParticles();
+            DisableLaser();
+            DisableLaserHitVFX();
+            mCurrentState = State.WanderIdle;
+        }
     }
 
     private void RecycleGiantEnemy()
@@ -295,16 +273,7 @@ public class GiantEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             isAlive = false;
-            isAttacking = false;
-            attackCount = 0.0f;
-            StopParticles();
-            DisableLaser();
-            DisableLaserHitVFX();
-            mCurrentState = State.WanderIdle;
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            sr.transform.Rotate(Vector3.forward, 45 * 5.0f * Time.deltaTime, Space.Self);
-            StartCoroutine("TransparencySR");
-            //RecycleGiantEnemy();
+            RecycleGiantEnemy();
         }
 
     }
@@ -358,15 +327,6 @@ public class GiantEnemy : MonoBehaviour
                 _LaserHitVFXList.Add(ps);
             }
         }
-    }
-    private IEnumerator TransparencySR()
-    {
-        _transparency -= 0.25f* Time.deltaTime;
-        //_scale -= 0.1 * Time.deltaTime;
-        sr.transform.localScale = new Vector3(_transparency, _transparency, 1.0f);
-        sr.color = new Color(0.25f, 0.25f, 0.50f, _transparency);// * Time.deltaTime);
-        yield return new WaitForSeconds(4.0f);
-        RecycleGiantEnemy();
     }
 
     private void DisableLaserHitVFX()

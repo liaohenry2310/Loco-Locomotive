@@ -31,7 +31,6 @@ public class Countdown : MonoBehaviour
         yield return new WaitForSeconds(duration * 0.25f);
         elements[elements.Length - 2].SetActive(false);
         audioClip2.Invoke();
-        LevelManager.Instance.PauseTime(false);
         enemySpawner.SetActive(true);
         for (int j = 0; j < 5; ++j)
         {
