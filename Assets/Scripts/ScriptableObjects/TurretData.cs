@@ -10,6 +10,8 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
     [Header("Tweeking Turret when receive Damage")]
     [SerializeField, Range(0.2f, 1f), Tooltip("How much time spent to shake")] private float _shakeTime = 0.2f;
     [SerializeField, Range(0.05f, 1f), Tooltip("How much force shaking in X direction")] private float _shakeForce = 0.05f;
+    [SerializeField] private float _retractitleCannonSpeed = 5.0f;
+    [SerializeField] private float _smokeMaxEmission = 10.0f;
 
     [Serializable]
     public struct MachineGun
@@ -85,11 +87,13 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
     public ShockWave empShockWave;
     public ShieldGun shieldGun;
 
-    public float MaxHealth => _maxHealth;
-    public float AimSpeed => _aimSpeed;
+    public float MaxHealth { get => _maxHealth; set => _maxHealth = value; }
+    public float AimSpeed { get => _aimSpeed; set => _aimSpeed = value; }
 
-    public float ShakeTime => _shakeTime;
-    public float ShakeForce => _shakeForce;
+    public float ShakeTime { get => _shakeTime; set => _shakeTime = value; }
+    public float ShakeForce { get => _shakeForce; set => _shakeForce = value; }
+    public float RetractitleCannonSpeed { get => _retractitleCannonSpeed; set => _retractitleCannonSpeed = value; }
+    public float SmokeMaxEmission { get => _smokeMaxEmission; set => _smokeMaxEmission = value; }
 
     [NonSerialized] public float CurrentHealth = 0.0f;
 
