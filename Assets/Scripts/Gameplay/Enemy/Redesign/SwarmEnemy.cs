@@ -39,18 +39,20 @@ public class SwarmEnemy : MonoBehaviour
 
     private void Awake()
     {
-        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         _sprite = GetComponent<SpriteRenderer>();
         _screenBounds = GameManager.GetScreenBounds;
         trailVFX = gameObject.GetComponent<TrailRenderer>();
     }
+
     private void Start()
     {
+        if (_objectPoolManager == null)
+        {
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        }
         _oldPos = transform.position.x;
-
-
-
     }
+
     private void FixedUpdate()
     {
 
@@ -69,7 +71,7 @@ public class SwarmEnemy : MonoBehaviour
         if (_oldPos < transform.position.x)
             _sprite.flipX = true;
         else if (_oldPos > transform.position.x)
-            _sprite.flipX = false;        
+            _sprite.flipX = false;
 
         if (fire)
         {
@@ -84,7 +86,7 @@ public class SwarmEnemy : MonoBehaviour
             //    fire = false;
             //}
             //else
-           ////     if (startedShacke)
+            ////     if (startedShacke)
             //{
             //     //trailVFX.startColor = Color.red;
             //     //gameObject.transform.position.x += Mathf.Sin(Time.time * 1.0f) * 1.0f;
@@ -134,7 +136,7 @@ public class SwarmEnemy : MonoBehaviour
         }
 
         Alive = true;
-        bouncedir =Vector3.zero;
+        bouncedir = Vector3.zero;
         //trailVFX.enabled = false;
         //gameObject.GetComponent<TrailRenderer>().enabled = false;
         //gameObject.GetComponent<TrailRenderer>().emitting = false;
@@ -144,11 +146,11 @@ public class SwarmEnemy : MonoBehaviour
     {
         if (Alive)
         {
-         Explostion(collision);
-         bouncedir = collision.transform.position;
+            Explostion(collision);
+            bouncedir = collision.transform.position;
         }
     }
-    
+
     private void Explostion(Collider2D collision)
     {
         var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, 0.2f);
@@ -161,7 +163,7 @@ public class SwarmEnemy : MonoBehaviour
                 damageable.TakeDamage(_enemyData.Swarm_AttackDamage);
                 ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
                 particle.Play();
-                Destroy(particle, particle.main.duration);
+                Destroy(particle.gameObject, particle.main.duration);
                 Alive = false;
                 RecycleSwarm();
             }
@@ -183,32 +185,28 @@ public class SwarmEnemy : MonoBehaviour
         {
             Alive = false;
 
-           var dir = Vector3.Reflect(Velocity.normalized, bouncedir);
-           if (dir.y < 0.0f)
-           {
-               dir.y *= -1;
-           }
-           if (dir.sqrMagnitude> 3.0f)
-           {
-               var speed = dir.magnitude;
-               dir.Normalize();
-               //dir /= (speed);
-               dir *= 10.0f;
-           }
-           else
-           {
-               dir *= 10.0f;
-           }
-           transform.position += dir * Time.deltaTime;
+            var dir = Vector3.Reflect(Velocity.normalized, bouncedir);
+            if (dir.y < 0.0f)
+            {
+                dir.y *= -1;
+            }
+            if (dir.sqrMagnitude > 3.0f)
+            {
+                var speed = dir.magnitude;
+                dir.Normalize();
+                //dir /= (speed);
+                dir *= 10.0f;
+            }
+            else
+            {
+                dir *= 10.0f;
+            }
+            transform.position += dir * Time.deltaTime;
         }
 
     }
     private void RecycleSwarm()
     {
-        if (_objectPoolManager == null)
-        {
-            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        }
         Alive = false;
         _objectPoolManager.RecycleObject(gameObject);
     }

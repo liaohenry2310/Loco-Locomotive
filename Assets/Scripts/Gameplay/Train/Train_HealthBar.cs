@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Train_HealthBar : MonoBehaviour
 {
@@ -55,7 +53,7 @@ public class Train_HealthBar : MonoBehaviour
         ParticleSystem particle = Instantiate(_explosionParticle, Armor[num].transform.position, Quaternion.identity);
         Destroy(Armor[num]);
         particle.Play();
-        Destroy(particle, particle.main.duration);
+        Destroy(particle.gameObject, particle.main.duration);
     }
 
 }
