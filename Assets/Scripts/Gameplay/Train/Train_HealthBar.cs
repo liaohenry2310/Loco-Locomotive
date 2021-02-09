@@ -5,13 +5,13 @@ using UnityEngine;
 public class Train_HealthBar : MonoBehaviour
 {
     public GameObject[] Armor;
+    public Vector2 force;
     [SerializeField] private TrainData _trainData = null;
     [SerializeField] private ParticleSystem _explosionParticle = null;
     private bool isPlay = false;
     private bool isPlay1 = false;
     private bool isPlay2 = false;
     private bool isPlay3 = false;
-
     public void Update()
     {
         if(!isPlay)
@@ -52,8 +52,10 @@ public class Train_HealthBar : MonoBehaviour
 
     private void HealthBarExp(int num)
     {
+
         ParticleSystem particle = Instantiate(_explosionParticle, Armor[num].transform.position, Quaternion.identity);
-        Destroy(Armor[num]);
+        Armor[num].GetComponent<Rigidbody2D>().AddForceAtPosition(force, new Vector2 (Armor[num].transform.position.x, -Armor[num].transform.position.y));
+        Destroy(Armor[num],5.0f);
         particle.Play();
         Destroy(particle, particle.main.duration);
     }
