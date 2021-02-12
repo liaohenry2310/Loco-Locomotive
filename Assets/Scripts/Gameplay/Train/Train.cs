@@ -61,7 +61,7 @@ namespace GamePlay
         private void Update()
         {
             // Check how many player has on the scene to increate the FuelRate
-            CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4f) * Time.deltaTime);
+            CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4) * Time.deltaTime);
         }
 
         private void ReloadFuel()

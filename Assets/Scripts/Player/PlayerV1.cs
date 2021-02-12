@@ -51,18 +51,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
             if (_axis.y != 0.0f)
             {
-                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
-                //_rigidBody.MovePosition(new Vector2(LadderController.transform.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
-                //_rigidBody.velocity = new Vector2(0.0f, _axis.y * _playerData.Speed);
-                //transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
-                //Vector2 playerUsingLadder =  new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
-                //_rigidBody.MovePosition(playerUsingLadder);
-
+                float posY = Mathf.Min(transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime), LadderController.LadderTopPosition.y);
+                float posX = LadderController.transform.position.x;
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(posX, posY), _playerData.Speed * Time.fixedDeltaTime);
             }
-            //else
-            //{
-            //    _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 0.0f);
-            //}
         }
         else
         {
