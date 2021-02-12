@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using System.Collections;
 using UnityEngine;
 
 public class Missile : MonoBehaviour
@@ -7,17 +8,23 @@ public class Missile : MonoBehaviour
     [SerializeField] private ParticleSystem _explosionParticle = null;
     [SerializeField] private GameObject _missileSound = null;
 
+    private ParticleSystem _missileVFX = null;
+
     private Vector3 _screenBounds;
     private float _currentSpeed = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
-    private void Awake()
-    {
-        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-    }
 
     private void Start()
     {
+        if (_objectPoolManager == null)
+        {
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        }
         _screenBounds = GameManager.GetScreenBounds;
+        if (!_missileVFX)
+        {
+            _missileVFX = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
+        }
     }
 
     private void FixedUpdate()
@@ -33,7 +40,6 @@ public class Missile : MonoBehaviour
             (transform.position.y <= -_screenBounds.y))
         {
             RecycleBullet();
-            _currentSpeed = 0f;
         }
     }
 
@@ -51,7 +57,6 @@ public class Missile : MonoBehaviour
         //ParticleSystem p =  explosion.GetComponent<ParticleSystem>();
         //p.Play();
 
-        //TODO: Test here
         var enemyProjectile = collision.gameObject.GetComponent<EnemyProjectile>();
         if (enemyProjectile != null && enemyProjectile.CurrenyEnemeyType == EnemyTypeCheck.Type.Bomber)
         {
@@ -70,44 +75,58 @@ public class Missile : MonoBehaviour
             ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
             ParticleSystem.MainModule main = particle.main;
             main.startSize = _turretData.missileGun.radiusEffect;
+            particle.Play();
 
             Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
 
-            particle.Play();
             Destroy(particle, particle.main.duration);
             _triggerExplosionOnce = true;
         }
 
         RecycleBullet();
-        _currentSpeed = 0f;
     }
     private void MissileExplostion(Collider2D collision)
     {
-        bool _triggerExplosionOnce = false;
+        //bool triggerExplosionOnce = false;
         var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, _turretData.missileGun.radiusEffect, _turretData.missileGun.enemyLayerMask);
         foreach (Collider2D enemy in colliders)
         {
-            Debug.Log($"[Collider2D] -- MissileExplostion -- {enemy.gameObject.name}");
+
             IDamageableType<float> damageable = enemy.GetComponent<EnemyHealth>();
-            if (damageable == null) return;
-            if (!_triggerExplosionOnce)
+            if (damageable != null)
             {
-                ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
-                ParticleSystem.MainModule main = particle.main;
-                main.startSize = _turretData.missileGun.radiusEffect;
-
-                Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
-
-                particle.Play();
-                Destroy(particle, particle.main.duration);
-                _triggerExplosionOnce = true;
+                damageable.TakeDamage(_turretData.missileGun.damage, DispenserData.Type.Missile);
             }
 
-            damageable.TakeDamage(_turretData.missileGun.damage, DispenserData.Type.Missile);
+            //if (!triggerExplosionOnce)
+            //{
+            //    //Old way
+            //    //ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
+            //    //ParticleSystem.MainModule main = particle.main;
+            //    //main.startSize = _turretData.missileGun.radiusEffect;
+            //    //particle.Play();
+            //    //Destroy(particle, particle.main.duration);
+                
+            //    // Still its not nice because can call GC.
+            //    //ParticleSystem particle = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
+            //    //particle.Play();
+            //    //Destroy(particle, particle.main.duration);
+            //    //Destroy(particle.gameObject, particle.main.duration + 1f);
+
+               
+            //    triggerExplosionOnce = true;
+            //}
+
         }
-        if (colliders.Length == 0) return;
+
+        if (isActiveAndEnabled)
+        {
+            _missileVFX.gameObject.transform.position = transform.position;
+            _missileVFX.Play();
+        }
+        Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
         RecycleBullet();
-        _currentSpeed = 0f;
+        
     }
 
     private void OnDrawGizmos()
@@ -119,14 +138,10 @@ public class Missile : MonoBehaviour
         Gizmos.DrawWireSphere(gameObject.transform.position, _turretData.missileGun.radiusEffect);
     }
 
-
     private void RecycleBullet()
     {
-        if (_objectPoolManager == null)
-        {
-            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        }
         _objectPoolManager.RecycleObject(gameObject);
+        _currentSpeed = 0f;
     }
 
 }
