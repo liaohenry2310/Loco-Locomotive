@@ -33,7 +33,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
     //Animator
     public Animator animator;
-
+    public bool _isOnfloor;
     public Vector3 PlayerItemPlaceHolder => transform.position + (_playerSpriteRenderer.bounds.center - transform.position);
 
     private void Start()
@@ -65,9 +65,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private void Update()
     {
         TurretGuns turret = Interactable as TurretGuns;
-        //moving
+
         if (_axis.x < 0)
         {
+            //moving left
             _playerSpriteRenderer.flipX = false;
             animator.SetBool("IsMoving", true);
             animator.SetBool("IsIdle", false);
@@ -76,59 +77,44 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         }
         else if (_axis.x > 0)
         {
+            //moving right
             _playerSpriteRenderer.flipX = true;
             animator.SetBool("IsMoving", true);
             animator.SetBool("IsIdle", false);
             animator.SetBool("IsClimb", false);
             animator.SetBool("UsingTurret", false);
         }
-        //not moving
         else if(turret == null)
         {
+            //not moving
+            _playerSpriteRenderer.flipX = true;
             animator.SetBool("IsIdle", true);
             animator.SetBool("IsMoving", false);
             animator.SetBool("UsingTurret", false);
         }
         else if (turret!=null)
         {
+            //using turret
+            _playerSpriteRenderer.flipX = false;
             animator.SetBool("UsingTurret", true);
             animator.SetBool("IsClimb", false);
             animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", false);
             animator.SetBool("IsHoldItem", false);
         }
-        //climbing
-        if (_axis.y != 0.0f)
+        if (_axis.y != 0.0f && _isOnfloor)
         {
+            //climbing
             animator.SetBool("IsClimb", true);
             animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", false);
             animator.SetBool("UsingTurret", false);
         }
-        //not climbing
         else
         {
+            //not climbing
             animator.SetBool("IsClimb", false);
         }
-        //using Turret
-        //TurretGuns turret = Interactable as TurretGuns;
-
-        //if (turret !=null)
-        //{
-        //    animator.SetBool("UsingTurret", true);
-        //    animator.SetBool("IsClimb", false);
-        //    animator.SetBool("IsMoving", false);
-        //    animator.SetBool("IsIdle", false);
-        //    animator.SetBool("IsHoldItem", false);
-
-        //}
-        //else
-        //{
-        //    animator.SetBool("IsIdle", true);
-        //    animator.SetBool("UsingTurret", false);
-        //}
-        //player death
-        //animator.SetBool("IsDeath", !_healthSystem.IsAlive);
 
         _delayTimeToRegen += Time.deltaTime;
         if (_delayTimeToRegen >= _playerData.DelayTimeRegen)
