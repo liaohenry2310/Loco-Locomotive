@@ -40,7 +40,6 @@ namespace Turret
         [SerializeField] private Animator _animator = null;
 
         [HideInInspector] public bool isInUse = false;
-        public float RetractitleSpeed = 5.0f;
 
         private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
@@ -266,10 +265,6 @@ namespace Turret
 
         private void FixedUpdate()
         {
-            if (!_isReadyToShot) return;
-            // recoil effect to back to original position
-            _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, .1f);
-
             if (!_turretBase.HealthSystem.IsAlive)
             {
 
@@ -302,6 +297,13 @@ namespace Turret
                 }
             }
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
+        }
+
+        private void LateUpdate()
+        {
+            if (!_isReadyToShot) return;
+            // recoil effect to back to original position
+            _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, 0.1f);
         }
 
         public void Interact(PlayerV1 player)
@@ -405,7 +407,7 @@ namespace Turret
             _isReadyToShot = false;
             while (_cannonHandler.localPosition.y < maxY)
             {
-                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, maxY, Time.deltaTime * RetractitleSpeed);
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, maxY, Time.deltaTime * _turretData.RetractitleCannonSpeed);
                 _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp + 0.01f, 0.0f);
                 yield return null;
             }
@@ -421,7 +423,7 @@ namespace Turret
             //_turretAmmoIndicator.PlayerUsingTurret(false);
             while (_cannonHandler.localPosition.y > minY)
             {
-                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, minY, Time.deltaTime * RetractitleSpeed);
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, minY, Time.deltaTime * _turretData.RetractitleCannonSpeed);
                 _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp - 0.01f, 0.0f);
                 yield return null;
             }
