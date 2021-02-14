@@ -1,5 +1,4 @@
 ﻿using Interfaces;
-using System.Collections;
 using UnityEngine;
 
 public class Missile : MonoBehaviour
@@ -95,7 +94,7 @@ public class Missile : MonoBehaviour
             IDamageableType<float> damageable = enemy.GetComponent<EnemyHealth>();
             if (damageable != null)
             {
-                damageable.TakeDamage(_turretData.missileGun.damage, DispenserData.Type.Missile);
+                damageable.TakeDamage(_turretData.DamageMultiplier(_turretData.missileGun.damage, _turretData.PlayersOnScene), DispenserData.Type.Missile);
             }
 
             //if (!triggerExplosionOnce)
@@ -106,14 +105,14 @@ public class Missile : MonoBehaviour
             //    //main.startSize = _turretData.missileGun.radiusEffect;
             //    //particle.Play();
             //    //Destroy(particle, particle.main.duration);
-                
+
             //    // Still its not nice because can call GC.
             //    //ParticleSystem particle = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
             //    //particle.Play();
             //    //Destroy(particle, particle.main.duration);
             //    //Destroy(particle.gameObject, particle.main.duration + 1f);
 
-               
+
             //    triggerExplosionOnce = true;
             //}
 
@@ -126,7 +125,7 @@ public class Missile : MonoBehaviour
         }
         Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
         RecycleBullet();
-        
+
     }
 
     private void OnDrawGizmos()

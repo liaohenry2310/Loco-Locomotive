@@ -55,7 +55,7 @@ public class Bullet : MonoBehaviour
         IDamageableType<float> damageable = collision.GetComponent<EnemyHealth>();
         if (damageable != null)
         {
-            damageable.TakeDamage(_turretData.machineGun.damage, DispenserData.Type.Normal);
+            damageable.TakeDamage(_turretData.DamageMultiplier(_turretData.machineGun.damage, _turretData.PlayersOnScene), DispenserData.Type.Normal);
             //StartCoroutine(HitExplosion());
 
             //For now will work like so, but still call GC.
