@@ -19,7 +19,7 @@ MonoBehaviour:
   _retractitleCannonSpeed: 5
   _smokeMaxEmission: 10
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
-  damageMultiplier:
+  _damageMultiplier:
   - 2
   - 1.6
   - 1.3

@@ -13,9 +13,7 @@ public class TurretData : ScriptableObject
     [SerializeField] private float _retractitleCannonSpeed = 5.0f;
     [SerializeField] private float _smokeMaxEmission = 10.0f;
     [SerializeField] private TrainData _trainData = null;
-    
-
-    [SerializeField] private float[] damageMultiplier = new float[4];
+    [SerializeField] private float[] _damageMultiplier = new float[4];
 
     [Serializable]
     public struct MachineGun
@@ -105,9 +103,11 @@ public class TurretData : ScriptableObject
     public float RetractitleCannonSpeed { get => _retractitleCannonSpeed; set => _retractitleCannonSpeed = value; }
     public float SmokeMaxEmission { get => _smokeMaxEmission; set => _smokeMaxEmission = value; }
 
+    public float[] DamageMulti { get => _damageMultiplier; set => _damageMultiplier = value; }
+
     public float DamageMultiplier(float damage, int playersNumbers)
     {
-        return damage * damageMultiplier[playersNumbers - 1];
+        return damage * _damageMultiplier[playersNumbers - 1];
     }
 
 }
