@@ -13,6 +13,10 @@ public class FadeFuelBar : MonoBehaviour
     private bool isFlickering = false;
     public float gapTime = 0.1f;
     private float tempTime;
+
+    private Color yellow = new Color(0.988f, 0.984f, 0.239f, 1);
+    private Color yellow2 = new Color(0.988f, 0.984f, 0.239f, 0.25f);
+
     private void Awake()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -44,12 +48,13 @@ public class FadeFuelBar : MonoBehaviour
                 Flickering();
             }
         }
+        else
+            _spriteRenderer.color = yellow;
     }
 
     public void Flickering()
     {
-        Color yellow = new Color(0.988f, 0.984f, 0.239f, 1);
-        Color yellow2 = new Color(0.988f, 0.984f, 0.239f, 0.25f);
+
 
         if (isFlickering)
         {
