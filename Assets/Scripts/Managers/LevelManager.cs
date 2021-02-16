@@ -20,6 +20,18 @@ public class LevelManager : MonoBehaviour
     public float TimeLimit = 300.0f;
     public float TimeRemaining = 0.0f;
 
+    private void OnEnable()
+    {
+        confirm.performed += (InputAction.CallbackContext ctx) => { PauseGame(); };
+        confirm.Enable();
+    }
+
+    private void OnDisable()
+    {
+        confirm.performed -= (InputAction.CallbackContext ctx) => { PauseGame(); };
+        confirm.Disable();
+    }
+
     public void PauseTime(bool paused)
     {
         timerIsRunning = !paused;
@@ -113,7 +125,6 @@ public class LevelManager : MonoBehaviour
                 GameWin();
             }
         }
-        confirm.performed += (InputAction.CallbackContext ctx) => { PauseGame(); };
-        confirm.Enable();
     }
+
 }
