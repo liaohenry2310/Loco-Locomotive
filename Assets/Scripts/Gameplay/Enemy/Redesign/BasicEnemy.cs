@@ -168,7 +168,7 @@ public class BasicEnemy : MonoBehaviour
                 projectile.transform.position = transform.position;
                 Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
                 projectile.SetActive(true);
-                projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Basic_AttackSpeed,enemyData.Basic_AttackDamage);
+                projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Basic_AttackSpeed,enemyData.Basic_AttackDamage,EnemyTypeCheck.Type.Basic);
 
 
             }

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2504264668946031665
 Transform:
   m_ObjectHideFlags: 0
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb1b6bf6913b8e42a4f2dbff1a4eab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _VFX: {fileID: 4149614221999128866, guid: e7392078f6873874e819c75792f2a6e7, type: 3}
   _spinSpeed: 5
   _scaleDeltaSpeed: 0.5
 --- !u!1 &5348447137119373392

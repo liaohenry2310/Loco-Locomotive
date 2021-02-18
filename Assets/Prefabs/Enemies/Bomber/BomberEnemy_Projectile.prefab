@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578651487066272678}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8272308546324629024
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecf88d0ac991184c9b5c6178f91f545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _basicEnemyData: {fileID: 11400000, guid: 92a939a78168b6945be037180c6d86db, type: 2}
   _hitVFX: {fileID: 198917022394846920, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
   _explosionVFX: {fileID: 198917022394846920, guid: 5bd107124db74784092467899f624b54,
     type: 3}
+  _VFX: {fileID: 4149614221999128866, guid: 015824b250adfa54683f3ace08314d65, type: 3}
