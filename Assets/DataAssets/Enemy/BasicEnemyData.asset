@@ -15,13 +15,13 @@ MonoBehaviour:
   MaxHealth: 50
   ShieldHealth: 200
   MaxSpeed: 15
-  AttackDelay: 15
+  AttackDelay: 5
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
   Basic_AttackDamage: 10
   Basic_AttackSpeed: 5
   Basic_tiltingAngle: 10
-  WanderBehaviorWeight: 5
-  WanderRadius: 5
-  WanderDistance: 1
-  WanderJitter: 1
+  WanderBehaviorWeight: 10
+  WanderRadius: 2
+  WanderDistance: 3
+  WanderJitter: 0.1

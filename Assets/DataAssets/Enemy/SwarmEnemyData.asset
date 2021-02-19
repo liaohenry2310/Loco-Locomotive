@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caee4e659664b8e4bb10187d8888c4c1, type: 3}
   m_Name: SwarmEnemyData
   m_EditorClassIdentifier: 
-  MaxHealth: 15
+  MaxHealth: 20
   ShieldHealth: 200
   MaxSpeed: 20
   AttackDelay: 5
-  Swarm_AttackDamage: 10
+  Swarm_AttackDamage: 50
   Swarm_AttackSpeed: 10
   Swarm_tiltingAngle: 15
-  WanderBehaviorWeight: 7
-  WanderRadius: 5
-  WanderDistance: 2
-  WanderJitter: 3
+  WanderBehaviorWeight: 10
+  WanderRadius: 2
+  WanderDistance: 3
+  WanderJitter: 0.1
   SeekBehaviorWeight: 5
-  CohesionBehaviorWeight: 5
+  CohesionBehaviorWeight: 3
