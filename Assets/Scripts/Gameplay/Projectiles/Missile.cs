@@ -20,10 +20,10 @@ public class Missile : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _screenBounds = GameManager.GetScreenBounds;
-        if (!_missileVFX)
-        {
-            _missileVFX = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
-        }
+        //if (!_missileVFX)
+        //{
+        //    _missileVFX = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
+        //}
     }
 
     private void FixedUpdate()
@@ -86,7 +86,7 @@ public class Missile : MonoBehaviour
     }
     private void MissileExplostion(Collider2D collision)
     {
-        //bool triggerExplosionOnce = false;
+        bool triggerExplosionOnce = false;
         var colliders = Physics2D.OverlapCircleAll(collision.gameObject.transform.position, _turretData.missileGun.radiusEffect, _turretData.missileGun.enemyLayerMask);
         foreach (Collider2D enemy in colliders)
         {
@@ -97,32 +97,30 @@ public class Missile : MonoBehaviour
                 damageable.TakeDamage(_turretData.DamageMultiplier(_turretData.missileGun.damage, _turretData.PlayersOnScene), DispenserData.Type.Missile);
             }
 
-            //if (!triggerExplosionOnce)
-            //{
-            //    //Old way
-            //    //ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
-            //    //ParticleSystem.MainModule main = particle.main;
-            //    //main.startSize = _turretData.missileGun.radiusEffect;
-            //    //particle.Play();
-            //    //Destroy(particle, particle.main.duration);
 
-            //    // Still its not nice because can call GC.
-            //    //ParticleSystem particle = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
-            //    //particle.Play();
-            //    //Destroy(particle, particle.main.duration);
-            //    //Destroy(particle.gameObject, particle.main.duration + 1f);
+            if (!triggerExplosionOnce)
+            {
+                //    //Old way
+                //    //ParticleSystem particle = Instantiate(_explosionParticle, gameObject.transform.position, Quaternion.identity);
+                //    //ParticleSystem.MainModule main = particle.main;
+                //    //main.startSize = _turretData.missileGun.radiusEffect;
+                //    //particle.Play();
+                //    //Destroy(particle, particle.main.duration);
 
-
-            //    triggerExplosionOnce = true;
-            //}
+                //    // Still its not nice because can call GC.
+                ParticleSystem particle = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
+                particle.Play();
+                Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
+                triggerExplosionOnce = true;
+            }
 
         }
 
-        if (isActiveAndEnabled)
-        {
-            _missileVFX.gameObject.transform.position = transform.position;
-            _missileVFX.Play();
-        }
+        //if (isActiveAndEnabled)
+        //{
+        //    _missileVFX.gameObject.transform.position = transform.position;
+        //    _missileVFX.Play();
+        //}
         Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
         RecycleBullet();
 

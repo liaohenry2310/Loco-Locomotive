@@ -188,7 +188,7 @@ public class BomberEnemy : MonoBehaviour
         projectile.transform.position = transform.position;
         Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
         projectile.SetActive(true);
-        projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage);
+        projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage,EnemyTypeCheck.Type.Bomber);
     }
 
 }

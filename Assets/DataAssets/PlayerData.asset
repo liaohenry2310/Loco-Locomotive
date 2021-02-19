@@ -15,9 +15,9 @@ MonoBehaviour:
   InteractableMask:
     serializedVersion: 2
     m_Bits: 1024
-  Radius: 0.16
+  Radius: 0.15
   Speed: 2.5
-  Gravity: 5
+  Gravity: 6
   MaxHealth: 50
   HealthRateRegen: 10
   DelayTimeRegen: 3
