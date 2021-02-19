@@ -1,5 +1,4 @@
 ﻿using Interfaces;
-using System.Collections;
 using UnityEngine;
 
 public class Missile : MonoBehaviour
@@ -95,8 +94,9 @@ public class Missile : MonoBehaviour
             IDamageableType<float> damageable = enemy.GetComponent<EnemyHealth>();
             if (damageable != null)
             {
-                damageable.TakeDamage(_turretData.missileGun.damage, DispenserData.Type.Missile);
+                damageable.TakeDamage(_turretData.DamageMultiplier(_turretData.missileGun.damage, _turretData.PlayersOnScene), DispenserData.Type.Missile);
             }
+
 
             if (!triggerExplosionOnce)
             {

@@ -2,16 +2,18 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TurretData", menuName = "Turrets/Turret")]
-public class TurretData : ScriptableObject, ISerializationCallbackReceiver
+public class TurretData : ScriptableObject
 {
     [SerializeField] private float _maxHealth = 100.0f;
     [SerializeField, Range(50.0f, 360.0f)] private float _aimSpeed = 55.0f;
-    
+
     [Header("Tweeking Turret when receive Damage")]
     [SerializeField, Range(0.2f, 1f), Tooltip("How much time spent to shake")] private float _shakeTime = 0.2f;
     [SerializeField, Range(0.05f, 1f), Tooltip("How much force shaking in X direction")] private float _shakeForce = 0.05f;
     [SerializeField] private float _retractitleCannonSpeed = 5.0f;
     [SerializeField] private float _smokeMaxEmission = 10.0f;
+    [SerializeField] private TrainData _trainData = null;
+    [SerializeField] private float[] _damageMultiplier = new float[4];
 
     [Serializable]
     public struct MachineGun
@@ -72,7 +74,7 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float fireRate;
         public float aimSpeedMultiplier;
     }
-    
+
     [Serializable]
     public struct ShieldGun
     {
@@ -87,6 +89,12 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
     public ShockWave empShockWave;
     public ShieldGun shieldGun;
 
+
+    /// <summary>
+    /// Count how many players is on the train, accessing by TrainDataSO
+    /// </summary>
+    public int PlayersOnScene => _trainData.PlayerCount;
+
     public float MaxHealth { get => _maxHealth; set => _maxHealth = value; }
     public float AimSpeed { get => _aimSpeed; set => _aimSpeed = value; }
 
@@ -95,14 +103,11 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
     public float RetractitleCannonSpeed { get => _retractitleCannonSpeed; set => _retractitleCannonSpeed = value; }
     public float SmokeMaxEmission { get => _smokeMaxEmission; set => _smokeMaxEmission = value; }
 
-    [NonSerialized] public float CurrentHealth = 0.0f;
+    public float[] DamageMulti { get => _damageMultiplier; set => _damageMultiplier = value; }
 
-    public void OnBeforeSerialize()
+    public float DamageMultiplier(float damage, int playersNumbers)
     {
-        CurrentHealth = _maxHealth;
+        return damage * _damageMultiplier[playersNumbers - 1];
     }
-
-    public void OnAfterDeserialize()
-    {}
 
 }

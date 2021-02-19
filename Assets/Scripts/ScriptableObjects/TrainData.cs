@@ -9,7 +9,7 @@ public class TrainData : ScriptableObject, ISerializationCallbackReceiver
     public float MaxFuel = 2500.0f;
     public float FuelRate = 10.0f;
 
-    [NonSerialized] public uint PlayerCount = 1;
+    [NonSerialized] public int PlayerCount = 1;
     [NonSerialized] public float CurrentHealth;
     [NonSerialized] public float CurrentFuel;
     [NonSerialized] public TurretBase[] ListTurret;
