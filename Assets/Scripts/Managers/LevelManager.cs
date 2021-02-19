@@ -85,6 +85,7 @@ public class LevelManager : MonoBehaviour
     {
         _gameManager.PauseGame();
         PauseMenu.SetActive(true);
+        PauseMenu.GetComponentInChildren<Button>().Select();
     }
 
     public void ContinueGame()

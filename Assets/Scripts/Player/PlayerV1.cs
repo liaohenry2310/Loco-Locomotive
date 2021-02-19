@@ -52,8 +52,8 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             if (_axis.y != 0.0f)
             {
                 float posY = Mathf.Min(transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime), LadderController.LadderTopPosition.y);
-                float posX = LadderController.transform.position.x;
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(posX, posY), _playerData.Speed * Time.fixedDeltaTime);
+                float posX = Mathf.MoveTowards(transform.position.x, LadderController.transform.position.x, _playerData.Speed * Time.fixedDeltaTime);
+                transform.position = new Vector3(posX, posY, transform.position.z);
             }
         }
         else
