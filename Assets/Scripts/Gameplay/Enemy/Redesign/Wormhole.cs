@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Wormhole : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _VFX = null;
     [SerializeField] private float _spinSpeed = 5.0f;
     [SerializeField] private float _scaleDeltaSpeed = 0.1f;
 
@@ -52,10 +53,10 @@ public class Wormhole : MonoBehaviour
         // Growing and shrinking the wormhole
         if (_currentScale < _maxScale)
         {
-
             transform.Rotate(0.0f, 0.0f, _spinSpeed);
             transform.localScale += new Vector3(transform.localScale.x, transform.localScale.y, 1f) * Time.deltaTime;//*_scaleDeltaSpeed*_spinSpeed ;
             _currentScale = transform.localScale.x;
+            PlayParticle();
 
             if (_currentScale >= _maxScale/2 && !_spawnedEnemy && (_currentSpawned < _waveData.NumToSpawn))
             {
@@ -73,11 +74,15 @@ public class Wormhole : MonoBehaviour
                 RecycleWormhole();
             }
         }
-
-
-
-
     }
+
+    public void PlayParticle()
+    {
+        ParticleSystem particle = Instantiate(_VFX, transform.position, Quaternion.identity);
+        particle.Play();
+        Destroy(particle, particle.main.duration);
+    }
+
 
     void SpawnEnemies()
     {
