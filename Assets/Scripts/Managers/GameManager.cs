@@ -46,6 +46,16 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ContinueGame()
+    {
+        Time.timeScale = 1;
+    }
+
     public string GetLevelNames()
     {
         return SceneManager.GetActiveScene().name;

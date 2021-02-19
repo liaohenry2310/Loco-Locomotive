@@ -18,11 +18,20 @@ public class Bullet : MonoBehaviour
         }
         _screenBounds = GameManager.GetScreenBounds;
 
-        if (!_bulletVFX)
-        {
-            _bulletVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
-        }
+        //if (!_bulletVFX)
+        //{
+        //    _bulletVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+        //}
     }
+
+
+    //private void OnDisable()
+    //{
+    //    if (_bulletVFX)
+    //    {
+    //        Destroy(_bulletVFX.gameObject, _bulletVFX.main.duration + 0.5f);
+    //    }
+    //}
 
     private void FixedUpdate()
     {
@@ -59,17 +68,17 @@ public class Bullet : MonoBehaviour
             //StartCoroutine(HitExplosion());
 
             //For now will work like so, but still call GC.
-            //ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
-            //particle.Play();
-            //Destroy(particle, particle.main.duration);
-            //Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
+            ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+            particle.Play();
+            Destroy(particle, particle.main.duration);
+            Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
 
             // This methods save 200ms in game
-            if (isActiveAndEnabled)
-            {
-                _bulletVFX.gameObject.transform.position = transform.position;
-                _bulletVFX.Play();
-            }
+            //if (isActiveAndEnabled)
+            //{
+            //    _bulletVFX.gameObject.transform.position = transform.position;
+            //    _bulletVFX.Play();
+            //}
             Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
             RecycleBullet();
         }

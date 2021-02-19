@@ -198,6 +198,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 652743844392941153, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: PauseMenu
+      value: 
+      objectReference: {fileID: 1561955598}
     - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
       propertyPath: TimeLimit
@@ -205,8 +215,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
+      propertyPath: confirm.m_Id
+      value: 9ec799cb-c9d2-4abb-9c4f-288d566f2ef2
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_Name
+      value: Confirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_SingletonActionBindings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
       propertyPath: OnLevelLoad.m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_SingletonActionBindings.Array.data[0].m_Id
+      value: d7ab8c6d-508b-4e98-9f76-a2f067b8cf3a
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 204c62b3-8d1d-43ee-80a8-b69624dbf031
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Keyboard>/escape
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Gamepad>/start
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Confirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: confirm.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Confirm
       objectReference: {fileID: 0}
     - target: {fileID: 838013606640094134, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
@@ -232,6 +287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OnLevelLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875822813413125671, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
@@ -2330,6 +2390,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1561955598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1595674115173129271, guid: 9cebfe50425518c4a8c8cd03782acc13,
+    type: 3}
+  m_PrefabInstance: {fileID: 80692560}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1580592273
 GameObject:
   m_ObjectHideFlags: 0
