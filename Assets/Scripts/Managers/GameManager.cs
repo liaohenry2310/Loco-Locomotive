@@ -46,6 +46,16 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ContinueGame()
+    {
+        Time.timeScale = 1;
+    }
+
     public string GetLevelNames()
     {
         return SceneManager.GetActiveScene().name;
@@ -94,12 +104,20 @@ public class GameManager : MonoBehaviour
             _loadingScene = true;
             sceneTransition.StartTransition();
             yield return new WaitForSecondsRealtime(sceneTransition.Duration);
+
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
             _objectPoolManager.RecycleEntirePool();
             SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
             Time.timeScale = 1.0f;
-            yield return new WaitForSecondsRealtime(0.5f);
+
+            while (SceneManager.GetActiveScene().buildIndex != sceneBuildIndex)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(sceneTransition.Duration);
             sceneTransition.StartTransition();
+            yield return new WaitForSecondsRealtime(sceneTransition.Duration);
             _loadingScene = false;
         }
     }

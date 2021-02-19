@@ -14,6 +14,7 @@ namespace Turret
         {
             public GameObject muzzleFlashVFX;
             public AudioSource audioSourceClips;
+            public Transform transformCannon;
         }
 
         public MachineGunProperties MachineGunProps;
@@ -45,6 +46,8 @@ namespace Turret
             bullet.transform.SetPositionAndRotation(_spawnPoint.position, rotation);
             bullet.SetActive(true);
             _currentAmmo--;
+            //Recoil
+            MachineGunProps.transformCannon.localPosition -= MachineGunProps.transformCannon.up * _turretData.machineGun.recoilForce;
         }
 
         public override void SetUp(Transform spawnPoint)

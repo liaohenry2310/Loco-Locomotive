@@ -11,6 +11,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 {
     [SerializeField] private PlayerData _playerData = null;
     [SerializeField] private SpriteRenderer _playerSpriteRenderer = null;
+
     public IInteractable Interactable { get; set; } = null;
     public LadderController LadderController { get; set; } = null;
 
@@ -32,7 +33,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
     //Animator
     public Animator animator;
-
+    public bool _isOnfloor;
     public Vector3 PlayerItemPlaceHolder => transform.position + (_playerSpriteRenderer.bounds.center - transform.position);
 
     private void Start()
@@ -50,18 +51,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
 
             if (_axis.y != 0.0f)
             {
-                _rigidBody.MovePosition(new Vector2(_rigidBody.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
-                //_rigidBody.MovePosition(new Vector2(LadderController.transform.position.x, transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime)));
-                //_rigidBody.velocity = new Vector2(0.0f, _axis.y * _playerData.Speed);
-                //transform.position = new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
-                //Vector2 playerUsingLadder =  new Vector2(LadderController.transform.position.x, Mathf.Min(transform.position.y, LadderController.LadderTopPosition.y + _playerHeight * 0.5f));
-                //_rigidBody.MovePosition(playerUsingLadder);
-
+                float posY = Mathf.Min(transform.position.y + (_axis.y * _playerData.Speed * Time.fixedDeltaTime), LadderController.LadderTopPosition.y);
+                float posX = LadderController.transform.position.x;
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(posX, posY), _playerData.Speed * Time.fixedDeltaTime);
             }
-            //else
-            //{
-            //    _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 0.0f);
-            //}
         }
         else
         {
@@ -71,9 +64,11 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     #region Animator
     private void Update()
     {
-        //moving
+        TurretGuns turret = Interactable as TurretGuns;
+
         if (_axis.x < 0)
         {
+            //moving left
             _playerSpriteRenderer.flipX = false;
             animator.SetBool("IsMoving", true);
             animator.SetBool("IsIdle", false);
@@ -82,47 +77,44 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         }
         else if (_axis.x > 0)
         {
+            //moving right
             _playerSpriteRenderer.flipX = true;
             animator.SetBool("IsMoving", true);
             animator.SetBool("IsIdle", false);
             animator.SetBool("IsClimb", false);
             animator.SetBool("UsingTurret", false);
         }
-        //not moving
-        else
+        else if(turret == null)
         {
-            animator.SetBool("IsMoving", false);
+            //not moving
+            _playerSpriteRenderer.flipX = true;
             animator.SetBool("IsIdle", true);
-        }
-        //climbing
-        if (_axis.y != 0.0f)
-        {
-            animator.SetBool("IsClimb", true);
             animator.SetBool("IsMoving", false);
-            animator.SetBool("IsIdle", false);
             animator.SetBool("UsingTurret", false);
         }
-        //not climbing
-        else
+        else if (turret!=null)
         {
-            animator.SetBool("IsClimb", false);
-        }
-        //using Turret
-        TurretGuns turret = Interactable as TurretGuns;
-        if (turret != null)
-        {
+            //using turret
+            _playerSpriteRenderer.flipX = false;
             animator.SetBool("UsingTurret", true);
             animator.SetBool("IsClimb", false);
             animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", false);
             animator.SetBool("IsHoldItem", false);
         }
-        else
+        if (_axis.y != 0.0f && _isOnfloor)
         {
+            //climbing
+            animator.SetBool("IsClimb", true);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsIdle", false);
             animator.SetBool("UsingTurret", false);
         }
-        //player death
-        //animator.SetBool("IsDeath", !_healthSystem.IsAlive);
+        else
+        {
+            //not climbing
+            animator.SetBool("IsClimb", false);
+        }
 
         _delayTimeToRegen += Time.deltaTime;
         if (_delayTimeToRegen >= _playerData.DelayTimeRegen)
@@ -248,6 +240,12 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             IInteractable iter = collider.GetComponent<IInteractable>();
             if (iter != null)
             {
+                TurretGuns turret = iter as TurretGuns;
+                if (turret != null && turret.isInUse)
+                {
+                    break;
+                }
+
                 iter.Interact(this);
                 animator.SetBool("IsHoldItem", true);
                 break;

@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Items;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +36,12 @@ namespace Turret
         [SerializeField] private SpriteRenderer _bottomSprite = null;
         [SerializeField] private TurretBase _turretBase = null;
 
+        [Header("Squishes Effect")]
+        [SerializeField] private Animator _animator = null;
+
+        [HideInInspector] public bool isInUse = false;
+        public float RetractitleSpeed = 5.0f;
+
         private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
@@ -46,6 +53,11 @@ namespace Turret
         private Vector2 _rotation = Vector2.zero;
         private bool _holdFire = false;
         private ParticleSystem.EmissionModule _emission;
+        private Vector2 _recoildSmoothDampVelocity;
+
+        private Vector3 _cannonOriginalPosition;
+        private readonly int _active = Animator.StringToHash("Active");
+        private bool _isReadyToShot = false;
 
         private void Awake()
         {
@@ -56,6 +68,8 @@ namespace Turret
             _emission = _smokeParticle.emission;
 
             _audioSource.pitch = Random.Range(0.9f, 1.1f);
+            _cannonOriginalPosition = new Vector3(_cannonHandler.localPosition.x, _cannonHandler.localPosition.y + 0.5f, 0.0f);
+            //_cannonOriginalPosition = _cannonHandler.localPosition;
 
             // Setting up laser properties
             _laserGunProps.laserBeamRenderer = _LaserBeam;
@@ -63,14 +77,16 @@ namespace Turret
             _laserGunProps.endVFX = _LaserBeamEndVFX;
             _laserGunProps.hitVFX = _LaserBeamHitVFX;
             _laserGunProps.audioSourceClips = _audioSource;
-            _laserGunProps.monoBehaviour = this;
+            _laserGunProps.transformCannon = _cannonHandler;
 
             // Setting up missile properties
             _missileGunProps.audioSourceClips = _audioSource;
+            _missileGunProps.transformCannon = _cannonHandler;
 
             // Setting up machine gun properties
             _machineGunProps.muzzleFlashVFX = _MachineGunStartVFX;
             _machineGunProps.audioSourceClips = _audioSource;
+            _machineGunProps.transformCannon = _cannonHandler;
 
             // Setting up shield gun properties
             _shieldGunProps.shieldGunController = _shieldGunController;
@@ -94,6 +110,7 @@ namespace Turret
 
         private void Start()
         {
+            //_turretAmmoIndicator.PlayerUsingTurret(false);
             _turretBase.OnTakeDamageUpdate += UpdateBottonTurret;
             _turretBase.OnRepairUpdate += UpdateTurretSprite;
         }
@@ -128,6 +145,11 @@ namespace Turret
 
         private void UpdateBottonTurret(float healthPerc)
         {
+            if (!_turretBase.HealthSystem.IsAlive && isInUse)
+            {
+                EngageTurret(false);
+            }
+
             _turretAmmoIndicator.EnableIndicator(healthPerc >= 0.1f);
 
             if (_weapons as LaserBeam != null)
@@ -138,7 +160,7 @@ namespace Turret
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
                     _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
                 }
-                else if(healthPerc >= 0.25f && healthPerc < 0.75f)
+                else if (healthPerc >= 0.25f && healthPerc < 0.75f)
                 {
                     _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
 
@@ -244,8 +266,13 @@ namespace Turret
 
         private void FixedUpdate()
         {
+            if (!_isReadyToShot) return;
+            // recoil effect to back to original position
+            _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, .1f);
+
             if (!_turretBase.HealthSystem.IsAlive)
             {
+
                 if (_weapons is LaserBeam laser)
                 {
                     laser.DisableLaser();
@@ -263,6 +290,7 @@ namespace Turret
 
             if (_holdFire)
             {
+
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
@@ -278,10 +306,11 @@ namespace Turret
 
         public void Interact(PlayerV1 player)
         {
-            _player = player;
-            _player.Interactable = this;
-            _player.SwapActionControlToPlayer(false);
+            // Check if the turret still alive to use it
+            if (!_turretBase.HealthSystem.IsAlive) return;
 
+            //TODO: whicht time the player will be atached on the turret?
+            _player = player;
             Item item = _player.GetItem;
             if (item)
             {
@@ -289,6 +318,11 @@ namespace Turret
                 Reload(item.ItemType);
                 item.DestroyAfterUse();
             }
+            else
+            {
+                EngageTurret(true);
+            }
+
         }
 
         #region Turret Action given to Player
@@ -302,8 +336,7 @@ namespace Turret
         {
             if (context.started)
             {
-                _player.SwapActionControlToPlayer(true);
-                _player.Interactable = null;
+                EngageTurret(false);
             }
         }
 
@@ -316,6 +349,7 @@ namespace Turret
 
         private void Reload(DispenserData.Type itemType)
         {
+            _animator.SetTrigger(_active);
             switch (itemType)
             {
                 case DispenserData.Type.Normal:
@@ -336,7 +370,64 @@ namespace Turret
                 default:
                     break;
             }
+            _turretAmmoIndicator.UpadteIndicator(ref _weapons);
         }
+
+        private void EngageTurret(bool isEngaged)
+        {
+            _player.Interactable = isEngaged ? this : null;
+            _player.SwapActionControlToPlayer(!isEngaged);
+            isInUse = isEngaged;
+            _player.transform.position = transform.position;
+            EngangedTurretEffect(isEngaged);
+            if (!isEngaged) // when dettached, reset the rotation speed and holdfire as well
+            {
+                _rotation.x = 0.0f;
+                _holdFire = false;
+            }
+        }
+
+        private void EngangedTurretEffect(bool isReady)
+        {
+            if (isReady)
+            {
+                StartCoroutine(AttachRetractileTurret());
+            }
+            else
+            {
+                StartCoroutine(DetachedRetractileTurret());
+            }
+        }
+
+        private IEnumerator AttachRetractileTurret()
+        {
+            const float maxY = 0.17f;
+            _isReadyToShot = false;
+            while (_cannonHandler.localPosition.y < maxY)
+            {
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, maxY, Time.deltaTime * RetractitleSpeed);
+                _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp + 0.01f, 0.0f);
+                yield return null;
+            }
+            _turretAmmoIndicator.PlayerUsingTurret(true);
+            _isReadyToShot = true;
+        }
+
+        private IEnumerator DetachedRetractileTurret()
+        {
+            const float minY = -0.3f;
+            _cannonHandler.rotation = Quaternion.identity;
+            _isReadyToShot = false;
+            //_turretAmmoIndicator.PlayerUsingTurret(false);
+            while (_cannonHandler.localPosition.y > minY)
+            {
+                float positionToLerp = Mathf.Lerp(_cannonHandler.localPosition.y, minY, Time.deltaTime * RetractitleSpeed);
+                _cannonHandler.localPosition = new Vector3(_cannonHandler.localPosition.x, positionToLerp - 0.01f, 0.0f);
+                yield return null;
+            }
+            _turretAmmoIndicator.PlayerUsingTurret(true);
+        }
+
 
         private void SetMachineGun()
         {

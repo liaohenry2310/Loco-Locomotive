@@ -1,5 +1,4 @@
 ﻿using Interfaces;
-using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -7,17 +6,32 @@ public class Bullet : MonoBehaviour
     [SerializeField] private TurretData _turretData = null;
     [SerializeField] private ParticleSystem _hitVFX = null;
     [SerializeField] private GameObject _bulletSound = null;
-
+    private ParticleSystem _bulletVFX = null;
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
+
     void Start()
     {
-        _screenBounds = GameManager.GetScreenBounds;
         if (_objectPoolManager == null)
         {
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
+        _screenBounds = GameManager.GetScreenBounds;
+
+        //if (!_bulletVFX)
+        //{
+        //    _bulletVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+        //}
     }
+
+
+    //private void OnDisable()
+    //{
+    //    if (_bulletVFX)
+    //    {
+    //        Destroy(_bulletVFX.gameObject, _bulletVFX.main.duration + 0.5f);
+    //    }
+    //}
 
     private void FixedUpdate()
     {
@@ -36,9 +50,8 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         EnemyProjectile enemyProjectile = collision.GetComponent<EnemyProjectile>();
-        
-        
-        if (enemyProjectile!=null&& enemyProjectile.CurrenyEnemeyType == EnemyTypeCheck.Type.Bomber)
+
+        if (enemyProjectile != null && enemyProjectile.CurrenyEnemeyType == EnemyTypeCheck.Type.Bomber)
         {
             ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
             particle.Play();
@@ -48,39 +61,33 @@ public class Bullet : MonoBehaviour
             RecycleBullet();
         }
 
-
         IDamageableType<float> damageable = collision.GetComponent<EnemyHealth>();
         if (damageable != null)
         {
             damageable.TakeDamage(_turretData.machineGun.damage, DispenserData.Type.Normal);
             //StartCoroutine(HitExplosion());
-            //For now will work like so
+
+            //For now will work like so, but still call GC.
             ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
             particle.Play();
             Destroy(particle, particle.main.duration);
+            Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
+
+            // This methods save 200ms in game
+            //if (isActiveAndEnabled)
+            //{
+            //    _bulletVFX.gameObject.transform.position = transform.position;
+            //    _bulletVFX.Play();
+            //}
             Instantiate(_bulletSound, gameObject.transform.position, Quaternion.identity);
             RecycleBullet();
         }
 
-
     }
-
-    //TODO: this functions still in test
-    // Need to improve this function to avoid GC
-    private IEnumerator HitExplosion()
-    {
-        GameObject particle = _objectPoolManager.GetObjectFromPool("bulletVFX");
-        particle.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-        var particles = particle.GetComponent<ParticleSystem>();
-        particles.Play();
-        yield return new WaitForSeconds(particles.main.duration);
-        _objectPoolManager.RecycleObject(particle);
-        RecycleBullet();
-    }
-
 
     private void RecycleBullet()
     {
         _objectPoolManager.RecycleObject(gameObject);
     }
+
 }

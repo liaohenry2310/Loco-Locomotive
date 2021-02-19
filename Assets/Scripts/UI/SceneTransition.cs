@@ -32,12 +32,10 @@ public class SceneTransition : MonoBehaviour
             case State.Opened:
                 StartCoroutine(ClosingTransition(transitionDuration));
                 transitionSfx.Play();
-                CurrentState = State.Closed;
                 break;
             case State.Closed:
                 StartCoroutine(OpeningTransition(transitionDuration));
                 transitionSfx.Play();
-                CurrentState = State.Opened;
                 break;
         }
     }
@@ -68,6 +66,7 @@ public class SceneTransition : MonoBehaviour
             yield return null;
         }
 
+        CurrentState = State.Opened;
         _isTransitioning = false;
     }
 
@@ -88,6 +87,7 @@ public class SceneTransition : MonoBehaviour
             yield return null;
         }
 
+        CurrentState = State.Closed;
         _isTransitioning = false;
     }
 }

@@ -1,7 +1,9 @@
 using GamePlay;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,9 +12,30 @@ public class LevelManager : MonoBehaviour
 
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
+    public UnityEvent OnLevelLoad;
+    public GameObject PauseMenu;
+
+    public InputAction confirm;
 
     public float TimeLimit = 300.0f;
     public float TimeRemaining = 0.0f;
+
+    private void OnEnable()
+    {
+        confirm.performed += (InputAction.CallbackContext ctx) => { PauseGame(); };
+        confirm.Enable();
+    }
+
+    private void OnDisable()
+    {
+        confirm.performed -= (InputAction.CallbackContext ctx) => { PauseGame(); };
+        confirm.Disable();
+    }
+
+    public void PauseTime(bool paused)
+    {
+        timerIsRunning = !paused;
+    }
 
     public void GameOver()
     {
@@ -40,6 +63,7 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         _gameManager.LoadNextLevel();
+        PauseMenu.SetActive(false);
     }
     public void RestartLevel()
     {
@@ -49,11 +73,24 @@ public class LevelManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         _gameManager.ReturnToMainMenu();
+        PauseMenu.SetActive(false);
     }
 
     public void QuitGame()
     {
         _gameManager.QuitGame();
+    }
+
+    public void PauseGame()
+    {
+        _gameManager.PauseGame();
+        PauseMenu.SetActive(true);
+    }
+
+    public void ContinueGame()
+    {
+        _gameManager.ContinueGame();
+        PauseMenu.SetActive(false);
     }
 
     //Private members
@@ -66,11 +103,12 @@ public class LevelManager : MonoBehaviour
         _gameManager = GameManager.Instance;
 
         TimeRemaining = TimeLimit;
-        timerIsRunning = true;
 
         Train train = FindObjectOfType<Train>();
         if (train)
             train.OnGameOver += GameOver;
+
+        OnLevelLoad.Invoke();
     }
 
     private void Update()
@@ -88,4 +126,5 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
+
 }
