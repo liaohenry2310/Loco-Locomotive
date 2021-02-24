@@ -9,8 +9,10 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField] private ParticleSystem _explosionVFX = null;
     [SerializeField] private ParticleSystem _VFX = null;
 
-    private float _AttackSpeed=0.0f;
-    private float _AttackDamage=0.0f;
+    private ParticleSystem _projectileVFX = null;
+
+    private float _AttackSpeed = 0.0f;
+    private float _AttackDamage = 0.0f;
 
     private ObjectPoolManager _objectPoolManager = null;
     private Vector3 _screenBounds;
@@ -30,10 +32,22 @@ public class EnemyProjectile : MonoBehaviour
 
     private void Awake()
     {
-        _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        _screenBounds = GameManager.GetScreenBounds;
         _sprite = GetComponentInChildren<SpriteRenderer>();
     }
+
+    private void Start()
+    {
+        if (_objectPoolManager == null)
+        {
+            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
+        }
+        _screenBounds = GameManager.GetScreenBounds;
+        if (!_projectileVFX)
+        {
+            _projectileVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+        }
+    }
+
 
     private void Update()
     {
@@ -77,7 +91,6 @@ public class EnemyProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Explostion(collision);
-
     }
 
     private void Explostion(Collider2D collider)
@@ -90,18 +103,25 @@ public class EnemyProjectile : MonoBehaviour
             if (damageable != null)
             {
                 damageable.TakeDamage(_AttackDamage);
-                ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
-                particle.Play();
-                Destroy(particle, particle.main.duration);
-                RecycleBullet();
+                //TODO: old way
+                //ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+                //particle.Play();
+                //Destroy(particle, particle.main.duration);
             }
         }
+        if (isActiveAndEnabled)
+        {
+            _projectileVFX.gameObject.transform.position = transform.position;
+            _projectileVFX.Play();
+        }
+
+        RecycleBullet();
     }
     public void PlayParticle(Vector3 pos)
     {
         ParticleSystem particle = Instantiate(_explosionVFX, pos, Quaternion.identity);
         particle.Play();
-        Destroy(particle, particle.main.duration);
+        Destroy(particle.gameObject, particle.main.duration);
     }
     public void MovingParticle()
     {
@@ -126,10 +146,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private void RecycleBullet()
     {
-        if (_objectPoolManager == null)
-        {
-            _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-        }
+
         _objectPoolManager.RecycleObject(gameObject);
     }
 

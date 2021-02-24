@@ -1,6 +1,7 @@
 using GamePlay;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
@@ -10,9 +11,15 @@ public class LevelManager : MonoBehaviour
 
     public GameObject GameOverPanel;
     public GameObject GameWinPanel;
+    public UnityEvent OnLevelLoad;
 
     public float TimeLimit = 300.0f;
     public float TimeRemaining = 0.0f;
+
+    public void PauseTime(bool paused)
+    {
+        timerIsRunning = !paused;
+    }
 
     public void GameOver()
     {
@@ -66,11 +73,12 @@ public class LevelManager : MonoBehaviour
         _gameManager = GameManager.Instance;
 
         TimeRemaining = TimeLimit;
-        timerIsRunning = true;
 
         Train train = FindObjectOfType<Train>();
         if (train)
             train.OnGameOver += GameOver;
+
+        OnLevelLoad.Invoke();
     }
 
     private void Update()

@@ -2,7 +2,6 @@
 using Interfaces;
 using System;
 using UnityEngine;
-
 namespace GamePlay
 {
 
@@ -12,7 +11,9 @@ namespace GamePlay
         public event Action<float> OnUpdateFuelUI;    // FuelUI Action
         public event Action<float> OnFuelReloadUI;    // FireBox Action
         public event Action OnGameOver;               // GameManager action
-
+        public Camera_shake camera_Shake; 
+        private float _shakeAmount;
+        private Vector3 _pos;
         #region Members
 
         [SerializeField] private TrainData _trainData = null;
@@ -30,6 +31,7 @@ namespace GamePlay
         private void Start()
         {
             Initialized();
+            _pos = this.transform.position;
         }
 
         private void OnEnable()
@@ -59,7 +61,7 @@ namespace GamePlay
         private void Update()
         {
             // Check how many player has on the scene to increate the FuelRate
-            CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4f) * Time.deltaTime);
+            CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4.0f) * Time.deltaTime);
         }
 
         private void ReloadFuel()
@@ -95,6 +97,16 @@ namespace GamePlay
             {
                 OnGameOver?.Invoke();
             }
+            //Train Shakes
+            if (damage >10)
+                _shakeAmount = 0.1f;          
+            else
+                _shakeAmount = UnityEngine.Random.Range(0.05f, 0.08f);
+            Vector3 shakepos = UnityEngine.Random.insideUnitSphere * _shakeAmount;
+            Vector3 pos = _pos + shakepos;
+            pos.y = transform.localPosition.y;
+            transform.localPosition = pos;
+            StartCoroutine(camera_Shake.Shake(0.03f, 0.03f));
         }
     }
 }

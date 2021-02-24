@@ -11,6 +11,7 @@ namespace Turret
         public struct MissileGunProperties
         {
             public AudioSource audioSourceClips;
+            public Transform transformCannon;
         }
 
         public MissileGunProperties MissileGunProps;
@@ -36,6 +37,8 @@ namespace Turret
             missile.transform.SetPositionAndRotation(_spawnPoint.position, _spawnPoint.rotation);
             missile.SetActive(true);
             _currentAmmo--;
+            //Recoil
+            MissileGunProps.transformCannon.localPosition -= MissileGunProps.transformCannon.up * _turretData.missileGun.recoilForce;
         }
 
         public override void SetUp(Transform spawnPoint)

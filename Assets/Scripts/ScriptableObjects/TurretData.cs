@@ -5,8 +5,13 @@ using UnityEngine;
 public class TurretData : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField] private float _maxHealth = 100.0f;
-    [Range(50.0f, 360.0f)]
-    [SerializeField] private float _aimSpeed = 55.0f;
+    [SerializeField, Range(50.0f, 360.0f)] private float _aimSpeed = 55.0f;
+    
+    [Header("Tweeking Turret when receive Damage")]
+    [SerializeField, Range(0.2f, 1f), Tooltip("How much time spent to shake")] private float _shakeTime = 0.2f;
+    [SerializeField, Range(0.05f, 1f), Tooltip("How much force shaking in X direction")] private float _shakeForce = 0.05f;
+    [SerializeField] private float _retractitleCannonSpeed = 5.0f;
+    [SerializeField] private float _smokeMaxEmission = 10.0f;
 
     [Serializable]
     public struct MachineGun
@@ -16,8 +21,9 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float fireRate;
         public float maxAmmo;
         public float spreadBullet;
+        public float recoilForce;
         public AudioClip machinegunFire;
-        public AudioClip machinegunBeam;
+        public AudioClip machinegunHit;
         public Sprite[] Uppersprites;
         public Sprite[] Cannonsprites;
     }
@@ -32,8 +38,9 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float fireRate;
         public float radiusEffect;
         public float maxAmmo;
+        public float recoilForce;
         public AudioClip missilegunFire;
-        public AudioClip missilegunBeam;
+        public AudioClip missilegunHit;
         public Sprite[] Uppersprites;
         public Sprite[] Cannonsprites;
         public LayerMask enemyLayerMask;
@@ -47,6 +54,7 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
         public float ammoConsumeRate;
         public float aimSpeedMultiplier;
         public float maxAmmo;
+        public float recoildForce;
         public AudioClip lasergunBeam;
         public AudioClip lasergunFire;
         public Sprite[] Uppersprites;
@@ -79,8 +87,13 @@ public class TurretData : ScriptableObject, ISerializationCallbackReceiver
     public ShockWave empShockWave;
     public ShieldGun shieldGun;
 
-    public float MaxHealth => _maxHealth;
-    public float AimSpeed => _aimSpeed;
+    public float MaxHealth { get => _maxHealth; set => _maxHealth = value; }
+    public float AimSpeed { get => _aimSpeed; set => _aimSpeed = value; }
+
+    public float ShakeTime { get => _shakeTime; set => _shakeTime = value; }
+    public float ShakeForce { get => _shakeForce; set => _shakeForce = value; }
+    public float RetractitleCannonSpeed { get => _retractitleCannonSpeed; set => _retractitleCannonSpeed = value; }
+    public float SmokeMaxEmission { get => _smokeMaxEmission; set => _smokeMaxEmission = value; }
 
     [NonSerialized] public float CurrentHealth = 0.0f;
 

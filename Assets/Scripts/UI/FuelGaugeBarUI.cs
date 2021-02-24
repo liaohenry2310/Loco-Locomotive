@@ -12,13 +12,11 @@ namespace UI
         [SerializeField] private Image _bar = null;
         [SerializeField] private float _updateSpeedSeconds = 0.5f;
         private Train _train;
-
         private void Awake()
         {
             _train = FindObjectOfType<Train>();
             //_bar.localScale = new Vector3(1.0f, 1.0f, 0.0f);
         }
-
         private void OnEnable()
         {
             _train.OnFuelReloadUI += FuelReload;

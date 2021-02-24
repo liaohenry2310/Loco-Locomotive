@@ -9649,6 +9649,10 @@ PrefabInstance:
       value: BigExplosion_Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.6873426
       objectReference: {fileID: 0}
@@ -9661,6 +9665,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.7071068
       objectReference: {fileID: 0}
@@ -9671,14 +9679,6 @@ PrefabInstance:
     - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4388947112716342, guid: 19727d177b985404abb0bdc834e04b79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
