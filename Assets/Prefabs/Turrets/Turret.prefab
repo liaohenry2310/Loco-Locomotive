@@ -5193,7 +5193,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5307,7 +5307,6 @@ MonoBehaviour:
   _turretBase: {fileID: 3678406150818836080}
   _animator: {fileID: 4509426177975780363}
   isInUse: 0
-  RetractitleSpeed: 5
 --- !u!1 &3193508246008629862
 GameObject:
   m_ObjectHideFlags: 0

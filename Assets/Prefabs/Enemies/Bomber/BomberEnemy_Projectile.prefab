@@ -147,3 +147,7 @@ MonoBehaviour:
   _explosionVFX: {fileID: 198917022394846920, guid: 5bd107124db74784092467899f624b54,
     type: 3}
   _VFX: {fileID: 4149614221999128866, guid: 015824b250adfa54683f3ace08314d65, type: 3}
+  _basicProjectileSFX: {fileID: 6425000051854844661, guid: 14beafb1f55bb034886b87ffb05478b1,
+    type: 3}
+  _bomberProjectileSFX: {fileID: 6425000051854844661, guid: 9565497402605084fb691cf73b5f9b41,
+    type: 3}

@@ -8,9 +8,14 @@ public class GiantEnemy : MonoBehaviour
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
     [SerializeField] private GameObject _laserHitVFX = null;
+    [SerializeField] private GameObject _giantDeadSFX = null;
+    [SerializeField] private GameObject _giantChargingSFX = null;
 
     public GiantEnemyData enemyData;
     public SpriteRenderer sr;
+    public AudioSource Audio;
+    public AudioClip[] clip;
+
     private float _transparency = 0.0f;
     private Vector3 _scale = new Vector3(1.0f,1.0f,1.0f);
     private Vector3 _velocity;
@@ -18,6 +23,7 @@ public class GiantEnemy : MonoBehaviour
     private float _chargeTime;
     private float _beamDamage;
     private float _beamDuration;
+
 
     private Transform _topRightBound;
     private Transform _botLeftBound;
@@ -204,6 +210,9 @@ public class GiantEnemy : MonoBehaviour
         chargeingCount += Time.deltaTime;
         VFX.transform.position = (Vector2)transform.position;
         PlayParticles();
+        //giant charging 
+        Instantiate(_giantDeadSFX, gameObject.transform.position, Quaternion.identity);
+
         if (chargeingCount >= _chargeTime)
         {
 
@@ -222,7 +231,7 @@ public class GiantEnemy : MonoBehaviour
             lineRenderer.enabled = true;
 
             lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, -1.0f));
-
+            //start attack audio
             var pos = (Vector2)targetPos;
 
             lineRenderer.SetPosition(1, pos);
@@ -233,8 +242,11 @@ public class GiantEnemy : MonoBehaviour
             if (hit != null)
             {
                 EnableLaserHitVFX();
+                //attack audio
+                Audio.PlayOneShot(clip[0]);
+                Audio.clip = clip[1];
+                Audio.Play();
                 for (int i = 0; i < hit.Length; i++)
-
                 {
                     Collider2D collider = hit[i].collider;
                     if (collider)
@@ -300,6 +312,9 @@ public class GiantEnemy : MonoBehaviour
             StopParticles();
             DisableLaser();
             DisableLaserHitVFX();
+            //Giant dead audio
+            Instantiate(_giantDeadSFX, gameObject.transform.position, Quaternion.identity);
+
             mCurrentState = State.WanderIdle;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             sr.transform.Rotate(Vector3.forward, 45 * 5.0f * Time.deltaTime, Space.Self);
@@ -310,7 +325,6 @@ public class GiantEnemy : MonoBehaviour
     }
     void PlayParticles()
     {
-
         for (int i = 0; i < particles.Count; ++i)
         {
             if (!particles[i].isPlaying)

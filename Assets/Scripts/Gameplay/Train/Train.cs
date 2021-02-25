@@ -11,7 +11,10 @@ namespace GamePlay
         public event Action<float> OnUpdateFuelUI;    // FuelUI Action
         public event Action<float> OnFuelReloadUI;    // FireBox Action
         public event Action OnGameOver;               // GameManager action
-        public Camera_shake camera_Shake; 
+        public Camera_shake camera_Shake;
+        public AudioSource Audio;
+
+        private bool _audioPlayed = false;
         private float _shakeAmount;
         private Vector3 _pos;
         #region Members
@@ -62,6 +65,12 @@ namespace GamePlay
         {
             // Check how many player has on the scene to increate the FuelRate
             CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4.0f) * Time.deltaTime);
+
+            if (_trainData.FuelPercentage < 0.3f && !_audioPlayed)
+            {
+                Audio.PlayOneShot(Audio.clip);
+                _audioPlayed = true;
+            }
         }
 
         private void ReloadFuel()

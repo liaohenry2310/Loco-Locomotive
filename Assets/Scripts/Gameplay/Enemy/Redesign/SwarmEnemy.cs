@@ -6,6 +6,9 @@ using UnityEngine;
 public class SwarmEnemy : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitVFX = null;
+    [SerializeField] private GameObject _swarmDeadSFX = null;
+    [SerializeField] private GameObject _swarmProjectileSFX = null;
+
     private TrailRenderer trailVFX;
     private SwarmEnemyData _enemyData = null;
     private ObjectPoolManager _objectPoolManager = null;
@@ -163,6 +166,9 @@ public class SwarmEnemy : MonoBehaviour
                 damageable.TakeDamage(_enemyData.Swarm_AttackDamage);
                 ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
                 particle.Play();
+                //Swarm Projectile SFV
+                Instantiate(_swarmProjectileSFX, gameObject.transform.position, Quaternion.identity);
+
                 Destroy(particle.gameObject, particle.main.duration);
                 Alive = false;
                 RecycleSwarm();
@@ -184,6 +190,8 @@ public class SwarmEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             Alive = false;
+            //Swarm Dead Audio
+            Instantiate(_swarmDeadSFX, gameObject.transform.position, Quaternion.identity);
 
             var dir = Vector3.Reflect(Velocity.normalized, bouncedir);
             if (dir.y < 0.0f)

@@ -14,9 +14,9 @@ public class LevelManager : MonoBehaviour
     public GameObject GameWinPanel;
     public UnityEvent OnLevelLoad;
     public GameObject PauseMenu;
-
     public InputAction confirm;
-
+    public AudioSource Audio;
+    public AudioClip[] steam;
     public float TimeLimit = 300.0f;
     public float TimeRemaining = 0.0f;
 
@@ -45,6 +45,9 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 0.0f;
             GameOverPanel.SetActive(true);
             GameOverPanel.GetComponentInChildren<Button>().Select();
+            Audio.clip = steam[0];
+            Audio.Play();
+            Audio.loop = false;
         }
     }
 
@@ -57,6 +60,9 @@ public class LevelManager : MonoBehaviour
             GameWinPanel.SetActive(true);
             GameWinPanel.GetComponentInChildren<Button>().Select();
             _gameManager.SaveLevelCompleted();
+            Audio.clip = steam[1];
+            Audio.Play();
+            Audio.loop = false;
         }
     }
 

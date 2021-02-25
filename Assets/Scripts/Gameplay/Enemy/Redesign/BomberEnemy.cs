@@ -6,6 +6,7 @@ public class BomberEnemy : MonoBehaviour
 {
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
+    [SerializeField] private GameObject _bomberDeadSFX = null;
 
     public BomberEnemyData enemyData;
     public Animator animator;
@@ -138,6 +139,7 @@ public class BomberEnemy : MonoBehaviour
         //Shooting
         if (isAlive)
         {
+            Instantiate(_bomberDeadSFX, gameObject.transform.position, Quaternion.identity);
 
             if (_nextAttackTime < Time.time)
             {
@@ -167,8 +169,8 @@ public class BomberEnemy : MonoBehaviour
     {
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
-
             isAlive = false;
+            //Bomber Dead Audio
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
             projectile.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
             RecycleBomberEnemy();

@@ -5,6 +5,7 @@ public class BasicEnemy : MonoBehaviour
 {
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
+    [SerializeField] private GameObject _basicDeadSFX = null;
 
     public BasicEnemyData enemyData;
 
@@ -189,6 +190,9 @@ public class BasicEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             isAlive = false;
+            //Basic Dead Audio
+            Instantiate(_basicDeadSFX, gameObject.transform.position, Quaternion.identity);
+
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.constraints = RigidbodyConstraints2D.None;
             _velocity = Vector3.zero;

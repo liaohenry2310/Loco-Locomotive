@@ -7,6 +7,7 @@ public class Wormhole : MonoBehaviour
     [SerializeField] private ParticleSystem _VFX = null;
     [SerializeField] private float _spinSpeed = 5.0f;
     [SerializeField] private float _scaleDeltaSpeed = 0.1f;
+    [SerializeField] private GameObject _sound = null;
 
     private EnemyWaveData.EnemyWave _waveData;
     private float _currentScale = 0.0f;
@@ -79,6 +80,7 @@ public class Wormhole : MonoBehaviour
     public void PlayParticle()
     {
         ParticleSystem particle = Instantiate(_VFX, transform.position, Quaternion.identity);
+        Instantiate(_sound, gameObject.transform.position, Quaternion.identity);
         particle.Play();
         Destroy(particle, particle.main.duration);
     }

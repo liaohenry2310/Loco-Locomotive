@@ -178,6 +178,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitVFX: {fileID: 198917022394846920, guid: f8dbc42a892a7df46927fb060c8c1306, type: 3}
+  _swarmDeadSFX: {fileID: 6425000051854844661, guid: 34a2ba9ff781b8340a448f2279c1edc3,
+    type: 3}
+  _swarmProjectileSFX: {fileID: 6425000051854844661, guid: 75a3766ff99f85a45895cce5c2505efd,
+    type: 3}
+  shake_decay: 0.02
+  shake_intensity: 0.03
 --- !u!96 &-6763803875580017033
 TrailRenderer:
   serializedVersion: 2
