@@ -1,12 +1,14 @@
 using GamePlay;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
+    public event Action OnStopBackgroundSFX;
+
     //Public members
     static public LevelManager Instance { get; private set; }
 
@@ -45,6 +47,7 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 0.0f;
             GameOverPanel.SetActive(true);
             GameOverPanel.GetComponentInChildren<Button>().Select();
+            OnStopBackgroundSFX?.Invoke();
             Audio.clip = steam[0];
             Audio.Play();
             Audio.loop = false;
