@@ -6,7 +6,6 @@ using UnityEngine;
 public class SwarmEnemy : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitVFX = null;
-    [SerializeField] private GameObject _swarmDeadSFX = null;
     [SerializeField] private GameObject _swarmProjectileSFX = null;
 
     private TrailRenderer trailVFX;
@@ -40,11 +39,18 @@ public class SwarmEnemy : MonoBehaviour
     public float shake_intensity = 0.03f;
     private float temp_shake_intensity = 0;
 
+    public AudioClip clip;
+    private AudioSource _audioSource;
+
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
         _screenBounds = GameManager.GetScreenBounds;
         trailVFX = gameObject.GetComponent<TrailRenderer>();
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogWarning("Fail to load Audio Source component.");
+        }
     }
 
     private void Start()
@@ -54,6 +60,7 @@ public class SwarmEnemy : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _oldPos = transform.position.x;
+        _audioSource.volume = 0.13f;
     }
 
     private void FixedUpdate()
@@ -191,7 +198,7 @@ public class SwarmEnemy : MonoBehaviour
         {
             Alive = false;
             //Swarm Dead Audio
-            Instantiate(_swarmDeadSFX, gameObject.transform.position, Quaternion.identity);
+            _audioSource.PlayOneShot(clip);
 
             var dir = Vector3.Reflect(Velocity.normalized, bouncedir);
             if (dir.y < 0.0f)

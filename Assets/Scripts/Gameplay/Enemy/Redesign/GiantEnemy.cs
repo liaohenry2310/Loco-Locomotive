@@ -8,13 +8,15 @@ public class GiantEnemy : MonoBehaviour
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
     [SerializeField] private GameObject _laserHitVFX = null;
-    [SerializeField] private GameObject _giantDeadSFX = null;
     [SerializeField] private GameObject _giantChargingSFX = null;
 
     public GiantEnemyData enemyData;
     public SpriteRenderer sr;
     public AudioSource Audio;
     public AudioClip[] clip;
+
+    public AudioClip deadclip;
+    private AudioSource _audioSource;
 
     private float _transparency = 0.0f;
     private Vector3 _scale = new Vector3(1.0f,1.0f,1.0f);
@@ -61,7 +63,16 @@ public class GiantEnemy : MonoBehaviour
 
     private void Awake()
     {
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogWarning("Fail to load Audio Source component.");
+        }
 
+    }
+
+    private void Start()
+    {
+        _audioSource.volume = 0.16f;
     }
 
     private void OnEnable()
@@ -211,13 +222,12 @@ public class GiantEnemy : MonoBehaviour
         VFX.transform.position = (Vector2)transform.position;
         PlayParticles();
         //giant charging 
-        Instantiate(_giantDeadSFX, gameObject.transform.position, Quaternion.identity);
-
+        Audio.PlayOneShot(clip[0]);
         if (chargeingCount >= _chargeTime)
         {
-
             chargeingCount = 0.0f;
             mCurrentState = State.Attack;
+            Audio.Stop();
         }
     }
     private void Attack()
@@ -243,7 +253,6 @@ public class GiantEnemy : MonoBehaviour
             {
                 EnableLaserHitVFX();
                 //attack audio
-                Audio.PlayOneShot(clip[0]);
                 Audio.clip = clip[1];
                 Audio.Play();
                 for (int i = 0; i < hit.Length; i++)
@@ -251,7 +260,6 @@ public class GiantEnemy : MonoBehaviour
                     Collider2D collider = hit[i].collider;
                     if (collider)
                     {
-
                         IDamageable<float> damageable = collider.GetComponent<IDamageable<float>>();
                         if (damageable != null)
                         {
@@ -313,7 +321,7 @@ public class GiantEnemy : MonoBehaviour
             DisableLaser();
             DisableLaserHitVFX();
             //Giant dead audio
-            Instantiate(_giantDeadSFX, gameObject.transform.position, Quaternion.identity);
+            _audioSource.PlayOneShot(deadclip);
 
             mCurrentState = State.WanderIdle;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;

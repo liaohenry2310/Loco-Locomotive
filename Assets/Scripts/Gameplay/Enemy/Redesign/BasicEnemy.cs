@@ -5,9 +5,11 @@ public class BasicEnemy : MonoBehaviour
 {
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
-    [SerializeField] private GameObject _basicDeadSFX = null;
 
     public BasicEnemyData enemyData;
+
+    public AudioClip clip;
+    private AudioSource _audioSource;
 
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
@@ -34,8 +36,13 @@ public class BasicEnemy : MonoBehaviour
 
     private bool isAlive = false;
 
-
-
+    private void Awake()
+    {
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogWarning("Fail to load Audio Source component.");
+        }
+    }
 
     private void OnEnable()
     {
@@ -76,6 +83,10 @@ public class BasicEnemy : MonoBehaviour
         {
             RecycleBasicEnemy();
         }
+    }
+    private void Start()
+    {
+        _audioSource.volume = 0.15f;
     }
     void Update()
     {
@@ -191,7 +202,7 @@ public class BasicEnemy : MonoBehaviour
         {
             isAlive = false;
             //Basic Dead Audio
-            Instantiate(_basicDeadSFX, gameObject.transform.position, Quaternion.identity);
+            _audioSource.PlayOneShot(clip);
 
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.constraints = RigidbodyConstraints2D.None;
