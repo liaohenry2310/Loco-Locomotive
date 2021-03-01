@@ -305,6 +305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
+      propertyPath: fuelBar
+      value: 
+      objectReference: {fileID: 695543491}
+    - target: {fileID: 5284030404342792657, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 146753091}
@@ -1716,6 +1721,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c, type: 3}
+--- !u!1 &695543491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1432659094, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
+    type: 3}
+  m_PrefabInstance: {fileID: 695543490}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &820889062
 PrefabInstance:
   m_ObjectHideFlags: 0

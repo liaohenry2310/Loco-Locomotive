@@ -64,7 +64,8 @@ namespace GamePlay
         private void Update()
         {
             // Check how many player has on the scene to increate the FuelRate
-            CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4.0f) * Time.deltaTime);
+            if(LevelManager.Instance.TimeRemaining != LevelManager.Instance.TimeLimit)
+                CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4.0f) * Time.deltaTime);
 
             if (_trainData.FuelPercentage < 0.3f && !_audioPlayed)
             {

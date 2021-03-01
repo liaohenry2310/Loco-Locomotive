@@ -59,7 +59,7 @@ public class SwarmEnemy : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _oldPos = transform.position.x;
-        _audioSource.volume = 0.13f;
+        _audioSource.volume = 0.1f;
     }
 
     private void FixedUpdate()
