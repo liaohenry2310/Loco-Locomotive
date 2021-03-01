@@ -38,6 +38,7 @@ public class FadeFuelBar : MonoBehaviour
     {       
         _bar.localScale = new Vector3( 1.0f, FuelPerc, 1.0f);
     }
+
     private void Update()
     {
         tempTime += Time.deltaTime;
@@ -54,8 +55,6 @@ public class FadeFuelBar : MonoBehaviour
 
     public void Flickering()
     {
-
-
         if (isFlickering)
         {
             _spriteRenderer.color = yellow2;

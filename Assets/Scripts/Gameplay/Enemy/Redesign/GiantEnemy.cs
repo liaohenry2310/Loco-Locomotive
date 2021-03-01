@@ -11,6 +11,12 @@ public class GiantEnemy : MonoBehaviour
 
     public GiantEnemyData enemyData;
     public SpriteRenderer sr;
+    public AudioSource Audio;
+    public AudioClip[] clip;
+
+    public AudioClip deadclip;
+    private AudioSource _audioSource;
+
     private float _transparency = 0.0f;
     private Vector3 _scale = new Vector3(1.0f,1.0f,1.0f);
     private Vector3 _velocity;
@@ -18,6 +24,7 @@ public class GiantEnemy : MonoBehaviour
     private float _chargeTime;
     private float _beamDamage;
     private float _beamDuration;
+
 
     private Transform _topRightBound;
     private Transform _botLeftBound;
@@ -55,7 +62,16 @@ public class GiantEnemy : MonoBehaviour
 
     private void Awake()
     {
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogWarning("Fail to load Audio Source component.");
+        }
 
+    }
+
+    private void Start()
+    {
+        _audioSource.volume = 0.16f;
     }
 
     private void OnEnable()
@@ -204,11 +220,13 @@ public class GiantEnemy : MonoBehaviour
         chargeingCount += Time.deltaTime;
         VFX.transform.position = (Vector2)transform.position;
         PlayParticles();
+        //giant charging 
+        Audio.PlayOneShot(clip[0]);
         if (chargeingCount >= _chargeTime)
         {
-
             chargeingCount = 0.0f;
             mCurrentState = State.Attack;
+            Audio.Stop();
         }
     }
     private void Attack()
@@ -222,7 +240,7 @@ public class GiantEnemy : MonoBehaviour
             lineRenderer.enabled = true;
 
             lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, -1.0f));
-
+            //start attack audio
             var pos = (Vector2)targetPos;
 
             lineRenderer.SetPosition(1, pos);
@@ -233,13 +251,14 @@ public class GiantEnemy : MonoBehaviour
             if (hit != null)
             {
                 EnableLaserHitVFX();
+                //attack audio
+                Audio.clip = clip[1];
+                Audio.Play();
                 for (int i = 0; i < hit.Length; i++)
-
                 {
                     Collider2D collider = hit[i].collider;
                     if (collider)
                     {
-
                         IDamageable<float> damageable = collider.GetComponent<IDamageable<float>>();
                         if (damageable != null)
                         {
@@ -269,6 +288,7 @@ public class GiantEnemy : MonoBehaviour
             if (attackCount >= _beamDuration)
            {
                isAttacking = false;
+               Audio.Stop();
                attackCount = 0.0f;
                _nextAttackTime = enemyData.AttackDelay + Time.time;
                StopParticles();
@@ -300,6 +320,9 @@ public class GiantEnemy : MonoBehaviour
             StopParticles();
             DisableLaser();
             DisableLaserHitVFX();
+            //Giant dead audio
+            _audioSource.PlayOneShot(deadclip);
+
             mCurrentState = State.WanderIdle;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             sr.transform.Rotate(Vector3.forward, 45 * 5.0f * Time.deltaTime, Space.Self);
@@ -310,7 +333,6 @@ public class GiantEnemy : MonoBehaviour
     }
     void PlayParticles()
     {
-
         for (int i = 0; i < particles.Count; ++i)
         {
             if (!particles[i].isPlaying)

@@ -138,7 +138,6 @@ public class BomberEnemy : MonoBehaviour
         //Shooting
         if (isAlive)
         {
-
             if (_nextAttackTime < Time.time)
             {
                 animator.SetBool("Shoot", true);
@@ -167,7 +166,6 @@ public class BomberEnemy : MonoBehaviour
     {
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
-
             isAlive = false;
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
             projectile.GetComponent<EnemyProjectile>().PlayParticle(transform.position);

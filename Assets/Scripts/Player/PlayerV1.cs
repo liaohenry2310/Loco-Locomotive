@@ -39,6 +39,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     private void Start()
     {
         Initialized();
+        _audioSource.volume = 0.4f;
     }
 
     private void FixedUpdate()
