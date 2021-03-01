@@ -8,7 +8,6 @@ public class GiantEnemy : MonoBehaviour
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
     [SerializeField] private GameObject _laserHitVFX = null;
-    [SerializeField] private GameObject _giantChargingSFX = null;
 
     public GiantEnemyData enemyData;
     public SpriteRenderer sr;
@@ -289,6 +288,7 @@ public class GiantEnemy : MonoBehaviour
             if (attackCount >= _beamDuration)
            {
                isAttacking = false;
+               Audio.Stop();
                attackCount = 0.0f;
                _nextAttackTime = enemyData.AttackDelay + Time.time;
                StopParticles();

@@ -6,8 +6,6 @@ public class BomberEnemy : MonoBehaviour
 {
     //call target dir from list.
     [SerializeField] private TrainData _trainData = null;
-    public AudioClip clip;
-    private AudioSource _audioSource;
 
     public BomberEnemyData enemyData;
     public Animator animator;
@@ -40,11 +38,6 @@ public class BomberEnemy : MonoBehaviour
     private void Awake()
     {
         boom.SetActive(true);
-
-        if (!TryGetComponent(out _audioSource))
-        {
-            Debug.LogWarning("Fail to load Audio Source component.");
-        }
         //_objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
 
@@ -76,7 +69,6 @@ public class BomberEnemy : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        _audioSource.volume = 0.14f;
     }
 
 
@@ -175,8 +167,6 @@ public class BomberEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             isAlive = false;
-            //Bomber Dead Audio
-            _audioSource.PlayOneShot(clip);
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
             projectile.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
             RecycleBomberEnemy();

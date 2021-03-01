@@ -274,7 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitVFX: {fileID: 198917022394846920, guid: f8dbc42a892a7df46927fb060c8c1306, type: 3}
-  _swarmProjectileSFX: {fileID: 0}
   shake_decay: 0.02
   shake_intensity: 0.03
   clip: {fileID: 8300000, guid: 66ea899acb52ea146a212357da412970, type: 3}
@@ -396,7 +395,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.13
   m_Pitch: 1
   Loop: 0
   Mute: 0

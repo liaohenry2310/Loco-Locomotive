@@ -86,7 +86,7 @@ public class BasicEnemy : MonoBehaviour
     }
     private void Start()
     {
-        _audioSource.volume = 0.15f;
+        _audioSource.volume = 0.075f;
     }
     void Update()
     {
