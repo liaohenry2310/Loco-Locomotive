@@ -23,11 +23,11 @@ public class EnemyShieldHealth : MonoBehaviour
     public void TakeDamage(float takingDamage)
     {
         _shieldHealth -= takingDamage;
-        Debug.Log("[ShieldHealth] Lost " + takingDamage + "hp. Current health: " + _shieldHealth);
+        //Debug.Log("[ShieldHealth] Lost " + takingDamage + "hp. Current health: " + _shieldHealth);
         if (!ShieldIsActive)
         {
             GetComponent<SpriteRenderer>().enabled = false;
-            Debug.Log("Shield SpriteRenderer !enabled");
+            //Debug.Log("Shield SpriteRenderer !enabled");
         }
     }
     public bool ShieldIsActive => _shieldHealth > 0f;

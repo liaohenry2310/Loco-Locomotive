@@ -73,37 +73,6 @@ public class SwarmEnemy : MonoBehaviour
         else if (_oldPos > transform.position.x)
             _sprite.flipX = false;
 
-        if (fire)
-        {
-
-            //if (temp_shake_intensity > 0)
-            //{
-            //    transform.position = originPosition + Random.insideUnitSphere * 0.02f;
-            //    temp_shake_intensity -= shake_decay;
-            //}
-            //if (temp_shake_intensity<0.0f)
-            //{
-            //    fire = false;
-            //}
-            //else
-            ////     if (startedShacke)
-            //{
-            //     //trailVFX.startColor = Color.red;
-            //     //gameObject.transform.position.x += Mathf.Sin(Time.time * 1.0f) * 1.0f;
-            //     currentPos = gameObject.transform.position;
-            //     direction = targetPos - currentPos;
-            //     //Quaternion lookat = Quaternion.LookRotation(direction,Vector3.up);
-            //     //_sprite.transform.rotation = Quaternion.Lerp(transform.rotation, lookat, Time.deltaTime* _basicEnemyData.Basic_AttackSpeed*5.0f);
-            //     //Quaternion look at = Quaternion.
-            //     direction.Normalize();
-            //     //Vector3 dir = new Vector3(0.0f, 0.0f, direction.z);
-            //     _sprite.transform.eulerAngles = direction;
-            //     transform.position += direction * _enemyData.Swarm_AttackSpeed * Time.deltaTime;
-            //     fire = false;
-            //    startedShacke = false;
-            //}
-
-        }
         CheckStillAlive();
 
     }

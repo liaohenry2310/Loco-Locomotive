@@ -8,6 +8,7 @@ public class GiantEnemyData : ScriptableObject
     public float MaxHealth;
     public float ShieldHealth;
     public float MaxSpeed;
+    public float Speed;
     public float AttackDelay;
     public float ChargeTime;
     public float BeamDamage;
@@ -21,4 +22,6 @@ public class GiantEnemyData : ScriptableObject
     public float WanderRadius;
     public float WanderDistance;
     public float WanderJitter;
+    public float RandomHeadingTimer;
+
 }

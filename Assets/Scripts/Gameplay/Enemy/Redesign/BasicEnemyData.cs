@@ -8,6 +8,7 @@ public class BasicEnemyData : ScriptableObject
     public float MaxHealth;
     public float ShieldHealth;
     public float MaxSpeed;
+    public float Speed;
     public float AttackDelay;
     public GameObject projectile;
     public float Basic_AttackDamage;
@@ -20,4 +21,6 @@ public class BasicEnemyData : ScriptableObject
     public float WanderRadius;
     public float WanderDistance;
     public float WanderJitter;
+    public float SeekBehaviorWeight;
+    public float RandomHeadingTimer;
 }
