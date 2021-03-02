@@ -25,4 +25,4 @@ MonoBehaviour:
   WanderDistance: 1.5
   WanderJitter: 5
   SeekBehaviorWeight: 5
-  CohesionBehaviorWeight: 1
+  CohesionBehaviorWeight: 3

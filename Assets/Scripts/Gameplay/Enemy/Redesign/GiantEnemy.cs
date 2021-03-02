@@ -24,7 +24,7 @@ public class GiantEnemy : MonoBehaviour
     private float _chargeTime;
     private float _beamDamage;
     private float _beamDuration;
-
+    private bool isAttacking;
 
     private Transform _topRightBound;
     private Transform _botLeftBound;
