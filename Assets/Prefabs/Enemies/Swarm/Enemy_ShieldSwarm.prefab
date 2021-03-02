@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 469db5e28974f654eb5d174e36210bb3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -273,6 +273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitVFX: {fileID: 198917022394846920, guid: f8dbc42a892a7df46927fb060c8c1306, type: 3}
+  shake_decay: 0.02
+  shake_intensity: 0.03
 --- !u!96 &1837639363166728830
 TrailRenderer:
   serializedVersion: 2

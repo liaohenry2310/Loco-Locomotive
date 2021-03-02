@@ -109,7 +109,6 @@ namespace Turret
 
         private void Start()
         {
-            //_turretAmmoIndicator.PlayerUsingTurret(false);
             _turretBase.OnTakeDamageUpdate += UpdateBottonTurret;
             _turretBase.OnRepairUpdate += UpdateTurretSprite;
         }
@@ -297,10 +296,7 @@ namespace Turret
                 }
             }
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
-        }
 
-        private void LateUpdate()
-        {
             if (!_isReadyToShot) return;
             // recoil effect to back to original position
             _machineGunProps.transformCannon.localPosition = Vector2.SmoothDamp(_machineGunProps.transformCannon.localPosition, _cannonOriginalPosition, ref _recoildSmoothDampVelocity, 0.1f);
@@ -311,12 +307,11 @@ namespace Turret
             // Check if the turret still alive to use it
             if (!_turretBase.HealthSystem.IsAlive) return;
 
-            //TODO: whicht time the player will be atached on the turret?
             _player = player;
             Item item = _player.GetItem;
             if (item)
             {
-                _player.animator.SetBool("IsHoldItem", false);
+                _player.PlayAnimationHoldItem(false);
                 Reload(item.ItemType);
                 item.DestroyAfterUse();
             }

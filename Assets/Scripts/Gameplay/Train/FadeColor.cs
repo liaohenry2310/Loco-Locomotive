@@ -5,7 +5,7 @@ using UnityEngine;
 public class FadeColor : MonoBehaviour
 {
     [SerializeField] private TrainData _trainData = null;
-    private SpriteRenderer _spriteRenderer = null;
+    private SpriteRenderer _spriteRenderer = null;                       
     private bool isFlickering = false;
     public float gapTime = 0.1f;
     private float tempTime;

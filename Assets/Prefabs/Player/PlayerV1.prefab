@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8137850484133096673}
   - component: {fileID: 8137850484133096672}
   - component: {fileID: 8137850484133096675}
-  - component: {fileID: 6707677889344065179}
   - component: {fileID: 1732405955468831116}
   - component: {fileID: 468436100}
   - component: {fileID: 1164112849872312716}
@@ -263,19 +262,7 @@ MonoBehaviour:
   _playerData: {fileID: 11400000, guid: b9ecd91107106884e91f13cc1635e9a8, type: 2}
   _playerSpriteRenderer: {fileID: 8137850484133096686}
   animator: {fileID: 1732405955468831116}
-  _isOnfloor: 0
---- !u!114 &6707677889344065179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8137850484133096674}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81f9b1c1fbb96564f837d330392efc78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  IsOnfloor: 0
 --- !u!95 &1732405955468831116
 Animator:
   serializedVersion: 3

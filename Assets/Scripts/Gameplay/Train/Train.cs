@@ -11,7 +11,7 @@ namespace GamePlay
         public event Action<float> OnUpdateFuelUI;    // FuelUI Action
         public event Action<float> OnFuelReloadUI;    // FireBox Action
         public event Action OnGameOver;               // GameManager action
-        public Camera_shake camera_Shake; 
+        public Camera_shake camera_Shake;
         private float _shakeAmount;
         private Vector3 _pos;
         #region Members
@@ -42,7 +42,7 @@ namespace GamePlay
             }
             else
             {
-                Debug.LogWarning("FireBox are not assigned into the Train Script.");
+                Debug.LogWarning("<color=red>FireBox</color> are not assigned into the Train Script.");
             }
         }
 
@@ -54,7 +54,7 @@ namespace GamePlay
             }
             else
             {
-                Debug.LogWarning("FireBox are not assigned into the Train Script.");
+                Debug.LogWarning("<color=red>FireBox</color> are not assigned into the Train Script.");
             }
         }
 
@@ -79,7 +79,6 @@ namespace GamePlay
             OnUpdateFuelUI?.Invoke(_trainData.FuelPercentage);
             if (_trainData.CurrentFuel < 0.01f)
             {
-                Debug.Log("[FuelController] Game over.");
                 OnGameOver?.Invoke();
                 _outOfFuel = true;
                 return;
@@ -98,15 +97,13 @@ namespace GamePlay
                 OnGameOver?.Invoke();
             }
             //Train Shakes
-            if (damage >10)
-                _shakeAmount = 0.1f;          
-            else
-                _shakeAmount = UnityEngine.Random.Range(0.05f, 0.08f);
+            _shakeAmount = (damage > 10.0f) ? 0.1f : UnityEngine.Random.Range(0.05f, 0.08f);
+
             Vector3 shakepos = UnityEngine.Random.insideUnitSphere * _shakeAmount;
             Vector3 pos = _pos + shakepos;
             pos.y = transform.localPosition.y;
             transform.localPosition = pos;
-            StartCoroutine(camera_Shake.Shake(0.03f, 0.03f));
+            _ = StartCoroutine(camera_Shake.Shake(0.03f, 0.03f));
         }
     }
 }

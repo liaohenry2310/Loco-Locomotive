@@ -8,7 +8,6 @@ namespace Dispenser
     public class Dispenser : MonoBehaviour, IInteractable
     {
         [SerializeField] private DispenserItem _dispenserItem = null;
-        [SerializeField] private SpriteRenderer _spriteRenderer = null;
         private Animator _animator = null;
         private readonly int _active = Animator.StringToHash("Active");
 

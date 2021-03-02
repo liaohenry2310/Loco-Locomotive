@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _VFX: {fileID: 4149614221999128866, guid: e7392078f6873874e819c75792f2a6e7, type: 3}
   _spinSpeed: 5
-  _scaleDeltaSpeed: 0.5
 --- !u!1 &5348447137119373392
 GameObject:
   m_ObjectHideFlags: 0

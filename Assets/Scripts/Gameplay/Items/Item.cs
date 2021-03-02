@@ -8,7 +8,6 @@ namespace Items
     public class Item : MonoBehaviour, IInteractable
     {
         public DispenserData.Type ItemType { get; set; } = DispenserData.Type.None;
-        public ItemIndicator itemIndicator;
 
         private SpriteRenderer _spriteRenderer = null;
         private BoxCollider2D _collider = null;
@@ -19,12 +18,12 @@ namespace Items
         {
             if (!TryGetComponent(out _spriteRenderer))
             {
-                Debug.LogWarning("Fail to load SpriteRenderer component!.");
+                Debug.LogWarning("<color=red>Fail</color> to load SpriteRenderer component!.");
             }
 
             if (!TryGetComponent(out _collider))
             {
-                Debug.LogWarning("Fail to load BoxCollider2D component!.");
+                Debug.LogWarning("<color=red>Fail</color> to load BoxCollider2D component!.");
             }
         }
 
@@ -42,7 +41,7 @@ namespace Items
             if (_coroutine != null)
             {
                 StopCoroutine(_coroutine);
-                _coroutine = null;  
+                _coroutine = null;
             }
         }
 

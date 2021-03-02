@@ -1,10 +1,27 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class wheel_rotate : MonoBehaviour
 {
-    public float _RotationSpeed;
-    void Update()
+    [SerializeField] private float _RotationSpeed;
+
+    private void Start()
     {
-        this.transform.Rotate(Vector3.back, 45*_RotationSpeed * Time.deltaTime, Space.Self);
+        StartCoroutine(KeepingRotate());
     }
+
+    private IEnumerator KeepingRotate()
+    {
+        while (true)
+        {
+            transform.Rotate(Vector3.back, 45f * _RotationSpeed * Time.deltaTime, Space.Self);
+            yield return null;
+        }
+    }
+
+
+    //void Update()
+    //{
+    //    this.transform.Rotate(Vector3.back, 45 * _RotationSpeed * Time.deltaTime, Space.Self);
+    //}
 }

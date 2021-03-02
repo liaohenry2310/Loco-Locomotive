@@ -113,7 +113,7 @@ public class SwarmEnemy : MonoBehaviour
         originPosition = transform.position;
         originRotation = transform.rotation;
         temp_shake_intensity = shake_intensity;
-        StartCoroutine("StartShake");
+        StartCoroutine(StartShake());
     }
     private IEnumerator StartShake()
     {
@@ -208,6 +208,7 @@ public class SwarmEnemy : MonoBehaviour
     private void RecycleSwarm()
     {
         Alive = false;
+        gameObject.GetComponent<EnemyHealth>().DefaulSpriteColor();
         _objectPoolManager.RecycleObject(gameObject);
     }
 
