@@ -40,8 +40,15 @@ namespace Turret
         [SerializeField] private Animator _animator = null;
 
         [HideInInspector] public bool isInUse = false;
+        //Sound effects
+        public AudioSource turretgunAudioSource; //ammo
+        public AudioSource turretAudioSource; //machinery
+        //Turret reloaded       （clip[0]）
+        //Turret engaged         (clip[1])
+        //Turret disengaged      (clip[2])
+        //Turret out of ammo shot(clip[3])
+        public AudioClip[] clip;
 
-        private AudioSource _audioSource = null;
         private PlayerV1 _player = null;
         private Weapons _weapons = null;
         private LaserBeam.LaserGunProperties _laserGunProps;
@@ -60,13 +67,10 @@ namespace Turret
 
         private void Awake()
         {
-            if (!TryGetComponent(out _audioSource))
-            {
-                Debug.LogWarning("Fail to load Audio Source component.");
-            }
+
             _emission = _smokeParticle.emission;
 
-            _audioSource.pitch = Random.Range(0.9f, 1.1f);
+            turretgunAudioSource.pitch = Random.Range(0.9f, 1.1f);
             _cannonOriginalPosition = new Vector3(_cannonHandler.localPosition.x, _cannonHandler.localPosition.y + 0.5f, 0.0f);
             //_cannonOriginalPosition = _cannonHandler.localPosition;
 
@@ -75,16 +79,16 @@ namespace Turret
             _laserGunProps.startVFX = _LaserBeamStartVFX;
             _laserGunProps.endVFX = _LaserBeamEndVFX;
             _laserGunProps.hitVFX = _LaserBeamHitVFX;
-            _laserGunProps.audioSourceClips = _audioSource;
+            _laserGunProps.audioSourceClips = turretgunAudioSource;
             _laserGunProps.transformCannon = _cannonHandler;
 
             // Setting up missile properties
-            _missileGunProps.audioSourceClips = _audioSource;
+            _missileGunProps.audioSourceClips = turretgunAudioSource;
             _missileGunProps.transformCannon = _cannonHandler;
 
             // Setting up machine gun properties
             _machineGunProps.muzzleFlashVFX = _MachineGunStartVFX;
-            _machineGunProps.audioSourceClips = _audioSource;
+            _machineGunProps.audioSourceClips = turretgunAudioSource;
             _machineGunProps.transformCannon = _cannonHandler;
 
             // Setting up shield gun properties
@@ -111,6 +115,7 @@ namespace Turret
         {
             _turretBase.OnTakeDamageUpdate += UpdateBottonTurret;
             _turretBase.OnRepairUpdate += UpdateTurretSprite;
+            turretAudioSource.volume = 0.5f;
         }
 
         private void OnDisable()
@@ -152,7 +157,6 @@ namespace Turret
 
             if (_weapons as LaserBeam != null)
             {
-
                 if (healthPerc >= 0.75f)
                 {
                     _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
@@ -284,7 +288,6 @@ namespace Turret
 
             if (_holdFire)
             {
-
                 if (_weapons as LaserBeam != null)
                 {
                     rotationSpeed *= _turretData.laserGun.aimSpeedMultiplier;
@@ -319,7 +322,6 @@ namespace Turret
             {
                 EngageTurret(true);
             }
-
         }
 
         #region Turret Action given to Player
@@ -340,12 +342,16 @@ namespace Turret
         public void OnFire(InputAction.CallbackContext context)
         {
             _holdFire = context.ReadValue<float>() >= 0.9f;
+            if (_weapons.CurretAmmo == 0)
+                turretAudioSource.PlayOneShot(clip[3]);
         }
 
         #endregion
 
         private void Reload(DispenserData.Type itemType)
         {
+            turretAudioSource.PlayOneShot(clip[0]);
+
             _animator.SetTrigger(_active);
             switch (itemType)
             {
@@ -372,6 +378,8 @@ namespace Turret
 
         private void EngageTurret(bool isEngaged)
         {
+            turretAudioSource.PlayOneShot(clip[1]);
+
             _player.Interactable = isEngaged ? this : null;
             _player.SwapActionControlToPlayer(!isEngaged);
             isInUse = isEngaged;
@@ -379,6 +387,7 @@ namespace Turret
             EngangedTurretEffect(isEngaged);
             if (!isEngaged) // when dettached, reset the rotation speed and holdfire as well
             {
+                turretAudioSource.PlayOneShot(clip[2]);
                 _rotation.x = 0.0f;
                 _holdFire = false;
             }

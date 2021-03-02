@@ -8,6 +8,9 @@ public class BasicEnemy : MonoBehaviour
 
     public BasicEnemyData enemyData;
 
+    public AudioClip clip;
+    private AudioSource _audioSource;
+
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
 
@@ -32,6 +35,14 @@ public class BasicEnemy : MonoBehaviour
     Direction currentDir = Direction.Idle;
 
     private bool isAlive = false;
+
+    private void Awake()
+    {
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogWarning("Fail to load Audio Source component.");
+        }
+    }
 
     private void OnEnable()
     {
@@ -73,6 +84,10 @@ public class BasicEnemy : MonoBehaviour
         {
             RecycleBasicEnemy();
         }
+    }
+    private void Start()
+    {
+        _audioSource.volume = 0.075f;
     }
     void Update()
     {
@@ -187,6 +202,8 @@ public class BasicEnemy : MonoBehaviour
         if (!_healthdata.IsAlive())
         {
             isAlive = false;
+            //Basic Dead Audio
+            _audioSource.PlayOneShot(clip);
             Rigidbody2D rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.constraints = RigidbodyConstraints2D.None;
             _velocity = Vector3.zero;

@@ -22,5 +22,5 @@ MonoBehaviour:
   HealthRateRegen: 10
   DelayTimeRegen: 3
   AudiosClips:
-  - {fileID: 8300000, guid: be3bf249e6ac5934f97e8a273591cf18, type: 3}
-  - {fileID: 8300000, guid: f3a68dee0276281419eedf3a97193364, type: 3}
+  - {fileID: 8300000, guid: 2123b87295743954c82a5e45fb102a01, type: 3}
+  - {fileID: 8300000, guid: e29f152b8e24a694bacc8448baa5013b, type: 3}

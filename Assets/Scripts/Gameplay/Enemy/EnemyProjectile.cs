@@ -6,8 +6,7 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField] private ParticleSystem _hitVFX = null;
     [SerializeField] private ParticleSystem _explosionVFX = null;
     [SerializeField] private ParticleSystem _VFX = null;
-
-    //private ParticleSystem _projectileVFX = null;
+    private ParticleSystem _projectileVFX = null;
 
     private float _AttackSpeed = 0.0f;
     private float _AttackDamage = 0.0f;
@@ -96,9 +95,20 @@ public class EnemyProjectile : MonoBehaviour
             if (damageable != null)
             {
                 damageable.TakeDamage(_AttackDamage);
+
+                //if (_currenyEnemyType == EnemyTypeCheck.Type.Basic)
+                //{
+                //    Instantiate(_basicProjectileSFX, gameObject.transform.position, Quaternion.identity);
+                //}
+                //if (_currenyEnemyType == EnemyTypeCheck.Type.Bomber)
+                //{
+                //    Instantiate(_bomberProjectileSFX, gameObject.transform.position, Quaternion.identity);
+                //}
+
                 //TODO: old way
                 ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
                 particle.Play();
+                //Basic & Bomber Projectile SFV
                 Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
             }
         }
