@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 300
   ShieldHealth: 200
-  MaxSpeed: 3
+  MaxSpeed: 5
   AttackDelay: 5
-  ChargeTime: 2
-  BeamDamage: 10
-  BeamDuration: 5
+  ChargeTime: 3
+  BeamDamage: 50
+  BeamDuration: 3
   SeekWeight: 5
   WanderBehaviorWeight: 10
-  WanderRadius: 5
-  WanderDistance: 5
-  WanderJitter: 5
+  WanderRadius: 2
+  WanderDistance: 3
+  WanderJitter: 0.1

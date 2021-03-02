@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8069ab27dbbf284daf0c03abe53349c, type: 3}
   m_Name: TrainDataObject
   m_EditorClassIdentifier: 
-  MaxHealth: 2000
+  MaxHealth: 3000
   MaxFuel: 45
   FuelRate: 1

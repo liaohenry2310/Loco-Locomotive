@@ -42,12 +42,19 @@ public class EnemyProjectile : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _screenBounds = GameManager.GetScreenBounds;
-        if (!_projectileVFX)
-        {
-            _projectileVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
-        }
+        //if (!_projectileVFX)
+        //{
+        //    _projectileVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+        //}
     }
-
+    
+    //private void OnDisable()
+    //{
+    //    if (_projectileVFX)
+    //    {
+    //        Destroy(_projectileVFX.gameObject, _projectileVFX.main.duration + 0.5f);
+    //    }
+    //}
 
     private void Update()
     {
@@ -104,16 +111,16 @@ public class EnemyProjectile : MonoBehaviour
             {
                 damageable.TakeDamage(_AttackDamage);
                 //TODO: old way
-                //ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
-                //particle.Play();
-                //Destroy(particle, particle.main.duration);
+                ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
+                particle.Play();
+                Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
             }
         }
-        if (isActiveAndEnabled)
-        {
-            _projectileVFX.gameObject.transform.position = transform.position;
-            _projectileVFX.Play();
-        }
+        //if (isActiveAndEnabled)
+        //{
+        //    _projectileVFX.gameObject.transform.position = transform.position;
+        //    _projectileVFX.Play();
+        //}
 
         RecycleBullet();
     }
@@ -146,7 +153,6 @@ public class EnemyProjectile : MonoBehaviour
 
     private void RecycleBullet()
     {
-
         _objectPoolManager.RecycleObject(gameObject);
     }
 
