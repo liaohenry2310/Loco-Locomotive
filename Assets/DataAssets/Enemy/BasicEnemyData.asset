@@ -14,14 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 50
   ShieldHealth: 200
-  MaxSpeed: 15
-  AttackDelay: 10
+  MaxSpeed: 8
+  Speed: 3
+  AttackDelay: 15
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
   Basic_AttackDamage: 10
   Basic_AttackSpeed: 5
   Basic_tiltingAngle: 10
-  WanderBehaviorWeight: 20
-  WanderRadius: 2
-  WanderDistance: 3
-  WanderJitter: 0.1
+  WanderBehaviorWeight: 3
+  WanderRadius: 3
+  WanderDistance: 2
+  WanderJitter: 5
+  SeekBehaviorWeight: 3
+  RandomHeadingTimer: 1

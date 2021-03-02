@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BasicEnemy : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class BasicEnemy : MonoBehaviour
     private AudioSource _audioSource;
 
     private Vector3 _velocity;
+    private float _maxSpeed;
+    private float _speed;
     private float _nextAttackTime = 0.0f;
 
     private Transform _topRightBound;
@@ -24,6 +27,12 @@ public class BasicEnemy : MonoBehaviour
 
     private EnemyHealth _healthdata;
     private Vector3 _screenBounds;
+
+    //set random heading, make sure not stick together
+    private bool _changeHeading;
+    private float _randomHeadingtimer;
+
+
 
 
     enum Direction
@@ -58,6 +67,8 @@ public class BasicEnemy : MonoBehaviour
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
+        _speed = enemyData.Speed;
+        _maxSpeed = enemyData.MaxSpeed;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
@@ -73,6 +84,10 @@ public class BasicEnemy : MonoBehaviour
         Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
         rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
         rigidbody2D.gravityScale = 0.1f;
+        _changeHeading = true;
+        _nextAttackTime = 0.0f;
+        _randomHeadingtimer = 0.0f;
+
     }
 
     private void FixedUpdate()
@@ -94,57 +109,51 @@ public class BasicEnemy : MonoBehaviour
 
         FlyAndShootUpdate();
         CheckStillAlive();
-        //if (_currentHealth < 0.0f)
-        //{
-        //    //disable this enemy and give it back to the object pool.
-        //}
     }
 
-    private void FlyAndShootUpdate()
+    void FlyAndShootUpdate()
     {
         //Movement
-        Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
-        //_acceleration += WanderBehavior.Calculate(gameobject, weight);
-        _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f), enemyData.WanderBehaviorWeight);
-        //_acceleration += WallAvoidance.Calculate(gameobject, weight);
-        //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
-        _velocity += _acceleration * Time.deltaTime;
 
-        if (_velocity.sqrMagnitude > enemyData.MaxSpeed)
+        Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
+
+        _acceleration = (Vector3)(BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform,transform.position+_velocity.normalized, _speed), enemyData.SeekBehaviorWeight));
+        _acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f), enemyData.WanderBehaviorWeight));
+        if (_changeHeading)
+        {
+            var xDir = Random.Range(0, 2) == 1 ? -1 : 1;
+            var yDir = Random.Range(0, 2) == 1 ? -1 : 1;
+           _acceleration.x *= xDir ;
+           _acceleration.y *= yDir ;
+            _changeHeading = false;
+        }
+
+        if (transform.position.x < _botLeftBound.position.x)
+        {
+            _velocity.x *= -1;
+        }
+        if (transform.position.x > _topRightBound.position.x)
+        {
+            _velocity.x *= -1;
+        }
+        if (transform.position.y < _topRightBound.position.y)
+        {
+            _velocity.y *= -1;
+        }
+        if (transform.position.y > _botLeftBound.position.y)
+        {
+            _velocity.y *= -1;
+        }
+
+        _velocity += _acceleration * Time.deltaTime;
+        if (_velocity.sqrMagnitude > _maxSpeed)
         {
             var speed = _velocity.magnitude;
             _velocity.Normalize();
             _velocity /= speed;
-            _velocity *= enemyData.MaxSpeed;
+            _velocity *= _maxSpeed;
         }
-
-        //if (Mathf.Abs(transform.position.x - _botLeftBound.position.x) > 1.0f)
-        if (transform.position.x < _botLeftBound.position.x)
-        {
-            //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
-            _velocity.x *= -1;
-        }
-        //if (Mathf.Abs(transform.position.x - _topRightBound.position.x) > 1.0f)
-        if (transform.position.x > _topRightBound.position.x)
-        {
-            //_velocity = new Vector3(-_velocity.x, _velocity.y, _velocity.z);
-            _velocity.x *= -1;
-        }
-        //if (Mathf.Abs(transform.position.y - _topRightBound.position.y) > 1.0f)
-        if (transform.position.y < _topRightBound.position.y)
-        {
-            //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
-            _velocity.y *= -1;
-        }
-        //if (Mathf.Abs(transform.position.y - _botLeftBound.position.y) > 1.0f)
-        if (transform.position.y > _botLeftBound.position.y)
-        {
-            //_velocity = new Vector3(_velocity.x, -_velocity.y, _velocity.z);
-            _velocity.y *= -1;
-        }
-
-
-        transform.position += _velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
+        transform.position += _velocity * Time.deltaTime* _speed;
         var heading = _velocity.normalized;
         Direction movingDir;
         if (heading.x < 0.0f)
@@ -168,7 +177,11 @@ public class BasicEnemy : MonoBehaviour
 
         if (isAlive)
         {
-
+            if (_randomHeadingtimer<Time.time)
+            {
+                _randomHeadingtimer = Time.time + enemyData.RandomHeadingTimer;
+                _changeHeading = true;
+            }
             //Shooting
             if (_nextAttackTime < Time.time)
             {
@@ -181,7 +194,7 @@ public class BasicEnemy : MonoBehaviour
                 projectile.transform.position = transform.position;
                 Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
                 projectile.SetActive(true);
-                projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Basic_AttackSpeed, enemyData.Basic_AttackDamage, EnemyTypeCheck.Type.Basic);
+                projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Basic_AttackSpeed,enemyData.Basic_AttackDamage,EnemyTypeCheck.Type.Basic);
             }
         }
     }

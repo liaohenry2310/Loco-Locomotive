@@ -121,7 +121,6 @@ public class EnemyProjectile : MonoBehaviour
         particle.Play();
         Destroy(particle.gameObject, particle.main.duration);
     }
-    
     public void MovingParticle()
     {
         //ParticleSystem particle = Instantiate(_VFX, new Vector3(transform.position.x-0.5f,transform.position.y-0.5f,transform.position.z), Quaternion.identity);
@@ -142,7 +141,6 @@ public class EnemyProjectile : MonoBehaviour
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
-
     }
 
     private void RecycleBullet()

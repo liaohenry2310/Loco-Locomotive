@@ -8,6 +8,7 @@ public class BomberEnemyData : ScriptableObject
     public float MaxHealth;
     public float ShieldHealth;
     public float MaxSpeed;
+    public float Speed;
     public float AttackDelay;
     public GameObject projectile;
     public float Bomber_AttackDamage;
@@ -20,4 +21,7 @@ public class BomberEnemyData : ScriptableObject
     public float WanderRadius;
     public float WanderDistance;
     public float WanderJitter;
+
+    public float SeekBehaviorWeight;
+    public float RandomHeadingTimer;
 }

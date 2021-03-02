@@ -11,6 +11,8 @@ public class BomberEnemy : MonoBehaviour
     public Animator animator;
     public GameObject boom;
     private Vector3 _velocity;
+    private float _maxSpeed;
+    private float _speed;
     private float _nextAttackTime = 0.0f;
 
     private Transform _topRightBound;
@@ -20,6 +22,10 @@ public class BomberEnemy : MonoBehaviour
     private float _currentShieldHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
     private GameObject _projectile;
+
+    //set random heading, make sure not stick together
+    private bool _changeHeading;
+    private float _randomHeadingtimer;
 
     private Vector3 _screenBounds;
 
@@ -54,6 +60,8 @@ public class BomberEnemy : MonoBehaviour
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
+        _speed = enemyData.Speed;
+        _maxSpeed = enemyData.MaxSpeed;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
         _projectile = enemyData.projectile;
@@ -64,6 +72,7 @@ public class BomberEnemy : MonoBehaviour
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ReShield = true;
         }
         isAlive = true;
+        _changeHeading = true;
         _velocity = Vector3.zero;
     }
     private void Start()
@@ -85,16 +94,25 @@ public class BomberEnemy : MonoBehaviour
         //Movement
         Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
         //_acceleration += WanderBehavior.Calculate(gameobject, weight);
-        _acceleration = BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f), enemyData.WanderBehaviorWeight);
+        _acceleration = (Vector3)(BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, transform.position + _velocity.normalized, _speed), enemyData.SeekBehaviorWeight));
+        _acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f), enemyData.WanderBehaviorWeight));
         //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
+        if (_changeHeading)
+        {
+            var xDir = Random.Range(0, 2) == 1 ? -1 : 1;
+            var yDir = Random.Range(0, 2) == 1 ? -1 : 1;
+            _acceleration.x *= xDir;
+            _acceleration.y *= yDir;
+            _changeHeading = false;
+        }
         _velocity += _acceleration * Time.deltaTime ;
 
-        if (_velocity.sqrMagnitude > enemyData.MaxSpeed)
+        if (_velocity.sqrMagnitude > _maxSpeed)
         {
             var speed = _velocity.magnitude;
             _velocity.Normalize();
             _velocity /= speed;
-            _velocity *= enemyData.MaxSpeed;
+            _velocity *= _maxSpeed;
         }
 
 
@@ -115,7 +133,7 @@ public class BomberEnemy : MonoBehaviour
             _velocity.y *= -1;
         }
 
-        transform.position += _velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
+        transform.position += _velocity * Time.deltaTime * _speed;
         var heading = _velocity.normalized;
         Direction movingDir;
         if (heading.x < 0.0f)
@@ -135,9 +153,14 @@ public class BomberEnemy : MonoBehaviour
         {
             transform.rotation = Quaternion.AngleAxis(heading.x * -enemyData.Bomber_tiltingAngle + (Time.deltaTime * 2.0f), Vector3.forward);
         }
-        //Shooting
         if (isAlive)
         {
+            if (_randomHeadingtimer < Time.time)
+            {
+                _randomHeadingtimer = Time.time + enemyData.RandomHeadingTimer;
+                _changeHeading = true;
+            }
+        //Shooting  
             if (_nextAttackTime < Time.time)
             {
                 animator.SetBool("Shoot", true);
