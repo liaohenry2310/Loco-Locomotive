@@ -6,9 +6,6 @@ public class Missile : MonoBehaviour
     [SerializeField] private TurretData _turretData = null;
     [SerializeField] private ParticleSystem _explosionParticle = null;
     [SerializeField] private GameObject _missileSound = null;
-
-    private ParticleSystem _missileVFX = null;
-
     private Vector3 _screenBounds;
     private float _currentSpeed = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
@@ -20,10 +17,6 @@ public class Missile : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _screenBounds = GameManager.GetScreenBounds;
-        //if (!_missileVFX)
-        //{
-        //    _missileVFX = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
-        //}
     }
 
     private void FixedUpdate()
@@ -115,12 +108,6 @@ public class Missile : MonoBehaviour
             }
 
         }
-
-        //if (isActiveAndEnabled)
-        //{
-        //    _missileVFX.gameObject.transform.position = transform.position;
-        //    _missileVFX.Play();
-        //}
         Instantiate(_missileSound, gameObject.transform.position, Quaternion.identity);
         RecycleBullet();
 

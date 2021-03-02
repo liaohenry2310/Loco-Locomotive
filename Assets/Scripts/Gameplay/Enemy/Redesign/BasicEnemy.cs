@@ -16,7 +16,7 @@ public class BasicEnemy : MonoBehaviour
 
     private Transform _topRightBound;
     private Transform _botLeftBound;
-    private List<Vector2> _targetPositions;
+    //private List<Vector2> _targetPositions;
     private float _currentHealth = 0.0f;
     private float _currentShieldHealth = 0.0f;
     private ObjectPoolManager _objectPoolManager = null;
@@ -46,6 +46,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void OnEnable()
     {
+        _healthdata = GetComponent<EnemyHealth>();
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         _screenBounds = GameManager.GetScreenBounds;
     }
@@ -99,7 +100,7 @@ public class BasicEnemy : MonoBehaviour
         //}
     }
 
-    void FlyAndShootUpdate()
+    private void FlyAndShootUpdate()
     {
         //Movement
         Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
@@ -143,7 +144,7 @@ public class BasicEnemy : MonoBehaviour
         }
 
 
-        transform.position += _velocity * Time.deltaTime*(enemyData.MaxSpeed / 10);
+        transform.position += _velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
         var heading = _velocity.normalized;
         Direction movingDir;
         if (heading.x < 0.0f)
@@ -180,12 +181,11 @@ public class BasicEnemy : MonoBehaviour
                 projectile.transform.position = transform.position;
                 Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
                 projectile.SetActive(true);
-                projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Basic_AttackSpeed,enemyData.Basic_AttackDamage,EnemyTypeCheck.Type.Basic);
-
-
+                projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Basic_AttackSpeed, enemyData.Basic_AttackDamage, EnemyTypeCheck.Type.Basic);
             }
         }
     }
+
     private void RecycleBasicEnemy()
     {
         if (_objectPoolManager == null)
@@ -193,18 +193,18 @@ public class BasicEnemy : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
 
         }
+        GetComponent<EnemyHealth>().DefaulSpriteColor();
         _objectPoolManager.RecycleObject(gameObject);
     }
 
     private void CheckStillAlive()
     {
-        if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
+        if (!_healthdata.IsAlive())
         {
             isAlive = false;
             //Basic Dead Audio
             _audioSource.PlayOneShot(clip);
-
-            Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
+            Rigidbody2D rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.constraints = RigidbodyConstraints2D.None;
             _velocity = Vector3.zero;
             rigidbody2D.gravityScale = 0.5f;

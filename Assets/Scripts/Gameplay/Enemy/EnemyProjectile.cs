@@ -3,13 +3,9 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    //[SerializeField] private BasicEnemyData _basicEnemyData = null;
-    //[SerializeField] private BasicEnemyData _bomberEnemyData = null;
     [SerializeField] private ParticleSystem _hitVFX = null;
     [SerializeField] private ParticleSystem _explosionVFX = null;
     [SerializeField] private ParticleSystem _VFX = null;
-    //[SerializeField] private GameObject _basicProjectileSFX = null;
-    //[SerializeField] private GameObject _bomberProjectileSFX = null;
     private ParticleSystem _projectileVFX = null;
 
     private float _AttackSpeed = 0.0f;
@@ -27,7 +23,6 @@ public class EnemyProjectile : MonoBehaviour
     public EnemyTypeCheck.Type CurrenyEnemeyType { get { return _currenyEnemyType; } set { _currenyEnemyType = value; } }
 
     private bool destroyBullet = false;
-    //private bool _isBomber = false;
 
     public bool DestroyBullet { get { return destroyBullet; } set { destroyBullet = value; } }
 
@@ -43,19 +38,8 @@ public class EnemyProjectile : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _screenBounds = GameManager.GetScreenBounds;
-        //if (!_projectileVFX)
-        //{
-        //    _projectileVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
-        //}
+       
     }
-    
-    //private void OnDisable()
-    //{
-    //    if (_projectileVFX)
-    //    {
-    //        Destroy(_projectileVFX.gameObject, _projectileVFX.main.duration + 0.5f);
-    //    }
-    //}
 
     private void Update()
     {
@@ -128,11 +112,6 @@ public class EnemyProjectile : MonoBehaviour
                 Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
             }
         }
-        //if (isActiveAndEnabled)
-        //{
-        //    _projectileVFX.gameObject.transform.position = transform.position;
-        //    _projectileVFX.Play();
-        //}
 
         RecycleBullet();
     }
@@ -148,8 +127,9 @@ public class EnemyProjectile : MonoBehaviour
         //ParticleSystem particle = Instantiate(_VFX, new Vector3(transform.position.x-0.5f,transform.position.y-0.5f,transform.position.z), Quaternion.identity);
         ParticleSystem particle = Instantiate(_VFX, transform.position, Quaternion.identity);
         particle.Play();
-        Destroy(particle, particle.main.duration);
+        Destroy(particle.gameObject, particle.main.duration);
     }
+
     public void SetData(Vector3 tartgetpos, float enemyAttackSpeed,float enemyAttackDamage, EnemyTypeCheck.Type enemyType)
     {
         targetPos = tartgetpos;

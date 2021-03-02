@@ -5,7 +5,6 @@ using Manager;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
 
 public class PlayerV1 : MonoBehaviour, IDamageable<float>
 {
@@ -33,8 +32,11 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     public Vector2 RespawnPoint { get; set; } = Vector2.zero;
     //Animator
     public Animator animator;
-    public bool _isOnfloor;
+    private readonly int _isHoldItemHash = Animator.StringToHash("IsHoldItem");
+
     public Vector3 PlayerItemPlaceHolder => transform.position + (_playerSpriteRenderer.bounds.center - transform.position);
+    public Item GetItem => GetComponentInChildren<Item>();
+    public bool IsOnfloor;
 
     private void Start()
     {
@@ -62,6 +64,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             _rigidBody.gravityScale = _playerData.Gravity;
         }
     }
+
     #region Animator
     private void Update()
     {
@@ -85,7 +88,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsClimb", false);
             animator.SetBool("UsingTurret", false);
         }
-        else if(turret == null)
+        else if (turret == null)
         {
             //not moving
             _playerSpriteRenderer.flipX = true;
@@ -93,7 +96,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsMoving", false);
             animator.SetBool("UsingTurret", false);
         }
-        else if (turret!=null)
+        else if (turret != null)
         {
             //using turret
             _playerSpriteRenderer.flipX = false;
@@ -101,9 +104,10 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             animator.SetBool("IsClimb", false);
             animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", false);
-            animator.SetBool("IsHoldItem", false);
+
+            PlayAnimationHoldItem(false);
         }
-        if (_axis.y != 0.0f && _isOnfloor)
+        if (_axis.y != 0.0f && IsOnfloor)
         {
             //climbing
             animator.SetBool("IsClimb", true);
@@ -157,24 +161,22 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
     {
         if (!TryGetComponent(out _playerInput))
         {
-            Debug.LogWarning("Fail to load Player Input component!.");
+            Debug.LogWarning("<color=red>Fail</color> to load Player Input component!.");
         }
 
         if (!TryGetComponent(out _rigidBody))
         {
-            Debug.LogWarning("Fail to load RigidBody component!.");
+            Debug.LogWarning("<color=red>Fail</color> to load RigidBody component!.");
         }
 
         if (!TryGetComponent(out _audioSource))
         {
-            Debug.LogWarning("Fail to load Audio Source component!.");
+            Debug.LogWarning("<color=red>Fail</color> to load Audio Source component!.");
         }
         _healthBar = GetComponentInChildren<Visuals.HealthBar>();
         _healthSystem = new HealthSystem(_playerData.MaxHealth);
         _healthBar.SetUp(_healthSystem);
         _healthBar.SetBarVisible(false); // Player start with HealthBar invisible
-
-        // _playerHeight = GetComponent<CapsuleCollider2D>().size.y;
     }
 
     #region Player InputAction 
@@ -248,7 +250,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
                 }
 
                 iter.Interact(this);
-                animator.SetBool("IsHoldItem", true);
+                PlayAnimationHoldItem(true);
                 break;
             }
         }
@@ -257,7 +259,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
             Item item = GetItem;
             if (item)
             {
-                animator.SetBool("IsHoldItem", false);
+                PlayAnimationHoldItem(false);
                 item.DropItem();
             }
         }
@@ -275,12 +277,14 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         // when press input secondary
     }
 
+    public void PlayAnimationHoldItem(bool active) => animator.SetBool(_isHoldItemHash, active);
+
     public void SwapActionControlToPlayer(bool isPlayer) => _playerInput.SwitchCurrentActionMap(isPlayer ? "Input" : "Turret");
 
     public void TakeDamage(float damage)
     {
         if (_isRespawn) return;
-       
+
         _healthSystem.Damage(damage);
         _healthBar.SetBarVisible(true);
         _audioSource.clip = _playerData.AudiosClips[0];
@@ -326,8 +330,5 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
         StopCoroutine(_coroutineRegen);
         _coroutineRegen = null;
     }
-
-
-    public Item GetItem => GetComponentInChildren<Item>();
 
 }

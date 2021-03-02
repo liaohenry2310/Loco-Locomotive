@@ -18,7 +18,7 @@ public class GiantEnemy : MonoBehaviour
     private AudioSource _audioSource;
 
     private float _transparency = 0.0f;
-    private Vector3 _scale = new Vector3(1.0f,1.0f,1.0f);
+    private Vector3 _scale = new Vector3(1.0f, 1.0f, 1.0f);
     private Vector3 _velocity;
     private float _nextAttackTime = 0.0f;
     private float _chargeTime;
@@ -121,7 +121,7 @@ public class GiantEnemy : MonoBehaviour
             case State.MoveToTarget:
                 if (isAlive)
                 {
-                    MoveToTarget(); 
+                    MoveToTarget();
                 }
                 break;
             case State.Charging:
@@ -140,11 +140,11 @@ public class GiantEnemy : MonoBehaviour
                 break;
         }
         CheckStillAlive();
-       //if (_transparency<0.0f&& !isAlive)
-       //{
-       //    Debug.Log("rec Giant");
-       //    RecycleGiantEnemy();
-       //}
+        //if (_transparency<0.0f&& !isAlive)
+        //{
+        //    Debug.Log("rec Giant");
+        //    RecycleGiantEnemy();
+        //}
     }
 
     void WanderIdle()
@@ -178,20 +178,19 @@ public class GiantEnemy : MonoBehaviour
         }
 
 
-        transform.position += _velocity * Time.deltaTime*(enemyData.MaxSpeed/10);
+        transform.position += _velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
 
 
         //Shooting
         if (_nextAttackTime < Time.time)
         {
             mCurrentState = State.MoveToTarget;
-            // _nextAttackTime = enemyData.AttackDelay + Time.time;
         }
     }
     void MoveToTarget()
     {
 
-        Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
+        Vector3 _acceleration = Vector3.zero;
 
         var targetlist = _trainData.ListTurret;
         int targetSize = targetlist.Length;
@@ -201,7 +200,7 @@ public class GiantEnemy : MonoBehaviour
         Vector2 destination = new Vector2(targetPos.x, transform.position.y);
         _acceleration = BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, destination, enemyData.MaxSpeed), enemyData.SeekWeight);
         _velocity += _acceleration * Time.deltaTime * (enemyData.MaxSpeed / 10);
-        float dis = float.MinValue;
+        //float dis = float.MinValue;
 
         if (Mathf.Abs(transform.position.x - destination.x) < 0.1f)
         {
@@ -267,23 +266,12 @@ public class GiantEnemy : MonoBehaviour
                             _laserHitVFX.transform.position = lineRenderer.GetPosition(1);
                         }
                     }
-                    //Collider2D collider = hit.collider;
-                    //if (collider)
-                    //{
-                    //
-                    //    IDamageable<float> damageable = collider.GetComponent<IDamageable<float>>();
-                    //    if (damageable != null)
-                    //    {
-                    //        damageable.TakeDamage(enemyData.BeamDamage);
-                    //         lineRenderer.SetPosition(1, hit.point);
-                    //    }
-                    //}
-
                 }
             }
             attackDelay = Time.time + 1.0f;
 
         }
+
 
             if (attackCount >= _beamDuration)
            {
@@ -296,6 +284,7 @@ public class GiantEnemy : MonoBehaviour
                DisableLaserHitVFX();
                mCurrentState = State.WanderIdle;
            }
+
 
     }
 
@@ -326,8 +315,7 @@ public class GiantEnemy : MonoBehaviour
             mCurrentState = State.WanderIdle;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             sr.transform.Rotate(Vector3.forward, 45 * 5.0f * Time.deltaTime, Space.Self);
-            StartCoroutine("TransparencySR");
-            //RecycleGiantEnemy();
+            StartCoroutine(TransparencySR());
         }
 
     }
@@ -351,8 +339,6 @@ public class GiantEnemy : MonoBehaviour
     void EnableLaser()
     {
         lineRenderer.enabled = true;
-
-
     }
 
     void DisableLaser()
@@ -383,10 +369,9 @@ public class GiantEnemy : MonoBehaviour
     }
     private IEnumerator TransparencySR()
     {
-        _transparency -= 0.25f* Time.deltaTime;
-        //_scale -= 0.1 * Time.deltaTime;
+        _transparency -= 0.25f * Time.deltaTime;
         sr.transform.localScale = new Vector3(_transparency, _transparency, 1.0f);
-        sr.color = new Color(0.25f, 0.25f, 0.50f, _transparency);// * Time.deltaTime);
+        sr.color = new Color(0.25f, 0.25f, 0.50f, _transparency);
         yield return new WaitForSeconds(4.0f);
         RecycleGiantEnemy();
     }
