@@ -30,7 +30,7 @@ public class LadderController : MonoBehaviour
         {
             PlayerV1 _player = collision.GetComponent<PlayerV1>();
             _player.LadderController = this;
-            _player._isOnfloor = true;
+            _player.IsOnfloor = true;
             foreach (BoxCollider2D floor in _passbleFloors)
             {
                 Physics2D.IgnoreCollision(_player.GetComponent<CapsuleCollider2D>(), floor, true);
@@ -49,7 +49,7 @@ public class LadderController : MonoBehaviour
         {
             PlayerV1 _player = collision.GetComponent<PlayerV1>();
             _player.LadderController = null;
-            _player._isOnfloor = false;
+            _player.IsOnfloor = false;
             foreach (BoxCollider2D floor in _passbleFloors)
             {
                 Physics2D.IgnoreCollision(_player.GetComponent<CapsuleCollider2D>(), floor, false);

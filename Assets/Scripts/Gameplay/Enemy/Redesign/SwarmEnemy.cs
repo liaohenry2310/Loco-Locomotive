@@ -6,6 +6,7 @@ using UnityEngine;
 public class SwarmEnemy : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitVFX = null;
+
     private TrailRenderer trailVFX;
     private SwarmEnemyData _enemyData = null;
     private ObjectPoolManager _objectPoolManager = null;
@@ -37,11 +38,18 @@ public class SwarmEnemy : MonoBehaviour
     public float shake_intensity = 0.03f;
     private float temp_shake_intensity = 0;
 
+    public AudioClip clip;
+    private AudioSource _audioSource;
+
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
         _screenBounds = GameManager.GetScreenBounds;
         trailVFX = gameObject.GetComponent<TrailRenderer>();
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogWarning("Fail to load Audio Source component.");
+        }
     }
 
     private void Start()
@@ -51,6 +59,7 @@ public class SwarmEnemy : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _oldPos = transform.position.x;
+        _audioSource.volume = 0.1f;
     }
 
     private void FixedUpdate()
@@ -82,7 +91,7 @@ public class SwarmEnemy : MonoBehaviour
         originPosition = transform.position;
         originRotation = transform.rotation;
         temp_shake_intensity = shake_intensity;
-        StartCoroutine("StartShake");
+        StartCoroutine(StartShake());
     }
     private IEnumerator StartShake()
     {
@@ -132,6 +141,7 @@ public class SwarmEnemy : MonoBehaviour
                 damageable.TakeDamage(_enemyData.Swarm_AttackDamage);
                 ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
                 particle.Play();
+
                 Destroy(particle.gameObject, particle.main.duration);
                 Alive = false;
                 RecycleSwarm();
@@ -153,6 +163,8 @@ public class SwarmEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             Alive = false;
+            //Swarm Dead Audio
+            _audioSource.PlayOneShot(clip);
 
             var dir = Vector3.Reflect(Velocity.normalized, bouncedir);
             if (dir.y < 0.0f)
@@ -177,6 +189,7 @@ public class SwarmEnemy : MonoBehaviour
     private void RecycleSwarm()
     {
         Alive = false;
+        gameObject.GetComponent<EnemyHealth>().DefaulSpriteColor();
         _objectPoolManager.RecycleObject(gameObject);
     }
 

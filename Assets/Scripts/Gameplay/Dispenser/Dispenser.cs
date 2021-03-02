@@ -9,12 +9,23 @@ namespace Dispenser
     {
         [SerializeField] private DispenserItem _dispenserItem = null;
         [SerializeField] private SpriteRenderer _spriteRenderer = null;
+        public AudioClip clip;
+        private AudioSource _audioSource;
         private Animator _animator = null;
         private readonly int _active = Animator.StringToHash("Active");
 
         private void Awake()
         {
+            if (!TryGetComponent(out _audioSource))
+            {
+                Debug.LogWarning("Fail to load Audio Source component.");
+            }
             _animator = GetComponentInChildren<Animator>();
+        }
+
+        private void Start()
+        {
+            _audioSource.volume = 0.5f;
         }
 
         public void Interact(PlayerV1 player)
@@ -26,6 +37,8 @@ namespace Dispenser
                 Item item = itemGo.GetComponent<Item>();
                 item.Setup(ref _dispenserItem);
                 item.Pickup(ref player);
+                _audioSource.PlayOneShot(clip);
+
             }
         }
 

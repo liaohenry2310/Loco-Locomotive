@@ -1,11 +1,9 @@
 ﻿using GamePlay;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FadeFuelBar : MonoBehaviour
 {
-    [SerializeField] private TrainData _trainData = null;  
+    [SerializeField] private TrainData _trainData = null;
     [SerializeField] private Transform _bar = null;
     private Train _train;
     private SpriteRenderer _spriteRenderer = null;
@@ -35,9 +33,10 @@ public class FadeFuelBar : MonoBehaviour
     }
 
     private void UpdateFuel(float FuelPerc)
-    {       
-        _bar.localScale = new Vector3( 1.0f, FuelPerc, 1.0f);
+    {
+        _bar.localScale = new Vector3(1.0f, FuelPerc, 1.0f);
     }
+
     private void Update()
     {
         tempTime += Time.deltaTime;
@@ -54,8 +53,6 @@ public class FadeFuelBar : MonoBehaviour
 
     public void Flickering()
     {
-
-
         if (isFlickering)
         {
             _spriteRenderer.color = yellow2;

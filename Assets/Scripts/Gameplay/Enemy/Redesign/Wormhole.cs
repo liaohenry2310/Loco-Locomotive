@@ -1,40 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Wormhole : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _VFX = null;
     [SerializeField] private float _spinSpeed = 5.0f;
+    [SerializeField] private float _scaleDeltaSpeed = 0.1f;
+    [SerializeField] private GameObject _sound = null;
 
     private EnemyWaveData.EnemyWave _waveData;
     private float _currentScale = 0.0f;
     private int _currentSpawned = 0;
     private float _maxScale = 1.0f;
     private bool _spawnedEnemy = false;
-    private Vector3 _screenBounds;
-    private ObjectPoolManager _objectPoolManager = null;
-    private EnemySpawner enemySpawner;
 
+    private ObjectPoolManager _objectPoolManager = null;
     private Transform _topright;
     private Transform _bottomLeft;
-
     private SwarmEnemyGroup _swarmEnemyGroup;
 
-
-
-    //private void Start()
-    //{
-    //    _screenBounds = GameManager.GetScreenBounds;
-    //}
     private void Awake()
     {
         _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
-
-        //_swarmEnemyGroupPrefab.SetActive(true);
     }
 
-    public void SetInitData(EnemyWaveData.EnemyWave wave, Transform topRight, Transform bottomLeft, SwarmEnemyGroup swarmEnemyGroup )
+    public void SetInitData(EnemyWaveData.EnemyWave wave, Transform topRight, Transform bottomLeft, SwarmEnemyGroup swarmEnemyGroup)
     {
         _waveData = wave;
         _maxScale = wave.WormholeSize;
@@ -57,16 +46,18 @@ public class Wormhole : MonoBehaviour
             _currentScale = transform.localScale.x;
             PlayParticle();
 
-            if (_currentScale >= _maxScale/2 && !_spawnedEnemy && (_currentSpawned < _waveData.NumToSpawn))
+            if (_currentScale >= _maxScale / 2 && !_spawnedEnemy && (_currentSpawned < _waveData.NumToSpawn))
             {
                 SpawnEnemies();
                 _spawnedEnemy = true;
             }
         }
-        else   {
+        else
+        {
             transform.Rotate(0.0f, 0.0f, _spinSpeed);
             transform.localScale -= new Vector3(transform.localScale.x, transform.localScale.y, 1f) * Time.deltaTime;
-            if ((transform.localScale.x <= 0.02f) )
+            
+            if ((transform.localScale.x <= 0.02f))
             {
                 _spawnedEnemy = false;
                 RecycleWormhole();
@@ -77,10 +68,10 @@ public class Wormhole : MonoBehaviour
     public void PlayParticle()
     {
         ParticleSystem particle = Instantiate(_VFX, transform.position, Quaternion.identity);
+        Instantiate(_sound, gameObject.transform.position, Quaternion.identity);
         particle.Play();
-        Destroy(particle, particle.main.duration);
+        Destroy(particle.gameObject, particle.main.duration);
     }
-
 
     void SpawnEnemies()
     {
@@ -90,7 +81,7 @@ public class Wormhole : MonoBehaviour
             _swarmEnemyGroup.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
             _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetNewData(_topright, _bottomLeft);
             _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetSwarmSpawnPos(transform);
-            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SpawnGroup(_waveData.NumToSpawn,false);
+            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SpawnGroup(_waveData.NumToSpawn, false);
 
             return;
         }
@@ -99,15 +90,14 @@ public class Wormhole : MonoBehaviour
             _swarmEnemyGroup.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
             _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetNewData(_topright, _bottomLeft);
             _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SetSwarmSpawnPos(transform);
-            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SpawnGroup(_waveData.NumToSpawn,true);
+            _swarmEnemyGroup.gameObject.GetComponent<SwarmEnemyGroup>().SpawnGroup(_waveData.NumToSpawn, true);
 
             return;
         }
 
         for (_currentSpawned = 0; _currentSpawned < _waveData.NumToSpawn; ++_currentSpawned)
-       {
-            
-        //GameObject _enemyType;
+        {
+
             switch (_waveData.EnemyType)
             {
                 case EnemyWaveData.EnemyType.Basic:
@@ -116,7 +106,7 @@ public class Wormhole : MonoBehaviour
                         _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
                         _enemyType.SetActive(true);
                         _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);
-                    break;
+                        break;
                     }
                 case EnemyWaveData.EnemyType.Bomber:
                 {
@@ -158,6 +148,7 @@ public class Wormhole : MonoBehaviour
                     _enemyType.gameObject.GetComponent<GiantEnemy>().SetNewData(_topright, _bottomLeft);
                     break;
                 }
+
                 default:
                     break;
             }
@@ -177,6 +168,5 @@ public class Wormhole : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _objectPoolManager.RecycleObject(gameObject);
-        Debug.Log("RecycleWormhole!");
     }
 }

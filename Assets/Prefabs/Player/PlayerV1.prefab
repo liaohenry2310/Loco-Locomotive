@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8137850484133096673}
   - component: {fileID: 8137850484133096672}
   - component: {fileID: 8137850484133096675}
-  - component: {fileID: 6707677889344065179}
   - component: {fileID: 1732405955468831116}
   - component: {fileID: 468436100}
   - component: {fileID: 1164112849872312716}
@@ -103,8 +102,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
-  m_Size: {x: 0.3, y: 0.5}
+  m_Offset: {x: 0, y: 0.15}
+  m_Size: {x: 0.3, y: 0.3}
   m_Direction: 0
 --- !u!50 &8137850484133096673
 Rigidbody2D:
@@ -122,7 +121,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f19f5be3379efa243b4bbfaeb9bd0d09, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -263,18 +262,7 @@ MonoBehaviour:
   _playerData: {fileID: 11400000, guid: b9ecd91107106884e91f13cc1635e9a8, type: 2}
   _playerSpriteRenderer: {fileID: 8137850484133096686}
   animator: {fileID: 1732405955468831116}
---- !u!114 &6707677889344065179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8137850484133096674}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81f9b1c1fbb96564f837d330392efc78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  IsOnfloor: 0
 --- !u!95 &1732405955468831116
 Animator:
   serializedVersion: 3
@@ -323,8 +311,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

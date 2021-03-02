@@ -1139,6 +1139,11 @@ MonoBehaviour:
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
   _explosionParticle: {fileID: 2841332990132179449, guid: d219b4e209068be4da170bda4024ca08,
     type: 3}
+  steam:
+  - {fileID: 8300000, guid: 6a9741ea27243ce49aed39daed15e134, type: 3}
+  - {fileID: 8300000, guid: 3a51083ba48edc84a8a0c901a1bcfd71, type: 3}
+  - {fileID: 8300000, guid: 5259bd9d2ba09ea49a9e664fbd8de867, type: 3}
+  - {fileID: 8300000, guid: 1c8a42de8b79717449184f17611877e8, type: 3}
 --- !u!1 &9066134015433372368
 GameObject:
   m_ObjectHideFlags: 0

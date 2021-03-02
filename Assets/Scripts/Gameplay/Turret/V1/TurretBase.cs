@@ -14,7 +14,8 @@ namespace Turret
         [SerializeField] private TurretData _turretData = null;
         [SerializeField] private SpriteRenderer _spriteDamageIndicator = null;
         [SerializeField] private SpriteRenderer _spriteCannon = null;
-
+        public AudioClip clip;
+        private AudioSource _turretAudioSource = null;
         private Color _defaultColor;
         private readonly WaitForSeconds _waitForSecondsDamage = new WaitForSeconds(0.05f);
         private Vector3 _spriteOriginalPos;
@@ -24,10 +25,20 @@ namespace Turret
 
         private void Awake()
         {
+            if (!TryGetComponent(out _turretAudioSource))
+            {
+                Debug.LogWarning("Fail to load Audio Source component.");
+            }
+
             HealthSystem = new HealthSystem(_turretData.MaxHealth);
             _defaultColor = _spriteDamageIndicator.color;
             _spriteOriginalPos = _spriteDamageIndicator.gameObject.transform.localPosition;
             _spriteCannonOriginalPos = _spriteCannon.gameObject.transform.localPosition;
+        }
+
+        private void Start()
+        {
+            _turretAudioSource.volume = 0.5f;
         }
 
         public bool IsAlive => HealthSystem.IsAlive;
@@ -45,6 +56,7 @@ namespace Turret
             Item item = player.GetItem;
             if (item != null && item.ItemType == DispenserData.Type.RepairKit)
             {
+                _turretAudioSource.PlayOneShot(clip);
                 HealthSystem.RestoreFullHealth();
                 player.GetItem.DestroyAfterUse();
                 OnRepairUpdate?.Invoke();

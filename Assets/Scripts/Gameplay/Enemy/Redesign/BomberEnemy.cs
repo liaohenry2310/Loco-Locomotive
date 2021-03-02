@@ -189,7 +189,6 @@ public class BomberEnemy : MonoBehaviour
     {
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
-
             isAlive = false;
             GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
             projectile.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
@@ -208,9 +207,15 @@ public class BomberEnemy : MonoBehaviour
         int randomtarget = Random.Range(0, targetSize);
         GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
         projectile.transform.position = transform.position;
-        Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
-        projectile.SetActive(true);
-        projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage,EnemyTypeCheck.Type.Bomber);
+        //Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
+        var target = targetlist[randomtarget];
+        if (target)
+        {
+            Vector3 targetPos = target.gameObject.transform.position;
+            projectile.SetActive(true);
+            projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage,EnemyTypeCheck.Type.Bomber);
+
+        }
     }
 
 }

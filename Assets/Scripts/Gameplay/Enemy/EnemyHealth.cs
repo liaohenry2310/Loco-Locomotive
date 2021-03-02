@@ -6,8 +6,8 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
 {
     // regular type 
     private SpriteRenderer _spriteDamageIndicator = null;
-    private readonly WaitForSeconds _waitForSecondsDamage = new WaitForSeconds(0.05f);
     private Color _defaultColor;
+    private readonly WaitForSeconds _waitForSecondsDamage = new WaitForSeconds(0.05f);
 
     public SpriteRenderer SpriteColor { get { return _spriteDamageIndicator; } set { _spriteDamageIndicator=value; } }
 
@@ -26,18 +26,23 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
         get { return m_health; }
         set { m_health = value; }
     }
-    private void Update()
-    {
-        if (reHealth)
-        {
-            _spriteDamageIndicator.color = _defaultColor;
-            reHealth = false;
-        }
-        if (!IsAlive())
-        {
-            _spriteDamageIndicator.color = Color.gray;
-        }
-    }
+
+    //Review code (Cyro): Refactoring this part because cause to much update call  (Unity Profile), just to check if the enemy has health
+    // I moved this code inside the coroutine to improve our performance in gameplay
+    //private void Update()
+    //{
+    //    if (reHealth)
+    //    {
+    //        _spriteDamageIndicator.color = _defaultColor;
+    //        reHealth = false;
+    //    }
+    //    if (!IsAlive())
+    //    {
+    //        _spriteDamageIndicator.color = Color.gray;
+    //    }
+    //}
+
+
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {
         if (CompareTag("ShieldEnemy"))
@@ -66,15 +71,8 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
 
     void HpLogic(float takingDamage, DispenserData.Type damageType)
     {
-
         health -= takingDamage;
-        Debug.Log(tag + "Lost " + takingDamage + "hp. Current health: " + health);
-        StartCoroutine(DamageIndicator());
-        //if (health <= 0.0f)
-        //{
-        //    Destroy(gameObject);
-        //    Debug.Log("I will be back!");
-        //}
+        _ = StartCoroutine(DamageIndicator());
     }
 
     void ShieldLogic(float takingDamage, DispenserData.Type damageType)
@@ -92,6 +90,8 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
     {
         _spriteDamageIndicator.color = Color.red;
         yield return _waitForSecondsDamage;
-        _spriteDamageIndicator.color = _defaultColor;
+        _spriteDamageIndicator.color = IsAlive() ? _defaultColor : Color.gray;
     }
+
+    public void DefaulSpriteColor() => _spriteDamageIndicator.color = _defaultColor;
 }

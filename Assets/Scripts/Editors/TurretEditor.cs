@@ -9,6 +9,7 @@ public class TurretEditor : Editor
     bool showMachineGun = true;
     bool showLaserGun = true;
     bool showMissileGun = true;
+    bool showDamageMulti = true;
 
 
     private void OnEnable()
@@ -50,6 +51,16 @@ public class TurretEditor : Editor
         Color myStyleColor = Color.white;
         myFoldoutStyle.normal.textColor = myStyleColor;
 
+        showDamageMulti = EditorGUILayout.Foldout(showDamageMulti, "Damage Multiplier", myFoldoutStyle);
+        if (showDamageMulti)
+        {
+            _turretData.DamageMulti[0] = EditorGUILayout.FloatField("Player 1", _turretData.DamageMulti[0]);
+            _turretData.DamageMulti[1] = EditorGUILayout.FloatField("Player 2", _turretData.DamageMulti[1]);
+            _turretData.DamageMulti[2] = EditorGUILayout.FloatField("Player 3", _turretData.DamageMulti[2]);
+            _turretData.DamageMulti[3] = EditorGUILayout.FloatField("Player 4", _turretData.DamageMulti[3]);
+        }
+
+
         showMachineGun = EditorGUILayout.Foldout(showMachineGun, "Machine gun", myFoldoutStyle);
         if (showMachineGun)
         {
@@ -76,7 +87,7 @@ public class TurretEditor : Editor
         if (showMissileGun)
         {
             _turretData.missileGun.damage = EditorGUILayout.FloatField("Damage", _turretData.missileGun.damage);
-            EditorGUILayout.LabelField("Min speed:",$"{_turretData.missileGun.minSpeed}");
+            EditorGUILayout.LabelField("Min speed:", $"{_turretData.missileGun.minSpeed}");
             EditorGUILayout.LabelField("Max speed:", $"{_turretData.missileGun.maxSpeed}");
             EditorGUILayout.MinMaxSlider(ref _turretData.missileGun.minSpeed, ref _turretData.missileGun.maxSpeed, 0.05f, 10.0f);
             GUILayout.Space(25.0f);

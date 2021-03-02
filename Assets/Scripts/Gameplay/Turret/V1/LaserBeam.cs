@@ -1,5 +1,4 @@
 ﻿using Interfaces;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Turret
         private readonly TurretData _turretData;
         private readonly List<ParticleSystem> _particles;
         private ParticleSystem _hitVFX = null;
-       
+
         public struct LaserGunProperties
         {
             public LineRenderer laserBeamRenderer;
@@ -18,7 +17,7 @@ namespace Turret
             public GameObject endVFX;
             public GameObject hitVFX;
             public AudioSource audioSourceClips;
-            
+
             public Transform transformCannon;
         }
 
@@ -65,7 +64,7 @@ namespace Turret
                                 IDamageableType<float> damageable = collider.GetComponent<EnemyHealth>();
                                 if (damageable != null)
                                 {
-                                    damageable.TakeDamage(_turretData.laserGun.damage * Time.deltaTime, DispenserData.Type.LaserBeam);
+                                    damageable.TakeDamage(_turretData.DamageMultiplier(_turretData.laserGun.damage, _turretData.PlayersOnScene) * Time.deltaTime, DispenserData.Type.LaserBeam);
                                     ParticleSystem hitParticle = Object.Instantiate(_hitVFX, enemyHit.point, Quaternion.identity);
                                     hitParticle.Play();
                                     Object.Destroy(hitParticle.gameObject, 0.05f);

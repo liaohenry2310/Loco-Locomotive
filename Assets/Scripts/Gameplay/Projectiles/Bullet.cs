@@ -6,7 +6,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private TurretData _turretData = null;
     [SerializeField] private ParticleSystem _hitVFX = null;
     [SerializeField] private GameObject _bulletSound = null;
-    private ParticleSystem _bulletVFX = null;
     private Vector3 _screenBounds;
     private ObjectPoolManager _objectPoolManager = null;
 
@@ -17,21 +16,7 @@ public class Bullet : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _screenBounds = GameManager.GetScreenBounds;
-
-        //if (!_bulletVFX)
-        //{
-        //    _bulletVFX = Instantiate(_hitVFX, transform.position, Quaternion.identity);
-        //}
     }
-
-
-    //private void OnDisable()
-    //{
-    //    if (_bulletVFX)
-    //    {
-    //        Destroy(_bulletVFX.gameObject, _bulletVFX.main.duration + 0.5f);
-    //    }
-    //}
 
     private void FixedUpdate()
     {
@@ -64,9 +49,7 @@ public class Bullet : MonoBehaviour
         IDamageableType<float> damageable = collision.GetComponent<EnemyHealth>();
         if (damageable != null)
         {
-            damageable.TakeDamage(_turretData.machineGun.damage, DispenserData.Type.Normal);
-            //StartCoroutine(HitExplosion());
-
+            damageable.TakeDamage(_turretData.DamageMultiplier(_turretData.machineGun.damage, _turretData.PlayersOnScene), DispenserData.Type.Normal);
             //For now will work like so, but still call GC.
             ParticleSystem particle = Instantiate(_hitVFX, transform.position, Quaternion.identity);
             particle.Play();
