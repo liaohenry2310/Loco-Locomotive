@@ -4,7 +4,7 @@ public class Wormhole : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _VFX = null;
     [SerializeField] private float _spinSpeed = 5.0f;
-    [SerializeField] private float _scaleDeltaSpeed = 0.1f;
+    //[SerializeField] private float _scaleDeltaSpeed = 0.1f;
     [SerializeField] private GameObject _sound = null;
 
     private EnemyWaveData.EnemyWave _waveData;
@@ -12,6 +12,7 @@ public class Wormhole : MonoBehaviour
     private int _currentSpawned = 0;
     private float _maxScale = 1.0f;
     private bool _spawnedEnemy = false;
+    private ParticleSystem _particle = null;
 
     private ObjectPoolManager _objectPoolManager = null;
     private Transform _topright;
@@ -56,7 +57,7 @@ public class Wormhole : MonoBehaviour
         {
             transform.Rotate(0.0f, 0.0f, _spinSpeed);
             transform.localScale -= new Vector3(transform.localScale.x, transform.localScale.y, 1f) * Time.deltaTime;
-            
+
             if ((transform.localScale.x <= 0.02f))
             {
                 _spawnedEnemy = false;
@@ -65,12 +66,23 @@ public class Wormhole : MonoBehaviour
         }
     }
 
+    
+
     public void PlayParticle()
     {
-        ParticleSystem particle = Instantiate(_VFX, transform.position, Quaternion.identity);
-        Instantiate(_sound, gameObject.transform.position, Quaternion.identity);
-        particle.Play();
-        Destroy(particle.gameObject, particle.main.duration);
+        //Cyro: making some change for better performance to keep 1 particle per whormhole
+        //ParticleSystem particle = Instantiate(_VFX, transform.position, Quaternion.identity);
+        //Instantiate(_sound, gameObject.transform.position, Quaternion.identity);
+        //particle.Play();
+        //Destroy(particle.gameObject, particle.main.duration);
+
+        if (_particle == null)
+        {
+            _particle = Instantiate(_VFX, transform.position, Quaternion.identity);
+            _ = Instantiate(_sound, gameObject.transform.position, Quaternion.identity);
+            //_particle.Play();
+            Destroy(_particle.gameObject, _particle.main.startLifetime.constant);
+        }
     }
 
     void SpawnEnemies()
@@ -102,52 +114,52 @@ public class Wormhole : MonoBehaviour
             {
                 case EnemyWaveData.EnemyType.Basic:
                     {
-                         _enemyType = _objectPoolManager.GetObjectFromPool("BasicEnemy");
+                        _enemyType = _objectPoolManager.GetObjectFromPool("BasicEnemy");
                         _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
                         _enemyType.SetActive(true);
                         _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);
                         break;
                     }
                 case EnemyWaveData.EnemyType.Bomber:
-                {
-                    _enemyType = _objectPoolManager.GetObjectFromPool("BomberEnemy");
-                    _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
-                    _enemyType.SetActive(true);
-                    _enemyType.gameObject.GetComponent<BomberEnemy>().SetNewData(_topright, _bottomLeft);
-                    break;
-                }
+                    {
+                        _enemyType = _objectPoolManager.GetObjectFromPool("BomberEnemy");
+                        _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
+                        _enemyType.SetActive(true);
+                        _enemyType.gameObject.GetComponent<BomberEnemy>().SetNewData(_topright, _bottomLeft);
+                        break;
+                    }
                 case EnemyWaveData.EnemyType.Giant:
-                {
-                    _enemyType = _objectPoolManager.GetObjectFromPool("GiantEnemy");
-                    _enemyType.transform.position = new Vector3(transform.position.x , transform.position.y, transform.localPosition.z);
-                    _enemyType.SetActive(true);
-                    _enemyType.gameObject.GetComponent<GiantEnemy>().SetNewData(_topright, _bottomLeft);
-                    break;
-                }
+                    {
+                        _enemyType = _objectPoolManager.GetObjectFromPool("GiantEnemy");
+                        _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
+                        _enemyType.SetActive(true);
+                        _enemyType.gameObject.GetComponent<GiantEnemy>().SetNewData(_topright, _bottomLeft);
+                        break;
+                    }
                 case EnemyWaveData.EnemyType.Basic_Shield:
-                {
-                    _enemyType = _objectPoolManager.GetObjectFromPool("Basic_Shield");
-                    _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
-                    _enemyType.SetActive(true);
-                    _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);
-                    break;
-                }
-                case EnemyWaveData.EnemyType.Bomber_Shield :
-                {
-                    _enemyType = _objectPoolManager.GetObjectFromPool("Bomber_Shield");
-                    _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
-                    _enemyType.SetActive(true);
-                    _enemyType.gameObject.GetComponent<BomberEnemy>().SetNewData(_topright, _bottomLeft);
-                    break;
-                }
+                    {
+                        _enemyType = _objectPoolManager.GetObjectFromPool("Basic_Shield");
+                        _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
+                        _enemyType.SetActive(true);
+                        _enemyType.gameObject.GetComponent<BasicEnemy>().SetNewData(_topright, _bottomLeft);
+                        break;
+                    }
+                case EnemyWaveData.EnemyType.Bomber_Shield:
+                    {
+                        _enemyType = _objectPoolManager.GetObjectFromPool("Bomber_Shield");
+                        _enemyType.transform.position = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f), transform.localPosition.z);
+                        _enemyType.SetActive(true);
+                        _enemyType.gameObject.GetComponent<BomberEnemy>().SetNewData(_topright, _bottomLeft);
+                        break;
+                    }
                 case EnemyWaveData.EnemyType.Giant_Shield:
-                {
-                    _enemyType = _objectPoolManager.GetObjectFromPool("Giant_Shield");
-                    _enemyType.transform.position = new Vector3(transform.position.x , transform.position.y , transform.localPosition.z);
-                    _enemyType.SetActive(true);
-                    _enemyType.gameObject.GetComponent<GiantEnemy>().SetNewData(_topright, _bottomLeft);
-                    break;
-                }
+                    {
+                        _enemyType = _objectPoolManager.GetObjectFromPool("Giant_Shield");
+                        _enemyType.transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.z);
+                        _enemyType.SetActive(true);
+                        _enemyType.gameObject.GetComponent<GiantEnemy>().SetNewData(_topright, _bottomLeft);
+                        break;
+                    }
 
                 default:
                     break;
