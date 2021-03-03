@@ -149,6 +149,7 @@ namespace GamePlay
             while (t <= 1.0f)
             {
                 t = (Time.unscaledTime - startTime) / duration;
+                t = t * t;
                 gameObject.transform.position = Vector3.Lerp(startPos, finalPos, t);
 
                 if(Time.unscaledTime >= explosionTime)
