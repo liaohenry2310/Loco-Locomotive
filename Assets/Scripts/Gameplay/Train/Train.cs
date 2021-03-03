@@ -19,7 +19,7 @@ namespace GamePlay
         public AudioSource LowFuelAudio;
 
         private bool _audioPlayed = false;
-        private bool _isDestroyed = false;
+        private bool _playedEndAnimation = false;
         private float _shakeAmount;
         private Vector3 _pos;
         #region Members
@@ -121,12 +121,17 @@ namespace GamePlay
             _ = StartCoroutine(camera_Shake.Shake(0.03f, 0.03f));
         }
 
+        public void PlayLeaveAnimation()
+        {
+            StartCoroutine(LeaveAnimation());
+        }
+
         private IEnumerator DesuctrionAnimation()
         {
-            if (_isDestroyed)
+            if (_playedEndAnimation)
                 yield break;
             else
-                _isDestroyed = true;
+                _playedEndAnimation = true;
 
             int explosionNum = 5;
             GameObject[] explosions = new GameObject[explosionNum];
@@ -149,8 +154,10 @@ namespace GamePlay
             while (t <= 1.0f)
             {
                 t = (Time.unscaledTime - startTime) / duration;
-                t = t * t;
-                gameObject.transform.position = Vector3.Lerp(startPos, finalPos, t);
+                const float c1 = 1f;
+                const float c2 = 2f;
+                t = c2 * t * t * t - c1 * t * t;
+                gameObject.transform.position = Vector3.LerpUnclamped(startPos, finalPos, t);
 
                 if(Time.unscaledTime >= explosionTime)
                 {
@@ -165,6 +172,34 @@ namespace GamePlay
                     LowFuelAudio.PlayOneShot(ExplosionAudio);
                     StartCoroutine(camera_Shake.Shake(0.06f, 0.06f));
                 }
+
+                yield return null;
+            }
+            TrainRunningAudio.Stop();
+            OnGameOver?.Invoke();
+        }
+
+        private IEnumerator LeaveAnimation()
+        {
+            if (_playedEndAnimation)
+                yield break;
+            else
+                _playedEndAnimation = true;
+
+            float startTime = Time.unscaledTime;
+            float duration = 5.0f;
+            float t = 0.0f;
+
+            Vector3 startPos = gameObject.transform.position;
+            Vector3 finalPos = new Vector3(21.0f, startPos.y, startPos.z);
+
+            while (t <= 1.0f)
+            {
+                t = (Time.unscaledTime - startTime) / duration;
+                const float c1 = 1f;
+                const float c2 = 2f;
+                t = c2 * t * t * t - c1 * t * t;
+                gameObject.transform.position = Vector3.LerpUnclamped(startPos, finalPos, t);
 
                 yield return null;
             }

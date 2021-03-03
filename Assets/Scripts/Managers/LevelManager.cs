@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class LevelManager : MonoBehaviour
             GameWinPanel.SetActive(true);
             GameWinPanel.GetComponentInChildren<Button>().Select();
             _gameManager.SaveLevelCompleted();
+            OnStopBackgroundSFX?.Invoke();
             Audio.clip = steam[1];
             Audio.Play();
             Audio.loop = false;
@@ -105,7 +107,9 @@ public class LevelManager : MonoBehaviour
 
     //Private members
     private GameManager _gameManager;
+    private GameObject _train;
     private bool timerIsRunning = false;
+    private bool levelEnded = false;
 
     private void Awake()
     {
@@ -116,7 +120,10 @@ public class LevelManager : MonoBehaviour
 
         Train train = FindObjectOfType<Train>();
         if (train)
+        {
             train.OnGameOver += GameOver;
+            _train = train.gameObject;
+        }
 
         OnLevelLoad.Invoke();
     }
@@ -132,9 +139,20 @@ public class LevelManager : MonoBehaviour
             else
             {
                 timerIsRunning = false;
-                GameWin();
+                StartCoroutine(VictoryAnimation());
             }
         }
     }
 
+    private IEnumerator VictoryAnimation()
+    {
+        _train.GetComponent<Train>().PlayLeaveAnimation();
+        yield return new WaitForSecondsRealtime(5.0f);
+        GameWin();
+    }
+
+    private IEnumerator DefeatAnimation()
+    {
+        yield return null;
+    }
 }
