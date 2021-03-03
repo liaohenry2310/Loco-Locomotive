@@ -4,7 +4,7 @@ public class Wormhole : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _VFX = null;
     [SerializeField] private float _spinSpeed = 5.0f;
-    [SerializeField] private float _scaleDeltaSpeed = 0.1f;
+    //[SerializeField] private float _scaleDeltaSpeed = 0.1f;
     [SerializeField] private GameObject _sound = null;
 
     private EnemyWaveData.EnemyWave _waveData;

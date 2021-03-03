@@ -6,7 +6,7 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField] private ParticleSystem _hitVFX = null;
     [SerializeField] private ParticleSystem _explosionVFX = null;
     [SerializeField] private ParticleSystem _VFX = null;
-    private ParticleSystem _projectileVFX = null;
+    //private ParticleSystem _projectileVFX = null;
 
     private float _AttackSpeed = 0.0f;
     private float _AttackDamage = 0.0f;

@@ -24,7 +24,6 @@ public class GiantEnemy : MonoBehaviour
     private float _chargeTime;
     private float _beamDamage;
     private float _beamDuration;
-    private bool isAttacking;
 
     private Transform _topRightBound;
     private Transform _botLeftBound;
@@ -349,7 +348,7 @@ public class GiantEnemy : MonoBehaviour
 
             if (attackCount >= _beamDuration)
            {
-               isAttacking = false;
+               //isAttacking = false;
                Audio.Stop();
                attackCount = 0.0f;
                _nextAttackTime = enemyData.AttackDelay + Time.time;
