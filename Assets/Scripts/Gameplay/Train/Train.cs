@@ -1,10 +1,11 @@
 ﻿using Turret;
 using Interfaces;
 using System;
+using System.Collections;
 using UnityEngine;
+
 namespace GamePlay
 {
-
     public class Train : MonoBehaviour, IDamageable<float>
     {
         public event Action<float> OnUpdateHealthUI;  // HealthUI Action
@@ -12,9 +13,13 @@ namespace GamePlay
         public event Action<float> OnFuelReloadUI;    // FireBox Action
         public event Action OnGameOver;               // GameManager action
         public Camera_shake camera_Shake;
-        public AudioSource Audio;
+        public GameObject ExplosionEffect;
+        public AudioClip ExplosionAudio;
+        public AudioSource TrainRunningAudio;
+        public AudioSource LowFuelAudio;
 
         private bool _audioPlayed = false;
+        private bool _isDestroyed = false;
         private float _shakeAmount;
         private Vector3 _pos;
         #region Members
@@ -69,7 +74,7 @@ namespace GamePlay
 
             if (_trainData.FuelPercentage < 0.3f && !_audioPlayed)
             {
-                Audio.PlayOneShot(Audio.clip);
+                LowFuelAudio.PlayOneShot(LowFuelAudio.clip);
                 _audioPlayed = true;
             }
         }
@@ -89,7 +94,7 @@ namespace GamePlay
             OnUpdateFuelUI?.Invoke(_trainData.FuelPercentage);
             if (_trainData.CurrentFuel < 0.01f)
             {
-                OnGameOver?.Invoke();
+                StartCoroutine(DesuctrionAnimation());
                 _outOfFuel = true;
                 return;
             }
@@ -104,7 +109,7 @@ namespace GamePlay
             }
             else if (_trainData.CurrentHealth <= 0.0f)
             {
-                OnGameOver?.Invoke();
+                StartCoroutine(DesuctrionAnimation());
             }
             //Train Shakes
             _shakeAmount = (damage > 10.0f) ? 0.1f : UnityEngine.Random.Range(0.05f, 0.08f);
@@ -114,6 +119,56 @@ namespace GamePlay
             pos.y = transform.localPosition.y;
             transform.localPosition = pos;
             _ = StartCoroutine(camera_Shake.Shake(0.03f, 0.03f));
+        }
+
+        private IEnumerator DesuctrionAnimation()
+        {
+            if (_isDestroyed)
+                yield break;
+            else
+                _isDestroyed = true;
+
+            int explosionNum = 5;
+            GameObject[] explosions = new GameObject[explosionNum];
+            for(int i = 0; i < explosionNum; ++i)
+            {
+                explosions[i] = Instantiate(ExplosionEffect, gameObject.transform);
+            }
+
+            float startTime = Time.unscaledTime;
+            float duration = 5.0f;
+            float t = 0.0f;
+
+            Vector3 startPos = gameObject.transform.position;
+            Vector3 finalPos = new Vector3(-13.0f, startPos.y, startPos.z);
+
+            int currentExplosion = 0;
+            float explosionTime = Time.unscaledTime;
+            float explosionDelay = 0.25f;
+
+            while (t <= 1.0f)
+            {
+                t = (Time.unscaledTime - startTime) / duration;
+                gameObject.transform.position = Vector3.Lerp(startPos, finalPos, t);
+
+                if(Time.unscaledTime >= explosionTime)
+                {
+                    explosionTime = Time.unscaledTime + explosionDelay;
+                    Bounds trainCollider = gameObject.GetComponent<BoxCollider2D>().bounds;
+                    Vector2 randomPosition = new Vector2(
+                        UnityEngine.Random.Range(trainCollider.min.x, trainCollider.max.x),
+                        UnityEngine.Random.Range(trainCollider.min.y, trainCollider.max.y));
+                    explosions[currentExplosion].transform.position = randomPosition;
+                    explosions[currentExplosion++].GetComponent<ParticleSystem>().Play();
+                    currentExplosion %= explosionNum;
+                    LowFuelAudio.PlayOneShot(ExplosionAudio);
+                    StartCoroutine(camera_Shake.Shake(0.06f, 0.06f));
+                }
+
+                yield return null;
+            }
+            TrainRunningAudio.Stop();
+            OnGameOver?.Invoke();
         }
     }
 }

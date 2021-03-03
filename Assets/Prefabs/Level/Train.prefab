@@ -239,7 +239,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera_Shake: {fileID: 0}
-  Audio: {fileID: 5996354154962193586}
+  ExplosionEffect: {fileID: 1121192042590650, guid: 6f5606d34a62a9a40984c4158a98597b,
+    type: 3}
+  ExplosionAudio: {fileID: 8300000, guid: 09e51459cec54fb42939ee9450c7d84f, type: 3}
+  TrainRunningAudio: {fileID: 22994337270071069}
+  LowFuelAudio: {fileID: 5996354154962193586}
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
   _fireBox: {fileID: 0}
 --- !u!61 &7433177377215047814
