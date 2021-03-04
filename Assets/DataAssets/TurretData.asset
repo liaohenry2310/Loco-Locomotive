@@ -28,14 +28,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0de09d1cfa6a030478970752a21fcbb1, type: 3}
   - {fileID: 21300000, guid: d5f4dedc703615c41b781e63dc985326, type: 3}
   machineGun:
-    damage: 10
+    damage: 20
     moveSpeed: 10
     fireRate: 10
     maxAmmo: 150
     spreadBullet: 3
     recoilForce: 0.05
     machinegunFire: {fileID: 8300000, guid: f3c4caf8ee5c16240a5c7bbc424cf03c, type: 3}
-    machinegunHit: {fileID: 8300000, guid: 02e30f3a68b36ff4a9b9489481fc8659, type: 3}
     Uppersprites:
     - {fileID: 21300000, guid: 88a9abd8aa9fd254081d2c1760a76804, type: 3}
     - {fileID: 21300000, guid: a4b8f9c30a4ff8641b89c2ee3cc10460, type: 3}
@@ -78,7 +77,6 @@ MonoBehaviour:
     maxAmmo: 10
     recoilForce: 0.1
     missilegunFire: {fileID: 8300000, guid: 734aef4feeafc5a40a8fd8c792a01fc0, type: 3}
-    missilegunHit: {fileID: 8300000, guid: 09e51459cec54fb42939ee9450c7d84f, type: 3}
     Uppersprites:
     - {fileID: 21300000, guid: d34b56a14595bf246a16e326cac3de4b, type: 3}
     - {fileID: 21300000, guid: d55bfc332169697448ceb7e19b638992, type: 3}
