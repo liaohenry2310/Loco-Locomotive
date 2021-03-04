@@ -5,7 +5,8 @@ using UnityEngine;
 [CustomEditor(typeof(Train))]
 public class TrainEditor : Editor
 {
-    private TrainData _trainData;
+    [HideInInspector, SerializeField] private TrainData _trainData;
+
     private void OnEnable()
     {
         _trainData = serializedObject.FindProperty("_trainData").objectReferenceValue as TrainData;
@@ -28,7 +29,7 @@ public class TrainEditor : Editor
         _trainData.MaxFuel = EditorGUILayout.FloatField("Max Fuel", _trainData.MaxFuel);
         _trainData.FuelRate = EditorGUILayout.FloatField("Fuel Rate", _trainData.FuelRate);
         serializedObject.ApplyModifiedProperties();
-
+        EditorUtility.SetDirty(_trainData);
     }
 
 }

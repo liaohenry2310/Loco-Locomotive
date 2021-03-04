@@ -8,7 +8,6 @@ namespace Dispenser
     public class Dispenser : MonoBehaviour, IInteractable
     {
         [SerializeField] private DispenserItem _dispenserItem = null;
-        [SerializeField] private SpriteRenderer _spriteRenderer = null;
         public AudioClip clip;
         private AudioSource _audioSource;
         private Animator _animator = null;

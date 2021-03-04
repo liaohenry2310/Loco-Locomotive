@@ -5,7 +5,7 @@ using Turret;
 [CustomEditor(typeof(TurretBase))]
 public class TurretEditor : Editor
 {
-    private TurretData _turretData;
+    [HideInInspector, SerializeField] private TurretData _turretData;
     bool showMachineGun = true;
     bool showLaserGun = true;
     bool showMissileGun = true;
@@ -98,6 +98,7 @@ public class TurretEditor : Editor
         }
 
         serializedObject.ApplyModifiedProperties();
+        EditorUtility.SetDirty(_turretData);
     }
 
 }

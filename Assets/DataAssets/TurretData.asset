@@ -68,7 +68,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 512
   missileGun:
-    damage: 100
+    damage: 95
     minSpeed: 0.1
     maxSpeed: 10
     acceleration: 0.05
