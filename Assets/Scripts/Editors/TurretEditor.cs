@@ -15,7 +15,6 @@ public class TurretEditor : Editor
     private void OnEnable()
     {
         _turretData = serializedObject.FindProperty("_turretData").objectReferenceValue as TurretData;
-
     }
 
     public override void OnInspectorGUI()
