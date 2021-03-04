@@ -24,7 +24,8 @@ namespace Turret
         public HealthSystem HealthSystem { get; private set; }
 
         private void Awake()
-        {
+        { 
+
             if (!TryGetComponent(out _turretAudioSource))
             {
                 Debug.LogWarning("Fail to load Audio Source component.");
