@@ -101,10 +101,16 @@ public class SwarmEnemyGroup : MonoBehaviour
                 {
                     _acceleration = (Vector3)(BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, transform.position + _velocity.normalized, enemyData.Speed), enemyData.SeekBehaviorWeight));
                     _acceleration += (Vector3)BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(agent.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 1.0f), enemyData.WanderBehaviorWeight);
-
+                    agent.Attacking = true;
                 }
-                agent.Velocity += _acceleration  * Time.deltaTime;
-
+                agent.Velocity += (_acceleration/1.0f)  * Time.deltaTime;
+                if (agent.Velocity.magnitude > enemyData.MaxSpeed / 10)
+                {
+                    //var speed = agent.Velocity.magnitude;
+                    agent.Velocity.Normalize();
+                    //agent.Velocity /= speed;
+                    agent.Velocity *= enemyData.MaxSpeed;
+                }
 
                 if (agent.transform.position.x < _bottomLeft.position.x)
                 {
@@ -123,13 +129,8 @@ public class SwarmEnemyGroup : MonoBehaviour
                     agent.Velocity *= -1;
                 }
                 //agent.transform.position += agent.Velocity * Time.deltaTime;
-                if (agent.Velocity.sqrMagnitude > enemyData.MaxSpeed)
-                {
-                    var speed = agent.Velocity.magnitude;
-                    agent.Velocity.Normalize();
-                    agent.Velocity /= speed;
-                    agent.Velocity *= enemyData.Speed;
-                }
+                var updataed = agent.Velocity * Time.deltaTime * (enemyData.Speed);
+                agent.transform.position += agent.Velocity * Time.deltaTime * (enemyData.Speed);
             }
             else
             {
@@ -147,11 +148,12 @@ public class SwarmEnemyGroup : MonoBehaviour
                 }
 
                 agent.Velocity += _acceleration * Time.deltaTime;
+                agent.transform.position += agent.Velocity * Time.deltaTime * (enemyData.Speed);
             }
 
-            agent.transform.position += agent.Velocity* Time.deltaTime*(enemyData.Speed);
-            var heading = agent.Velocity.normalized;
-            agent.transform.rotation = Quaternion.AngleAxis(heading.x * -enemyData.Swarm_tiltingAngle + (Time.deltaTime * 2.0f), Vector3.forward);
+
+            //var heading = agent.Velocity.normalized;
+            //agent.transform.rotation = Quaternion.AngleAxis(heading.x + (-enemyData.Swarm_tiltingAngle) + (Time.deltaTime * 2.0f), Vector3.forward);
 
                }
 
@@ -167,7 +169,7 @@ public class SwarmEnemyGroup : MonoBehaviour
                 var agent = swarmNeighbors[num];
                 var agentTrans = swarmNeighborsTrans[num];
                 agent.Attacking = true;
-                Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
+                //Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
                 var targetlist = _trainData.ListTurret;
                 int targetSize = targetlist.Length;
                 int randomtarget = Random.Range(0, targetSize);
