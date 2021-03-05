@@ -107,6 +107,10 @@ public class TurretData : ScriptableObject
 
     public float DamageMultiplier(float damage, int playersNumbers)
     {
+        if (playersNumbers - 1 < 0)
+            return damage * _damageMultiplier[0];
+        if (playersNumbers - 1 > 3)
+            return damage * _damageMultiplier[3];
         return damage * _damageMultiplier[playersNumbers - 1];
     }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyPrefabs: []
   waveData:
   - EnemyType: 2
-    NumToSpawn: 15
+    NumToSpawn: 10
     NextWaveTimeDelay: 2
     WormholeSize: 1
   - EnemyType: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     NextWaveTimeDelay: 4
     WormholeSize: 1
   - EnemyType: 2
-    NumToSpawn: 15
+    NumToSpawn: 10
     NextWaveTimeDelay: 2
     WormholeSize: 1
   - EnemyType: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
     NextWaveTimeDelay: 4
     WormholeSize: 1
   - EnemyType: 2
-    NumToSpawn: 15
+    NumToSpawn: 10
     NextWaveTimeDelay: 2
     WormholeSize: 1
   - EnemyType: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
     NextWaveTimeDelay: 4
     WormholeSize: 1
   - EnemyType: 2
-    NumToSpawn: 15
+    NumToSpawn: 10
     NextWaveTimeDelay: 2
     WormholeSize: 1
   - EnemyType: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
     NextWaveTimeDelay: 4
     WormholeSize: 1
   - EnemyType: 2
-    NumToSpawn: 15
+    NumToSpawn: 10
     NextWaveTimeDelay: 2
     WormholeSize: 1
   - EnemyType: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
     NextWaveTimeDelay: 4
     WormholeSize: 1
   - EnemyType: 2
-    NumToSpawn: 15
+    NumToSpawn: 10
     NextWaveTimeDelay: 2
     WormholeSize: 1
   - EnemyType: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
     NextWaveTimeDelay: 4
     WormholeSize: 1
   - EnemyType: 2
-    NumToSpawn: 15
+    NumToSpawn: 10
     NextWaveTimeDelay: 2
     WormholeSize: 1
   - EnemyType: 0

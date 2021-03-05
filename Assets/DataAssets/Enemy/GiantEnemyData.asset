@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxHealth: 300
   ShieldHealth: 200
   MaxSpeed: 1
-  Speed: 2
+  Speed: 1
   AttackDelay: 5
   ChargeTime: 2
   BeamDamage: 10
