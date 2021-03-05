@@ -79,7 +79,7 @@ public class TurretEditor : Editor
             _turretData.laserGun.ammoConsumeRate = EditorGUILayout.FloatField("Ammo consume rate", _turretData.laserGun.ammoConsumeRate);
             _turretData.laserGun.aimSpeedMultiplier = EditorGUILayout.FloatField("Aim speed", _turretData.laserGun.aimSpeedMultiplier);
             _turretData.laserGun.maxAmmo = EditorGUILayout.FloatField("Max ammo", _turretData.laserGun.maxAmmo);
-            _turretData.laserGun.recoildForce = EditorGUILayout.FloatField("Max ammo", _turretData.laserGun.recoildForce);
+            _turretData.laserGun.recoildForce = EditorGUILayout.FloatField("Recoil Force", _turretData.laserGun.recoildForce);
         }
 
         showMissileGun = EditorGUILayout.Foldout(showMissileGun, "Missile gun", myFoldoutStyle);
