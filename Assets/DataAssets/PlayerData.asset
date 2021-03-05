@@ -19,7 +19,7 @@ MonoBehaviour:
   Speed: 2.5
   Gravity: 6
   MaxHealth: 50
-  HealthRateRegen: 10
+  HealthRateRegen: 5
   DelayTimeRegen: 3
   AudiosClips:
   - {fileID: 8300000, guid: 2123b87295743954c82a5e45fb102a01, type: 3}
