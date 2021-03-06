@@ -1699,6 +1699,11 @@ PrefabInstance:
       propertyPath: TimeLimit
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 1595674115173129271, guid: 9cebfe50425518c4a8c8cd03782acc13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2352154404450217131, guid: 9cebfe50425518c4a8c8cd03782acc13,
         type: 3}
       propertyPath: m_audioClip
@@ -2756,6 +2761,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FrontWagon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4631587206525495987, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247716281754550515, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a3e1e107d4cde40b7b5fd342f1ee2c, type: 3}
