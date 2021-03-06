@@ -63,7 +63,10 @@ namespace Items
 
         public void Interact(PlayerV1 player)
         {
-            Pickup(ref player);
+            if (!player.GetItem)
+            {
+                Pickup(ref player);
+            }
         }
 
         public void DestroyAfterUse()

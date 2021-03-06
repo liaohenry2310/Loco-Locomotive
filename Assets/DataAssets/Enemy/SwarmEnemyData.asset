@@ -16,7 +16,7 @@ MonoBehaviour:
   ShieldHealth: 200
   MaxSpeed: 15
   AttackDelay: 5
-  Swarm_AttackDamage: 10
+  Swarm_AttackDamage: 50
   Swarm_AttackSpeed: 5
   Swarm_tiltingAngle: 15
   WanderBehaviorWeight: 5

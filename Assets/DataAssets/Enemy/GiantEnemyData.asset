@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxSpeed: 1
   AttackDelay: 5
   ChargeTime: 2
-  BeamDamage: 10
+  BeamDamage: 20
   BeamDuration: 5
   SeekWeight: 3
   WanderBehaviorWeight: 3

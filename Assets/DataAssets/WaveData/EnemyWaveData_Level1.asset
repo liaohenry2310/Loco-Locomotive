@@ -45,4 +45,68 @@ MonoBehaviour:
   - EnemyType: 0
     NumToSpawn: 5
     NextWaveTimeDelay: 5
-    WormholeSize: 0
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1
+  - EnemyType: 0
+    NumToSpawn: 5
+    NextWaveTimeDelay: 5
+    WormholeSize: 1

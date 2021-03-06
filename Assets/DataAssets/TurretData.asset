@@ -46,11 +46,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 61c8f2236bfac9e4e987088ed980e191, type: 3}
     - {fileID: 21300000, guid: 8933242295e072941907633716daf7b1, type: 3}
   laserGun:
-    damage: 100
+    damage: 50
     range: 50
     ammoConsumeRate: 1
     aimSpeedMultiplier: 0.25
-    maxAmmo: 15
+    maxAmmo: 10
     recoildForce: 0.01
     lasergunBeam: {fileID: 8300000, guid: 5fffe0f2d41061641a00a1e02b969690, type: 3}
     lasergunFire: {fileID: 8300000, guid: 738594cb96a137e42a347884ce7c57a2, type: 3}
@@ -68,13 +68,13 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 512
   missileGun:
-    damage: 95
+    damage: 100
     minSpeed: 0.1
     maxSpeed: 10
     acceleration: 0.05
     fireRate: 1
     radiusEffect: 2
-    maxAmmo: 20
+    maxAmmo: 15
     recoilForce: 0.1
     missilegunFire: {fileID: 8300000, guid: 734aef4feeafc5a40a8fd8c792a01fc0, type: 3}
     Uppersprites:

@@ -252,6 +252,7 @@ public class PlayerV1 : MonoBehaviour, IDamageable<float>
                 iter.Interact(this);
                 PlayAnimationHoldItem(true);
                 break;
+
             }
         }
         if (colliders.Length == 0)

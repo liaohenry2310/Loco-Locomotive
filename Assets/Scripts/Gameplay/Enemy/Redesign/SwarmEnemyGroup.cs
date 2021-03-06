@@ -124,6 +124,7 @@ public class SwarmEnemyGroup : MonoBehaviour
                 {
                     agent.Velocity *= -1;
                 }
+                
                 if (agent.Velocity.magnitude > enemyData.MaxSpeed)
                 {
                     //var speed = agent.Velocity.magnitude;
@@ -156,7 +157,7 @@ public class SwarmEnemyGroup : MonoBehaviour
             //var heading = agent.Velocity.normalized;
             //agent.transform.rotation = Quaternion.AngleAxis(heading.x + (-enemyData.Swarm_tiltingAngle) + (Time.deltaTime * 2.0f), Vector3.forward);
 
-               }
+        }
 
 
     }
