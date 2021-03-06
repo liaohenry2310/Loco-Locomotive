@@ -13,16 +13,15 @@ MonoBehaviour:
   m_Name: SwarmEnemyData
   m_EditorClassIdentifier: 
   MaxHealth: 20
-  ShieldHealth: 100
-  MaxSpeed: 4
-  Speed: 4
+  ShieldHealth: 200
+  MaxSpeed: 15
   AttackDelay: 5
   Swarm_AttackDamage: 50
   Swarm_AttackSpeed: 5
   Swarm_tiltingAngle: 15
   WanderBehaviorWeight: 5
-  WanderRadius: 2
-  WanderDistance: 1.5
-  WanderJitter: 5
+  WanderRadius: 3
+  WanderDistance: 2
+  WanderJitter: 8
   SeekBehaviorWeight: 5
   CohesionBehaviorWeight: 3

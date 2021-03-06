@@ -41,7 +41,10 @@ public class EnemyHealth : MonoBehaviour, IDamageableType<float>
     //        _spriteDamageIndicator.color = Color.gray;
     //    }
     //}
-
+    public void Set()
+    {
+        _spriteDamageIndicator.color = _defaultColor;
+    }
 
     public void TakeDamage(float takingDamage, DispenserData.Type damageType)
     {

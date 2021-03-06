@@ -14,7 +14,7 @@ public class BasicEnemy : MonoBehaviour
 
     private Vector3 _velocity;
     private float _maxSpeed;
-    private float _speed;
+    //private float _speed;
     private float _nextAttackTime = 0.0f;
 
     private Transform _topRightBound;
@@ -67,7 +67,7 @@ public class BasicEnemy : MonoBehaviour
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
-        _speed = enemyData.Speed;
+        //_speed = enemyData.Speed;
         _maxSpeed = enemyData.MaxSpeed;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
         gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
@@ -117,7 +117,7 @@ public class BasicEnemy : MonoBehaviour
 
         Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
 
-        _acceleration = (Vector3)(BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform,transform.position+_velocity.normalized, _speed), enemyData.SeekBehaviorWeight));
+        _acceleration = (Vector3)(BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform,transform.position+_velocity.normalized, _maxSpeed), enemyData.SeekBehaviorWeight));
         _acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f), enemyData.WanderBehaviorWeight));
         if (_changeHeading)
         {
@@ -127,6 +127,7 @@ public class BasicEnemy : MonoBehaviour
            _acceleration.y *= yDir ;
             _changeHeading = false;
         }
+        _velocity += _acceleration * Time.deltaTime;
 
         if (transform.position.x < _botLeftBound.position.x)
         {
@@ -145,7 +146,6 @@ public class BasicEnemy : MonoBehaviour
             _velocity.y *= -1;
         }
 
-        _velocity += _acceleration * Time.deltaTime;
         if (_velocity.sqrMagnitude > _maxSpeed)
         {
             var speed = _velocity.magnitude;
@@ -153,7 +153,7 @@ public class BasicEnemy : MonoBehaviour
             _velocity /= speed;
             _velocity *= _maxSpeed;
         }
-        transform.position += _velocity * Time.deltaTime* _speed;
+        transform.position += _velocity * Time.deltaTime;// * _speed;
         var heading = _velocity.normalized;
         Direction movingDir;
         if (heading.x < 0.0f)
