@@ -8,7 +8,7 @@ public class BasicEnemyData : ScriptableObject
     public float MaxHealth;
     public float ShieldHealth;
     public float MaxSpeed;
-    public float Speed;
+    //public float Speed;
     public float AttackDelay;
     public GameObject projectile;
     public float Basic_AttackDamage;

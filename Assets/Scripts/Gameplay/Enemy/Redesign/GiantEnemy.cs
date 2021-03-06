@@ -215,7 +215,7 @@ public class GiantEnemy : MonoBehaviour
                 _randomHeadingtimer = Time.time + enemyData.RandomHeadingTimer;
                 _changeHeading = true;
             }
-            transform.position += _velocity * Time.deltaTime*(enemyData.MaxSpeed/10);
+        transform.position += _velocity * Time.deltaTime;// *(enemyData.MaxSpeed);
             //Shooting
             if (_nextAttackTime < Time.time)
             {
@@ -258,7 +258,7 @@ public class GiantEnemy : MonoBehaviour
         }
         Vector2 destination = new Vector2(targetPos.x, transform.position.y);
         _acceleration = BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, destination, enemyData.MaxSpeed), enemyData.SeekWeight);
-        _velocity += _acceleration * Time.deltaTime * (enemyData.MaxSpeed / 10);
+        _velocity += _acceleration * Time.deltaTime;// * (enemyData.MaxSpeed);
         if (transform.position.x < _botLeftBound.position.x)
         {
             _velocity.x *= -1;
@@ -282,7 +282,7 @@ public class GiantEnemy : MonoBehaviour
         }
         else
         {
-            transform.position += _velocity * Time.deltaTime * (enemyData.MaxSpeed / 10);
+            transform.position += _velocity * Time.deltaTime;// * (enemyData.MaxSpeed);
         }
     }
     private void Charging()

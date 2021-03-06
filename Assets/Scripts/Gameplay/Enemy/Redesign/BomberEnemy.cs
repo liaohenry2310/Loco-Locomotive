@@ -12,7 +12,7 @@ public class BomberEnemy : MonoBehaviour
     public GameObject boom;
     private Vector3 _velocity;
     private float _maxSpeed;
-    private float _speed;
+    //private float _speed;
     private float _nextAttackTime = 0.0f;
 
     private Transform _topRightBound;
@@ -43,7 +43,7 @@ public class BomberEnemy : MonoBehaviour
 
     private void Awake()
     {
-        boom.SetActive(true);
+        //  boom.SetActive(true);
         //_objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
     }
 
@@ -60,12 +60,12 @@ public class BomberEnemy : MonoBehaviour
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
         _currentShieldHealth = enemyData.ShieldHealth;
-        _speed = enemyData.Speed;
+        //_speed = enemyData.Speed;
         _maxSpeed = enemyData.MaxSpeed;
         gameObject.GetComponent<EnemyHealth>().health = _currentHealth;
-        gameObject.GetComponent<EnemyHealth>().ReSetHealth = true;
+        gameObject.GetComponent<EnemyHealth>().Set();
         _projectile = enemyData.projectile;
-        _nextAttackTime = Time.time + 1.0f + Random.Range(-enemyData.AttackDelay * 0.8f, enemyData.AttackDelay * 0.8f);
+        _nextAttackTime = Time.time + 1.0f + Random.Range(-enemyData.AttackDelay * 0.3f, enemyData.AttackDelay * 0.8f);
         if (gameObject.CompareTag("ShieldEnemy"))
         {
             gameObject.GetComponentInChildren<EnemyShieldHealth>().ShieldHealth = _currentShieldHealth;
@@ -73,11 +73,16 @@ public class BomberEnemy : MonoBehaviour
         }
         isAlive = true;
         _changeHeading = true;
-        _velocity = Vector3.zero;
+        boom.SetActive(false);
+         //boom =_objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
+         //boom.SetActive(false);
+
+         _velocity = Vector3.zero;
     }
     private void Start()
     {
         animator = GetComponent<Animator>();
+        //boom.SetActive(true);
     }
 
 
@@ -94,7 +99,7 @@ public class BomberEnemy : MonoBehaviour
         //Movement
         Vector3 _acceleration = new Vector3(0.0f, 0.0f, 0.0f);
         //_acceleration += WanderBehavior.Calculate(gameobject, weight);
-        _acceleration = (Vector3)(BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, transform.position + _velocity.normalized, _speed), enemyData.SeekBehaviorWeight));
+        _acceleration = (Vector3)(BehaviourUpdate.BehaviourUpdated(SeekBehaviour.SeekMove(transform, transform.position + _velocity.normalized, _maxSpeed), enemyData.SeekBehaviorWeight));
         _acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WanderBehavior.WanderMove(this.transform, enemyData.WanderRadius, enemyData.WanderDistance, enemyData.WanderJitter, 3.0f), enemyData.WanderBehaviorWeight));
         //_acceleration += (Vector3)(BehaviourUpdate.BehaviourUpdated(WallAvoidance.WallAvoidanceCalculation(transform,_botLeftBound.position.x,_topRightBound.position.x,_topRightBound.position.y,_botLeftBound.position.y),enemyData.WallAvoidWeight));
         if (_changeHeading)
@@ -105,7 +110,6 @@ public class BomberEnemy : MonoBehaviour
             _acceleration.y *= yDir;
             _changeHeading = false;
         }
-        _velocity += _acceleration * Time.deltaTime ;
 
         if (_velocity.sqrMagnitude > _maxSpeed)
         {
@@ -115,6 +119,7 @@ public class BomberEnemy : MonoBehaviour
             _velocity *= _maxSpeed;
         }
 
+        _velocity += _acceleration * Time.deltaTime ;
 
         if (transform.position.x < _botLeftBound.position.x)
         {
@@ -133,7 +138,7 @@ public class BomberEnemy : MonoBehaviour
             _velocity.y *= -1;
         }
 
-        transform.position += _velocity * Time.deltaTime * _speed;
+        transform.position += _velocity * Time.deltaTime;
         var heading = _velocity.normalized;
         Direction movingDir;
         if (heading.x < 0.0f)
@@ -163,16 +168,24 @@ public class BomberEnemy : MonoBehaviour
         //Shooting  
             if (_nextAttackTime < Time.time)
             {
+                //boom.SetActive(false);
                 animator.SetBool("Shoot", true);
                 Invoke("unplayAnimation", 0.5f);
+                //boom.SetActive(false);
                 //var targetlist = LevelManager.Instance.Train.GetTurrets();
                 _nextAttackTime = Time.time + enemyData.AttackDelay + Random.Range(-enemyData.AttackDelay * 0.18f, enemyData.AttackDelay * 0.18f);
-                Invoke("delayshoot", 0.75f);
+                Invoke("delayshoot", 0.45f);
             }
-            if (_nextAttackTime < (Time.time + enemyData.AttackDelay - enemyData.AttackDelay * 0.1f))
-                boom.SetActive(false);
-            else
-                boom.SetActive(true);
+            //else
+            //{
+            //    boom.SetActive(true);
+            //
+            //}
+
+            //if (_nextAttackTime < (Time.time + enemyData.AttackDelay - enemyData.AttackDelay * 0.1f))
+            //    boom.SetActive(false);
+            //else
+            //    boom.SetActive(true);
         }
     }
     private void RecycleBomberEnemy()
@@ -190,8 +203,8 @@ public class BomberEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             isAlive = false;
-            GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
-            projectile.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
+            //GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
+            boom.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
             RecycleBomberEnemy();
        }
     }
@@ -205,17 +218,22 @@ public class BomberEnemy : MonoBehaviour
         var targetlist = _trainData.ListTurret;
         int targetSize = targetlist.Length;
         int randomtarget = Random.Range(0, targetSize);
-        GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
-        projectile.transform.position = transform.position;
+        //GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
+        //projectile.transform.position = transform.position;
         //Vector3 targetPos = targetlist[randomtarget].gameObject.transform.position;
-        var target = targetlist[randomtarget];
-        if (target)
-        {
-            Vector3 targetPos = target.gameObject.transform.position;
-            projectile.SetActive(true);
-            projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage,EnemyTypeCheck.Type.Bomber);
+        //var target = targetlist[randomtarget];
+        //if (target)
+        //{
+        //    Vector3 targetPos = target.gameObject.transform.position;
+        //projectile.SetActive(true);
+        //projectile.GetComponent<EnemyProjectile>().SetData(targetPos, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage,EnemyTypeCheck.Type.Bomber);
+        //projectile.GetComponent<EnemyProjectile>().SetData(Vector3.zero, enemyData.Bomber_AttackSpeed,enemyData.Bomber_AttackDamage,EnemyTypeCheck.Type.Bomber);
 
-        }
+        //}
+        boom = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
+        boom.transform.position = transform.position;
+        boom.SetActive(true);
+        boom.GetComponent<EnemyProjectile>().SetData(Vector3.zero, enemyData.Bomber_AttackSpeed, enemyData.Bomber_AttackDamage, EnemyTypeCheck.Type.Bomber);
     }
 
 }

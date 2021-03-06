@@ -8,7 +8,7 @@ public class SwarmEnemyData : ScriptableObject
     public float MaxHealth;
     public float ShieldHealth;
     public float MaxSpeed;
-    public float Speed;
+    //public float Speed;
     public float AttackDelay;
 
     public float Swarm_AttackDamage;

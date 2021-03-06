@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 50
   ShieldHealth: 200
-  MaxSpeed: 2
-  Speed: 3
+  MaxSpeed: 20
   AttackDelay: 15
   projectile: {fileID: 578651487066272678, guid: 7046fc64555ff2a4bbca1feeac1594b7,
     type: 3}
