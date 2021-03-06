@@ -204,7 +204,6 @@ namespace GamePlay
                 yield return null;
             }
             TrainRunningAudio.Stop();
-            OnGameOver?.Invoke();
         }
     }
 }
