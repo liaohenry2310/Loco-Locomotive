@@ -103,10 +103,10 @@ MonoBehaviour:
     NextWaveTimeDelay: 5
     WormholeSize: 1
   - EnemyType: 1
-    NumToSpawn: 10
+    NumToSpawn: 4
     NextWaveTimeDelay: 5
     WormholeSize: 1
   - EnemyType: 1
-    NumToSpawn: 10
+    NumToSpawn: 4
     NextWaveTimeDelay: 5
     WormholeSize: 1

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GiantEnemyData
   m_EditorClassIdentifier: 
   MaxHealth: 300
-  ShieldHealth: 200
-  MaxSpeed: 1
+  ShieldHealth: 100
+  MaxSpeed: 5
   AttackDelay: 5
   ChargeTime: 2
-  BeamDamage: 20
-  BeamDuration: 5
+  BeamDamage: 50
+  BeamDuration: 3
   SeekWeight: 3
   WanderBehaviorWeight: 3
   WanderRadius: 8

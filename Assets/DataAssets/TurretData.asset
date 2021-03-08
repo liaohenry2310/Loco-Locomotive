@@ -69,12 +69,12 @@ MonoBehaviour:
       m_Bits: 512
   missileGun:
     damage: 100
-    minSpeed: 0.1
+    minSpeed: 1.0505586
     maxSpeed: 10
-    acceleration: 0.05
+    acceleration: 0.5
     fireRate: 1
     radiusEffect: 2
-    maxAmmo: 15
+    maxAmmo: 10
     recoilForce: 0.1
     missilegunFire: {fileID: 8300000, guid: 734aef4feeafc5a40a8fd8c792a01fc0, type: 3}
     Uppersprites:
