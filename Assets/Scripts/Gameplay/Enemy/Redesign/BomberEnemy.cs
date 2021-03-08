@@ -203,8 +203,9 @@ public class BomberEnemy : MonoBehaviour
         if (!(gameObject.GetComponent<EnemyHealth>().IsAlive()))
         {
             isAlive = false;
-            //GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
-            boom.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
+            GameObject projectile = _objectPoolManager.GetObjectFromPool("BomberEnemyProjectile");
+            projectile.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
+            //boom.GetComponent<EnemyProjectile>().PlayParticle(transform.position);
             RecycleBomberEnemy();
        }
     }

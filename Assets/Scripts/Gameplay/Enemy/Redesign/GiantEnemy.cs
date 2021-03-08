@@ -112,6 +112,7 @@ public class GiantEnemy : MonoBehaviour
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         _acceleration = Vector3.zero;
         sr.transform.localScale = _scale;
+        sr.color = Color.white;
         targetSelect = false;
         //StopParticles();
     }
