@@ -317,9 +317,10 @@ public class GiantEnemy : MonoBehaviour
             var pos = (Vector2)targetPos;
 
             lineRenderer.SetPosition(1, pos);
+
             DisableLaserHitVFX();
             var dir = pos - (Vector2)transform.position;
-            RaycastHit2D[] hit = Physics2D.RaycastAll((Vector2)transform.position, dir.normalized, 100.0f, trainLayer);
+            RaycastHit2D[] hit = Physics2D.RaycastAll((Vector2)transform.position, dir.normalized, dir.magnitude, trainLayer);
             //if (hit)
             if (hit != null)
             {

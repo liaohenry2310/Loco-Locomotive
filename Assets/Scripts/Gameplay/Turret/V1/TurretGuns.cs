@@ -64,6 +64,7 @@ namespace Turret
         private Vector3 _cannonOriginalPosition;
         private readonly int _active = Animator.StringToHash("Active");
         private bool _isReadyToShot = false;
+        private int _spriteCannonIndex = 0;
 
         private void Awake()
         {
@@ -155,115 +156,47 @@ namespace Turret
 
             _turretAmmoIndicator.EnableIndicator(healthPerc >= 0.1f);
 
+            if (healthPerc >= 0.75f)
+            {
+                _spriteCannonIndex = 0;
+            }
+            else if (healthPerc >= 0.25f && healthPerc < 0.75f)
+            {
+                _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
+                _spriteCannonIndex = 1;
+                _smokeParticle.Play();
+            }
+            else if (healthPerc > 0f && healthPerc < 0.25f)
+            {
+                _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
+                _spriteCannonIndex = 2;
+            }
+            else
+            {
+                _emission.rateOverTime = _smokeMaxEmission;
+                _spriteCannonIndex = 3;
+                _bottomSprite.sprite = _turretData.Bottomsprites[1];
+            }
+
+            // set correct sprite index for all types of weapons
             if (_weapons as LaserBeam != null)
             {
-                if (healthPerc >= 0.75f)
-                {
-                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
-                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
-                }
-                else if (healthPerc >= 0.25f && healthPerc < 0.75f)
-                {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
-
-                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[1];
-                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[1];
-                }
-                else if (healthPerc > 0f && healthPerc < 0.25f)
-                {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
-
-                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[2];
-                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[2];
-                }
-                else
-                {
-                    _emission.rateOverTime = _smokeMaxEmission;
-
-                    _upperSprite.sprite = _turretData.laserGun.Uppersprites[3];
-                    _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[3];
-                    _bottomSprite.sprite = _turretData.Bottomsprites[1];
-                }
-
-                if (!(healthPerc >= 0.75f) && _smokeParticle.isStopped)
-                {
-                    _smokeParticle.Play();
-                }
+                _upperSprite.sprite = _turretData.laserGun.Uppersprites[_spriteCannonIndex];
+                _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[_spriteCannonIndex];
             }
 
             if (_weapons as MachineGun != null)
             {
-                if (healthPerc >= 0.75f)
-                {
-                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[0];
-                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
-                }
-                else if (healthPerc >= 0.25f && healthPerc < 0.75f)
-                {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
-
-                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[1];
-                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[1];
-                }
-                else if (healthPerc > 0f && healthPerc < 0.25f)
-                {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
-
-                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[2];
-                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[2];
-                }
-                else
-                {
-                    _emission.rateOverTime = _smokeMaxEmission;
-
-                    _upperSprite.sprite = _turretData.machineGun.Uppersprites[3];
-                    _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[3];
-                    _bottomSprite.sprite = _turretData.Bottomsprites[1];
-                }
-
-                if (!(healthPerc >= 0.75f) && _smokeParticle.isStopped)
-                {
-                    _smokeParticle.Play();
-                }
-
+                _upperSprite.sprite = _turretData.machineGun.Uppersprites[_spriteCannonIndex];
+                _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[_spriteCannonIndex];
             }
 
             if (_weapons as MissileGun != null)
             {
-                if (healthPerc >= 0.75f)
-                {
-                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[0];
-                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
-                }
-                else if (healthPerc >= 0.25f && healthPerc < 0.75f)
-                {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 4);
-
-                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[1];
-                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[1];
-                }
-                else if (healthPerc > 0f && healthPerc < 0.25f)
-                {
-                    _emission.rateOverTime = Mathf.RoundToInt(_smokeMaxEmission / 2);
-
-                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[2];
-                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[2];
-                }
-                else
-                {
-                    _emission.rateOverTime = _smokeMaxEmission;
-
-                    _upperSprite.sprite = _turretData.missileGun.Uppersprites[3];
-                    _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[3];
-                    _bottomSprite.sprite = _turretData.Bottomsprites[1];
-                }
-
-                if (!(healthPerc >= 0.75f) && _smokeParticle.isStopped)
-                {
-                    _smokeParticle.Play();
-                }
-
+                _upperSprite.sprite = _turretData.missileGun.Uppersprites[_spriteCannonIndex];
+                _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[_spriteCannonIndex];
             }
+
         }
 
         private void FixedUpdate()
@@ -310,18 +243,21 @@ namespace Turret
             // Check if the turret still alive to use it
             if (!_turretBase.HealthSystem.IsAlive) return;
 
-            _player = player;
-            Item item = _player.GetItem;
+            Item item = player.GetItem;
+
             if (item)
             {
-                _player.PlayAnimationHoldItem(false);
+                player.PlayAnimationHoldItem(false);
                 Reload(item.ItemType);
                 item.DestroyAfterUse();
             }
-            else
+
+            if (!isInUse)
             {
+                _player = player;
                 EngageTurret(true);
             }
+
         }
 
         #region Turret Action given to Player
@@ -343,12 +279,14 @@ namespace Turret
         {
             _holdFire = context.ReadValue<float>() >= 0.9f;
             if (_weapons.CurretAmmo == 0)
+            {
                 turretAudioSource.PlayOneShot(clip[3]);
+            }
         }
 
         #endregion
 
-        private void Reload(DispenserData.Type itemType)
+        public void Reload(DispenserData.Type itemType)
         {
             turretAudioSource.PlayOneShot(clip[0]);
 
@@ -380,16 +318,24 @@ namespace Turret
         {
             turretAudioSource.PlayOneShot(clip[1]);
 
+            if (_player == null) return;
+
             _player.Interactable = isEngaged ? this : null;
             _player.SwapActionControlToPlayer(!isEngaged);
             isInUse = isEngaged;
-            _player.transform.position = transform.position;
+
+
             EngangedTurretEffect(isEngaged);
             if (!isEngaged) // when dettached, reset the rotation speed and holdfire as well
             {
                 turretAudioSource.PlayOneShot(clip[2]);
                 _rotation.x = 0.0f;
                 _holdFire = false;
+                _player = null;
+            }
+            else
+            {
+                _player.transform.position = transform.position;
             }
         }
 
@@ -445,8 +391,8 @@ namespace Turret
             _weapons.SetUp(_spawnPointFire);
             _weapons.Reload();
             _cannonSprite.enabled = true;
-            _upperSprite.sprite = _turretData.machineGun.Uppersprites[0];
-            _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[0];
+            _upperSprite.sprite = _turretData.machineGun.Uppersprites[_spriteCannonIndex];
+            _cannonSprite.sprite = _turretData.machineGun.Cannonsprites[_spriteCannonIndex];
         }
 
         private void SetLaserBeam()
@@ -459,8 +405,8 @@ namespace Turret
             _weapons.SetUp(_spawnPointFire);
             _weapons.Reload();
             _cannonSprite.enabled = true;
-            _upperSprite.sprite = _turretData.laserGun.Uppersprites[0];
-            _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[0];
+            _upperSprite.sprite = _turretData.laserGun.Uppersprites[_spriteCannonIndex];
+            _cannonSprite.sprite = _turretData.laserGun.Cannonsprites[_spriteCannonIndex];
         }
 
         private void SetMissileGun()
@@ -473,8 +419,8 @@ namespace Turret
             _weapons.SetUp(_spawnPointFire);
             _weapons.Reload();
             _cannonSprite.enabled = true;
-            _upperSprite.sprite = _turretData.missileGun.Uppersprites[0];
-            _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[0];
+            _upperSprite.sprite = _turretData.missileGun.Uppersprites[_spriteCannonIndex];
+            _cannonSprite.sprite = _turretData.missileGun.Cannonsprites[_spriteCannonIndex];
         }
 
         private void SetEMPGun()
