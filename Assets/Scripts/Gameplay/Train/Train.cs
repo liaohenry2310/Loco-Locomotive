@@ -18,7 +18,6 @@ namespace GamePlay
         public AudioSource TrainRunningAudio;
         public AudioSource LowFuelAudio;
 
-        private bool _audioPlayed = false;
         private bool _playedEndAnimation = false;
         private float _shakeAmount;
         private Vector3 _pos;
@@ -71,12 +70,6 @@ namespace GamePlay
             // Check how many player has on the scene to increate the FuelRate
             if(LevelManager.Instance.TimeRemaining != LevelManager.Instance.TimeLimit)
                 CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4.0f) * Time.deltaTime);
-
-            if (_trainData.FuelPercentage < 0.3f && !_audioPlayed)
-            {
-                LowFuelAudio.PlayOneShot(LowFuelAudio.clip);
-                _audioPlayed = true;
-            }
         }
 
         private void ReloadFuel()

@@ -273,6 +273,7 @@ MonoBehaviour:
   sr: {fileID: 3276408232143424651}
   Audio: {fileID: 4636537571385478174}
   clip:
+  - {fileID: 8300000, guid: 13254324a99c68348a8cc30dbc64dd74, type: 3}
   - {fileID: 8300000, guid: 47fb0d0dd69b10b4a9062affd5c521a0, type: 3}
   - {fileID: 8300000, guid: 0facb51c4911c2043bec65af376ca949, type: 3}
   deadclip: {fileID: 8300000, guid: 11b3955e811e33d4bad72fe563a0499f, type: 3}

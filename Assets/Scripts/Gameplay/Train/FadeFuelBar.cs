@@ -9,6 +9,7 @@ public class FadeFuelBar : MonoBehaviour
     private SpriteRenderer _spriteRenderer = null;
 
     private bool isFlickering = false;
+    private bool _audioPlayed = false;
     public float gapTime = 0.1f;
     private float tempTime;
 
@@ -42,13 +43,22 @@ public class FadeFuelBar : MonoBehaviour
         tempTime += Time.deltaTime;
         if (_trainData.FuelPercentage < 0.3f)
         {
+            if(!_audioPlayed)
+            {
+                _train.LowFuelAudio.PlayOneShot(_train.LowFuelAudio.clip);
+                _audioPlayed = true;
+            }
             if (tempTime >= gapTime)
             {
                 Flickering();
             }
         }
         else
+        {
+            _audioPlayed = false;
             _spriteRenderer.color = yellow;
+        }
+
     }
 
     public void Flickering()

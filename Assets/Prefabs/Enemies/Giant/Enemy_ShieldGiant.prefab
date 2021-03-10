@@ -366,12 +366,11 @@ MonoBehaviour:
   _trainData: {fileID: 11400000, guid: a910442bd209f38429b615fa5f8bf6cb, type: 2}
   _laserHitVFX: {fileID: 4088346475568816580, guid: 580a8120e50668f4aae98cc00e644146,
     type: 3}
-  _giantChargingSFX: {fileID: 2616996482491872489, guid: c8252f4e2f237ae46a6c52a55f613bc3,
-    type: 3}
   enemyData: {fileID: 11400000, guid: 9e44c2d661ac3a242bb84041efc3a1c2, type: 2}
   sr: {fileID: 3276408232143424651}
   Audio: {fileID: 1014029312478659242}
   clip:
+  - {fileID: 8300000, guid: 13254324a99c68348a8cc30dbc64dd74, type: 3}
   - {fileID: 8300000, guid: 47fb0d0dd69b10b4a9062affd5c521a0, type: 3}
   - {fileID: 8300000, guid: 0facb51c4911c2043bec65af376ca949, type: 3}
   deadclip: {fileID: 8300000, guid: 11b3955e811e33d4bad72fe563a0499f, type: 3}
