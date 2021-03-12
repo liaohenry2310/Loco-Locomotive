@@ -9,8 +9,8 @@ public class BasicEnemy : MonoBehaviour
 
     public BasicEnemyData enemyData;
 
-    public AudioClip clip;
-    private AudioSource _audioSource;
+    public AudioSource _audioSource;
+    private bool _audioPlayed = false;
 
     private Vector3 _velocity;
     private float _maxSpeed;
@@ -32,9 +32,6 @@ public class BasicEnemy : MonoBehaviour
     private bool _changeHeading;
     private float _randomHeadingtimer;
 
-
-
-
     enum Direction
     {
         Idle,
@@ -44,14 +41,6 @@ public class BasicEnemy : MonoBehaviour
     Direction currentDir = Direction.Idle;
 
     private bool isAlive = false;
-
-    private void Awake()
-    {
-        if (!TryGetComponent(out _audioSource))
-        {
-            Debug.LogWarning("Fail to load Audio Source component.");
-        }
-    }
 
     private void OnEnable()
     {
@@ -63,6 +52,7 @@ public class BasicEnemy : MonoBehaviour
     public void SetNewData(Transform topRight, Transform bottomLeft)
     {
         //Reset all relevant game play data so it can be used again when received by the object pool.
+        _audioPlayed = false;
         _topRightBound = topRight;
         _botLeftBound = bottomLeft;
         _currentHealth = enemyData.MaxHealth;
@@ -100,10 +90,7 @@ public class BasicEnemy : MonoBehaviour
             RecycleBasicEnemy();
         }
     }
-    private void Start()
-    {
-        _audioSource.volume = 0.13f;
-    }
+
     void Update()
     {
 
@@ -216,7 +203,11 @@ public class BasicEnemy : MonoBehaviour
         {
             isAlive = false;
             //Basic Dead Audio
-            _audioSource.PlayOneShot(clip);
+            if (!_audioPlayed)
+            {
+                _audioSource.Play();
+                _audioPlayed = true;
+            }
             Rigidbody2D rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.constraints = RigidbodyConstraints2D.None;
             _velocity = Vector3.zero;
