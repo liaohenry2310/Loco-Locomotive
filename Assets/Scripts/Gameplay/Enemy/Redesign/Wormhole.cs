@@ -45,7 +45,7 @@ public class Wormhole : MonoBehaviour
             transform.Rotate(0.0f, 0.0f, _spinSpeed);
             transform.localScale += new Vector3(transform.localScale.x, transform.localScale.y, 1f) * Time.deltaTime;
             _currentScale = transform.localScale.x;
-            PlayParticle();
+            //PlayParticle();
 
             if (_currentScale >= _maxScale / 2 && !_spawnedEnemy && (_currentSpawned < _waveData.NumToSpawn))
             {
