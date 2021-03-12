@@ -251,8 +251,7 @@ namespace Turret
                 Reload(item.ItemType);
                 item.DestroyAfterUse();
             }
-
-            if (!isInUse)
+            else if (!isInUse)
             {
                 _player = player;
                 EngageTurret(true);
