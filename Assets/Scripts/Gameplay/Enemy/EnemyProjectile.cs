@@ -38,7 +38,7 @@ public class EnemyProjectile : MonoBehaviour
             _objectPoolManager = ServiceLocator.Get<ObjectPoolManager>();
         }
         _screenBounds = GameManager.GetScreenBounds;
-       
+
     }
 
     private void Update()
@@ -64,7 +64,7 @@ public class EnemyProjectile : MonoBehaviour
             _sprite.transform.eulerAngles = direction;
             transform.position += direction * _AttackSpeed * Time.fixedDeltaTime;
         }
-        if (_currenyEnemyType== EnemyTypeCheck.Type.Bomber)
+        if (_currenyEnemyType == EnemyTypeCheck.Type.Bomber)
         {
             Rigidbody2D rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
             rigidbody2D.constraints = RigidbodyConstraints2D.None;
@@ -110,11 +110,11 @@ public class EnemyProjectile : MonoBehaviour
                 particle.Play();
                 //Basic & Bomber Projectile SFV
                 Destroy(particle.gameObject, particle.main.duration + particle.main.startLifetime.constant);
+                RecycleBullet();
             }
         }
-
-        RecycleBullet();
     }
+
     public void PlayParticle(Vector3 pos)
     {
         ParticleSystem particle = Instantiate(_explosionVFX, pos, Quaternion.identity);
@@ -129,7 +129,7 @@ public class EnemyProjectile : MonoBehaviour
         Destroy(particle.gameObject, particle.main.duration);
     }
 
-    public void SetData(Vector3 tartgetpos, float enemyAttackSpeed,float enemyAttackDamage, EnemyTypeCheck.Type enemyType)
+    public void SetData(Vector3 tartgetpos, float enemyAttackSpeed, float enemyAttackDamage, EnemyTypeCheck.Type enemyType)
     {
         targetPos = tartgetpos;
 
