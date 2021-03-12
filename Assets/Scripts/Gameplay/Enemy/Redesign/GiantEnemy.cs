@@ -326,7 +326,8 @@ public class GiantEnemy : MonoBehaviour
             {
                 EnableLaserHitVFX();
                 //attack audio
-                Audio.clip = clip[1];
+                Audio.PlayOneShot(clip[1]);
+                Audio.clip = clip[2];
                 Audio.Play();
                 for (int i = 0; i < hit.Length; i++)
                 {

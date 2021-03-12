@@ -169,8 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dispenserItem: {fileID: 11400000, guid: 452ae57b267d1cb4684aeef854229fc2, type: 2}
-  _spriteRenderer: {fileID: 7081286187219265533}
-  clip: {fileID: 8300000, guid: 587e20c745283ea47a9de19ae36a9055, type: 3}
+  clip: {fileID: 8300000, guid: b43f6da156fea5443bb37b631cdb3a68, type: 3}
 --- !u!1 &1669809276083957539
 GameObject:
   m_ObjectHideFlags: 0
