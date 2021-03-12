@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using Turret;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(TurretBase))]
 public class TurretEditor : Editor
 {
@@ -102,3 +105,4 @@ public class TurretEditor : Editor
     }
 
 }
+#endif

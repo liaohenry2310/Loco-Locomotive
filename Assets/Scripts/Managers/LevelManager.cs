@@ -109,7 +109,6 @@ public class LevelManager : MonoBehaviour
     private GameManager _gameManager;
     private GameObject _train;
     private bool timerIsRunning = false;
-    private bool levelEnded = false;
 
     private void Awake()
     {
