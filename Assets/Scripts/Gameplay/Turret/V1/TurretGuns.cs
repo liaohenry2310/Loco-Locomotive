@@ -43,10 +43,6 @@ namespace Turret
         //Sound effects
         public AudioSource turretgunAudioSource; //ammo
         public AudioSource turretAudioSource; //machinery
-        //Turret reloaded       （clip[0]）
-        //Turret engaged         (clip[1])
-        //Turret disengaged      (clip[2])
-        //Turret out of ammo shot(clip[3])
         public AudioClip[] clip;
 
         private PlayerV1 _player = null;
@@ -65,6 +61,7 @@ namespace Turret
         private readonly int _active = Animator.StringToHash("Active");
         private bool _isReadyToShot = false;
         private int _spriteCannonIndex = 0;
+        private float _cannonAngleThreshold = 90.0f;
 
         private void Awake()
         {
@@ -199,6 +196,7 @@ namespace Turret
 
         }
 
+
         private void FixedUpdate()
         {
             if (!_turretBase.HealthSystem.IsAlive)
@@ -231,7 +229,17 @@ namespace Turret
                     rotationSpeed *= _turretData.empShockWave.aimSpeedMultiplier;
                 }
             }
+
             _cannonHandler.Rotate(0f, 0f, rotationSpeed);
+            if (_cannonHandler.localRotation.z < -0.70f)
+            {
+                _cannonHandler.localRotation = Quaternion.Euler(0f, 0f, -_cannonAngleThreshold);
+            }
+
+            if (_cannonHandler.localRotation.z > 0.70f)
+            {
+                _cannonHandler.localRotation = Quaternion.Euler(0f, 0f, _cannonAngleThreshold);
+            }
 
             if (!_isReadyToShot) return;
             // recoil effect to back to original position
@@ -322,7 +330,6 @@ namespace Turret
             _player.Interactable = isEngaged ? this : null;
             _player.SwapActionControlToPlayer(!isEngaged);
             isInUse = isEngaged;
-
 
             EngangedTurretEffect(isEngaged);
             if (!isEngaged) // when dettached, reset the rotation speed and holdfire as well
