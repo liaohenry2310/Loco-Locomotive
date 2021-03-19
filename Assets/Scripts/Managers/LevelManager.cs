@@ -37,7 +37,7 @@ public class LevelManager : MonoBehaviour
 
     public bool IsPaused()
     {
-        return timerIsRunning;
+        return !timerIsRunning;
     }
 
     public void PauseTime(bool paused)

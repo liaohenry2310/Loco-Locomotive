@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TrainDataObject
   m_EditorClassIdentifier: 
   MaxHealth: 3000
-  MaxFuel: 45
+  MaxFuel: 35
   FuelRate: 1
