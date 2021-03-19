@@ -68,8 +68,10 @@ namespace GamePlay
         private void Update()
         {
             // Check how many player has on the scene to increate the FuelRate
-            if(LevelManager.Instance.TimeRemaining != LevelManager.Instance.TimeLimit)
-                CurrentFuel(_trainData.FuelRate * (_trainData.PlayerCount / 4.0f) * Time.deltaTime);
+            if(!LevelManager.Instance.IsPaused())
+            {
+                CurrentFuel(_trainData.FuelRate * (Mathf.Clamp(_trainData.PlayerCount, 1, 4) / 4.0f) * Time.deltaTime);
+            }
         }
 
         private void ReloadFuel()
@@ -85,11 +87,10 @@ namespace GamePlay
             _trainData.CurrentFuel -= amount;
             _trainData.CurrentFuel = Mathf.Clamp(_trainData.CurrentFuel, 0.0f, _trainData.MaxFuel);
             OnUpdateFuelUI?.Invoke(_trainData.FuelPercentage);
-            if (_trainData.CurrentFuel < 0.01f)
+            if (_trainData.CurrentFuel <= 0.0f)
             {
                 StartCoroutine(DesuctrionAnimation());
                 _outOfFuel = true;
-                return;
             }
         }
 
