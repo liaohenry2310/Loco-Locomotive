@@ -35,6 +35,11 @@ public class LevelManager : MonoBehaviour
         confirm.Disable();
     }
 
+    public bool IsPaused()
+    {
+        return timerIsRunning;
+    }
+
     public void PauseTime(bool paused)
     {
         timerIsRunning = !paused;
