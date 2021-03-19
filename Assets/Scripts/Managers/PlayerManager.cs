@@ -11,10 +11,11 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerRespawnPod(PlayerInput input)
     {
-        if (++_playerCount > 1)
-        {
-            _trainData.PlayerCount++;
-        }
+        //if (++_playerCount > 1)
+        //{
+        //    _trainData.PlayerCount++;
+        //}
+        _trainData.PlayerCount = input.playerIndex;
         PlayerV1 player = input.GetComponent<PlayerV1>();
         player.transform.SetParent(_trainData.TrainTransform);
         player.transform.position = _playerSpawnPod.transform.position;
